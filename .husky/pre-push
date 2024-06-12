@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 yarn build
-echo -e "===\n>> proostack Pre-push Hook: Checking branch name "
+echo -e "===\n>> finchat Pre-push Hook: Checking branch name "
 
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 PROTECTED_BRANCHES="^(master|develop)"
