@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+yarn build
+echo -e "===\n>> proostack Pre-push Hook: Checking branch name "
+
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+PROTECTED_BRANCHES="^(master|develop)"
+
+if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]
+then
+  echo -e "\n🚫 Cannot push to remote $BRANCH branch, please push to a new branch and open a PR."
+  exit 1
+fi
+
+echo -e ">> Finish checking branch name \n==="
+
+exit 0
+sh .husky/pre-push
