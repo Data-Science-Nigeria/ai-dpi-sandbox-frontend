@@ -1,18 +1,13 @@
-# FinChat
+# SANDBOX FRONTEND
 
-FinChat Public Link [finchat.co](https://finchat.co)
+Sandbox Frontend
 
 ## Table of Content:
 
-- [About The App](#about-the-app)
 - [Technologies](#technologies)
 - [Setup](#setup)
 - [Contributing](#contributing)
 - [Conventions & Rules](#conventions-&-rules)
-
-## About The App
-
-**FinChat** is a cutting-edge generative chatbot designed to answer all your finance-related questions. From explaining complex financial concepts and offering investment advice to providing real-time market data and personalized recommendations, FinChat is your go-to resource for all things finance.
 
 ## Technologies
 
@@ -56,9 +51,6 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Status
-
-**FinChat** development is still in progress. `Version 1` will be out soon.
 
 ## Contributing
 
