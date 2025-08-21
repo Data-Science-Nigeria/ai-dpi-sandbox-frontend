@@ -5,72 +5,45 @@ import {
   healthCheckHealthGet,
   metricsMetricsGet,
   rootGet,
-  proxyAuthServiceApiV1AuthPathPatch,
-  proxyAuthServiceApiV1AuthPathPatch2,
-  proxyAuthServiceApiV1AuthPathPatch4,
-  proxyAuthServiceApiV1AuthPathPatch5,
-  proxyAuthServiceApiV1AuthPathPatch6,
-  proxySmsServiceApiV1SmsPathPatch,
-  proxySmsServiceApiV1SmsPathPatch2,
-  proxySmsServiceApiV1SmsPathPatch4,
-  proxySmsServiceApiV1SmsPathPatch5,
-  proxySmsServiceApiV1SmsPathPatch6,
-  proxyLlmServiceApiV1LlmPathPatch,
-  proxyLlmServiceApiV1LlmPathPatch2,
-  proxyLlmServiceApiV1LlmPathPatch4,
-  proxyLlmServiceApiV1LlmPathPatch5,
-  proxyLlmServiceApiV1LlmPathPatch6,
-  proxyConfigServiceApiV1ConfigsPathPatch,
-  proxyConfigServiceApiV1ConfigsPathPatch2,
-  proxyConfigServiceApiV1ConfigsPathPatch4,
-  proxyConfigServiceApiV1ConfigsPathPatch5,
-  proxyConfigServiceApiV1ConfigsPathPatch6,
+  registerApiV1AuthRegisterPost,
+  loginApiV1AuthLoginPost,
+  getCurrentUserApiV1AuthMeGet,
+  refreshTokenApiV1AuthRefreshPost,
+  sendSmsApiV1SmsSendPost,
+  getSmsStatusApiV1SmsStatusMessageIdGet,
+  chatCompletionApiV1LlmChatPost,
+  createEmbeddingsApiV1LlmEmbeddingsPost,
+  listConfigsApiV1ConfigsGet,
+  createConfigApiV1ConfigsPost,
+  getConfigApiV1ConfigsConfigIdGet,
+  updateConfigApiV1ConfigsConfigIdPut,
   getServicesHealthApiV1ServicesHealthGet,
   getServicesStatusApiV1ServicesStatusGet,
   getServiceHealthApiV1ServicesServiceNameHealthGet,
   getServiceMetricsApiV1ServicesServiceNameMetricsGet,
 } from "../sdk.gen";
-import { queryOptions, type UseMutationOptions } from "@tanstack/react-query";
+import {
+  queryOptions,
+  type UseMutationOptions,
+  type DefaultError,
+} from "@tanstack/react-query";
 import type {
   HealthCheckHealthGetData,
   MetricsMetricsGetData,
   RootGetData,
-  ProxyAuthServiceApiV1AuthPathPatchData,
-  ProxyAuthServiceApiV1AuthPathPatchError,
-  ProxyAuthServiceApiV1AuthPathPatch2Data,
-  ProxyAuthServiceApiV1AuthPathPatch4Data,
-  ProxyAuthServiceApiV1AuthPathPatch4Error,
-  ProxyAuthServiceApiV1AuthPathPatch5Data,
-  ProxyAuthServiceApiV1AuthPathPatch5Error,
-  ProxyAuthServiceApiV1AuthPathPatch6Data,
-  ProxyAuthServiceApiV1AuthPathPatch6Error,
-  ProxySmsServiceApiV1SmsPathPatchData,
-  ProxySmsServiceApiV1SmsPathPatchError,
-  ProxySmsServiceApiV1SmsPathPatch2Data,
-  ProxySmsServiceApiV1SmsPathPatch4Data,
-  ProxySmsServiceApiV1SmsPathPatch4Error,
-  ProxySmsServiceApiV1SmsPathPatch5Data,
-  ProxySmsServiceApiV1SmsPathPatch5Error,
-  ProxySmsServiceApiV1SmsPathPatch6Data,
-  ProxySmsServiceApiV1SmsPathPatch6Error,
-  ProxyLlmServiceApiV1LlmPathPatchData,
-  ProxyLlmServiceApiV1LlmPathPatchError,
-  ProxyLlmServiceApiV1LlmPathPatch2Data,
-  ProxyLlmServiceApiV1LlmPathPatch4Data,
-  ProxyLlmServiceApiV1LlmPathPatch4Error,
-  ProxyLlmServiceApiV1LlmPathPatch5Data,
-  ProxyLlmServiceApiV1LlmPathPatch5Error,
-  ProxyLlmServiceApiV1LlmPathPatch6Data,
-  ProxyLlmServiceApiV1LlmPathPatch6Error,
-  ProxyConfigServiceApiV1ConfigsPathPatchData,
-  ProxyConfigServiceApiV1ConfigsPathPatchError,
-  ProxyConfigServiceApiV1ConfigsPathPatch2Data,
-  ProxyConfigServiceApiV1ConfigsPathPatch4Data,
-  ProxyConfigServiceApiV1ConfigsPathPatch4Error,
-  ProxyConfigServiceApiV1ConfigsPathPatch5Data,
-  ProxyConfigServiceApiV1ConfigsPathPatch5Error,
-  ProxyConfigServiceApiV1ConfigsPathPatch6Data,
-  ProxyConfigServiceApiV1ConfigsPathPatch6Error,
+  RegisterApiV1AuthRegisterPostData,
+  LoginApiV1AuthLoginPostData,
+  GetCurrentUserApiV1AuthMeGetData,
+  RefreshTokenApiV1AuthRefreshPostData,
+  SendSmsApiV1SmsSendPostData,
+  GetSmsStatusApiV1SmsStatusMessageIdGetData,
+  ChatCompletionApiV1LlmChatPostData,
+  CreateEmbeddingsApiV1LlmEmbeddingsPostData,
+  ListConfigsApiV1ConfigsGetData,
+  CreateConfigApiV1ConfigsPostData,
+  GetConfigApiV1ConfigsConfigIdGetData,
+  UpdateConfigApiV1ConfigsConfigIdPutData,
+  UpdateConfigApiV1ConfigsConfigIdPutError,
   GetServicesHealthApiV1ServicesHealthGetData,
   GetServicesStatusApiV1ServicesStatusGetData,
   GetServiceHealthApiV1ServicesServiceNameHealthGetData,
@@ -191,48 +164,20 @@ export const rootGetOptions = (options?: Options<RootGetData>) => {
   });
 };
 
-/**
- * Proxy Auth Service
- * Proxy requests to auth service.
- */
-export const proxyAuthServiceApiV1AuthPathPatchMutation = (
-  options?: Partial<Options<ProxyAuthServiceApiV1AuthPathPatchData>>
-): UseMutationOptions<
-  unknown,
-  ProxyAuthServiceApiV1AuthPathPatchError,
-  Options<ProxyAuthServiceApiV1AuthPathPatchData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    ProxyAuthServiceApiV1AuthPathPatchError,
-    Options<ProxyAuthServiceApiV1AuthPathPatchData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await proxyAuthServiceApiV1AuthPathPatch({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const proxyAuthServiceApiV1AuthPathPatch2QueryKey = (
-  options: Options<ProxyAuthServiceApiV1AuthPathPatch2Data>
-) => createQueryKey("proxyAuthServiceApiV1AuthPathPatch2", options);
+export const registerApiV1AuthRegisterPostQueryKey = (
+  options?: Options<RegisterApiV1AuthRegisterPostData>
+) => createQueryKey("registerApiV1AuthRegisterPost", options);
 
 /**
- * Proxy Auth Service
- * Proxy requests to auth service.
+ * Register
+ * Register a new user.
  */
-export const proxyAuthServiceApiV1AuthPathPatch2Options = (
-  options: Options<ProxyAuthServiceApiV1AuthPathPatch2Data>
+export const registerApiV1AuthRegisterPostOptions = (
+  options?: Options<RegisterApiV1AuthRegisterPostData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await proxyAuthServiceApiV1AuthPathPatch2({
+      const { data } = await registerApiV1AuthRegisterPost({
         ...options,
         ...queryKey[0],
         signal,
@@ -240,28 +185,28 @@ export const proxyAuthServiceApiV1AuthPathPatch2Options = (
       });
       return data;
     },
-    queryKey: proxyAuthServiceApiV1AuthPathPatch2QueryKey(options),
+    queryKey: registerApiV1AuthRegisterPostQueryKey(options),
   });
 };
 
 /**
- * Proxy Auth Service
- * Proxy requests to auth service.
+ * Register
+ * Register a new user.
  */
-export const proxyAuthServiceApiV1AuthPathPatch4Mutation = (
-  options?: Partial<Options<ProxyAuthServiceApiV1AuthPathPatch4Data>>
+export const registerApiV1AuthRegisterPostMutation = (
+  options?: Partial<Options<RegisterApiV1AuthRegisterPostData>>
 ): UseMutationOptions<
   unknown,
-  ProxyAuthServiceApiV1AuthPathPatch4Error,
-  Options<ProxyAuthServiceApiV1AuthPathPatch4Data>
+  DefaultError,
+  Options<RegisterApiV1AuthRegisterPostData>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    ProxyAuthServiceApiV1AuthPathPatch4Error,
-    Options<ProxyAuthServiceApiV1AuthPathPatch4Data>
+    DefaultError,
+    Options<RegisterApiV1AuthRegisterPostData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await proxyAuthServiceApiV1AuthPathPatch4({
+      const { data } = await registerApiV1AuthRegisterPost({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -272,20 +217,20 @@ export const proxyAuthServiceApiV1AuthPathPatch4Mutation = (
   return mutationOptions;
 };
 
-export const proxyAuthServiceApiV1AuthPathPatch5QueryKey = (
-  options: Options<ProxyAuthServiceApiV1AuthPathPatch5Data>
-) => createQueryKey("proxyAuthServiceApiV1AuthPathPatch5", options);
+export const loginApiV1AuthLoginPostQueryKey = (
+  options?: Options<LoginApiV1AuthLoginPostData>
+) => createQueryKey("loginApiV1AuthLoginPost", options);
 
 /**
- * Proxy Auth Service
- * Proxy requests to auth service.
+ * Login
+ * User login.
  */
-export const proxyAuthServiceApiV1AuthPathPatch5Options = (
-  options: Options<ProxyAuthServiceApiV1AuthPathPatch5Data>
+export const loginApiV1AuthLoginPostOptions = (
+  options?: Options<LoginApiV1AuthLoginPostData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await proxyAuthServiceApiV1AuthPathPatch5({
+      const { data } = await loginApiV1AuthLoginPost({
         ...options,
         ...queryKey[0],
         signal,
@@ -293,28 +238,28 @@ export const proxyAuthServiceApiV1AuthPathPatch5Options = (
       });
       return data;
     },
-    queryKey: proxyAuthServiceApiV1AuthPathPatch5QueryKey(options),
+    queryKey: loginApiV1AuthLoginPostQueryKey(options),
   });
 };
 
 /**
- * Proxy Auth Service
- * Proxy requests to auth service.
+ * Login
+ * User login.
  */
-export const proxyAuthServiceApiV1AuthPathPatch5Mutation = (
-  options?: Partial<Options<ProxyAuthServiceApiV1AuthPathPatch5Data>>
+export const loginApiV1AuthLoginPostMutation = (
+  options?: Partial<Options<LoginApiV1AuthLoginPostData>>
 ): UseMutationOptions<
   unknown,
-  ProxyAuthServiceApiV1AuthPathPatch5Error,
-  Options<ProxyAuthServiceApiV1AuthPathPatch5Data>
+  DefaultError,
+  Options<LoginApiV1AuthLoginPostData>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    ProxyAuthServiceApiV1AuthPathPatch5Error,
-    Options<ProxyAuthServiceApiV1AuthPathPatch5Data>
+    DefaultError,
+    Options<LoginApiV1AuthLoginPostData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await proxyAuthServiceApiV1AuthPathPatch5({
+      const { data } = await loginApiV1AuthLoginPost({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -325,76 +270,20 @@ export const proxyAuthServiceApiV1AuthPathPatch5Mutation = (
   return mutationOptions;
 };
 
-/**
- * Proxy Auth Service
- * Proxy requests to auth service.
- */
-export const proxyAuthServiceApiV1AuthPathPatch6Mutation = (
-  options?: Partial<Options<ProxyAuthServiceApiV1AuthPathPatch6Data>>
-): UseMutationOptions<
-  unknown,
-  ProxyAuthServiceApiV1AuthPathPatch6Error,
-  Options<ProxyAuthServiceApiV1AuthPathPatch6Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    ProxyAuthServiceApiV1AuthPathPatch6Error,
-    Options<ProxyAuthServiceApiV1AuthPathPatch6Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await proxyAuthServiceApiV1AuthPathPatch6({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
+export const getCurrentUserApiV1AuthMeGetQueryKey = (
+  options?: Options<GetCurrentUserApiV1AuthMeGetData>
+) => createQueryKey("getCurrentUserApiV1AuthMeGet", options);
 
 /**
- * Proxy Sms Service
- * Proxy requests to SMS service.
+ * Get Current User
+ * Get current user info.
  */
-export const proxySmsServiceApiV1SmsPathPatchMutation = (
-  options?: Partial<Options<ProxySmsServiceApiV1SmsPathPatchData>>
-): UseMutationOptions<
-  unknown,
-  ProxySmsServiceApiV1SmsPathPatchError,
-  Options<ProxySmsServiceApiV1SmsPathPatchData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    ProxySmsServiceApiV1SmsPathPatchError,
-    Options<ProxySmsServiceApiV1SmsPathPatchData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await proxySmsServiceApiV1SmsPathPatch({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const proxySmsServiceApiV1SmsPathPatch2QueryKey = (
-  options: Options<ProxySmsServiceApiV1SmsPathPatch2Data>
-) => createQueryKey("proxySmsServiceApiV1SmsPathPatch2", options);
-
-/**
- * Proxy Sms Service
- * Proxy requests to SMS service.
- */
-export const proxySmsServiceApiV1SmsPathPatch2Options = (
-  options: Options<ProxySmsServiceApiV1SmsPathPatch2Data>
+export const getCurrentUserApiV1AuthMeGetOptions = (
+  options?: Options<GetCurrentUserApiV1AuthMeGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await proxySmsServiceApiV1SmsPathPatch2({
+      const { data } = await getCurrentUserApiV1AuthMeGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -402,52 +291,24 @@ export const proxySmsServiceApiV1SmsPathPatch2Options = (
       });
       return data;
     },
-    queryKey: proxySmsServiceApiV1SmsPathPatch2QueryKey(options),
+    queryKey: getCurrentUserApiV1AuthMeGetQueryKey(options),
   });
 };
 
-/**
- * Proxy Sms Service
- * Proxy requests to SMS service.
- */
-export const proxySmsServiceApiV1SmsPathPatch4Mutation = (
-  options?: Partial<Options<ProxySmsServiceApiV1SmsPathPatch4Data>>
-): UseMutationOptions<
-  unknown,
-  ProxySmsServiceApiV1SmsPathPatch4Error,
-  Options<ProxySmsServiceApiV1SmsPathPatch4Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    ProxySmsServiceApiV1SmsPathPatch4Error,
-    Options<ProxySmsServiceApiV1SmsPathPatch4Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await proxySmsServiceApiV1SmsPathPatch4({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const proxySmsServiceApiV1SmsPathPatch5QueryKey = (
-  options: Options<ProxySmsServiceApiV1SmsPathPatch5Data>
-) => createQueryKey("proxySmsServiceApiV1SmsPathPatch5", options);
+export const refreshTokenApiV1AuthRefreshPostQueryKey = (
+  options?: Options<RefreshTokenApiV1AuthRefreshPostData>
+) => createQueryKey("refreshTokenApiV1AuthRefreshPost", options);
 
 /**
- * Proxy Sms Service
- * Proxy requests to SMS service.
+ * Refresh Token
+ * Refresh access token.
  */
-export const proxySmsServiceApiV1SmsPathPatch5Options = (
-  options: Options<ProxySmsServiceApiV1SmsPathPatch5Data>
+export const refreshTokenApiV1AuthRefreshPostOptions = (
+  options?: Options<RefreshTokenApiV1AuthRefreshPostData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await proxySmsServiceApiV1SmsPathPatch5({
+      const { data } = await refreshTokenApiV1AuthRefreshPost({
         ...options,
         ...queryKey[0],
         signal,
@@ -455,28 +316,28 @@ export const proxySmsServiceApiV1SmsPathPatch5Options = (
       });
       return data;
     },
-    queryKey: proxySmsServiceApiV1SmsPathPatch5QueryKey(options),
+    queryKey: refreshTokenApiV1AuthRefreshPostQueryKey(options),
   });
 };
 
 /**
- * Proxy Sms Service
- * Proxy requests to SMS service.
+ * Refresh Token
+ * Refresh access token.
  */
-export const proxySmsServiceApiV1SmsPathPatch5Mutation = (
-  options?: Partial<Options<ProxySmsServiceApiV1SmsPathPatch5Data>>
+export const refreshTokenApiV1AuthRefreshPostMutation = (
+  options?: Partial<Options<RefreshTokenApiV1AuthRefreshPostData>>
 ): UseMutationOptions<
   unknown,
-  ProxySmsServiceApiV1SmsPathPatch5Error,
-  Options<ProxySmsServiceApiV1SmsPathPatch5Data>
+  DefaultError,
+  Options<RefreshTokenApiV1AuthRefreshPostData>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    ProxySmsServiceApiV1SmsPathPatch5Error,
-    Options<ProxySmsServiceApiV1SmsPathPatch5Data>
+    DefaultError,
+    Options<RefreshTokenApiV1AuthRefreshPostData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await proxySmsServiceApiV1SmsPathPatch5({
+      const { data } = await refreshTokenApiV1AuthRefreshPost({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -487,76 +348,20 @@ export const proxySmsServiceApiV1SmsPathPatch5Mutation = (
   return mutationOptions;
 };
 
-/**
- * Proxy Sms Service
- * Proxy requests to SMS service.
- */
-export const proxySmsServiceApiV1SmsPathPatch6Mutation = (
-  options?: Partial<Options<ProxySmsServiceApiV1SmsPathPatch6Data>>
-): UseMutationOptions<
-  unknown,
-  ProxySmsServiceApiV1SmsPathPatch6Error,
-  Options<ProxySmsServiceApiV1SmsPathPatch6Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    ProxySmsServiceApiV1SmsPathPatch6Error,
-    Options<ProxySmsServiceApiV1SmsPathPatch6Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await proxySmsServiceApiV1SmsPathPatch6({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
+export const sendSmsApiV1SmsSendPostQueryKey = (
+  options?: Options<SendSmsApiV1SmsSendPostData>
+) => createQueryKey("sendSmsApiV1SmsSendPost", options);
 
 /**
- * Proxy Llm Service
- * Proxy requests to LLM service.
+ * Send Sms
+ * Send SMS message.
  */
-export const proxyLlmServiceApiV1LlmPathPatchMutation = (
-  options?: Partial<Options<ProxyLlmServiceApiV1LlmPathPatchData>>
-): UseMutationOptions<
-  unknown,
-  ProxyLlmServiceApiV1LlmPathPatchError,
-  Options<ProxyLlmServiceApiV1LlmPathPatchData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    ProxyLlmServiceApiV1LlmPathPatchError,
-    Options<ProxyLlmServiceApiV1LlmPathPatchData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await proxyLlmServiceApiV1LlmPathPatch({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const proxyLlmServiceApiV1LlmPathPatch2QueryKey = (
-  options: Options<ProxyLlmServiceApiV1LlmPathPatch2Data>
-) => createQueryKey("proxyLlmServiceApiV1LlmPathPatch2", options);
-
-/**
- * Proxy Llm Service
- * Proxy requests to LLM service.
- */
-export const proxyLlmServiceApiV1LlmPathPatch2Options = (
-  options: Options<ProxyLlmServiceApiV1LlmPathPatch2Data>
+export const sendSmsApiV1SmsSendPostOptions = (
+  options?: Options<SendSmsApiV1SmsSendPostData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await proxyLlmServiceApiV1LlmPathPatch2({
+      const { data } = await sendSmsApiV1SmsSendPost({
         ...options,
         ...queryKey[0],
         signal,
@@ -564,28 +369,28 @@ export const proxyLlmServiceApiV1LlmPathPatch2Options = (
       });
       return data;
     },
-    queryKey: proxyLlmServiceApiV1LlmPathPatch2QueryKey(options),
+    queryKey: sendSmsApiV1SmsSendPostQueryKey(options),
   });
 };
 
 /**
- * Proxy Llm Service
- * Proxy requests to LLM service.
+ * Send Sms
+ * Send SMS message.
  */
-export const proxyLlmServiceApiV1LlmPathPatch4Mutation = (
-  options?: Partial<Options<ProxyLlmServiceApiV1LlmPathPatch4Data>>
+export const sendSmsApiV1SmsSendPostMutation = (
+  options?: Partial<Options<SendSmsApiV1SmsSendPostData>>
 ): UseMutationOptions<
   unknown,
-  ProxyLlmServiceApiV1LlmPathPatch4Error,
-  Options<ProxyLlmServiceApiV1LlmPathPatch4Data>
+  DefaultError,
+  Options<SendSmsApiV1SmsSendPostData>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    ProxyLlmServiceApiV1LlmPathPatch4Error,
-    Options<ProxyLlmServiceApiV1LlmPathPatch4Data>
+    DefaultError,
+    Options<SendSmsApiV1SmsSendPostData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await proxyLlmServiceApiV1LlmPathPatch4({
+      const { data } = await sendSmsApiV1SmsSendPost({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -596,20 +401,20 @@ export const proxyLlmServiceApiV1LlmPathPatch4Mutation = (
   return mutationOptions;
 };
 
-export const proxyLlmServiceApiV1LlmPathPatch5QueryKey = (
-  options: Options<ProxyLlmServiceApiV1LlmPathPatch5Data>
-) => createQueryKey("proxyLlmServiceApiV1LlmPathPatch5", options);
+export const getSmsStatusApiV1SmsStatusMessageIdGetQueryKey = (
+  options: Options<GetSmsStatusApiV1SmsStatusMessageIdGetData>
+) => createQueryKey("getSmsStatusApiV1SmsStatusMessageIdGet", options);
 
 /**
- * Proxy Llm Service
- * Proxy requests to LLM service.
+ * Get Sms Status
+ * Get SMS delivery status.
  */
-export const proxyLlmServiceApiV1LlmPathPatch5Options = (
-  options: Options<ProxyLlmServiceApiV1LlmPathPatch5Data>
+export const getSmsStatusApiV1SmsStatusMessageIdGetOptions = (
+  options: Options<GetSmsStatusApiV1SmsStatusMessageIdGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await proxyLlmServiceApiV1LlmPathPatch5({
+      const { data } = await getSmsStatusApiV1SmsStatusMessageIdGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -617,108 +422,24 @@ export const proxyLlmServiceApiV1LlmPathPatch5Options = (
       });
       return data;
     },
-    queryKey: proxyLlmServiceApiV1LlmPathPatch5QueryKey(options),
+    queryKey: getSmsStatusApiV1SmsStatusMessageIdGetQueryKey(options),
   });
 };
 
-/**
- * Proxy Llm Service
- * Proxy requests to LLM service.
- */
-export const proxyLlmServiceApiV1LlmPathPatch5Mutation = (
-  options?: Partial<Options<ProxyLlmServiceApiV1LlmPathPatch5Data>>
-): UseMutationOptions<
-  unknown,
-  ProxyLlmServiceApiV1LlmPathPatch5Error,
-  Options<ProxyLlmServiceApiV1LlmPathPatch5Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    ProxyLlmServiceApiV1LlmPathPatch5Error,
-    Options<ProxyLlmServiceApiV1LlmPathPatch5Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await proxyLlmServiceApiV1LlmPathPatch5({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
+export const chatCompletionApiV1LlmChatPostQueryKey = (
+  options?: Options<ChatCompletionApiV1LlmChatPostData>
+) => createQueryKey("chatCompletionApiV1LlmChatPost", options);
 
 /**
- * Proxy Llm Service
- * Proxy requests to LLM service.
+ * Chat Completion
+ * Generate chat completion.
  */
-export const proxyLlmServiceApiV1LlmPathPatch6Mutation = (
-  options?: Partial<Options<ProxyLlmServiceApiV1LlmPathPatch6Data>>
-): UseMutationOptions<
-  unknown,
-  ProxyLlmServiceApiV1LlmPathPatch6Error,
-  Options<ProxyLlmServiceApiV1LlmPathPatch6Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    ProxyLlmServiceApiV1LlmPathPatch6Error,
-    Options<ProxyLlmServiceApiV1LlmPathPatch6Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await proxyLlmServiceApiV1LlmPathPatch6({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-/**
- * Proxy Config Service
- * Proxy requests to config service.
- */
-export const proxyConfigServiceApiV1ConfigsPathPatchMutation = (
-  options?: Partial<Options<ProxyConfigServiceApiV1ConfigsPathPatchData>>
-): UseMutationOptions<
-  unknown,
-  ProxyConfigServiceApiV1ConfigsPathPatchError,
-  Options<ProxyConfigServiceApiV1ConfigsPathPatchData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    ProxyConfigServiceApiV1ConfigsPathPatchError,
-    Options<ProxyConfigServiceApiV1ConfigsPathPatchData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await proxyConfigServiceApiV1ConfigsPathPatch({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const proxyConfigServiceApiV1ConfigsPathPatch2QueryKey = (
-  options: Options<ProxyConfigServiceApiV1ConfigsPathPatch2Data>
-) => createQueryKey("proxyConfigServiceApiV1ConfigsPathPatch2", options);
-
-/**
- * Proxy Config Service
- * Proxy requests to config service.
- */
-export const proxyConfigServiceApiV1ConfigsPathPatch2Options = (
-  options: Options<ProxyConfigServiceApiV1ConfigsPathPatch2Data>
+export const chatCompletionApiV1LlmChatPostOptions = (
+  options?: Options<ChatCompletionApiV1LlmChatPostData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await proxyConfigServiceApiV1ConfigsPathPatch2({
+      const { data } = await chatCompletionApiV1LlmChatPost({
         ...options,
         ...queryKey[0],
         signal,
@@ -726,28 +447,28 @@ export const proxyConfigServiceApiV1ConfigsPathPatch2Options = (
       });
       return data;
     },
-    queryKey: proxyConfigServiceApiV1ConfigsPathPatch2QueryKey(options),
+    queryKey: chatCompletionApiV1LlmChatPostQueryKey(options),
   });
 };
 
 /**
- * Proxy Config Service
- * Proxy requests to config service.
+ * Chat Completion
+ * Generate chat completion.
  */
-export const proxyConfigServiceApiV1ConfigsPathPatch4Mutation = (
-  options?: Partial<Options<ProxyConfigServiceApiV1ConfigsPathPatch4Data>>
+export const chatCompletionApiV1LlmChatPostMutation = (
+  options?: Partial<Options<ChatCompletionApiV1LlmChatPostData>>
 ): UseMutationOptions<
   unknown,
-  ProxyConfigServiceApiV1ConfigsPathPatch4Error,
-  Options<ProxyConfigServiceApiV1ConfigsPathPatch4Data>
+  DefaultError,
+  Options<ChatCompletionApiV1LlmChatPostData>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    ProxyConfigServiceApiV1ConfigsPathPatch4Error,
-    Options<ProxyConfigServiceApiV1ConfigsPathPatch4Data>
+    DefaultError,
+    Options<ChatCompletionApiV1LlmChatPostData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await proxyConfigServiceApiV1ConfigsPathPatch4({
+      const { data } = await chatCompletionApiV1LlmChatPost({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -758,20 +479,20 @@ export const proxyConfigServiceApiV1ConfigsPathPatch4Mutation = (
   return mutationOptions;
 };
 
-export const proxyConfigServiceApiV1ConfigsPathPatch5QueryKey = (
-  options: Options<ProxyConfigServiceApiV1ConfigsPathPatch5Data>
-) => createQueryKey("proxyConfigServiceApiV1ConfigsPathPatch5", options);
+export const createEmbeddingsApiV1LlmEmbeddingsPostQueryKey = (
+  options?: Options<CreateEmbeddingsApiV1LlmEmbeddingsPostData>
+) => createQueryKey("createEmbeddingsApiV1LlmEmbeddingsPost", options);
 
 /**
- * Proxy Config Service
- * Proxy requests to config service.
+ * Create Embeddings
+ * Create text embeddings.
  */
-export const proxyConfigServiceApiV1ConfigsPathPatch5Options = (
-  options: Options<ProxyConfigServiceApiV1ConfigsPathPatch5Data>
+export const createEmbeddingsApiV1LlmEmbeddingsPostOptions = (
+  options?: Options<CreateEmbeddingsApiV1LlmEmbeddingsPostData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await proxyConfigServiceApiV1ConfigsPathPatch5({
+      const { data } = await createEmbeddingsApiV1LlmEmbeddingsPost({
         ...options,
         ...queryKey[0],
         signal,
@@ -779,28 +500,28 @@ export const proxyConfigServiceApiV1ConfigsPathPatch5Options = (
       });
       return data;
     },
-    queryKey: proxyConfigServiceApiV1ConfigsPathPatch5QueryKey(options),
+    queryKey: createEmbeddingsApiV1LlmEmbeddingsPostQueryKey(options),
   });
 };
 
 /**
- * Proxy Config Service
- * Proxy requests to config service.
+ * Create Embeddings
+ * Create text embeddings.
  */
-export const proxyConfigServiceApiV1ConfigsPathPatch5Mutation = (
-  options?: Partial<Options<ProxyConfigServiceApiV1ConfigsPathPatch5Data>>
+export const createEmbeddingsApiV1LlmEmbeddingsPostMutation = (
+  options?: Partial<Options<CreateEmbeddingsApiV1LlmEmbeddingsPostData>>
 ): UseMutationOptions<
   unknown,
-  ProxyConfigServiceApiV1ConfigsPathPatch5Error,
-  Options<ProxyConfigServiceApiV1ConfigsPathPatch5Data>
+  DefaultError,
+  Options<CreateEmbeddingsApiV1LlmEmbeddingsPostData>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    ProxyConfigServiceApiV1ConfigsPathPatch5Error,
-    Options<ProxyConfigServiceApiV1ConfigsPathPatch5Data>
+    DefaultError,
+    Options<CreateEmbeddingsApiV1LlmEmbeddingsPostData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await proxyConfigServiceApiV1ConfigsPathPatch5({
+      const { data } = await createEmbeddingsApiV1LlmEmbeddingsPost({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -811,24 +532,127 @@ export const proxyConfigServiceApiV1ConfigsPathPatch5Mutation = (
   return mutationOptions;
 };
 
+export const listConfigsApiV1ConfigsGetQueryKey = (
+  options?: Options<ListConfigsApiV1ConfigsGetData>
+) => createQueryKey("listConfigsApiV1ConfigsGet", options);
+
 /**
- * Proxy Config Service
- * Proxy requests to config service.
+ * List Configs
+ * List all configurations.
  */
-export const proxyConfigServiceApiV1ConfigsPathPatch6Mutation = (
-  options?: Partial<Options<ProxyConfigServiceApiV1ConfigsPathPatch6Data>>
+export const listConfigsApiV1ConfigsGetOptions = (
+  options?: Options<ListConfigsApiV1ConfigsGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await listConfigsApiV1ConfigsGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: listConfigsApiV1ConfigsGetQueryKey(options),
+  });
+};
+
+export const createConfigApiV1ConfigsPostQueryKey = (
+  options?: Options<CreateConfigApiV1ConfigsPostData>
+) => createQueryKey("createConfigApiV1ConfigsPost", options);
+
+/**
+ * Create Config
+ * Create new configuration.
+ */
+export const createConfigApiV1ConfigsPostOptions = (
+  options?: Options<CreateConfigApiV1ConfigsPostData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await createConfigApiV1ConfigsPost({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: createConfigApiV1ConfigsPostQueryKey(options),
+  });
+};
+
+/**
+ * Create Config
+ * Create new configuration.
+ */
+export const createConfigApiV1ConfigsPostMutation = (
+  options?: Partial<Options<CreateConfigApiV1ConfigsPostData>>
 ): UseMutationOptions<
   unknown,
-  ProxyConfigServiceApiV1ConfigsPathPatch6Error,
-  Options<ProxyConfigServiceApiV1ConfigsPathPatch6Data>
+  DefaultError,
+  Options<CreateConfigApiV1ConfigsPostData>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    ProxyConfigServiceApiV1ConfigsPathPatch6Error,
-    Options<ProxyConfigServiceApiV1ConfigsPathPatch6Data>
+    DefaultError,
+    Options<CreateConfigApiV1ConfigsPostData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await proxyConfigServiceApiV1ConfigsPathPatch6({
+      const { data } = await createConfigApiV1ConfigsPost({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const getConfigApiV1ConfigsConfigIdGetQueryKey = (
+  options: Options<GetConfigApiV1ConfigsConfigIdGetData>
+) => createQueryKey("getConfigApiV1ConfigsConfigIdGet", options);
+
+/**
+ * Get Config
+ * Get configuration by ID.
+ */
+export const getConfigApiV1ConfigsConfigIdGetOptions = (
+  options: Options<GetConfigApiV1ConfigsConfigIdGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getConfigApiV1ConfigsConfigIdGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getConfigApiV1ConfigsConfigIdGetQueryKey(options),
+  });
+};
+
+/**
+ * Update Config
+ * Update configuration.
+ */
+export const updateConfigApiV1ConfigsConfigIdPutMutation = (
+  options?: Partial<Options<UpdateConfigApiV1ConfigsConfigIdPutData>>
+): UseMutationOptions<
+  unknown,
+  UpdateConfigApiV1ConfigsConfigIdPutError,
+  Options<UpdateConfigApiV1ConfigsConfigIdPutData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UpdateConfigApiV1ConfigsConfigIdPutError,
+    Options<UpdateConfigApiV1ConfigsConfigIdPutData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await updateConfigApiV1ConfigsConfigIdPut({
         ...options,
         ...localOptions,
         throwOnError: true,
