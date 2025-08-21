@@ -1,9 +1,10 @@
 {
-  "name": "finchat",
+  "name": "sandbox-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:openapi": "yarn openapi-ts && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -11,9 +12,11 @@
     "prettier": "prettier --write './app/**/*.{ts,tsx,js,jsx}'",
     "prettier:check": "prettier --check './app/**/*.{ts,tsx,js,jsx}'",
     "eslint": "eslint --ext js,ts,tsx ./app",
-    "eslint:fix": "export NODE_OPTIONS=--max_old_space_size=8192;eslint --fix --ext .ts,.tsx ."
+    "eslint:fix": "export NODE_OPTIONS=--max_old_space_size=8192;eslint --fix --ext .ts,.tsx .",
+    "openapi-ts": "openapi-ts"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.85.5",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18"
@@ -21,6 +24,8 @@
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@hey-api/client-fetch": "^0.13.1",
+    "@hey-api/openapi-ts": "^0.80.16",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -46,5 +51,6 @@
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"
     ]
-  }
+  },
+  "packageManager": "yarn@4.8.1+sha512.bc946f2a022d7a1a38adfc15b36a66a3807a67629789496c3714dd1703d2e6c6b1c69ff9ec3b43141ac7a1dd853b7685638eb0074300386a59c18df351ef8ff6"
 }

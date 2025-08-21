@@ -1,0 +1,11 @@
+[2025-08-21T12:38:50.349Z] Error: "http://localhost:8080/docs" is not a valid JSON Schema
+Stack:
+SyntaxError: "http://localhost:8080/docs" is not a valid JSON Schema
+    at $RefParser.parse (C:\Users\ADESINA BELLO\Desktop\sandbox-frontend\node_modules\@hey-api\json-schema-ref-parser\dist\lib\index.js:212:29)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async $RefParser.bundle (C:\Users\ADESINA BELLO\Desktop\sandbox-frontend\node_modules\@hey-api\json-schema-ref-parser\dist\lib\index.js:122:9)
+    at async Km (C:\Users\ADESINA BELLO\Desktop\sandbox-frontend\node_modules\@hey-api\openapi-ts\dist\index.cjs:46:1892)
+    at async Ci (C:\Users\ADESINA BELLO\Desktop\sandbox-frontend\node_modules\@hey-api\openapi-ts\dist\index.cjs:46:7902)
+    at async Promise.all (index 0)
+    at async H0 (C:\Users\ADESINA BELLO\Desktop\sandbox-frontend\node_modules\@hey-api\openapi-ts\dist\index.cjs:1342:6572)
+    at async start (C:\Users\ADESINA BELLO\Desktop\sandbox-frontend\node_modules\@hey-api\openapi-ts\bin\index.cjs:139:21)
