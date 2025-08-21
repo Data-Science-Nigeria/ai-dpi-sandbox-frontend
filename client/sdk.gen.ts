@@ -8,60 +8,78 @@ import type {
   MetricsMetricsGetResponses,
   RootGetData,
   RootGetResponses,
-  ProxyAuthServiceApiV1AuthPathOptionsData,
-  ProxyAuthServiceApiV1AuthPathOptionsResponses,
-  ProxyAuthServiceApiV1AuthPathOptionsErrors,
-  ProxyAuthServiceApiV1AuthPathOptions2Data,
-  ProxyAuthServiceApiV1AuthPathOptions2Responses,
-  ProxyAuthServiceApiV1AuthPathOptions2Errors,
-  ProxyAuthServiceApiV1AuthPathOptions3Data,
-  ProxyAuthServiceApiV1AuthPathOptions3Responses,
-  ProxyAuthServiceApiV1AuthPathOptions3Errors,
-  ProxyAuthServiceApiV1AuthPathOptions4Data,
-  ProxyAuthServiceApiV1AuthPathOptions4Responses,
-  ProxyAuthServiceApiV1AuthPathOptions4Errors,
-  ProxyAuthServiceApiV1AuthPathOptions5Data,
-  ProxyAuthServiceApiV1AuthPathOptions5Responses,
-  ProxyAuthServiceApiV1AuthPathOptions5Errors,
-  ProxyAuthServiceApiV1AuthPathOptions6Data,
-  ProxyAuthServiceApiV1AuthPathOptions6Responses,
-  ProxyAuthServiceApiV1AuthPathOptions6Errors,
-  ProxySmsServiceApiV1SmsPathOptionsData,
-  ProxySmsServiceApiV1SmsPathOptionsResponses,
-  ProxySmsServiceApiV1SmsPathOptionsErrors,
-  ProxySmsServiceApiV1SmsPathOptions2Data,
-  ProxySmsServiceApiV1SmsPathOptions2Responses,
-  ProxySmsServiceApiV1SmsPathOptions2Errors,
-  ProxySmsServiceApiV1SmsPathOptions3Data,
-  ProxySmsServiceApiV1SmsPathOptions3Responses,
-  ProxySmsServiceApiV1SmsPathOptions3Errors,
-  ProxySmsServiceApiV1SmsPathOptions4Data,
-  ProxySmsServiceApiV1SmsPathOptions4Responses,
-  ProxySmsServiceApiV1SmsPathOptions4Errors,
-  ProxySmsServiceApiV1SmsPathOptions5Data,
-  ProxySmsServiceApiV1SmsPathOptions5Responses,
-  ProxySmsServiceApiV1SmsPathOptions5Errors,
-  ProxySmsServiceApiV1SmsPathOptions6Data,
-  ProxySmsServiceApiV1SmsPathOptions6Responses,
-  ProxySmsServiceApiV1SmsPathOptions6Errors,
-  ProxyLlmServiceApiV1LlmPathOptionsData,
-  ProxyLlmServiceApiV1LlmPathOptionsResponses,
-  ProxyLlmServiceApiV1LlmPathOptionsErrors,
-  ProxyLlmServiceApiV1LlmPathOptions2Data,
-  ProxyLlmServiceApiV1LlmPathOptions2Responses,
-  ProxyLlmServiceApiV1LlmPathOptions2Errors,
-  ProxyLlmServiceApiV1LlmPathOptions3Data,
-  ProxyLlmServiceApiV1LlmPathOptions3Responses,
-  ProxyLlmServiceApiV1LlmPathOptions3Errors,
-  ProxyLlmServiceApiV1LlmPathOptions4Data,
-  ProxyLlmServiceApiV1LlmPathOptions4Responses,
-  ProxyLlmServiceApiV1LlmPathOptions4Errors,
-  ProxyLlmServiceApiV1LlmPathOptions5Data,
-  ProxyLlmServiceApiV1LlmPathOptions5Responses,
-  ProxyLlmServiceApiV1LlmPathOptions5Errors,
-  ProxyLlmServiceApiV1LlmPathOptions6Data,
-  ProxyLlmServiceApiV1LlmPathOptions6Responses,
-  ProxyLlmServiceApiV1LlmPathOptions6Errors,
+  ProxyAuthServiceApiV1AuthPathPatchData,
+  ProxyAuthServiceApiV1AuthPathPatchResponses,
+  ProxyAuthServiceApiV1AuthPathPatchErrors,
+  ProxyAuthServiceApiV1AuthPathPatch2Data,
+  ProxyAuthServiceApiV1AuthPathPatch2Responses,
+  ProxyAuthServiceApiV1AuthPathPatch2Errors,
+  ProxyAuthServiceApiV1AuthPathPatch3Data,
+  ProxyAuthServiceApiV1AuthPathPatch3Responses,
+  ProxyAuthServiceApiV1AuthPathPatch3Errors,
+  ProxyAuthServiceApiV1AuthPathPatch4Data,
+  ProxyAuthServiceApiV1AuthPathPatch4Responses,
+  ProxyAuthServiceApiV1AuthPathPatch4Errors,
+  ProxyAuthServiceApiV1AuthPathPatch5Data,
+  ProxyAuthServiceApiV1AuthPathPatch5Responses,
+  ProxyAuthServiceApiV1AuthPathPatch5Errors,
+  ProxyAuthServiceApiV1AuthPathPatch6Data,
+  ProxyAuthServiceApiV1AuthPathPatch6Responses,
+  ProxyAuthServiceApiV1AuthPathPatch6Errors,
+  ProxySmsServiceApiV1SmsPathPatchData,
+  ProxySmsServiceApiV1SmsPathPatchResponses,
+  ProxySmsServiceApiV1SmsPathPatchErrors,
+  ProxySmsServiceApiV1SmsPathPatch2Data,
+  ProxySmsServiceApiV1SmsPathPatch2Responses,
+  ProxySmsServiceApiV1SmsPathPatch2Errors,
+  ProxySmsServiceApiV1SmsPathPatch3Data,
+  ProxySmsServiceApiV1SmsPathPatch3Responses,
+  ProxySmsServiceApiV1SmsPathPatch3Errors,
+  ProxySmsServiceApiV1SmsPathPatch4Data,
+  ProxySmsServiceApiV1SmsPathPatch4Responses,
+  ProxySmsServiceApiV1SmsPathPatch4Errors,
+  ProxySmsServiceApiV1SmsPathPatch5Data,
+  ProxySmsServiceApiV1SmsPathPatch5Responses,
+  ProxySmsServiceApiV1SmsPathPatch5Errors,
+  ProxySmsServiceApiV1SmsPathPatch6Data,
+  ProxySmsServiceApiV1SmsPathPatch6Responses,
+  ProxySmsServiceApiV1SmsPathPatch6Errors,
+  ProxyLlmServiceApiV1LlmPathPatchData,
+  ProxyLlmServiceApiV1LlmPathPatchResponses,
+  ProxyLlmServiceApiV1LlmPathPatchErrors,
+  ProxyLlmServiceApiV1LlmPathPatch2Data,
+  ProxyLlmServiceApiV1LlmPathPatch2Responses,
+  ProxyLlmServiceApiV1LlmPathPatch2Errors,
+  ProxyLlmServiceApiV1LlmPathPatch3Data,
+  ProxyLlmServiceApiV1LlmPathPatch3Responses,
+  ProxyLlmServiceApiV1LlmPathPatch3Errors,
+  ProxyLlmServiceApiV1LlmPathPatch4Data,
+  ProxyLlmServiceApiV1LlmPathPatch4Responses,
+  ProxyLlmServiceApiV1LlmPathPatch4Errors,
+  ProxyLlmServiceApiV1LlmPathPatch5Data,
+  ProxyLlmServiceApiV1LlmPathPatch5Responses,
+  ProxyLlmServiceApiV1LlmPathPatch5Errors,
+  ProxyLlmServiceApiV1LlmPathPatch6Data,
+  ProxyLlmServiceApiV1LlmPathPatch6Responses,
+  ProxyLlmServiceApiV1LlmPathPatch6Errors,
+  ProxyConfigServiceApiV1ConfigsPathPatchData,
+  ProxyConfigServiceApiV1ConfigsPathPatchResponses,
+  ProxyConfigServiceApiV1ConfigsPathPatchErrors,
+  ProxyConfigServiceApiV1ConfigsPathPatch2Data,
+  ProxyConfigServiceApiV1ConfigsPathPatch2Responses,
+  ProxyConfigServiceApiV1ConfigsPathPatch2Errors,
+  ProxyConfigServiceApiV1ConfigsPathPatch3Data,
+  ProxyConfigServiceApiV1ConfigsPathPatch3Responses,
+  ProxyConfigServiceApiV1ConfigsPathPatch3Errors,
+  ProxyConfigServiceApiV1ConfigsPathPatch4Data,
+  ProxyConfigServiceApiV1ConfigsPathPatch4Responses,
+  ProxyConfigServiceApiV1ConfigsPathPatch4Errors,
+  ProxyConfigServiceApiV1ConfigsPathPatch5Data,
+  ProxyConfigServiceApiV1ConfigsPathPatch5Responses,
+  ProxyConfigServiceApiV1ConfigsPathPatch5Errors,
+  ProxyConfigServiceApiV1ConfigsPathPatch6Data,
+  ProxyConfigServiceApiV1ConfigsPathPatch6Responses,
+  ProxyConfigServiceApiV1ConfigsPathPatch6Errors,
   GetServicesHealthApiV1ServicesHealthGetData,
   GetServicesHealthApiV1ServicesHealthGetResponses,
   GetServicesStatusApiV1ServicesStatusGetData,
@@ -147,14 +165,14 @@ export const rootGet = <ThrowOnError extends boolean = false>(
  * Proxy Auth Service
  * Proxy requests to auth service.
  */
-export const proxyAuthServiceApiV1AuthPathOptions = <
+export const proxyAuthServiceApiV1AuthPathPatch = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyAuthServiceApiV1AuthPathOptionsData, ThrowOnError>
+  options: Options<ProxyAuthServiceApiV1AuthPathPatchData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).delete<
-    ProxyAuthServiceApiV1AuthPathOptionsResponses,
-    ProxyAuthServiceApiV1AuthPathOptionsErrors,
+    ProxyAuthServiceApiV1AuthPathPatchResponses,
+    ProxyAuthServiceApiV1AuthPathPatchErrors,
     ThrowOnError
   >({
     url: "/api/v1/auth/{path}",
@@ -166,14 +184,14 @@ export const proxyAuthServiceApiV1AuthPathOptions = <
  * Proxy Auth Service
  * Proxy requests to auth service.
  */
-export const proxyAuthServiceApiV1AuthPathOptions2 = <
+export const proxyAuthServiceApiV1AuthPathPatch2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyAuthServiceApiV1AuthPathOptions2Data, ThrowOnError>
+  options: Options<ProxyAuthServiceApiV1AuthPathPatch2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    ProxyAuthServiceApiV1AuthPathOptions2Responses,
-    ProxyAuthServiceApiV1AuthPathOptions2Errors,
+    ProxyAuthServiceApiV1AuthPathPatch2Responses,
+    ProxyAuthServiceApiV1AuthPathPatch2Errors,
     ThrowOnError
   >({
     url: "/api/v1/auth/{path}",
@@ -185,14 +203,14 @@ export const proxyAuthServiceApiV1AuthPathOptions2 = <
  * Proxy Auth Service
  * Proxy requests to auth service.
  */
-export const proxyAuthServiceApiV1AuthPathOptions3 = <
+export const proxyAuthServiceApiV1AuthPathPatch3 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyAuthServiceApiV1AuthPathOptions3Data, ThrowOnError>
+  options: Options<ProxyAuthServiceApiV1AuthPathPatch3Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).options<
-    ProxyAuthServiceApiV1AuthPathOptions3Responses,
-    ProxyAuthServiceApiV1AuthPathOptions3Errors,
+    ProxyAuthServiceApiV1AuthPathPatch3Responses,
+    ProxyAuthServiceApiV1AuthPathPatch3Errors,
     ThrowOnError
   >({
     url: "/api/v1/auth/{path}",
@@ -204,14 +222,14 @@ export const proxyAuthServiceApiV1AuthPathOptions3 = <
  * Proxy Auth Service
  * Proxy requests to auth service.
  */
-export const proxyAuthServiceApiV1AuthPathOptions4 = <
+export const proxyAuthServiceApiV1AuthPathPatch4 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyAuthServiceApiV1AuthPathOptions4Data, ThrowOnError>
+  options: Options<ProxyAuthServiceApiV1AuthPathPatch4Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).patch<
-    ProxyAuthServiceApiV1AuthPathOptions4Responses,
-    ProxyAuthServiceApiV1AuthPathOptions4Errors,
+    ProxyAuthServiceApiV1AuthPathPatch4Responses,
+    ProxyAuthServiceApiV1AuthPathPatch4Errors,
     ThrowOnError
   >({
     url: "/api/v1/auth/{path}",
@@ -223,14 +241,14 @@ export const proxyAuthServiceApiV1AuthPathOptions4 = <
  * Proxy Auth Service
  * Proxy requests to auth service.
  */
-export const proxyAuthServiceApiV1AuthPathOptions5 = <
+export const proxyAuthServiceApiV1AuthPathPatch5 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyAuthServiceApiV1AuthPathOptions5Data, ThrowOnError>
+  options: Options<ProxyAuthServiceApiV1AuthPathPatch5Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    ProxyAuthServiceApiV1AuthPathOptions5Responses,
-    ProxyAuthServiceApiV1AuthPathOptions5Errors,
+    ProxyAuthServiceApiV1AuthPathPatch5Responses,
+    ProxyAuthServiceApiV1AuthPathPatch5Errors,
     ThrowOnError
   >({
     url: "/api/v1/auth/{path}",
@@ -242,14 +260,14 @@ export const proxyAuthServiceApiV1AuthPathOptions5 = <
  * Proxy Auth Service
  * Proxy requests to auth service.
  */
-export const proxyAuthServiceApiV1AuthPathOptions6 = <
+export const proxyAuthServiceApiV1AuthPathPatch6 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyAuthServiceApiV1AuthPathOptions6Data, ThrowOnError>
+  options: Options<ProxyAuthServiceApiV1AuthPathPatch6Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).put<
-    ProxyAuthServiceApiV1AuthPathOptions6Responses,
-    ProxyAuthServiceApiV1AuthPathOptions6Errors,
+    ProxyAuthServiceApiV1AuthPathPatch6Responses,
+    ProxyAuthServiceApiV1AuthPathPatch6Errors,
     ThrowOnError
   >({
     url: "/api/v1/auth/{path}",
@@ -261,14 +279,14 @@ export const proxyAuthServiceApiV1AuthPathOptions6 = <
  * Proxy Sms Service
  * Proxy requests to SMS service.
  */
-export const proxySmsServiceApiV1SmsPathOptions = <
+export const proxySmsServiceApiV1SmsPathPatch = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxySmsServiceApiV1SmsPathOptionsData, ThrowOnError>
+  options: Options<ProxySmsServiceApiV1SmsPathPatchData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).delete<
-    ProxySmsServiceApiV1SmsPathOptionsResponses,
-    ProxySmsServiceApiV1SmsPathOptionsErrors,
+    ProxySmsServiceApiV1SmsPathPatchResponses,
+    ProxySmsServiceApiV1SmsPathPatchErrors,
     ThrowOnError
   >({
     url: "/api/v1/sms/{path}",
@@ -280,14 +298,14 @@ export const proxySmsServiceApiV1SmsPathOptions = <
  * Proxy Sms Service
  * Proxy requests to SMS service.
  */
-export const proxySmsServiceApiV1SmsPathOptions2 = <
+export const proxySmsServiceApiV1SmsPathPatch2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxySmsServiceApiV1SmsPathOptions2Data, ThrowOnError>
+  options: Options<ProxySmsServiceApiV1SmsPathPatch2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    ProxySmsServiceApiV1SmsPathOptions2Responses,
-    ProxySmsServiceApiV1SmsPathOptions2Errors,
+    ProxySmsServiceApiV1SmsPathPatch2Responses,
+    ProxySmsServiceApiV1SmsPathPatch2Errors,
     ThrowOnError
   >({
     url: "/api/v1/sms/{path}",
@@ -299,14 +317,14 @@ export const proxySmsServiceApiV1SmsPathOptions2 = <
  * Proxy Sms Service
  * Proxy requests to SMS service.
  */
-export const proxySmsServiceApiV1SmsPathOptions3 = <
+export const proxySmsServiceApiV1SmsPathPatch3 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxySmsServiceApiV1SmsPathOptions3Data, ThrowOnError>
+  options: Options<ProxySmsServiceApiV1SmsPathPatch3Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).options<
-    ProxySmsServiceApiV1SmsPathOptions3Responses,
-    ProxySmsServiceApiV1SmsPathOptions3Errors,
+    ProxySmsServiceApiV1SmsPathPatch3Responses,
+    ProxySmsServiceApiV1SmsPathPatch3Errors,
     ThrowOnError
   >({
     url: "/api/v1/sms/{path}",
@@ -318,14 +336,14 @@ export const proxySmsServiceApiV1SmsPathOptions3 = <
  * Proxy Sms Service
  * Proxy requests to SMS service.
  */
-export const proxySmsServiceApiV1SmsPathOptions4 = <
+export const proxySmsServiceApiV1SmsPathPatch4 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxySmsServiceApiV1SmsPathOptions4Data, ThrowOnError>
+  options: Options<ProxySmsServiceApiV1SmsPathPatch4Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).patch<
-    ProxySmsServiceApiV1SmsPathOptions4Responses,
-    ProxySmsServiceApiV1SmsPathOptions4Errors,
+    ProxySmsServiceApiV1SmsPathPatch4Responses,
+    ProxySmsServiceApiV1SmsPathPatch4Errors,
     ThrowOnError
   >({
     url: "/api/v1/sms/{path}",
@@ -337,14 +355,14 @@ export const proxySmsServiceApiV1SmsPathOptions4 = <
  * Proxy Sms Service
  * Proxy requests to SMS service.
  */
-export const proxySmsServiceApiV1SmsPathOptions5 = <
+export const proxySmsServiceApiV1SmsPathPatch5 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxySmsServiceApiV1SmsPathOptions5Data, ThrowOnError>
+  options: Options<ProxySmsServiceApiV1SmsPathPatch5Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    ProxySmsServiceApiV1SmsPathOptions5Responses,
-    ProxySmsServiceApiV1SmsPathOptions5Errors,
+    ProxySmsServiceApiV1SmsPathPatch5Responses,
+    ProxySmsServiceApiV1SmsPathPatch5Errors,
     ThrowOnError
   >({
     url: "/api/v1/sms/{path}",
@@ -356,14 +374,14 @@ export const proxySmsServiceApiV1SmsPathOptions5 = <
  * Proxy Sms Service
  * Proxy requests to SMS service.
  */
-export const proxySmsServiceApiV1SmsPathOptions6 = <
+export const proxySmsServiceApiV1SmsPathPatch6 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxySmsServiceApiV1SmsPathOptions6Data, ThrowOnError>
+  options: Options<ProxySmsServiceApiV1SmsPathPatch6Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).put<
-    ProxySmsServiceApiV1SmsPathOptions6Responses,
-    ProxySmsServiceApiV1SmsPathOptions6Errors,
+    ProxySmsServiceApiV1SmsPathPatch6Responses,
+    ProxySmsServiceApiV1SmsPathPatch6Errors,
     ThrowOnError
   >({
     url: "/api/v1/sms/{path}",
@@ -375,14 +393,14 @@ export const proxySmsServiceApiV1SmsPathOptions6 = <
  * Proxy Llm Service
  * Proxy requests to LLM service.
  */
-export const proxyLlmServiceApiV1LlmPathOptions = <
+export const proxyLlmServiceApiV1LlmPathPatch = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyLlmServiceApiV1LlmPathOptionsData, ThrowOnError>
+  options: Options<ProxyLlmServiceApiV1LlmPathPatchData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).delete<
-    ProxyLlmServiceApiV1LlmPathOptionsResponses,
-    ProxyLlmServiceApiV1LlmPathOptionsErrors,
+    ProxyLlmServiceApiV1LlmPathPatchResponses,
+    ProxyLlmServiceApiV1LlmPathPatchErrors,
     ThrowOnError
   >({
     url: "/api/v1/llm/{path}",
@@ -394,14 +412,14 @@ export const proxyLlmServiceApiV1LlmPathOptions = <
  * Proxy Llm Service
  * Proxy requests to LLM service.
  */
-export const proxyLlmServiceApiV1LlmPathOptions2 = <
+export const proxyLlmServiceApiV1LlmPathPatch2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyLlmServiceApiV1LlmPathOptions2Data, ThrowOnError>
+  options: Options<ProxyLlmServiceApiV1LlmPathPatch2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    ProxyLlmServiceApiV1LlmPathOptions2Responses,
-    ProxyLlmServiceApiV1LlmPathOptions2Errors,
+    ProxyLlmServiceApiV1LlmPathPatch2Responses,
+    ProxyLlmServiceApiV1LlmPathPatch2Errors,
     ThrowOnError
   >({
     url: "/api/v1/llm/{path}",
@@ -413,14 +431,14 @@ export const proxyLlmServiceApiV1LlmPathOptions2 = <
  * Proxy Llm Service
  * Proxy requests to LLM service.
  */
-export const proxyLlmServiceApiV1LlmPathOptions3 = <
+export const proxyLlmServiceApiV1LlmPathPatch3 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyLlmServiceApiV1LlmPathOptions3Data, ThrowOnError>
+  options: Options<ProxyLlmServiceApiV1LlmPathPatch3Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).options<
-    ProxyLlmServiceApiV1LlmPathOptions3Responses,
-    ProxyLlmServiceApiV1LlmPathOptions3Errors,
+    ProxyLlmServiceApiV1LlmPathPatch3Responses,
+    ProxyLlmServiceApiV1LlmPathPatch3Errors,
     ThrowOnError
   >({
     url: "/api/v1/llm/{path}",
@@ -432,14 +450,14 @@ export const proxyLlmServiceApiV1LlmPathOptions3 = <
  * Proxy Llm Service
  * Proxy requests to LLM service.
  */
-export const proxyLlmServiceApiV1LlmPathOptions4 = <
+export const proxyLlmServiceApiV1LlmPathPatch4 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyLlmServiceApiV1LlmPathOptions4Data, ThrowOnError>
+  options: Options<ProxyLlmServiceApiV1LlmPathPatch4Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).patch<
-    ProxyLlmServiceApiV1LlmPathOptions4Responses,
-    ProxyLlmServiceApiV1LlmPathOptions4Errors,
+    ProxyLlmServiceApiV1LlmPathPatch4Responses,
+    ProxyLlmServiceApiV1LlmPathPatch4Errors,
     ThrowOnError
   >({
     url: "/api/v1/llm/{path}",
@@ -451,14 +469,14 @@ export const proxyLlmServiceApiV1LlmPathOptions4 = <
  * Proxy Llm Service
  * Proxy requests to LLM service.
  */
-export const proxyLlmServiceApiV1LlmPathOptions5 = <
+export const proxyLlmServiceApiV1LlmPathPatch5 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyLlmServiceApiV1LlmPathOptions5Data, ThrowOnError>
+  options: Options<ProxyLlmServiceApiV1LlmPathPatch5Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    ProxyLlmServiceApiV1LlmPathOptions5Responses,
-    ProxyLlmServiceApiV1LlmPathOptions5Errors,
+    ProxyLlmServiceApiV1LlmPathPatch5Responses,
+    ProxyLlmServiceApiV1LlmPathPatch5Errors,
     ThrowOnError
   >({
     url: "/api/v1/llm/{path}",
@@ -470,17 +488,131 @@ export const proxyLlmServiceApiV1LlmPathOptions5 = <
  * Proxy Llm Service
  * Proxy requests to LLM service.
  */
-export const proxyLlmServiceApiV1LlmPathOptions6 = <
+export const proxyLlmServiceApiV1LlmPathPatch6 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ProxyLlmServiceApiV1LlmPathOptions6Data, ThrowOnError>
+  options: Options<ProxyLlmServiceApiV1LlmPathPatch6Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).put<
-    ProxyLlmServiceApiV1LlmPathOptions6Responses,
-    ProxyLlmServiceApiV1LlmPathOptions6Errors,
+    ProxyLlmServiceApiV1LlmPathPatch6Responses,
+    ProxyLlmServiceApiV1LlmPathPatch6Errors,
     ThrowOnError
   >({
     url: "/api/v1/llm/{path}",
+    ...options,
+  });
+};
+
+/**
+ * Proxy Config Service
+ * Proxy requests to config service.
+ */
+export const proxyConfigServiceApiV1ConfigsPathPatch = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ProxyConfigServiceApiV1ConfigsPathPatchData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).delete<
+    ProxyConfigServiceApiV1ConfigsPathPatchResponses,
+    ProxyConfigServiceApiV1ConfigsPathPatchErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/configs/{path}",
+    ...options,
+  });
+};
+
+/**
+ * Proxy Config Service
+ * Proxy requests to config service.
+ */
+export const proxyConfigServiceApiV1ConfigsPathPatch2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ProxyConfigServiceApiV1ConfigsPathPatch2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    ProxyConfigServiceApiV1ConfigsPathPatch2Responses,
+    ProxyConfigServiceApiV1ConfigsPathPatch2Errors,
+    ThrowOnError
+  >({
+    url: "/api/v1/configs/{path}",
+    ...options,
+  });
+};
+
+/**
+ * Proxy Config Service
+ * Proxy requests to config service.
+ */
+export const proxyConfigServiceApiV1ConfigsPathPatch3 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ProxyConfigServiceApiV1ConfigsPathPatch3Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).options<
+    ProxyConfigServiceApiV1ConfigsPathPatch3Responses,
+    ProxyConfigServiceApiV1ConfigsPathPatch3Errors,
+    ThrowOnError
+  >({
+    url: "/api/v1/configs/{path}",
+    ...options,
+  });
+};
+
+/**
+ * Proxy Config Service
+ * Proxy requests to config service.
+ */
+export const proxyConfigServiceApiV1ConfigsPathPatch4 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ProxyConfigServiceApiV1ConfigsPathPatch4Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).patch<
+    ProxyConfigServiceApiV1ConfigsPathPatch4Responses,
+    ProxyConfigServiceApiV1ConfigsPathPatch4Errors,
+    ThrowOnError
+  >({
+    url: "/api/v1/configs/{path}",
+    ...options,
+  });
+};
+
+/**
+ * Proxy Config Service
+ * Proxy requests to config service.
+ */
+export const proxyConfigServiceApiV1ConfigsPathPatch5 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ProxyConfigServiceApiV1ConfigsPathPatch5Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ProxyConfigServiceApiV1ConfigsPathPatch5Responses,
+    ProxyConfigServiceApiV1ConfigsPathPatch5Errors,
+    ThrowOnError
+  >({
+    url: "/api/v1/configs/{path}",
+    ...options,
+  });
+};
+
+/**
+ * Proxy Config Service
+ * Proxy requests to config service.
+ */
+export const proxyConfigServiceApiV1ConfigsPathPatch6 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ProxyConfigServiceApiV1ConfigsPathPatch6Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).put<
+    ProxyConfigServiceApiV1ConfigsPathPatch6Responses,
+    ProxyConfigServiceApiV1ConfigsPathPatch6Errors,
+    ThrowOnError
+  >({
+    url: "/api/v1/configs/{path}",
     ...options,
   });
 };

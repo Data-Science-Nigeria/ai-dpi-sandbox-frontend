@@ -73,7 +73,7 @@ export type RootGetResponses = {
   200: unknown;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptionsData = {
+export type ProxyAuthServiceApiV1AuthPathPatchData = {
   body?: never;
   path: {
     /**
@@ -85,24 +85,24 @@ export type ProxyAuthServiceApiV1AuthPathOptionsData = {
   url: "/api/v1/auth/{path}";
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptionsErrors = {
+export type ProxyAuthServiceApiV1AuthPathPatchErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptionsError =
-  ProxyAuthServiceApiV1AuthPathOptionsErrors[keyof ProxyAuthServiceApiV1AuthPathOptionsErrors];
+export type ProxyAuthServiceApiV1AuthPathPatchError =
+  ProxyAuthServiceApiV1AuthPathPatchErrors[keyof ProxyAuthServiceApiV1AuthPathPatchErrors];
 
-export type ProxyAuthServiceApiV1AuthPathOptionsResponses = {
+export type ProxyAuthServiceApiV1AuthPathPatchResponses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions2Data = {
+export type ProxyAuthServiceApiV1AuthPathPatch2Data = {
   body?: never;
   path: {
     /**
@@ -114,24 +114,24 @@ export type ProxyAuthServiceApiV1AuthPathOptions2Data = {
   url: "/api/v1/auth/{path}";
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions2Errors = {
+export type ProxyAuthServiceApiV1AuthPathPatch2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions2Error =
-  ProxyAuthServiceApiV1AuthPathOptions2Errors[keyof ProxyAuthServiceApiV1AuthPathOptions2Errors];
+export type ProxyAuthServiceApiV1AuthPathPatch2Error =
+  ProxyAuthServiceApiV1AuthPathPatch2Errors[keyof ProxyAuthServiceApiV1AuthPathPatch2Errors];
 
-export type ProxyAuthServiceApiV1AuthPathOptions2Responses = {
+export type ProxyAuthServiceApiV1AuthPathPatch2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions3Data = {
+export type ProxyAuthServiceApiV1AuthPathPatch3Data = {
   body?: never;
   path: {
     /**
@@ -143,24 +143,24 @@ export type ProxyAuthServiceApiV1AuthPathOptions3Data = {
   url: "/api/v1/auth/{path}";
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions3Errors = {
+export type ProxyAuthServiceApiV1AuthPathPatch3Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions3Error =
-  ProxyAuthServiceApiV1AuthPathOptions3Errors[keyof ProxyAuthServiceApiV1AuthPathOptions3Errors];
+export type ProxyAuthServiceApiV1AuthPathPatch3Error =
+  ProxyAuthServiceApiV1AuthPathPatch3Errors[keyof ProxyAuthServiceApiV1AuthPathPatch3Errors];
 
-export type ProxyAuthServiceApiV1AuthPathOptions3Responses = {
+export type ProxyAuthServiceApiV1AuthPathPatch3Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions4Data = {
+export type ProxyAuthServiceApiV1AuthPathPatch4Data = {
   body?: never;
   path: {
     /**
@@ -172,24 +172,24 @@ export type ProxyAuthServiceApiV1AuthPathOptions4Data = {
   url: "/api/v1/auth/{path}";
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions4Errors = {
+export type ProxyAuthServiceApiV1AuthPathPatch4Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions4Error =
-  ProxyAuthServiceApiV1AuthPathOptions4Errors[keyof ProxyAuthServiceApiV1AuthPathOptions4Errors];
+export type ProxyAuthServiceApiV1AuthPathPatch4Error =
+  ProxyAuthServiceApiV1AuthPathPatch4Errors[keyof ProxyAuthServiceApiV1AuthPathPatch4Errors];
 
-export type ProxyAuthServiceApiV1AuthPathOptions4Responses = {
+export type ProxyAuthServiceApiV1AuthPathPatch4Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions5Data = {
+export type ProxyAuthServiceApiV1AuthPathPatch5Data = {
   body?: never;
   path: {
     /**
@@ -201,24 +201,24 @@ export type ProxyAuthServiceApiV1AuthPathOptions5Data = {
   url: "/api/v1/auth/{path}";
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions5Errors = {
+export type ProxyAuthServiceApiV1AuthPathPatch5Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions5Error =
-  ProxyAuthServiceApiV1AuthPathOptions5Errors[keyof ProxyAuthServiceApiV1AuthPathOptions5Errors];
+export type ProxyAuthServiceApiV1AuthPathPatch5Error =
+  ProxyAuthServiceApiV1AuthPathPatch5Errors[keyof ProxyAuthServiceApiV1AuthPathPatch5Errors];
 
-export type ProxyAuthServiceApiV1AuthPathOptions5Responses = {
+export type ProxyAuthServiceApiV1AuthPathPatch5Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions6Data = {
+export type ProxyAuthServiceApiV1AuthPathPatch6Data = {
   body?: never;
   path: {
     /**
@@ -230,24 +230,24 @@ export type ProxyAuthServiceApiV1AuthPathOptions6Data = {
   url: "/api/v1/auth/{path}";
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions6Errors = {
+export type ProxyAuthServiceApiV1AuthPathPatch6Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyAuthServiceApiV1AuthPathOptions6Error =
-  ProxyAuthServiceApiV1AuthPathOptions6Errors[keyof ProxyAuthServiceApiV1AuthPathOptions6Errors];
+export type ProxyAuthServiceApiV1AuthPathPatch6Error =
+  ProxyAuthServiceApiV1AuthPathPatch6Errors[keyof ProxyAuthServiceApiV1AuthPathPatch6Errors];
 
-export type ProxyAuthServiceApiV1AuthPathOptions6Responses = {
+export type ProxyAuthServiceApiV1AuthPathPatch6Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptionsData = {
+export type ProxySmsServiceApiV1SmsPathPatchData = {
   body?: never;
   path: {
     /**
@@ -259,24 +259,24 @@ export type ProxySmsServiceApiV1SmsPathOptionsData = {
   url: "/api/v1/sms/{path}";
 };
 
-export type ProxySmsServiceApiV1SmsPathOptionsErrors = {
+export type ProxySmsServiceApiV1SmsPathPatchErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptionsError =
-  ProxySmsServiceApiV1SmsPathOptionsErrors[keyof ProxySmsServiceApiV1SmsPathOptionsErrors];
+export type ProxySmsServiceApiV1SmsPathPatchError =
+  ProxySmsServiceApiV1SmsPathPatchErrors[keyof ProxySmsServiceApiV1SmsPathPatchErrors];
 
-export type ProxySmsServiceApiV1SmsPathOptionsResponses = {
+export type ProxySmsServiceApiV1SmsPathPatchResponses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions2Data = {
+export type ProxySmsServiceApiV1SmsPathPatch2Data = {
   body?: never;
   path: {
     /**
@@ -288,24 +288,24 @@ export type ProxySmsServiceApiV1SmsPathOptions2Data = {
   url: "/api/v1/sms/{path}";
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions2Errors = {
+export type ProxySmsServiceApiV1SmsPathPatch2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions2Error =
-  ProxySmsServiceApiV1SmsPathOptions2Errors[keyof ProxySmsServiceApiV1SmsPathOptions2Errors];
+export type ProxySmsServiceApiV1SmsPathPatch2Error =
+  ProxySmsServiceApiV1SmsPathPatch2Errors[keyof ProxySmsServiceApiV1SmsPathPatch2Errors];
 
-export type ProxySmsServiceApiV1SmsPathOptions2Responses = {
+export type ProxySmsServiceApiV1SmsPathPatch2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions3Data = {
+export type ProxySmsServiceApiV1SmsPathPatch3Data = {
   body?: never;
   path: {
     /**
@@ -317,24 +317,24 @@ export type ProxySmsServiceApiV1SmsPathOptions3Data = {
   url: "/api/v1/sms/{path}";
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions3Errors = {
+export type ProxySmsServiceApiV1SmsPathPatch3Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions3Error =
-  ProxySmsServiceApiV1SmsPathOptions3Errors[keyof ProxySmsServiceApiV1SmsPathOptions3Errors];
+export type ProxySmsServiceApiV1SmsPathPatch3Error =
+  ProxySmsServiceApiV1SmsPathPatch3Errors[keyof ProxySmsServiceApiV1SmsPathPatch3Errors];
 
-export type ProxySmsServiceApiV1SmsPathOptions3Responses = {
+export type ProxySmsServiceApiV1SmsPathPatch3Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions4Data = {
+export type ProxySmsServiceApiV1SmsPathPatch4Data = {
   body?: never;
   path: {
     /**
@@ -346,24 +346,24 @@ export type ProxySmsServiceApiV1SmsPathOptions4Data = {
   url: "/api/v1/sms/{path}";
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions4Errors = {
+export type ProxySmsServiceApiV1SmsPathPatch4Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions4Error =
-  ProxySmsServiceApiV1SmsPathOptions4Errors[keyof ProxySmsServiceApiV1SmsPathOptions4Errors];
+export type ProxySmsServiceApiV1SmsPathPatch4Error =
+  ProxySmsServiceApiV1SmsPathPatch4Errors[keyof ProxySmsServiceApiV1SmsPathPatch4Errors];
 
-export type ProxySmsServiceApiV1SmsPathOptions4Responses = {
+export type ProxySmsServiceApiV1SmsPathPatch4Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions5Data = {
+export type ProxySmsServiceApiV1SmsPathPatch5Data = {
   body?: never;
   path: {
     /**
@@ -375,24 +375,24 @@ export type ProxySmsServiceApiV1SmsPathOptions5Data = {
   url: "/api/v1/sms/{path}";
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions5Errors = {
+export type ProxySmsServiceApiV1SmsPathPatch5Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions5Error =
-  ProxySmsServiceApiV1SmsPathOptions5Errors[keyof ProxySmsServiceApiV1SmsPathOptions5Errors];
+export type ProxySmsServiceApiV1SmsPathPatch5Error =
+  ProxySmsServiceApiV1SmsPathPatch5Errors[keyof ProxySmsServiceApiV1SmsPathPatch5Errors];
 
-export type ProxySmsServiceApiV1SmsPathOptions5Responses = {
+export type ProxySmsServiceApiV1SmsPathPatch5Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions6Data = {
+export type ProxySmsServiceApiV1SmsPathPatch6Data = {
   body?: never;
   path: {
     /**
@@ -404,24 +404,24 @@ export type ProxySmsServiceApiV1SmsPathOptions6Data = {
   url: "/api/v1/sms/{path}";
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions6Errors = {
+export type ProxySmsServiceApiV1SmsPathPatch6Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxySmsServiceApiV1SmsPathOptions6Error =
-  ProxySmsServiceApiV1SmsPathOptions6Errors[keyof ProxySmsServiceApiV1SmsPathOptions6Errors];
+export type ProxySmsServiceApiV1SmsPathPatch6Error =
+  ProxySmsServiceApiV1SmsPathPatch6Errors[keyof ProxySmsServiceApiV1SmsPathPatch6Errors];
 
-export type ProxySmsServiceApiV1SmsPathOptions6Responses = {
+export type ProxySmsServiceApiV1SmsPathPatch6Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptionsData = {
+export type ProxyLlmServiceApiV1LlmPathPatchData = {
   body?: never;
   path: {
     /**
@@ -433,24 +433,24 @@ export type ProxyLlmServiceApiV1LlmPathOptionsData = {
   url: "/api/v1/llm/{path}";
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptionsErrors = {
+export type ProxyLlmServiceApiV1LlmPathPatchErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptionsError =
-  ProxyLlmServiceApiV1LlmPathOptionsErrors[keyof ProxyLlmServiceApiV1LlmPathOptionsErrors];
+export type ProxyLlmServiceApiV1LlmPathPatchError =
+  ProxyLlmServiceApiV1LlmPathPatchErrors[keyof ProxyLlmServiceApiV1LlmPathPatchErrors];
 
-export type ProxyLlmServiceApiV1LlmPathOptionsResponses = {
+export type ProxyLlmServiceApiV1LlmPathPatchResponses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions2Data = {
+export type ProxyLlmServiceApiV1LlmPathPatch2Data = {
   body?: never;
   path: {
     /**
@@ -462,24 +462,24 @@ export type ProxyLlmServiceApiV1LlmPathOptions2Data = {
   url: "/api/v1/llm/{path}";
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions2Errors = {
+export type ProxyLlmServiceApiV1LlmPathPatch2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions2Error =
-  ProxyLlmServiceApiV1LlmPathOptions2Errors[keyof ProxyLlmServiceApiV1LlmPathOptions2Errors];
+export type ProxyLlmServiceApiV1LlmPathPatch2Error =
+  ProxyLlmServiceApiV1LlmPathPatch2Errors[keyof ProxyLlmServiceApiV1LlmPathPatch2Errors];
 
-export type ProxyLlmServiceApiV1LlmPathOptions2Responses = {
+export type ProxyLlmServiceApiV1LlmPathPatch2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions3Data = {
+export type ProxyLlmServiceApiV1LlmPathPatch3Data = {
   body?: never;
   path: {
     /**
@@ -491,24 +491,24 @@ export type ProxyLlmServiceApiV1LlmPathOptions3Data = {
   url: "/api/v1/llm/{path}";
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions3Errors = {
+export type ProxyLlmServiceApiV1LlmPathPatch3Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions3Error =
-  ProxyLlmServiceApiV1LlmPathOptions3Errors[keyof ProxyLlmServiceApiV1LlmPathOptions3Errors];
+export type ProxyLlmServiceApiV1LlmPathPatch3Error =
+  ProxyLlmServiceApiV1LlmPathPatch3Errors[keyof ProxyLlmServiceApiV1LlmPathPatch3Errors];
 
-export type ProxyLlmServiceApiV1LlmPathOptions3Responses = {
+export type ProxyLlmServiceApiV1LlmPathPatch3Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions4Data = {
+export type ProxyLlmServiceApiV1LlmPathPatch4Data = {
   body?: never;
   path: {
     /**
@@ -520,24 +520,24 @@ export type ProxyLlmServiceApiV1LlmPathOptions4Data = {
   url: "/api/v1/llm/{path}";
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions4Errors = {
+export type ProxyLlmServiceApiV1LlmPathPatch4Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions4Error =
-  ProxyLlmServiceApiV1LlmPathOptions4Errors[keyof ProxyLlmServiceApiV1LlmPathOptions4Errors];
+export type ProxyLlmServiceApiV1LlmPathPatch4Error =
+  ProxyLlmServiceApiV1LlmPathPatch4Errors[keyof ProxyLlmServiceApiV1LlmPathPatch4Errors];
 
-export type ProxyLlmServiceApiV1LlmPathOptions4Responses = {
+export type ProxyLlmServiceApiV1LlmPathPatch4Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions5Data = {
+export type ProxyLlmServiceApiV1LlmPathPatch5Data = {
   body?: never;
   path: {
     /**
@@ -549,24 +549,24 @@ export type ProxyLlmServiceApiV1LlmPathOptions5Data = {
   url: "/api/v1/llm/{path}";
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions5Errors = {
+export type ProxyLlmServiceApiV1LlmPathPatch5Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions5Error =
-  ProxyLlmServiceApiV1LlmPathOptions5Errors[keyof ProxyLlmServiceApiV1LlmPathOptions5Errors];
+export type ProxyLlmServiceApiV1LlmPathPatch5Error =
+  ProxyLlmServiceApiV1LlmPathPatch5Errors[keyof ProxyLlmServiceApiV1LlmPathPatch5Errors];
 
-export type ProxyLlmServiceApiV1LlmPathOptions5Responses = {
+export type ProxyLlmServiceApiV1LlmPathPatch5Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions6Data = {
+export type ProxyLlmServiceApiV1LlmPathPatch6Data = {
   body?: never;
   path: {
     /**
@@ -578,17 +578,191 @@ export type ProxyLlmServiceApiV1LlmPathOptions6Data = {
   url: "/api/v1/llm/{path}";
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions6Errors = {
+export type ProxyLlmServiceApiV1LlmPathPatch6Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type ProxyLlmServiceApiV1LlmPathOptions6Error =
-  ProxyLlmServiceApiV1LlmPathOptions6Errors[keyof ProxyLlmServiceApiV1LlmPathOptions6Errors];
+export type ProxyLlmServiceApiV1LlmPathPatch6Error =
+  ProxyLlmServiceApiV1LlmPathPatch6Errors[keyof ProxyLlmServiceApiV1LlmPathPatch6Errors];
 
-export type ProxyLlmServiceApiV1LlmPathOptions6Responses = {
+export type ProxyLlmServiceApiV1LlmPathPatch6Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatchData = {
+  body?: never;
+  path: {
+    /**
+     * Path
+     */
+    path: string;
+  };
+  query?: never;
+  url: "/api/v1/configs/{path}";
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatchErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatchError =
+  ProxyConfigServiceApiV1ConfigsPathPatchErrors[keyof ProxyConfigServiceApiV1ConfigsPathPatchErrors];
+
+export type ProxyConfigServiceApiV1ConfigsPathPatchResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch2Data = {
+  body?: never;
+  path: {
+    /**
+     * Path
+     */
+    path: string;
+  };
+  query?: never;
+  url: "/api/v1/configs/{path}";
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch2Error =
+  ProxyConfigServiceApiV1ConfigsPathPatch2Errors[keyof ProxyConfigServiceApiV1ConfigsPathPatch2Errors];
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch3Data = {
+  body?: never;
+  path: {
+    /**
+     * Path
+     */
+    path: string;
+  };
+  query?: never;
+  url: "/api/v1/configs/{path}";
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch3Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch3Error =
+  ProxyConfigServiceApiV1ConfigsPathPatch3Errors[keyof ProxyConfigServiceApiV1ConfigsPathPatch3Errors];
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch3Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch4Data = {
+  body?: never;
+  path: {
+    /**
+     * Path
+     */
+    path: string;
+  };
+  query?: never;
+  url: "/api/v1/configs/{path}";
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch4Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch4Error =
+  ProxyConfigServiceApiV1ConfigsPathPatch4Errors[keyof ProxyConfigServiceApiV1ConfigsPathPatch4Errors];
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch4Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch5Data = {
+  body?: never;
+  path: {
+    /**
+     * Path
+     */
+    path: string;
+  };
+  query?: never;
+  url: "/api/v1/configs/{path}";
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch5Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch5Error =
+  ProxyConfigServiceApiV1ConfigsPathPatch5Errors[keyof ProxyConfigServiceApiV1ConfigsPathPatch5Errors];
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch5Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch6Data = {
+  body?: never;
+  path: {
+    /**
+     * Path
+     */
+    path: string;
+  };
+  query?: never;
+  url: "/api/v1/configs/{path}";
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch6Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch6Error =
+  ProxyConfigServiceApiV1ConfigsPathPatch6Errors[keyof ProxyConfigServiceApiV1ConfigsPathPatch6Errors];
+
+export type ProxyConfigServiceApiV1ConfigsPathPatch6Responses = {
   /**
    * Successful Response
    */
