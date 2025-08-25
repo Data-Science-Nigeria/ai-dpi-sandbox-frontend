@@ -1,7 +1,7 @@
 'use client';
 
 import { getApiErrorMessage } from '@/app/utils/get-api-error-message';
-import { readUsersMeApiV1AuthUsersMeGet } from '@/client/sdk.gen';
+import { readUserMeApiV1AuthMeGet } from '@/client/sdk.gen';
 import React, { useLayoutEffect, useState } from 'react';
 import { useAuthStore } from '@/app/store/use-auth-store';
 
@@ -12,7 +12,7 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
   useLayoutEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await readUsersMeApiV1AuthUsersMeGet();
+        const res = await readUserMeApiV1AuthMeGet();
 
         console.log(res);
 
@@ -22,9 +22,11 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
         }
 
         setAuth({
-          email: res.data?.email || '',
-          is_verified: res.data?.is_verified,
-          id: res?.data?.id,
+          user: {
+            email: res.data?.email || '',
+            is_verified: res.data?.is_verified,
+            id: res?.data?.id,
+          },
         });
 
         setIsAuthenticated(true);

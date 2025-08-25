@@ -139,19 +139,25 @@ export function PhoneInput({ value, onChange, error, placeholder = "Phone number
 
   const handleCountrySelect = (country: Country) => {
     setSelectedCountry(country);
-    const newValue = phoneNumber ? `${country.code} ${phoneNumber}` : country.code;
+    const newValue = phoneNumber ? `${country.code} ${phoneNumber}` : '';
     onChange(newValue);
     setIsOpen(false);
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPhone = e.target.value;
-    setPhoneNumber(newPhone);
+    const inputValue = e.target.value;
+    
+    // Only allow numbers, spaces, and plus signs
+    const filteredValue = inputValue.replace(/[^0-9+\s]/g, '');
     
     if (selectedCountry) {
-      onChange(newPhone ? `${selectedCountry.code} ${newPhone}` : selectedCountry.code);
+      // Remove country code from input to get just the phone number
+      const phoneOnly = filteredValue.replace(selectedCountry.code, '').trim();
+      setPhoneNumber(phoneOnly);
+      onChange(phoneOnly ? `${selectedCountry.code} ${phoneOnly}` : '');
     } else {
-      onChange(newPhone);
+      setPhoneNumber(filteredValue);
+      onChange(filteredValue);
     }
   };
 
@@ -161,7 +167,7 @@ export function PhoneInput({ value, onChange, error, placeholder = "Phone number
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className={`flex items-center justify-center w-10 sm:w-12 px-1 sm:px-2 py-2 border border-r-0 rounded-l focus:border-[#0A5A1A] focus:ring-[#0A5A1A] focus:outline-none ${
+          className={`flex items-center justify-center w-10 sm:w-12 px-1 sm:px-2 py-2 border border-r-0 rounded-l focus:border-[#0A5A1A] focus:outline-none ${
             error ? 'border-red-500' : 'border-gray-300'
           } dark:bg-[#1C1E22] dark:text-white`}
         >
@@ -183,7 +189,7 @@ export function PhoneInput({ value, onChange, error, placeholder = "Phone number
           value={selectedCountry ? `${selectedCountry.code} ${phoneNumber}` : phoneNumber}
           onChange={handlePhoneChange}
           placeholder={placeholder}
-          className={`flex-1 min-w-0 px-2 sm:px-3 py-2 border rounded-r focus:border-[#0A5A1A] focus:ring-[#0A5A1A] focus:outline-none dark:text-white dark:bg-transparent ${
+          className={`flex-1 min-w-0 px-2 sm:px-3 py-2 border rounded-r focus:border-[#0A5A1A] focus:outline-none dark:text-white dark:bg-transparent ${
             error ? 'border-red-500' : 'border-gray-300'
           }`}
         />
