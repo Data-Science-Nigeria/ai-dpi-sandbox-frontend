@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { forgotPasswordApiV1AuthForgotPasswordPostMutation } from '@/client/@tanstack/react-query.gen';
 import { Button } from '@/components/ui/button';
@@ -105,4 +105,4 @@ export function ForgotPasswordForm() {
       </form>
     </div>
   );
-}
+}*/

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+/*import { useState, useEffect } from 'react';
 import { useResendEmail } from '@/app/auth/verify-email/hooks/use-resend-email';
 
 export const useResendEmailCooldown = () => {
@@ -38,4 +38,4 @@ export const useResendEmailCooldown = () => {
     cooldownTime: formatTime(cooldownTime),
     isDisabled: isOnCooldown || isLoading,
   };
-};
+};*/

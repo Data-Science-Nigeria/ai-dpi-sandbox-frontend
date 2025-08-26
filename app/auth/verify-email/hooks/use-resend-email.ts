@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+/*import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useAuthStore } from '@/app/store/use-auth-store';
@@ -29,4 +29,4 @@ export const useResendEmail = () => {
   };
 
   return { resendVerificationEmail, isLoading: resendEmail.isPending };
-};
+};*/

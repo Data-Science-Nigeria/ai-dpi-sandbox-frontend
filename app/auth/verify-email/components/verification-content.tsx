@@ -3,11 +3,7 @@
 import { Spinner } from '@/app/components/spinner';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import {
-  MailRemove01Icon,
-  MailValidation02Icon,
-} from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
+import { XCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 type VerificationState = 'loading' | 'success' | 'error';
@@ -36,14 +32,13 @@ export const VerificationContent = ({
   }
 
   const isError = state === 'error';
-  const Icon = isError ? MailRemove01Icon : MailValidation02Icon;
+  const Icon = isError ? XCircleIcon : CheckCircleIcon;
   const title = `Email verification ${isError ? 'failed' : 'successful'}`;
 
   return (
     <div className="mx-auto max-w-[500px]">
-      <HugeiconsIcon
-        icon={Icon}
-        className={cn('mx-auto h-25 w-25 text-white', isError && 'text-white')}
+      <Icon
+        className={cn('mx-auto h-24 w-24', isError ? 'text-red-500' : 'text-green-500')}
       />
 
       <h1 className="mt-6 text-2xl font-semibold text-white">{title}</h1>

@@ -2,8 +2,7 @@
 
 import { Logo } from '@/app/components/logo';
 import { Button } from '@/components/ui/button';
-import { PasswordValidationIcon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default function Page() {
@@ -14,10 +13,7 @@ export default function Page() {
           <Logo />
         </header>
 
-        <HugeiconsIcon
-          icon={PasswordValidationIcon}
-          className="mx-auto h-24 w-24 text-black dark:text-white"
-        />
+        <CheckCircleIcon className="mx-auto h-24 w-24 text-green-500" />
 
         <h1 className="mt-6 text-2xl font-semibold text-black dark:text-white">
           Password Reset Successful

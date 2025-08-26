@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+/*import { useRouter } from 'next/navigation';
 import { logoutApiV1AuthLogoutPostMutation } from '@/client/@tanstack/react-query.gen';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -39,4 +39,4 @@ export const useLogout = () => {
   return {
     handleLogout: confirmLogout,
   };
-};
+};*/

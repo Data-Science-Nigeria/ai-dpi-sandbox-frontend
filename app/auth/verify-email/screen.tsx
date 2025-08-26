@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { verifyEmailApiV1AuthVerifyEmailPostMutation } from '@/client/@tanstack/react-query.gen';
 import { Logo } from '@/app/components/logo';
@@ -73,4 +73,4 @@ export function Screen() {
       </div>
     </div>
   );
-}
+}*/

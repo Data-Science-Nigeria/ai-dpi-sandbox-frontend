@@ -2,8 +2,7 @@
 
 import { Logo } from '@/app/components/logo';
 import { useAuthStore } from '@/app/store/use-auth-store';
-import { MailSend02Icon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { useResendEmailCooldown } from '../verify-email/hooks/use-resend-email-cooldown';
 
@@ -24,16 +23,13 @@ export default function Page() {
           <Logo />
         </header>
 
-        <HugeiconsIcon
-          icon={MailSend02Icon}
-          className="mx-auto h-24 w-24 text-black dark:text-white"
-        />
+        <EnvelopeIcon className="mx-auto h-24 w-24 text-blue-500" />
         <h1 className="mt-6 text-2xl font-semibold text-black dark:text-white">
           Please verify your email
         </h1>
         <p className="mt-4 text-black dark:text-white">
           A verification email has been sent to your email address{' '}
-          <span className="font-semibold">{auth.email}</span>.<br />
+          <span className="font-semibold">{auth.user?.email}</span>.<br />
           Please check your inbox and follow the instructions to verify your
           email.
         </p>

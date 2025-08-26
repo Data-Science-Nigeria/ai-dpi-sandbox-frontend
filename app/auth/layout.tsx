@@ -1,7 +1,6 @@
 import React from 'react';
 import { Footer } from '@/app/components/footer';
 import { Providers } from './providers';
-import { Provider } from '@radix-ui/react-tooltip';
 
 export default function RootLayout({
   children,

@@ -97,6 +97,9 @@ body {
   --hausa: oklch(0.596 0.1274 163.23);
   --igbo: oklch(0.5461 0.2152 262.88);
   --pidgin: oklch(0.4907 0.2412 292.58);
+  --header-bg: #1C1E22;
+  --brand-green: #00A859;
+  --text-secondary: #AFBDD1;
 }
 
 .dark {

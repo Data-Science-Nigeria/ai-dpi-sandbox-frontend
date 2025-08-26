@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { resetPasswordRedirectApiV1AuthResetPasswordPostMutation } from '@/client/@tanstack/react-query.gen';
 import { Button } from '@/components/ui/button';
@@ -109,4 +109,4 @@ export function ResetPasswordForm() {
       </form>
     </div>
   );
-}
+}*/
