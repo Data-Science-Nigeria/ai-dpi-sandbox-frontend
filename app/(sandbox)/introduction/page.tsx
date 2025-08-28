@@ -21,13 +21,6 @@ export default function Introduction() {
           <li>Follow step-by-step tutorials</li>
           <li>Build and test your applications</li>
         </ul>
-        
-        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-          <p className="text-blue-800 dark:text-blue-200">
-            💡 <strong>Tip:</strong> Use the sidebar navigation to explore different sections 
-            and find the resources you need.
-          </p>
-        </div>
       </div>
     </div>
   );

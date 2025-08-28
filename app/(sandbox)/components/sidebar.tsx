@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronRightIcon, ChevronDownIcon, PlayIcon, BookOpenIcon, CubeIcon, ArrowRightOnRectangleIcon, XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon, ChevronDownIcon, PlayIcon, BookOpenIcon, CubeIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { PanelLeft, PanelRight } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -80,39 +81,34 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
       {/* Mobile overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          className="fixed inset transition-opacity bg-black/50 z-40 lg:hidden"
           onClick={onToggle}
         />
       )}
       
       {/* Sidebar */}
       <div className={`
-        fixed top-0 left-0 h-full bg-white dark:bg-[#1C1E22] border-r border-gray-200 dark:border-gray-700 z-50
+        fixed top-24 left-0 h-[calc(100vh-4rem)] bg-white dark:bg-[#1C1E22]  z-50
         transition-all duration-300 ease-in-out
         ${isOpen ? 'w-64' : 'w-16'}
-        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        translate-x-0
       `}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          {isOpen && (
-            <h1 className="text-lg font-semibold text-gray-900 dark:text-[#AFBDD1]">
-              Sandbox
-            </h1>
-          )}
+        <div className={`flex items-center p-4 ${isOpen ? 'justify-start' : 'justify-center'}`}>
           <button
             onClick={onToggle}
             className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-[#AFBDD1]"
           >
             {isOpen ? (
-              <XMarkIcon className="w-5 h-5 md:hidden" />
+              <PanelLeft className="w-5 h-5" />
             ) : (
-              <Bars3Icon className="w-5 h-5" />
+              <PanelRight className="w-5 h-5" />
             )}
           </button>
         </div>
 
         {/* Menu Items */}
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className={`flex-1 p-4 space-y-2 ${!isOpen ? 'flex flex-col items-center' : ''}`}>
           {menuItems.map((item) => (
             <div key={item.id}>
               <button
@@ -130,7 +126,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                   ${selectedItem === item.id ? 'bg-[#00A859] text-white' : ''}
                 `}
               >
-                <div className="flex items-center space-x-3">
+                <div className={`flex items-center ${isOpen ? 'space-x-3' : 'justify-center'}`}>
                   <item.icon className="w-5 h-5 flex-shrink-0" />
                   {isOpen && (
                     <span className="text-sm font-medium">{item.label}</span>
@@ -172,15 +168,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
         </nav>
       </div>
 
-      {/* Toggle button for desktop when sidebar is collapsed */}
-      {!isOpen && (
-        <button
-          onClick={onToggle}
-          className="fixed top-4 left-4 z-40 p-2 bg-white dark:bg-[#1C1E22] border border-gray-200 dark:border-gray-700 rounded-md shadow-md hover:shadow-lg transition-shadow duration-200 hidden md:block"
-        >
-          <Bars3Icon className="w-5 h-5 text-gray-700 dark:text-[#AFBDD1]" />
-        </button>
-      )}
+      
     </>
   );
 }

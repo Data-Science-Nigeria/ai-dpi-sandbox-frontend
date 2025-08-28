@@ -5,7 +5,7 @@ import { useTheme } from '../../hooks/use-theme';
 export function ThemeToggle() {
   const { effectiveTheme, toggleTheme } = useTheme();
   
-  const displayText = effectiveTheme === 'dark' ? 'light mode' : 'dark mode';
+  const displayText = effectiveTheme === 'dark' ? 'Light mode' : 'Dark mode';
 
   return (
     <button

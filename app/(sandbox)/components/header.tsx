@@ -1,18 +1,19 @@
 'use client';
 
+import { Logo } from '../../components/logo';
 import { Search } from './search';
 import { ThemeToggle } from './theme-toggle';
 
 export function Header() {
   return (
-    <header className="bg-[#1C1E22] border-b border-border px-6 py-4">
+    <header className="bg-[#1C1E22] px-6 py-4">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <img src="/dsn-logo.svg" alt="DSN" className="h-8 w-8" />
-          <span className="text-[#00A859] font-semibold text-lg">AI-DPI</span>
+        <div className="flex items-center gap-6">
+          <Logo />
+          <span className="text-[#00A859] font-semibold text-2xl mt-6">AI-DPI</span>
         </div>
         
-        <div className="flex-1 max-w-md mx-8">
+        <div className="flex-1 max-w-sm mx-4">
           <Search />
         </div>
         

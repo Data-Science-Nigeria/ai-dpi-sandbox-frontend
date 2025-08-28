@@ -7,8 +7,8 @@ export const Logo = () => {
       <Image
         src="/dsn-logo.svg"
         alt="DSN Logo"
-        width={120}
-        height={40}
+        width={100}
+        height={20}
         className="h-auto w-auto"
       />
     </Link>
