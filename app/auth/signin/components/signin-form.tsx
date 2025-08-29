@@ -6,7 +6,7 @@ import { getApiErrorMessage } from '@/app/utils/get-api-error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { LoaderCircle } from 'lucide-react';
-import Link from 'next/link';
+//import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -51,7 +51,7 @@ export function SignInForm() {
         },
       });
 
-      router.push('/(sandbox)');
+      router.push('/introduction');
       setIsSubmitting(false);
     },
     onError: (error: any) => {
@@ -98,7 +98,7 @@ export function SignInForm() {
             <div className="mb-6">
               <Logo />
             </div>
-            <p className="mt-2 text-sm text-black dark:text-white">
+            {/*<p className="mt-2 text-sm text-black dark:text-white">
               New user?{' '}
               <Link
                 href="/auth/signup"
@@ -106,7 +106,7 @@ export function SignInForm() {
               >
                 Create an account
               </Link>
-            </p>
+            </p>*/}
           </div>
 
           <div>
@@ -130,14 +130,14 @@ export function SignInForm() {
           />
         </div>
 
-        <div className="mt-4 flex items-center justify-between text-sm">
+        {/*<div className="mt-4 flex items-center justify-between text-sm">
           <Link
             href="/auth/forgot-password"
             className="font-extrabold text-[#0A5A1A]"
           >
             Forgot Password?
           </Link>
-        </div>
+        </div>*/}
 
         <Button
           type="submit"
