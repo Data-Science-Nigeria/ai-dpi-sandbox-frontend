@@ -10,7 +10,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="text-[#AFBDD1] hover:text-white transition-colors"
+      className="text-[#AFBDD1] hover:text-[#00A859] transition-colors"
     >
       {displayText}
     </button>

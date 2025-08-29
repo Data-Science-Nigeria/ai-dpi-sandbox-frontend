@@ -45,7 +45,7 @@ export function Header({ sidebarOpen = true }: HeaderProps) {
           {/* Desktop Items */}
           <button 
             onClick={handleSupport}
-            className="hidden lg:block text-[#AFBDD1] hover:text-white transition-colors"
+            className="hidden lg:block text-[#AFBDD1] hover:text-[#00A859] transition-colors"
           >
             Support
           </button>
@@ -64,7 +64,7 @@ export function Header({ sidebarOpen = true }: HeaderProps) {
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden text-[#AFBDD1] hover:text-white transition-colors"
+            className="lg:hidden text-black dark:text-white transition-colors"
           >
             <Bars3Icon className="w-5 h-5" />
           </button>
@@ -73,11 +73,11 @@ export function Header({ sidebarOpen = true }: HeaderProps) {
 
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
-        <div className="absolute top-full right-6 mt-2 bg-[#1C1E22] border border-gray-600 rounded-md shadow-lg z-50 lg:hidden min-w-[200px]">
+        <div className="absolute top-full right-6 mt-2 bg-white dark:bg-[#1C1E22] border dark:border-gray-400 rounded-md shadow-lg z-50 lg:hidden min-w-[200px]">
           <div className="py-3 px-2">
             <button 
               onClick={handleSupport}
-              className="flex items-center gap-3 w-full px-4 py-2 text-[#AFBDD1] hover:bg-gray-700 transition-colors"
+              className="flex items-center gap-3 w-full px-4 py-2 text-black dark:text-[#AFBDD1] hover:bg-[#00A859] transition-colors"
             >
               <QuestionMarkCircleIcon className="w-5 h-5" />
               <span>Support</span>
@@ -85,7 +85,7 @@ export function Header({ sidebarOpen = true }: HeaderProps) {
             
             <button 
               onClick={handleThemeToggle}
-              className="flex items-center gap-3 w-full px-4 py-2 text-[#AFBDD1] hover:bg-gray-700 transition-colors"
+              className="flex items-center gap-3 w-full px-4 py-2 text-black dark:text-[#AFBDD1] hover:bg-[#00A859] transition-colors"
             >
               {effectiveTheme === 'dark' ? (
                 <SunIcon className="w-5 h-5" />
