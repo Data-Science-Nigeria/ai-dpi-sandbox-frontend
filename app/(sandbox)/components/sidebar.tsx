@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { PanelLeft, PanelRight } from 'lucide-react';
 import { menuItems } from '../introduction/data/data';
@@ -11,8 +12,23 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
+  const pathname = usePathname();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<string>('');
+
+  useEffect(() => {
+    // Find the active menu item based on current pathname
+    for (const item of menuItems) {
+      if (item.items) {
+        const activeSubItem = item.items.find(subItem => subItem.href === pathname);
+        if (activeSubItem) {
+          setSelectedItem(activeSubItem.id);
+          setExpandedItems(prev => prev.includes(item.id) ? prev : [...prev, item.id]);
+          break;
+        }
+      }
+    }
+  }, [pathname]);
 
   const toggleExpanded = (itemId: string) => {
     setExpandedItems(prev => 
