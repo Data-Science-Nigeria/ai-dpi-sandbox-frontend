@@ -9,7 +9,7 @@ export const Logo = () => {
         alt="DSN Logo"
         width={100}
         height={20}
-        className="h-auto w-auto"
+        className="h-6 w-auto sm:h-8 md:h-10"
       />
     </Link>
   );

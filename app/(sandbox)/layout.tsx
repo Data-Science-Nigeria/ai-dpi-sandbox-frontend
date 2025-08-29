@@ -13,14 +13,16 @@ export default function SandboxLayout({
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <div className="flex">
         <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
-        <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'lg:ml-64' : 'lg:ml-16'} pt-4`}>
-          <div className="p-6">
-            {children}
-          </div>
-        </main>
+        <div className="flex-1">
+          <Header sidebarOpen={sidebarOpen} />
+          <main className="pt-[4rem] sm:pt-[5rem] md:pt-[5.5rem]">
+            <div className="p-6">
+              {children}
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );
