@@ -82,7 +82,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
       
       {/* Sidebar */}
       <div className={`
-        fixed top-0 left-0 h-screen bg-white dark:bg-[#1C1E22] z-40
+        fixed top-0 left-0 h-screen bg-white dark:bg-[#1C1E22] z-40 overflow-y-auto custom-scrollbar
         transition-all duration-300 ease-in-out
         ${isOpen ? 'w-56 sm:w-64' : 'w-12 sm:w-16'}
         translate-x-0
@@ -96,7 +96,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
           )}
           <button
             onClick={onToggle}
-            className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-[#AFBDD1]"
+            className="lg:hidden p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-[#AFBDD1]"
           >
             {isOpen ? (
               <PanelLeft className="w-5 h-5" />
