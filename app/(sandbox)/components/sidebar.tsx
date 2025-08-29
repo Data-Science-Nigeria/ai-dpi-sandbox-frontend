@@ -82,7 +82,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
       
       {/* Sidebar */}
       <div className={`
-        fixed top-0 left-0 h-screen bg-white dark:bg-[#1C1E22] z-40 overflow-y-auto custom-scrollbar
+        fixed top-0 left-0 h-screen bg-white dark:bg-[#1C1E22] z-40 overflow-y-auto custom-scrollbar border-r border-gray-100 dark:border-[#1C1E22] 
         transition-all duration-300 ease-in-out
         ${isOpen ? 'w-56 sm:w-64' : 'w-12 sm:w-16'}
         translate-x-0
@@ -90,8 +90,8 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
         {/* Header */}
         <div className={`flex items-center p-4 mt-20 ${isOpen ? 'justify-between' : 'justify-center'}`}>
           {isOpen && (
-            <h1 className="text-[#00A859] font-bold text-xl">
-              AI-DPI
+            <h1 className="text-[#00A859] font-bold text-xl ml-2">
+              AI-DPI SANDBOX
             </h1>
           )}
           <button
