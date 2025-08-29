@@ -1,58 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronRightIcon, ChevronDownIcon, PlayIcon, BookOpenIcon, CubeIcon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { PanelLeft, PanelRight } from 'lucide-react';
+import { menuItems } from '../introduction/data/data';
 
 interface SidebarProps {
   isOpen: boolean;
   onToggle: () => void;
 }
-
-interface MenuItem {
-  id: string;
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-  hasDropdown?: boolean;
-  items?: { id: string; label: string }[];
-}
-
-const menuItems: MenuItem[] = [
-  {
-    id: 'get-started',
-    label: 'Get Started',
-    icon: PlayIcon,
-    hasDropdown: true,
-    items: [
-      { id: 'introduction', label: 'Introduction' },
-      { id: 'quick-start', label: 'Quick Start' },
-      { id: 'installation', label: 'Installation' },
-      { id: 'setup', label: 'Setup' }
-    ]
-  },
-  {
-    id: 'guide',
-    label: 'Guide',
-    icon: BookOpenIcon,
-    hasDropdown: true,
-    items: [
-      { id: 'basics', label: 'Basics' },
-      { id: 'advanced', label: 'Advanced' },
-      { id: 'best-practices', label: 'Best Practices' }
-    ]
-  },
-  {
-    id: 'core-resources',
-    label: 'Core Resources',
-    icon: CubeIcon,
-    hasDropdown: true,
-    items: [
-      { id: 'components', label: 'Components' },
-      { id: 'hooks', label: 'Hooks' },
-      { id: 'utilities', label: 'Utilities' }
-    ]
-  }
-];
 
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
