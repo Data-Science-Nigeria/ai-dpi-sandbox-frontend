@@ -17,7 +17,10 @@ export const useThemeStore = create<ThemeStore>()(
       getEffectiveTheme: () => {
         const { theme } = get();
         if (theme === 'system') {
-          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          if (typeof window !== 'undefined') {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          return 'light';
         }
         return theme;
       },
