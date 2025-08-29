@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { registerUserApiV1AuthRegisterPostMutation } from '@/client/@tanstack/react-query.gen';
 import { Button } from '@/components/ui/button';
@@ -232,4 +232,4 @@ export function SignUpForm() {
 
     </form>
   );
-}
+}*/

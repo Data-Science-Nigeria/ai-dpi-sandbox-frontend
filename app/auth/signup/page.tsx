@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { SignUpForm } from './components/signup-form';
 
@@ -10,4 +10,4 @@ export default function SignUpPage() {
       </div>
     </main>
   );
-}
+}*/

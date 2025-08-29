@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { useRouter } from 'next/navigation';
 import { Logo } from '@/app/components/logo';
@@ -20,7 +20,7 @@ export default function Page() {
           <ArrowLeftIcon className="h-6 w-6" />
         </button>
 
-        <header className="mb-6">
+        <header className="mt-6">
           <Logo />
         </header>
 
@@ -37,4 +37,4 @@ export default function Page() {
       </div>
     </div>
   );
-}
+}*/

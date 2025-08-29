@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { Logo } from '@/app/components/logo';
 import { Button } from '@/components/ui/button';
@@ -31,4 +31,4 @@ export default function Page() {
       </div>
     </div>
   );
-}
+}*/

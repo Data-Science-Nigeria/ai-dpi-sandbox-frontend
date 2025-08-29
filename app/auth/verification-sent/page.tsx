@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { Logo } from '@/app/components/logo';
 import { useAuthStore } from '@/app/store/use-auth-store';
@@ -50,4 +50,4 @@ export default function Page() {
       </div>
     </div>
   );
-}
+}*/
