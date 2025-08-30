@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { loginUserApiV1AuthLoginPostMutation } from '@/client/@tanstack/react-query.gen';
-import { Button } from '@/components/ui/button';
-import { getApiErrorMessage } from '@/app/utils/get-api-error-message';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { LoaderCircle } from 'lucide-react';
+import { loginUserApiV1AuthLoginPostMutation } from "@/client/@tanstack/react-query.gen";
+import { Button } from "@/components/ui/button";
+import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { LoaderCircle } from "lucide-react";
 //import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import * as z from 'zod';
-import { PasswordInput } from '@/app/auth/components/password-input';
-import { useAuthStore } from '@/app/store/use-auth-store';
-import { client } from '@/client/client.gen';
-import { Logo } from '@/app/components/logo';
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
+import { PasswordInput } from "@/app/auth/components/password-input";
+import { useAuthStore } from "@/app/store/use-auth-store";
+import { client } from "@/client/client.gen";
+import { Logo } from "@/app/components/logo";
 
 const signInSchema = z.object({
-  email: z.string().min(1, 'Email is required').email('Invalid email'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().min(1, "Email is required").email("Invalid email"),
+  password: z.string().min(1, "Password is required"),
 });
 
 type SignInData = z.infer<typeof signInSchema>;
@@ -38,50 +38,58 @@ export function SignInForm() {
     resolver: zodResolver(signInSchema),
   });
 
-
-
   const login = useMutation({
     ...loginUserApiV1AuthLoginPostMutation(),
     onSuccess: (tokenRes) => {
       setAuth(tokenRes);
-      
+
       client.setConfig({
         headers: {
           Authorization: `Bearer ${tokenRes.access_token}`,
         },
       });
 
-      router.push('/introduction');
+      router.push("/introduction");
       setIsSubmitting(false);
     },
     onError: (error: any) => {
       setIsSubmitting(false);
-      
-      const status = error?.status_code || error?.response?.status || error?.status || error?.code;
-      const errorMessage = (status === 401 || status === 400 || status === 403) 
-        ? (error?.error || 'Incorrect email or password')
-        : getApiErrorMessage(error);
+
+      const status =
+        error?.status_code ||
+        error?.response?.status ||
+        error?.status ||
+        error?.code;
+      const errorMessage =
+        status === 401 || status === 400 || status === 403
+          ? error?.error || "Incorrect email or password"
+          : getApiErrorMessage(error);
       toast.error(errorMessage);
     },
   });
 
   const onSubmit = async (data: SignInData) => {
     setIsSubmitting(true);
-    
+
     login.mutate(
-      { 
+      {
         body: {
           username: data.email,
           password: data.password,
-        }
+        },
       },
       {
         onError: (error: any) => {
-          const status = error?.status_code || error?.response?.status || error?.status || error?.code;
-          const errorMessage = (status === 401 || status === 400 || status === 403) 
-            ? (error?.error || 'Incorrect email or password')
-            : getApiErrorMessage(error);
-          setError('email', { message: errorMessage });
+          const status =
+            error?.status_code ||
+            error?.response?.status ||
+            error?.status ||
+            error?.code;
+          const errorMessage =
+            status === 401 || status === 400 || status === 403
+              ? error?.error || "Incorrect email or password"
+              : getApiErrorMessage(error);
+          setError("email", { message: errorMessage });
         },
       }
     );
@@ -115,7 +123,7 @@ export function SignInForm() {
             </label>
             <input
               type="email"
-              {...register('email')}
+              {...register("email")}
               className="mt-1 w-full rounded border p-2 focus:border-[#0A5A1A] focus:ring-[#0A5A1A] focus:outline-none dark:text-white"
             />
             {errors.email && (
@@ -124,7 +132,7 @@ export function SignInForm() {
           </div>
 
           <PasswordInput
-            {...register('password')}
+            {...register("password")}
             error={errors.password?.message}
             label="Password"
           />
@@ -141,14 +149,10 @@ export function SignInForm() {
 
         <Button
           type="submit"
-          className="mx-auto mt-5 w-full bg-[#0A5A1A] hover:bg-[#0A5A1A]"
+          className="mx-auto mt-5 w-full bg-[#0A5A1A] hover:bg-[#0A5A1A] text-white"
           disabled={isSubmitting}
         >
-          {isSubmitting ? (
-            <LoaderCircle className="animate-spin" />
-          ) : (
-            'Sign In'
-          )}
+          {isSubmitting ? <LoaderCircle className="animate-spin" /> : "Sign In"}
         </Button>
       </form>
     </div>
