@@ -16,7 +16,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white dark:bg-[#1C1E22] px-6 py-4 z-50 border-b border-gray-100 dark:border-[#1C1E22]">
+    <header className="fixed top-0 left-0 right-0 bg-white dark:bg-[#1C1E22] px-6 py-4 z-50 border-b border-gray-100 dark:border-[#1C1E22] transition-colors duration-300 ease-in-out">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <Logo />
