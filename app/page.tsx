@@ -15,22 +15,22 @@ export default function Home() {
             height={50}
             priority
           />
-          
+
           <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-center">
             Welcome to the Sandbox Platform
           </h1>
-          
-          <div className="flex gap-6">
+
+          <div className="flex justify-center">
             <Link href="/auth/signin">
               <Button className="px-8 py-3 bg-[#00A859] text-white hover:bg-[#008A4A] transition-colors">
                 Login
               </Button>
             </Link>
-            <Link href="/auth/signup">
+            {/* <Link href="/auth/signup">
               <Button className="px-8 py-3 bg-[#00A859] text-white hover:bg-[#008A4A] transition-colors">
                 Signup
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </main>
