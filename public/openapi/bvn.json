@@ -1,0 +1,200 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "BVN Verification Service",
+    "description": "Bank Verification Number (BVN) verification service using Dojah API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8006",
+      "description": "BVN Service"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "BVNVerificationRequest": {
+        "type": "object",
+        "required": ["bvn"],
+        "properties": {
+          "bvn": {
+            "type": "string",
+            "pattern": "^[0-9]{11}$",
+            "example": "12345678901",
+            "description": "11-digit Bank Verification Number"
+          }
+        }
+      },
+      "BVNVerificationResponse": {
+        "type": "object",
+        "properties": {
+          "bvn_verified": {
+            "type": "boolean"
+          },
+          "verification_data": {
+            "type": "object",
+            "properties": {
+              "bvn": {
+                "type": "string"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "phone_number": {
+                "type": "string"
+              },
+              "date_of_birth": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/verify": {
+      "post": {
+        "tags": ["BVN Verification"],
+        "summary": "Verify BVN using Dojah API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BVNVerificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "BVN verification result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BVNVerificationResponse"
+                },
+                "example": {
+                  "bvn_verified": true,
+                  "verification_data": {
+                    "bvn": "12345678901",
+                    "first_name": "Adebayo",
+                    "last_name": "Ogundimu",
+                    "phone_number": "+2348012345678",
+                    "date_of_birth": "1990-01-15"
+                  },
+                  "message": "BVN verified successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid BVN format"
+          },
+          "500": {
+            "description": "Verification service error"
+          }
+        }
+      }
+    },
+    "/api/v1/lookup": {
+      "post": {
+        "tags": ["BVN Verification"],
+        "summary": "Basic BVN lookup without full verification",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BVNVerificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "BVN lookup result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BVNVerificationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/status/{bvn}": {
+      "get": {
+        "tags": ["BVN Verification"],
+        "summary": "Get BVN verification status",
+        "parameters": [
+          {
+            "name": "bvn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{11}$",
+              "example": "12345678901"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BVN status",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "BVN 12345678901 status check",
+                  "bvn": "12345678901"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Health check endpoint",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service health status",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "healthy",
+                  "service": "bvn-service"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

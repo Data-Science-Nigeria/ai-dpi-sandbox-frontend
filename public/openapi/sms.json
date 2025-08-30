@@ -1,0 +1,275 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SMS Service",
+    "description": "SMS messaging service for Nigerian phone numbers",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8003",
+      "description": "SMS Service"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "SMSRequest": {
+        "type": "object",
+        "required": ["to", "message"],
+        "properties": {
+          "to": {
+            "type": "string",
+            "pattern": "^\\+234[0-9]{10}$|^0[0-9]{10}$",
+            "example": "+2348012345678",
+            "description": "Nigerian phone number in +234XXXXXXXXXX or 0XXXXXXXXXX format"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 160,
+            "example": "Your OTP is 123456. Valid for 5 minutes."
+          },
+          "sender_id": {
+            "type": "string",
+            "maxLength": 11,
+            "example": "MyApp",
+            "description": "Custom sender ID (optional)"
+          }
+        }
+      },
+      "BulkSMSRequest": {
+        "type": "object",
+        "required": ["recipients", "message"],
+        "properties": {
+          "recipients": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^\\+234[0-9]{10}$|^0[0-9]{10}$"
+            },
+            "example": ["+2348012345678", "+2347012345678"],
+            "description": "Array of Nigerian phone numbers"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 160,
+            "example": "Welcome to our DPI platform!"
+          },
+          "sender_id": {
+            "type": "string",
+            "maxLength": 11,
+            "example": "MyApp"
+          }
+        }
+      },
+      "SMSResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["sent", "pending", "failed"]
+          },
+          "message": {
+            "type": "string"
+          },
+          "cost": {
+            "type": "number",
+            "description": "Cost in Naira"
+          }
+        }
+      },
+      "BulkSMSResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "total_sent": {
+            "type": "integer"
+          },
+          "failed_count": {
+            "type": "integer"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "message_id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "total_cost": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/send": {
+      "post": {
+        "tags": ["SMS"],
+        "summary": "Send SMS to Nigerian phone number",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SMSRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SMS sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SMSResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message_id": "msg_12345",
+                  "status": "sent",
+                  "message": "SMS sent successfully",
+                  "cost": 4.50
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid phone number or message"
+          },
+          "500": {
+            "description": "SMS service error"
+          }
+        }
+      }
+    },
+    "/api/v1/send/bulk": {
+      "post": {
+        "tags": ["SMS"],
+        "summary": "Send bulk SMS to multiple Nigerian phone numbers",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkSMSRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bulk SMS processing result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkSMSResponse"
+                },
+                "example": {
+                  "success": true,
+                  "total_sent": 2,
+                  "failed_count": 0,
+                  "results": [
+                    {
+                      "phone": "+2348012345678",
+                      "status": "sent",
+                      "message_id": "msg_12345"
+                    },
+                    {
+                      "phone": "+2347012345678",
+                      "status": "sent",
+                      "message_id": "msg_12346"
+                    }
+                  ],
+                  "total_cost": 9.00
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/status/{message_id}": {
+      "get": {
+        "tags": ["SMS"],
+        "summary": "Get SMS delivery status",
+        "parameters": [
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "msg_12345"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SMS status",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message_id": "msg_12345",
+                  "status": "delivered",
+                  "delivered_at": "2024-01-15T10:30:00Z",
+                  "phone": "+2348012345678"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Health check endpoint",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service health status",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "healthy",
+                  "service": "sms-service"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

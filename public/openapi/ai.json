@@ -1,0 +1,202 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AI Service",
+    "description": "AI content generation and data analysis service",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8002",
+      "description": "AI Service"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "ContentGenerationRequest": {
+        "type": "object",
+        "required": ["prompt"],
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "example": "Generate a welcome message for Nigerian fintech users"
+          },
+          "max_tokens": {
+            "type": "integer",
+            "default": 150,
+            "example": 150
+          },
+          "temperature": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.7,
+            "example": 0.7
+          }
+        }
+      },
+      "DataAnalysisRequest": {
+        "type": "object",
+        "required": ["data", "analysis_type"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "example": [
+              {"transaction_amount": 5000, "user_age": 25},
+              {"transaction_amount": 15000, "user_age": 35}
+            ]
+          },
+          "analysis_type": {
+            "type": "string",
+            "enum": ["summary", "trend", "prediction"],
+            "example": "summary"
+          }
+        }
+      },
+      "AIResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/generate": {
+      "post": {
+        "tags": ["Content Generation"],
+        "summary": "Generate AI content",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentGenerationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generated content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AIResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "generated_text": "Welcome to our innovative fintech platform designed specifically for Nigerian users. Experience seamless digital banking with local currency support and mobile money integration.",
+                    "tokens_used": 32
+                  },
+                  "message": "Content generated successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters"
+          },
+          "500": {
+            "description": "AI service error"
+          }
+        }
+      }
+    },
+    "/api/v1/analyze": {
+      "post": {
+        "tags": ["Data Analysis"],
+        "summary": "Analyze data with AI",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataAnalysisRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Analysis results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AIResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "analysis_results": {
+                      "average_transaction": 10000,
+                      "user_demographics": {
+                        "average_age": 30,
+                        "age_range": "25-35"
+                      },
+                      "insights": [
+                        "Higher transaction amounts correlate with older users",
+                        "Peak activity in 25-35 age group"
+                      ]
+                    }
+                  },
+                  "message": "Data analysis completed successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "500": {
+            "description": "Analysis service error"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Health check endpoint",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service health status",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "healthy",
+                  "service": "ai-service"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
