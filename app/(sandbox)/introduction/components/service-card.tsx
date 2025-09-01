@@ -44,7 +44,7 @@ export default function ServiceCard({
               onClick={handleConnect}
               className={`font-medium transition-colors duration-200 ${
                 connected
-                  ? "text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300"
+                  ? "text-[#00A859] dark:text-[#00A859] hover:text-green-700 dark:hover:text-green-300"
                   : "text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
               }`}
             >
