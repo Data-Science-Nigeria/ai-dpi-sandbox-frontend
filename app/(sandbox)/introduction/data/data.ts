@@ -1,4 +1,4 @@
-import { PlayIcon, BookOpenIcon, CubeIcon } from '@heroicons/react/24/outline';
+import { PlayIcon, BookOpenIcon, CubeIcon } from "@heroicons/react/24/outline";
 
 export interface MenuItem {
   id: string;
@@ -6,39 +6,68 @@ export interface MenuItem {
   icon: React.ComponentType<{ className?: string }>;
   hasDropdown?: boolean;
   href?: string;
-  items?: { id: string; label: string; href: string }[];
+  items?: { id: string; label: string; href: string; locked?: boolean }[];
 }
 
 export const menuItems: MenuItem[] = [
   {
-    id: 'get-started',
-    label: 'Get Started',
+    id: "get-started",
+    label: "Get Started",
     icon: PlayIcon,
     hasDropdown: true,
     items: [
-      { id: 'introduction', label: 'Introduction', href: '/introduction' }
-    ]
+      { id: "introduction", label: "Introduction", href: "/introduction" },
+    ],
   },
   {
-    id: 'guide',
-    label: 'Guide',
+    id: "api-documentation",
+    label: "API Documentation",
     icon: BookOpenIcon,
     hasDropdown: true,
-    items: [
-      { id: 'basics', label: 'Basics', href: '/' },
-      { id: 'advanced', label: 'Advanced', href: '/' },
-      { id: 'best-practices', label: 'Best Practices', href: '/' }
-    ]
+    items: [],
   },
   {
-    id: 'core-resources',
-    label: 'Core Resources',
+    id: "core-resources",
+    label: "Core Resources",
     icon: CubeIcon,
     hasDropdown: true,
     items: [
-      { id: 'components', label: 'Components', href: '/' },
-      { id: 'hooks', label: 'Hooks', href: '/' },
-      { id: 'utilities', label: 'Utilities', href: '/' }
-    ]
-  }
+      {
+        id: "ai",
+        label: "AI",
+        href: "/introduction/services/ai",
+        locked: true,
+      },
+      {
+        id: "bvn",
+        label: "BVN",
+        href: "/introduction/services/bvn",
+        locked: true,
+      },
+      {
+        id: "ivr",
+        label: "IVR",
+        href: "/introduction/services/ivr",
+        locked: true,
+      },
+      {
+        id: "nin",
+        label: "NIN",
+        href: "/introduction/services/nin",
+        locked: true,
+      },
+      {
+        id: "sms",
+        label: "SMS",
+        href: "/introduction/services/sms",
+        locked: true,
+      },
+      {
+        id: "two-way-sms",
+        label: "Two-Way SMS",
+        href: "/introduction/services/two-way-sms",
+        locked: true,
+      },
+    ],
+  },
 ];
