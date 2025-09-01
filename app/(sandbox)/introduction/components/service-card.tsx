@@ -19,10 +19,11 @@ export default function ServiceCard({
   href,
 }: ServiceCardProps) {
   const { isConnected, toggleConnection } = useConnectionStore();
-  const connected = isConnected(name.toLowerCase());
+  const serviceId = name.toLowerCase().replace(/\s+/g, "-");
+  const connected = isConnected(serviceId);
 
   const handleConnect = () => {
-    toggleConnection(name.toLowerCase());
+    toggleConnection(serviceId);
   };
 
   const handleTest = () => {
