@@ -42,7 +42,7 @@ export function MobileNav() {
 
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
-        <div className="absolute top-full right-6 mt-2 bg-white dark:bg-[#1C1E22] border dark:border-gray-400 rounded-md shadow-lg z-50 lg:hidden min-w-[200px]">
+        <div className="absolute top-full right-6 mt-2 bg-white dark:bg-[#1C1E22] border dark:border-gray-400 rounded-md shadow-lg z-50 lg:hidden min-w-[200px] mobile-nav-dropdown">
           <div className="py-3 px-2">
             <div className="flex items-center justify-center px-4 py-2">
               <Avatar />

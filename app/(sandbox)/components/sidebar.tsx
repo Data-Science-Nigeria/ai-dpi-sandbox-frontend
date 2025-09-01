@@ -71,23 +71,23 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
       <div
         className={`
         fixed top-0 left-0 h-screen bg-white dark:bg-[#1C1E22] z-40 overflow-y-auto custom-scrollbar border-r border-gray-100 dark:border-[#1C1E22] 
-        transition-all duration-300 ease-in-out
-        ${isOpen ? "w-56 sm:w-64" : "w-12 sm:w-16"}
+        transition-all duration-300 ease-in-out sidebar-container
+        ${isOpen ? "w-full xs:w-56 sm:w-64" : "w-12 xs:w-12 sm:w-16"}
         translate-x-0
       `}
       >
         {/* Header */}
         <div
-          className={`flex items-center p-4 mt-20 ${isOpen ? "justify-between" : "justify-center"}`}
+          className={`flex items-center p-2 xs:p-4 mt-20 ${isOpen ? "justify-between" : "justify-center"}`}
         >
           {isOpen && (
-            <h1 className="text-[#00A859] font-bold text-xl ml-2">
+            <h1 className="text-[#00A859] font-bold text-lg xs:text-xl ml-1 xs:ml-2 truncate">
               AI-DPI SANDBOX
             </h1>
           )}
           <button
             onClick={onToggle}
-            className="lg:hidden p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-[#AFBDD1]"
+            className="lg:hidden p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-[#AFBDD1] flex-shrink-0"
           >
             {isOpen ? (
               <PanelLeft className="w-5 h-5" />
@@ -99,7 +99,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
         {/* Menu Items */}
         <nav
-          className={`flex-1 p-4 mt-2 space-y-2 ${!isOpen ? "flex flex-col items-center" : ""}`}
+          className={`flex-1 p-2 xs:p-4 mt-2 space-y-2 ${!isOpen ? "flex flex-col items-center" : ""}`}
         >
           {menuItems.map((item) => (
             <div key={item.id}>
@@ -123,7 +123,9 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                 >
                   <item.icon className="w-5 h-5 flex-shrink-0" />
                   {isOpen && (
-                    <span className="text-sm font-medium">{item.label}</span>
+                    <span className="text-xs xs:text-sm font-medium truncate">
+                      {item.label}
+                    </span>
                   )}
                 </div>
                 {isOpen &&
@@ -139,7 +141,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
               {isOpen &&
                 item.hasDropdown &&
                 expandedItems.includes(item.id) && (
-                  <div className="ml-8 mt-2 space-y-1">
+                  <div className="ml-4 xs:ml-8 mt-2 space-y-1">
                     {item.items?.map((subItem) => {
                       const isServiceConnected = isConnected(subItem.id);
                       const isLocked = subItem.locked && !isServiceConnected;
@@ -155,7 +157,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                           }}
                           disabled={isLocked}
                           className={`
-                          w-full text-left p-2 rounded-md text-sm flex items-center justify-between
+                          w-full text-left p-2 rounded-md text-xs xs:text-sm flex items-center justify-between
                           transition-colors duration-200
                           ${
                             isLocked
@@ -166,7 +168,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                           }
                         `}
                         >
-                          <span>{subItem.label}</span>
+                          <span className="truncate pr-2">{subItem.label}</span>
                           {isLocked && (
                             <Tooltip>
                               <TooltipTrigger asChild>

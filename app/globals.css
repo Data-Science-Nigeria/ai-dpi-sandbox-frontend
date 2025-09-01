@@ -175,3 +175,38 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #008a4a;
 }
+
+/* Service card buttons responsive layout */
+@media (max-width: 215px) {
+  .service-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+/* Mobile nav centered for very small screens */
+@media (max-width: 215px) {
+  .mobile-nav-dropdown {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+  }
+}
+
+/* Fixed layout for screens 215px and below */
+@media (max-width: 215px) {
+  body {
+    min-width: 215px;
+    overflow-x: auto;
+  }
+
+  html {
+    min-width: 215px;
+  }
+
+  /* Ensure sidebar takes full height on very small screens */
+  .sidebar-container {
+    height: 3000px !important;
+  }
+}
