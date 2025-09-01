@@ -7,7 +7,7 @@ import {
   ChevronDownIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
-import { PanelLeft, PanelRight } from "lucide-react";
+import { PanelLeft, PanelRight, FileText } from "lucide-react";
 import { menuItems } from "../introduction/data/data";
 import { useConnectionStore } from "@/app/store/use-connection-store";
 import {
@@ -24,6 +24,7 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const pathname = usePathname();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const [expandedEndpoints, setExpandedEndpoints] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<string>("");
   const { isConnected } = useConnectionStore();
 
@@ -51,6 +52,29 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
         ? prev.filter((id) => id !== itemId)
         : [...prev, itemId]
     );
+  };
+
+  const toggleEndpoints = (itemId: string) => {
+    setExpandedEndpoints((prev) =>
+      prev.includes(itemId)
+        ? prev.filter((id) => id !== itemId)
+        : [...prev, itemId]
+    );
+  };
+
+  const getMethodColor = (method: string) => {
+    switch (method) {
+      case "GET":
+        return "text-green-600 dark:text-green-400";
+      case "POST":
+        return "text-blue-600 dark:text-blue-400";
+      case "PUT":
+        return "text-orange-600 dark:text-orange-400";
+      case "DELETE":
+        return "text-red-600 dark:text-red-400";
+      default:
+        return "text-gray-500 dark:text-gray-400";
+    }
   };
 
   const handleItemSelect = (itemId: string) => {
@@ -147,37 +171,106 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                       const isLocked = subItem.locked && !isServiceConnected;
 
                       return (
-                        <button
-                          key={subItem.id}
-                          onClick={() => {
-                            if (!isLocked) {
-                              handleItemSelect(subItem.id);
-                              window.location.href = subItem.href;
+                        <div key={subItem.id}>
+                          <button
+                            onClick={() => {
+                              if (!isLocked) {
+                                if (
+                                  subItem.endpoints &&
+                                  subItem.endpoints.length > 0
+                                ) {
+                                  toggleEndpoints(subItem.id);
+                                } else {
+                                  handleItemSelect(subItem.id);
+                                  window.location.href = subItem.href;
+                                }
+                              }
+                            }}
+                            disabled={isLocked}
+                            className={`
+                            w-full text-left p-2 rounded-md text-xs xs:text-sm flex items-center justify-between
+                            transition-colors duration-200
+                            ${
+                              isLocked
+                                ? "text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                                : selectedItem === subItem.id
+                                  ? "bg-[#00A859] text-white"
+                                  : "text-gray-600 dark:text-[#AFBDD1] hover:bg-gray-100 dark:hover:bg-gray-700"
                             }
-                          }}
-                          disabled={isLocked}
-                          className={`
-                          w-full text-left p-2 rounded-md text-xs xs:text-sm flex items-center justify-between
-                          transition-colors duration-200
-                          ${
-                            isLocked
-                              ? "text-gray-400 dark:text-gray-500 cursor-not-allowed"
-                              : selectedItem === subItem.id
-                                ? "bg-[#00A859] text-white"
-                                : "text-gray-600 dark:text-[#AFBDD1] hover:bg-gray-100 dark:hover:bg-gray-700"
-                          }
-                        `}
-                        >
-                          <span className="truncate pr-2">{subItem.label}</span>
-                          {isLocked && (
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <LockClosedIcon className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                              </TooltipTrigger>
-                              <TooltipContent>Connect to test</TooltipContent>
-                            </Tooltip>
-                          )}
-                        </button>
+                          `}
+                          >
+                            <span className="truncate pr-2">
+                              {subItem.label}
+                            </span>
+                            <div className="flex items-center gap-1">
+                              {subItem.endpoints &&
+                                subItem.endpoints.length > 0 &&
+                                !isLocked &&
+                                (expandedEndpoints.includes(subItem.id) ? (
+                                  <ChevronDownIcon className="w-3 h-3" />
+                                ) : (
+                                  <ChevronRightIcon className="w-3 h-3" />
+                                ))}
+                              {isLocked && (
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <LockClosedIcon className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    Connect to test
+                                  </TooltipContent>
+                                </Tooltip>
+                              )}
+                            </div>
+                          </button>
+
+                          {/* Endpoints dropdown */}
+                          {!isLocked &&
+                            subItem.endpoints &&
+                            subItem.endpoints.length > 0 &&
+                            expandedEndpoints.includes(subItem.id) && (
+                              <div className="ml-4 mt-1 space-y-1">
+                                <button
+                                  onClick={() => {
+                                    handleItemSelect(subItem.id);
+                                    window.location.href = subItem.href;
+                                  }}
+                                  className={`
+                                  w-full text-left p-1.5 rounded-md text-xs flex items-center
+                                  transition-colors duration-200
+                                  ${
+                                    selectedItem === subItem.id
+                                      ? "bg-[#00A859]/20 text-[#00A859]"
+                                      : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  }
+                                `}
+                                >
+                                  <FileText className="w-3 h-3 mr-2" />
+                                  Overview
+                                </button>
+
+                                {subItem.endpoints.map((endpoint, idx) => (
+                                  <button
+                                    key={idx}
+                                    onClick={() => {
+                                      window.location.href = `${subItem.href}?endpoint=${encodeURIComponent(endpoint.path)}`;
+                                    }}
+                                    className="w-full text-left p-1.5 rounded-md text-xs flex items-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                  >
+                                    <FileText className="w-3 h-3 mr-2" />
+                                    <span
+                                      className={`font-mono mr-2 ${getMethodColor(endpoint.method)}`}
+                                    >
+                                      {endpoint.method}
+                                    </span>
+                                    <span className="truncate text-gray-600 dark:text-gray-300">
+                                      {endpoint.name}
+                                    </span>
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                        </div>
                       );
                     })}
                   </div>
