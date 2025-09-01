@@ -106,10 +106,10 @@ export function ApiClientInterface({
   };
 
   return (
-    <div className="flex h-full">
-      <div className="w-1/2 border-r flex flex-col">
-        <div className="p-4 border-b bg-card">
-          <h3 className="font-semibold">Request</h3>
+    <div className="flex flex-col lg:flex-row h-full">
+      <div className="w-full lg:w-1/2 border-b lg:border-b-0 lg:border-r flex flex-col">
+        <div className="p-2 sm:p-4 border-b bg-card">
+          <h3 className="font-semibold text-sm sm:text-base">Request</h3>
         </div>
         <div className="flex-1 overflow-hidden">
           <RequestComposer
@@ -120,9 +120,9 @@ export function ApiClientInterface({
         </div>
       </div>
 
-      <div className="w-1/2 flex flex-col">
-        <div className="p-4 border-b bg-card">
-          <h3 className="font-semibold">Response</h3>
+      <div className="w-full lg:w-1/2 flex flex-col">
+        <div className="p-2 sm:p-4 border-b bg-card">
+          <h3 className="font-semibold text-sm sm:text-base">Response</h3>
         </div>
         <div className="flex-1 overflow-hidden">
           <ResponseViewer response={response} loading={loading} />

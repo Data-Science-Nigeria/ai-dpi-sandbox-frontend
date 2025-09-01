@@ -58,20 +58,24 @@ export default function BVNServicePage() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="p-6 border-b bg-card">
-        <div className="flex items-center gap-3 mb-2">
-          <CreditCard className="h-6 w-6 text-primary" />
-          <h1 className="text-2xl font-bold">BVN Service</h1>
-          <Badge variant="secondary">Bank Verification</Badge>
+      <div className="p-3 sm:p-6 border-b bg-card">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <CreditCard className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+            <h1 className="text-xl sm:text-2xl font-bold">BVN Service</h1>
+          </div>
+          <Badge variant="secondary" className="text-xs sm:text-sm">
+            Bank Verification
+          </Badge>
         </div>
-        <p className="text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground">
           Bank Verification Number validation service for Nigerian financial
           identity verification
         </p>
       </div>
 
       <ScrollArea className="flex-1">
-        <div className="p-6">
+        <div className="p-3 sm:p-6">
           <div className="grid gap-6">
             <section>
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -124,34 +128,42 @@ export default function BVNServicePage() {
                 Features
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Financial Identity</h3>
-                  <p className="text-sm text-muted-foreground">
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Financial Identity
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Verify customer financial identity through BVN linked to all
                     Nigerian bank accounts.
                   </p>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Cross-Bank Validation</h3>
-                  <p className="text-sm text-muted-foreground">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Cross-Bank Validation
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Single BVN works across all Nigerian banks for comprehensive
                     customer verification.
                   </p>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">KYC Compliance</h3>
-                  <p className="text-sm text-muted-foreground">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    KYC Compliance
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Meet regulatory KYC requirements with CBN-approved BVN
                     verification process.
                   </p>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Fraud Prevention</h3>
-                  <p className="text-sm text-muted-foreground">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Fraud Prevention
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Reduce financial fraud with verified customer identity and
                     banking history.
                   </p>
@@ -219,7 +231,7 @@ export default function BVNServicePage() {
 
                 <div className="border rounded-lg p-4">
                   <h3 className="font-medium mb-2">Use Cases</h3>
-                  <div className="grid md:grid-cols-2 gap-3 text-sm">
+                  <div className="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
                     <div>
                       <div className="font-medium">Fintech Onboarding</div>
                       <div className="text-muted-foreground">

@@ -50,20 +50,24 @@ export default function AIServicePage() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="p-6 border-b bg-card">
-        <div className="flex items-center gap-3 mb-2">
-          <Zap className="h-6 w-6 text-primary" />
-          <h1 className="text-2xl font-bold">AI Service</h1>
-          <Badge variant="secondary">Nigerian Context</Badge>
+      <div className="p-3 sm:p-6 border-b bg-card">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+            <h1 className="text-xl sm:text-2xl font-bold">AI Service</h1>
+          </div>
+          <Badge variant="secondary" className="text-xs sm:text-sm">
+            Nigerian Context
+          </Badge>
         </div>
-        <p className="text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground">
           AI content generation and data analysis service optimized for Nigerian
           use cases
         </p>
       </div>
 
       <ScrollArea className="flex-1">
-        <div className="p-6">
+        <div className="p-3 sm:p-6">
           <div className="grid gap-6">
             <section>
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -75,33 +79,36 @@ export default function AIServicePage() {
                 {aiEndpoints.map((endpoint) => (
                   <div
                     key={endpoint.path}
-                    className="border rounded-lg p-4 hover:bg-accent/50 transition-colors"
+                    className="border rounded-lg p-3 sm:p-4 hover:bg-accent/50 transition-colors"
                   >
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row items-start justify-between mb-2 gap-2">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 w-full">
                         <Badge
                           variant={
                             endpoint.method === "GET" ? "secondary" : "default"
                           }
+                          className="text-xs"
                         >
                           {endpoint.method}
                         </Badge>
-                        <code className="text-sm bg-muted px-2 py-1 rounded">
+                        <code className="text-xs sm:text-sm bg-muted px-2 py-1 rounded break-all">
                           {endpoint.path}
                         </code>
                       </div>
                     </div>
 
-                    <h3 className="font-medium mb-1">{endpoint.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">
+                    <h3 className="font-medium mb-1 text-sm sm:text-base">
+                      {endpoint.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-3">
                       {endpoint.description}
                     </p>
 
-                    <details className="text-sm">
+                    <details className="text-xs sm:text-sm">
                       <summary className="cursor-pointer text-primary hover:underline">
                         View example request
                       </summary>
-                      <pre className="mt-2 p-3 bg-muted rounded text-xs overflow-x-auto">
+                      <pre className="mt-2 p-2 sm:p-3 bg-muted rounded text-xs overflow-x-auto">
                         {JSON.stringify(endpoint.example, null, 2)}
                       </pre>
                     </details>
@@ -116,35 +123,43 @@ export default function AIServicePage() {
                 Features
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Content Generation</h3>
-                  <p className="text-sm text-muted-foreground">
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Content Generation
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Generate contextually relevant content for Nigerian
                     audiences with local language support and cultural
                     awareness.
                   </p>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Data Analysis</h3>
-                  <p className="text-sm text-muted-foreground">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Data Analysis
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Analyze transaction patterns, user behavior, and business
                     metrics with AI-powered insights.
                   </p>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Nigerian Context</h3>
-                  <p className="text-sm text-muted-foreground">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Nigerian Context
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Optimized for Nigerian fintech, e-commerce, and digital
                     services with local market understanding.
                   </p>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Real-time Processing</h3>
-                  <p className="text-sm text-muted-foreground">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Real-time Processing
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Fast response times with efficient processing for production
                     applications.
                   </p>

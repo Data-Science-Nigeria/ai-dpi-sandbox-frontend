@@ -49,58 +49,65 @@ export default function IVRServicePage() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="p-6 border-b bg-card">
-        <div className="flex items-center gap-3 mb-2">
-          <Phone className="h-6 w-6 text-primary" />
-          <h1 className="text-2xl font-bold">IVR Service</h1>
-          <Badge variant="secondary">Voice Interactions</Badge>
+      <div className="p-3 sm:p-6 border-b bg-card">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+            <h1 className="text-xl sm:text-2xl font-bold">IVR Service</h1>
+          </div>
+          <Badge variant="secondary" className="text-xs sm:text-sm">
+            Voice Interactions
+          </Badge>
         </div>
-        <p className="text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground">
           Interactive Voice Response system for automated phone interactions
           with Nigerian customers
         </p>
       </div>
 
       <ScrollArea className="flex-1">
-        <div className="p-6">
-          <div className="grid gap-6">
+        <div className="p-3 sm:p-6">
+          <div className="grid gap-4 sm:gap-6">
             <section>
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <PhoneCall className="h-5 w-5" />
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+                <PhoneCall className="h-4 w-4 sm:h-5 sm:w-5" />
                 Available Endpoints
               </h2>
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {ivrEndpoints.map((endpoint) => (
                   <div
                     key={endpoint.path}
-                    className="border rounded-lg p-4 hover:bg-accent/50 transition-colors"
+                    className="border rounded-lg p-3 sm:p-4 hover:bg-accent/50 transition-colors"
                   >
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row items-start justify-between mb-2 gap-2">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 w-full">
                         <Badge
                           variant={
                             endpoint.method === "GET" ? "secondary" : "default"
                           }
+                          className="text-xs"
                         >
                           {endpoint.method}
                         </Badge>
-                        <code className="text-sm bg-muted px-2 py-1 rounded">
+                        <code className="text-xs sm:text-sm bg-muted px-2 py-1 rounded break-all">
                           {endpoint.path}
                         </code>
                       </div>
                     </div>
 
-                    <h3 className="font-medium mb-1">{endpoint.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">
+                    <h3 className="font-medium mb-1 text-sm sm:text-base">
+                      {endpoint.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-3">
                       {endpoint.description}
                     </p>
 
-                    <details className="text-sm">
+                    <details className="text-xs sm:text-sm">
                       <summary className="cursor-pointer text-primary hover:underline">
                         View example request
                       </summary>
-                      <pre className="mt-2 p-3 bg-muted rounded text-xs overflow-x-auto">
+                      <pre className="mt-2 p-2 sm:p-3 bg-muted rounded text-xs overflow-x-auto">
                         {JSON.stringify(endpoint.example, null, 2)}
                       </pre>
                     </details>
@@ -115,34 +122,42 @@ export default function IVRServicePage() {
                 Features
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Multi-language Support</h3>
-                  <p className="text-sm text-muted-foreground">
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Multi-language Support
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Support for English, Hausa, Yoruba, and Igbo languages for
                     better customer experience.
                   </p>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">USSD Integration</h3>
-                  <p className="text-sm text-muted-foreground">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    USSD Integration
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Seamless integration with USSD codes for feature phone
                     compatibility.
                   </p>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Call Flow Management</h3>
-                  <p className="text-sm text-muted-foreground">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Call Flow Management
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Design complex call flows with branching logic and dynamic
                     content.
                   </p>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Real-time Analytics</h3>
-                  <p className="text-sm text-muted-foreground">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Real-time Analytics
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Track call completion rates, user interactions, and system
                     performance.
                   </p>
@@ -156,10 +171,12 @@ export default function IVRServicePage() {
                 Use Cases
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Customer Support</h3>
-                  <p className="text-sm text-muted-foreground mb-2">
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Customer Support
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-2">
                     Automated customer service with menu options and call
                     routing.
                   </p>
@@ -171,9 +188,11 @@ export default function IVRServicePage() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Payment Notifications</h3>
-                  <p className="text-sm text-muted-foreground mb-2">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Payment Notifications
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-2">
                     Automated payment confirmations and reminders.
                   </p>
                   <div className="text-xs text-muted-foreground">
@@ -184,9 +203,11 @@ export default function IVRServicePage() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Survey & Feedback</h3>
-                  <p className="text-sm text-muted-foreground mb-2">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Survey & Feedback
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-2">
                     Collect customer feedback through voice surveys.
                   </p>
                   <div className="text-xs text-muted-foreground">
@@ -197,9 +218,11 @@ export default function IVRServicePage() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Authentication</h3>
-                  <p className="text-sm text-muted-foreground mb-2">
+                <div className="border rounded-lg p-3 sm:p-4">
+                  <h3 className="font-medium mb-2 text-sm sm:text-base">
+                    Authentication
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-2">
                     Voice-based OTP and identity verification.
                   </p>
                   <div className="text-xs text-muted-foreground">

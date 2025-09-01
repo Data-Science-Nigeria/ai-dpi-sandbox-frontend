@@ -82,10 +82,10 @@ export function RequestComposer({
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-4 border-b bg-card">
-        <div className="flex gap-2 items-center">
+      <div className="p-2 sm:p-4 border-b bg-card">
+        <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
           <Select value={method} onValueChange={setMethod}>
-            <SelectTrigger className="w-24">
+            <SelectTrigger className="w-full sm:w-24">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -105,7 +105,7 @@ export function RequestComposer({
             placeholder="Enter request URL"
           />
 
-          <Button onClick={handleSend} className="px-6">
+          <Button onClick={handleSend} className="px-4 sm:px-6">
             <Play className="h-4 w-4 mr-2" />
             Send
           </Button>
@@ -152,42 +152,49 @@ export function RequestComposer({
             </div>
 
             <ScrollArea className="flex-1">
-              <div className="p-4 space-y-2">
+              <div className="p-2 sm:p-4 space-y-2">
                 {headers.map((header, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={header.enabled}
-                      onChange={(e) =>
-                        updateHeader(index, "enabled", e.target.checked)
-                      }
-                      className="w-4 h-4"
-                    />
-                    <input
-                      type="text"
-                      value={header.key}
-                      onChange={(e) =>
-                        updateHeader(index, "key", e.target.value)
-                      }
-                      placeholder="Header name"
-                      className="flex-1 px-3 py-2 border rounded-md bg-background text-sm"
-                    />
-                    <input
-                      type="text"
-                      value={header.value}
-                      onChange={(e) =>
-                        updateHeader(index, "value", e.target.value)
-                      }
-                      placeholder="Header value"
-                      className="flex-1 px-3 py-2 border rounded-md bg-background text-sm"
-                    />
-                    <Button
-                      onClick={() => removeHeader(index)}
-                      variant="ghost"
-                      size="sm"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                  <div
+                    key={index}
+                    className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2"
+                  >
+                    <div className="flex items-center gap-2 sm:contents">
+                      <input
+                        type="checkbox"
+                        checked={header.enabled}
+                        onChange={(e) =>
+                          updateHeader(index, "enabled", e.target.checked)
+                        }
+                        className="w-4 h-4"
+                      />
+                      <input
+                        type="text"
+                        value={header.key}
+                        onChange={(e) =>
+                          updateHeader(index, "key", e.target.value)
+                        }
+                        placeholder="Header name"
+                        className="flex-1 sm:flex-1 px-3 py-2 border rounded-md bg-background text-sm"
+                      />
+                    </div>
+                    <div className="flex items-center gap-2 sm:contents">
+                      <input
+                        type="text"
+                        value={header.value}
+                        onChange={(e) =>
+                          updateHeader(index, "value", e.target.value)
+                        }
+                        placeholder="Header value"
+                        className="flex-1 sm:flex-1 px-3 py-2 border rounded-md bg-background text-sm"
+                      />
+                      <Button
+                        onClick={() => removeHeader(index)}
+                        variant="ghost"
+                        size="sm"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -197,7 +204,7 @@ export function RequestComposer({
 
         {activeTab === "body" && method !== "GET" && (
           <div className="h-full flex flex-col">
-            <div className="p-4 border-b flex justify-between items-center">
+            <div className="p-2 sm:p-4 border-b flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
               <span className="text-sm font-medium">Request Body</span>
               <Button onClick={formatJson} variant="outline" size="sm">
                 <Copy className="h-4 w-4 mr-2" />
@@ -205,7 +212,7 @@ export function RequestComposer({
               </Button>
             </div>
 
-            <div className="flex-1 p-4">
+            <div className="flex-1 p-2 sm:p-4">
               <textarea
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
