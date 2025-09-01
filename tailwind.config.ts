@@ -18,6 +18,10 @@ const config: Config = {
       "2xl": "1536px",
     },
     extend: {
+      fontFamily: {
+        poppins: ["var(--poppins)", "sans-serif"],
+        inter: ["var(--inter)", "sans-serif"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
