@@ -10,7 +10,6 @@ export interface MenuItem {
     id: string;
     label: string;
     href: string;
-    locked?: boolean;
     endpoints?: { name: string; method: string; path: string }[];
   }[];
 }
@@ -21,16 +20,14 @@ export const menuItems: MenuItem[] = [
     label: "Get Started",
     icon: PlayIcon,
     hasDropdown: true,
-    items: [
-      { id: "introduction", label: "Introduction", href: "/introduction" },
-    ],
+    items: [{ id: "dashboard", label: "Dashboard", href: "/introduction" }],
   },
   {
     id: "api-documentation",
     label: "API Documentation",
     icon: BookOpenIcon,
     hasDropdown: true,
-    items: [],
+    items: [{ id: "overview", label: "Overview", href: "/docs" }],
   },
   {
     id: "core-resources",
@@ -42,7 +39,6 @@ export const menuItems: MenuItem[] = [
         id: "ai",
         label: "AI",
         href: "/introduction/services/ai",
-        locked: true,
         endpoints: [
           {
             name: "Generate Content",
@@ -56,7 +52,6 @@ export const menuItems: MenuItem[] = [
         id: "bvn",
         label: "BVN",
         href: "/introduction/services/bvn",
-        locked: true,
         endpoints: [
           { name: "Verify BVN", method: "POST", path: "/api/v1/verify" },
           { name: "BVN Lookup", method: "POST", path: "/api/v1/lookup" },
@@ -67,7 +62,6 @@ export const menuItems: MenuItem[] = [
         id: "ivr",
         label: "IVR",
         href: "/introduction/services/ivr",
-        locked: true,
         endpoints: [
           { name: "Create Call", method: "POST", path: "/api/v1/call" },
           { name: "Call Status", method: "GET", path: "/api/v1/call/{id}" },
@@ -77,7 +71,6 @@ export const menuItems: MenuItem[] = [
         id: "nin",
         label: "NIN",
         href: "/introduction/services/nin",
-        locked: true,
         endpoints: [
           { name: "Verify NIN", method: "POST", path: "/api/v1/verify" },
           { name: "NIN Lookup", method: "POST", path: "/api/v1/lookup" },
@@ -88,7 +81,6 @@ export const menuItems: MenuItem[] = [
         id: "sms",
         label: "SMS",
         href: "/introduction/services/sms",
-        locked: true,
         endpoints: [
           { name: "Send SMS", method: "POST", path: "/api/v1/send" },
           { name: "Bulk SMS", method: "POST", path: "/api/v1/send/bulk" },
@@ -99,7 +91,6 @@ export const menuItems: MenuItem[] = [
         id: "two-way-sms",
         label: "Two-Way SMS",
         href: "/introduction/services/two-way-sms",
-        locked: true,
         endpoints: [
           {
             name: "Send Interactive",

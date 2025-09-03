@@ -1,6 +1,5 @@
 "use client";
 
-import { useConnectionStore } from "@/app/store/use-connection-store";
 import {
   Tooltip,
   TooltipTrigger,
@@ -18,15 +17,7 @@ export default function ServiceCard({
   description,
   href,
 }: ServiceCardProps) {
-  const { isConnected, toggleConnection } = useConnectionStore();
-  const serviceId = name.toLowerCase().replace(/\s+/g, "-");
-  const connected = isConnected(serviceId);
-
-  const handleConnect = () => {
-    toggleConnection(serviceId);
-  };
-
-  const handleTest = () => {
+  const handleDocs = () => {
     window.location.href = href;
   };
 
@@ -38,37 +29,18 @@ export default function ServiceCard({
       <p className="text-xs xs:text-sm text-gray-600 dark:text-gray-400 mb-3 xs:mb-4 break-words">
         {description}
       </p>
-      <div className="flex items-center justify-between gap-2 service-buttons">
+      <div className="flex items-center justify-start gap-2 service-buttons">
         <Tooltip>
           <TooltipTrigger asChild>
             <button
-              onClick={handleConnect}
-              className={`font-medium transition-colors duration-200 text-xs xs:text-sm ${
-                connected
-                  ? "text-[#00A859] dark:text-[#00A859] hover:text-green-700 dark:hover:text-green-300"
-                  : "text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
-              }`}
+              onClick={handleDocs}
+              className="text-[#00A859] dark:text-[#00A859] font-medium hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200 text-xs xs:text-sm"
             >
-              {connected ? "CONNECTED" : "CONNECT"}
+              DOCS
             </button>
           </TooltipTrigger>
-          <TooltipContent>
-            {connected ? "Click to disconnect" : "Click to connect"}
-          </TooltipContent>
+          <TooltipContent>Go to service overview</TooltipContent>
         </Tooltip>
-        {connected && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={handleTest}
-                className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 text-xs xs:text-sm"
-              >
-                TEST
-              </button>
-            </TooltipTrigger>
-            <TooltipContent>Go to service page</TooltipContent>
-          </Tooltip>
-        )}
       </div>
     </div>
   );

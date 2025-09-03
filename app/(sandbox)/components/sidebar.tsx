@@ -2,19 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import {
-  ChevronRightIcon,
-  ChevronDownIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { PanelLeft, PanelRight, FileText } from "lucide-react";
 import { menuItems } from "../introduction/data/data";
-import { useConnectionStore } from "@/app/store/use-connection-store";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@/components/ui/tooltip";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -26,7 +16,6 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const [expandedEndpoints, setExpandedEndpoints] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<string>("");
-  const { isConnected } = useConnectionStore();
 
   useEffect(() => {
     // Find the active menu item based on current pathname
@@ -167,35 +156,27 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                 expandedItems.includes(item.id) && (
                   <div className="ml-4 xs:ml-8 mt-2 space-y-1">
                     {item.items?.map((subItem) => {
-                      const isServiceConnected = isConnected(subItem.id);
-                      const isLocked = subItem.locked && !isServiceConnected;
-
                       return (
                         <div key={subItem.id}>
                           <button
                             onClick={() => {
-                              if (!isLocked) {
-                                if (
-                                  subItem.endpoints &&
-                                  subItem.endpoints.length > 0
-                                ) {
-                                  toggleEndpoints(subItem.id);
-                                } else {
-                                  handleItemSelect(subItem.id);
-                                  window.location.href = subItem.href;
-                                }
+                              if (
+                                subItem.endpoints &&
+                                subItem.endpoints.length > 0
+                              ) {
+                                toggleEndpoints(subItem.id);
+                              } else {
+                                handleItemSelect(subItem.id);
+                                window.location.href = subItem.href;
                               }
                             }}
-                            disabled={isLocked}
                             className={`
                             w-full text-left p-2 rounded-md text-xs xs:text-sm flex items-center justify-between
                             transition-colors duration-200
                             ${
-                              isLocked
-                                ? "text-gray-400 dark:text-gray-500 cursor-not-allowed"
-                                : selectedItem === subItem.id
-                                  ? "bg-[#00A859] text-white"
-                                  : "text-gray-600 dark:text-[#AFBDD1] hover:bg-gray-100 dark:hover:bg-gray-700"
+                              selectedItem === subItem.id
+                                ? "bg-[#00A859] text-white"
+                                : "text-gray-600 dark:text-[#AFBDD1] hover:bg-gray-100 dark:hover:bg-gray-700"
                             }
                           `}
                           >
@@ -205,28 +186,16 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                             <div className="flex items-center gap-1">
                               {subItem.endpoints &&
                                 subItem.endpoints.length > 0 &&
-                                !isLocked &&
                                 (expandedEndpoints.includes(subItem.id) ? (
                                   <ChevronDownIcon className="w-3 h-3" />
                                 ) : (
                                   <ChevronRightIcon className="w-3 h-3" />
                                 ))}
-                              {isLocked && (
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <LockClosedIcon className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                                  </TooltipTrigger>
-                                  <TooltipContent>
-                                    Connect to test
-                                  </TooltipContent>
-                                </Tooltip>
-                              )}
                             </div>
                           </button>
 
                           {/* Endpoints dropdown */}
-                          {!isLocked &&
-                            subItem.endpoints &&
+                          {subItem.endpoints &&
                             subItem.endpoints.length > 0 &&
                             expandedEndpoints.includes(subItem.id) && (
                               <div className="ml-4 mt-1 space-y-1">
