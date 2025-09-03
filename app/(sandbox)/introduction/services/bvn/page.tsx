@@ -10,6 +10,8 @@ import {
   AlertTriangle,
   BarChart3,
 } from "lucide-react";
+import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
+import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
 const bvnEndpoints = [
   {
@@ -284,6 +286,10 @@ export default function BVNServicePage() {
           </div>
         </div>
       </ScrollArea>
+
+      <div className="p-3 sm:p-6 border-t">
+        <PageNavigation {...getNavigation("/introduction/services/bvn")} />
+      </div>
     </div>
   );
 }

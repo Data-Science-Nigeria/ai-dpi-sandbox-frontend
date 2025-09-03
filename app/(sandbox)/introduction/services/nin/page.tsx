@@ -5,6 +5,8 @@ import { ApiClientInterface } from "../components/api-client-interface";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Shield, CheckCircle, AlertTriangle, BarChart3 } from "lucide-react";
+import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
+import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
 const ninEndpoints = [
   {
@@ -251,6 +253,10 @@ export default function NINServicePage() {
           </div>
         </div>
       </ScrollArea>
+
+      <div className="p-3 sm:p-6 border-t">
+        <PageNavigation {...getNavigation("/introduction/services/nin")} />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import ServiceCard from "./components/service-card";
 import { services } from "./data/services";
+import { PageNavigation } from "../components/page-navigation";
+import { getNavigation } from "../lib/navigation";
 
 export default function Introduction() {
   return (
@@ -17,6 +19,10 @@ export default function Introduction() {
             href={service.href}
           />
         ))}
+      </div>
+
+      <div className="mt-6 sm:mt-8">
+        <PageNavigation {...getNavigation("/introduction")} />
       </div>
     </div>
   );

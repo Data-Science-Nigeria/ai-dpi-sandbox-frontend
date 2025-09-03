@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { PageNavigation } from "../components/page-navigation";
+import { getNavigation } from "../lib/navigation";
 
 export default function APIOverview() {
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
@@ -44,54 +46,6 @@ export default function APIOverview() {
             <li>Start testing DPI services with Nigerian data formats</li>
           </ol>
         </div>
-      </section>
-
-      {/* Platform Services */}
-      <section>
-        <button
-          onClick={() => toggleSection("platform")}
-          className="flex items-center justify-between w-full text-left"
-        >
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            🏗️ Platform Services
-          </h2>
-          {expandedSections.includes("platform") ? (
-            <ChevronDownIcon className="w-5 h-5" />
-          ) : (
-            <ChevronRightIcon className="w-5 h-5" />
-          )}
-        </button>
-
-        {expandedSections.includes("platform") && (
-          <div className="mt-4 space-y-4">
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
-                <h3 className="font-semibold text-purple-600 dark:text-purple-400">
-                  Auth Service
-                </h3>
-                <p className="text-sm mt-2">
-                  OAuth2 authentication, JWT tokens, admin user management
-                </p>
-              </div>
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
-                <h3 className="font-semibold text-purple-600 dark:text-purple-400">
-                  API Gateway
-                </h3>
-                <p className="text-sm mt-2">
-                  Request routing, rate limiting, circuit breaking
-                </p>
-              </div>
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
-                <h3 className="font-semibold text-purple-600 dark:text-purple-400">
-                  Config Service
-                </h3>
-                <p className="text-sm mt-2">
-                  Centralized configuration management
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
       </section>
 
       {/* DPI Services */}
@@ -214,57 +168,6 @@ export default function APIOverview() {
         )}
       </section>
 
-      {/* Authentication Flow */}
-      <section>
-        <button
-          onClick={() => toggleSection("auth")}
-          className="flex items-center justify-between w-full text-left"
-        >
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            🔐 Authentication Flow
-          </h2>
-          {expandedSections.includes("auth") ? (
-            <ChevronDownIcon className="w-5 h-5" />
-          ) : (
-            <ChevronRightIcon className="w-5 h-5" />
-          )}
-        </button>
-
-        {expandedSections.includes("auth") && (
-          <div className="mt-4 bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-            <h3 className="font-semibold mb-4">
-              Startup Access (Closed Sandbox)
-            </h3>
-            <ol className="list-decimal list-inside space-y-2 text-sm">
-              <li>
-                <strong>Account Request:</strong> Contact administrators for
-                account creation
-              </li>
-              <li>
-                <strong>Admin Creates Account:</strong> Administrators create
-                accounts via <code>/api/v1/admin/users</code>
-              </li>
-              <li>
-                <strong>Credentials Provided:</strong> Receive login credentials
-                securely
-              </li>
-              <li>
-                <strong>Login:</strong> Use <code>/api/v1/auth/login/json</code>{" "}
-                to get access token
-              </li>
-              <li>
-                <strong>API Access:</strong> Include token in Authorization
-                header for all requests
-              </li>
-              <li>
-                <strong>Logout:</strong> Use <code>/api/v1/auth/logout</code>{" "}
-                when done
-              </li>
-            </ol>
-          </div>
-        )}
-      </section>
-
       {/* Data Formats */}
       <section>
         <button
@@ -314,47 +217,6 @@ export default function APIOverview() {
         )}
       </section>
 
-      {/* Interactive Documentation Links */}
-      <section className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-          📚 Interactive API Documentation
-        </h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          <a
-            href="http://127.0.0.1:8000/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-4 bg-white dark:bg-gray-700 rounded-lg border hover:border-green-500 transition-colors"
-          >
-            <h3 className="font-semibold text-green-600 dark:text-green-400">
-              Auth Service
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-              OAuth2, JWT tokens, user management
-            </p>
-            <code className="text-xs text-blue-600 dark:text-blue-400">
-              http://127.0.0.1:8000/docs
-            </code>
-          </a>
-          <a
-            href="http://127.0.0.1:8080/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-4 bg-white dark:bg-gray-700 rounded-lg border hover:border-green-500 transition-colors"
-          >
-            <h3 className="font-semibold text-green-600 dark:text-green-400">
-              API Gateway
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-              Request routing, rate limiting
-            </p>
-            <code className="text-xs text-blue-600 dark:text-blue-400">
-              http://127.0.0.1:8080/docs
-            </code>
-          </a>
-        </div>
-      </section>
-
       {/* Security & Compliance */}
       <section className="border-t border-gray-200 dark:border-gray-700 pt-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
@@ -385,6 +247,7 @@ export default function APIOverview() {
           </div>
         </div>
       </section>
+      <PageNavigation {...getNavigation("/docs")} />
     </div>
   );
 }
