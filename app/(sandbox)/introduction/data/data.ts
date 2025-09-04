@@ -10,7 +10,7 @@ export interface MenuItem {
     id: string;
     label: string;
     href: string;
-    endpoints?: { name: string; method: string; path: string }[];
+    endpoints?: { name: string; method: string; path: string; href: string }[];
   }[];
 }
 
@@ -44,8 +44,14 @@ export const menuItems: MenuItem[] = [
             name: "Generate Content",
             method: "POST",
             path: "/api/v1/generate",
+            href: "/introduction/services/ai/generate",
           },
-          { name: "Analyze Data", method: "POST", path: "/api/v1/analyze" },
+          {
+            name: "Analyze Data",
+            method: "POST",
+            path: "/api/v1/analyze",
+            href: "/introduction/services/ai/analyze",
+          },
         ],
       },
       {
@@ -53,9 +59,24 @@ export const menuItems: MenuItem[] = [
         label: "BVN",
         href: "/introduction/services/bvn",
         endpoints: [
-          { name: "Verify BVN", method: "POST", path: "/api/v1/verify" },
-          { name: "BVN Lookup", method: "POST", path: "/api/v1/lookup" },
-          { name: "BVN Status", method: "GET", path: "/api/v1/status/{bvn}" },
+          {
+            name: "Verify BVN",
+            method: "POST",
+            path: "/api/v1/verify",
+            href: "/introduction/services/bvn/verify",
+          },
+          {
+            name: "BVN Lookup",
+            method: "POST",
+            path: "/api/v1/lookup",
+            href: "/introduction/services/bvn/lookup",
+          },
+          {
+            name: "BVN Status",
+            method: "GET",
+            path: "/api/v1/status/{bvn}",
+            href: "/introduction/services/bvn/status",
+          },
         ],
       },
       {
@@ -63,8 +84,18 @@ export const menuItems: MenuItem[] = [
         label: "IVR",
         href: "/introduction/services/ivr",
         endpoints: [
-          { name: "Create Call", method: "POST", path: "/api/v1/call" },
-          { name: "Call Status", method: "GET", path: "/api/v1/call/{id}" },
+          {
+            name: "Create Call",
+            method: "POST",
+            path: "/api/v1/call",
+            href: "/introduction/services/ivr/call",
+          },
+          {
+            name: "Call Status",
+            method: "GET",
+            path: "/api/v1/call/{id}",
+            href: "/introduction/services/ivr/call-status",
+          },
         ],
       },
       {
@@ -72,9 +103,24 @@ export const menuItems: MenuItem[] = [
         label: "NIN",
         href: "/introduction/services/nin",
         endpoints: [
-          { name: "Verify NIN", method: "POST", path: "/api/v1/verify" },
-          { name: "NIN Lookup", method: "POST", path: "/api/v1/lookup" },
-          { name: "NIN Status", method: "GET", path: "/api/v1/status/{nin}" },
+          {
+            name: "Verify NIN",
+            method: "POST",
+            path: "/api/v1/verify",
+            href: "/introduction/services/nin/verify",
+          },
+          {
+            name: "NIN Lookup",
+            method: "POST",
+            path: "/api/v1/lookup",
+            href: "/introduction/services/nin/lookup",
+          },
+          {
+            name: "NIN Status",
+            method: "GET",
+            path: "/api/v1/status/{nin}",
+            href: "/introduction/services/nin/status",
+          },
         ],
       },
       {
@@ -82,9 +128,24 @@ export const menuItems: MenuItem[] = [
         label: "SMS",
         href: "/introduction/services/sms",
         endpoints: [
-          { name: "Send SMS", method: "POST", path: "/api/v1/send" },
-          { name: "Bulk SMS", method: "POST", path: "/api/v1/send/bulk" },
-          { name: "SMS Status", method: "GET", path: "/api/v1/status/{id}" },
+          {
+            name: "Send SMS",
+            method: "POST",
+            path: "/api/v1/send",
+            href: "/introduction/services/sms/send",
+          },
+          {
+            name: "Bulk SMS",
+            method: "POST",
+            path: "/api/v1/send/bulk",
+            href: "/introduction/services/sms/bulk",
+          },
+          {
+            name: "SMS Status",
+            method: "GET",
+            path: "/api/v1/status/{id}",
+            href: "/introduction/services/sms/status",
+          },
         ],
       },
       {
@@ -96,8 +157,14 @@ export const menuItems: MenuItem[] = [
             name: "Send Interactive",
             method: "POST",
             path: "/api/v1/interactive",
+            href: "/introduction/services/two-way-sms/interactive",
           },
-          { name: "Handle Response", method: "POST", path: "/api/v1/response" },
+          {
+            name: "Handle Response",
+            method: "POST",
+            path: "/api/v1/response",
+            href: "/introduction/services/two-way-sms/response",
+          },
         ],
       },
     ],

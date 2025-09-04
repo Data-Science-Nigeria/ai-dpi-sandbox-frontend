@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { PanelLeft, PanelRight, FileText } from "lucide-react";
 import { menuItems } from "../introduction/data/data";
@@ -13,6 +13,7 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const [expandedEndpoints, setExpandedEndpoints] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<string>("");
@@ -21,15 +22,34 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
     // Find the active menu item based on current pathname
     for (const item of menuItems) {
       if (item.items) {
-        const activeSubItem = item.items.find(
-          (subItem) => subItem.href === pathname
-        );
-        if (activeSubItem) {
-          setSelectedItem(activeSubItem.id);
-          setExpandedItems((prev) =>
-            prev.includes(item.id) ? prev : [...prev, item.id]
-          );
-          break;
+        for (const subItem of item.items) {
+          // Check if current path matches service overview
+          if (subItem.href === pathname) {
+            setSelectedItem(subItem.id);
+            setExpandedItems((prev) =>
+              prev.includes(item.id) ? prev : [...prev, item.id]
+            );
+            return;
+          }
+
+          // Check if current path matches any endpoint
+          if (subItem.endpoints) {
+            const activeEndpoint = subItem.endpoints.find(
+              (endpoint) => endpoint.href === pathname
+            );
+            if (activeEndpoint) {
+              setSelectedItem(
+                `${subItem.id}-${activeEndpoint.name.toLowerCase().replace(/\s+/g, "-")}`
+              );
+              setExpandedItems((prev) =>
+                prev.includes(item.id) ? prev : [...prev, item.id]
+              );
+              setExpandedEndpoints((prev) =>
+                prev.includes(subItem.id) ? prev : [...prev, subItem.id]
+              );
+              return;
+            }
+          }
         }
       }
     }
@@ -167,7 +187,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                 toggleEndpoints(subItem.id);
                               } else {
                                 handleItemSelect(subItem.id);
-                                window.location.href = subItem.href;
+                                router.push(subItem.href);
                               }
                             }}
                             className={`
@@ -202,7 +222,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                 <button
                                   onClick={() => {
                                     handleItemSelect(subItem.id);
-                                    window.location.href = subItem.href;
+                                    router.push(subItem.href);
                                   }}
                                   className={`
                                   w-full text-left p-1.5 rounded-md text-xs flex items-center
@@ -218,25 +238,46 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                   Overview
                                 </button>
 
-                                {subItem.endpoints.map((endpoint, idx) => (
-                                  <button
-                                    key={idx}
-                                    onClick={() => {
-                                      window.location.href = `${subItem.href}?endpoint=${encodeURIComponent(endpoint.path)}`;
-                                    }}
-                                    className="w-full text-left p-1.5 rounded-md text-xs flex items-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                                  >
-                                    <FileText className="w-3 h-3 mr-2" />
-                                    <span
-                                      className={`font-mono mr-2 ${getMethodColor(endpoint.method)}`}
+                                {subItem.endpoints.map((endpoint, idx) => {
+                                  const endpointId = `${subItem.id}-${endpoint.name.toLowerCase().replace(/\s+/g, "-")}`;
+                                  return (
+                                    <button
+                                      key={idx}
+                                      onClick={() => {
+                                        handleItemSelect(endpointId);
+                                        router.push(endpoint.href);
+                                      }}
+                                      className={`
+                                        w-full text-left p-1.5 rounded-md text-xs flex items-center transition-colors duration-200
+                                        ${
+                                          selectedItem === endpointId
+                                            ? "bg-[#00A859] text-white"
+                                            : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        }
+                                      `}
                                     >
-                                      {endpoint.method}
-                                    </span>
-                                    <span className="truncate text-gray-600 dark:text-gray-300">
-                                      {endpoint.name}
-                                    </span>
-                                  </button>
-                                ))}
+                                      <FileText className="w-3 h-3 mr-2" />
+                                      <span
+                                        className={`font-mono mr-2 ${
+                                          selectedItem === endpointId
+                                            ? "text-white"
+                                            : getMethodColor(endpoint.method)
+                                        }`}
+                                      >
+                                        {endpoint.method}
+                                      </span>
+                                      <span
+                                        className={`truncate ${
+                                          selectedItem === endpointId
+                                            ? "text-white"
+                                            : "text-gray-600 dark:text-gray-300"
+                                        }`}
+                                      >
+                                        {endpoint.name}
+                                      </span>
+                                    </button>
+                                  );
+                                })}
                               </div>
                             )}
                         </div>

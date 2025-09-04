@@ -13,7 +13,8 @@ export default function SandboxLayout({
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setSidebarOpen(window.innerWidth >= 1024);
+      const isLargeScreen = window.innerWidth >= 1024;
+      setSidebarOpen(isLargeScreen);
     };
 
     checkScreenSize();
@@ -22,12 +23,16 @@ export default function SandboxLayout({
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
+  const handleSidebarToggle = () => {
+    // Only allow manual toggle on mobile screens
+    if (window.innerWidth < 1024) {
+      setSidebarOpen(!sidebarOpen);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      <Sidebar
-        isOpen={sidebarOpen}
-        onToggle={() => setSidebarOpen(!sidebarOpen)}
-      />
+      <Sidebar isOpen={sidebarOpen} onToggle={handleSidebarToggle} />
       <Header />
       <main
         className={`pt-[4rem] sm:pt-[5rem] md:pt-[5.5rem] transition-all duration-300 ${sidebarOpen ? "ml-0 xs:ml-56 sm:ml-64" : "ml-12 xs:ml-12 sm:ml-16"}`}
