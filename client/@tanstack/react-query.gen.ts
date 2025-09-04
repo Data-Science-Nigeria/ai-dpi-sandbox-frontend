@@ -2,51 +2,134 @@
 
 import {
   type Options,
-  healthCheckHealthGet,
-  rootGet,
-  openidConfigurationWellKnownOpenidConfigurationGet,
-  jwksWellKnownJwksJsonGet,
-  registerUserApiV1AuthRegisterPost,
-  loginUserApiV1AuthLoginPost,
-  loginUserJsonApiV1AuthLoginJsonPost,
-  getUserInfoApiV1AuthUserinfoGet,
-  readUserMeApiV1AuthMeGet,
-  createOauthClientApiV1Oauth2ClientsPost,
-  getOauthClientApiV1Oauth2ClientsClientIdGet,
-  authorizeApiV1Oauth2AuthorizeGet,
-  getTokenApiV1Oauth2TokenPost,
-  verifyNinBvnApiV1IdentityVerifyNinBvnPost,
-  getVerificationStatusApiV1IdentityVerificationStatusGet,
+  apiGetHealthHealthCheck,
+  apiGetMetricsMetrics,
+  apiGetRootRoot,
+  authPostApiV1AuthLoginLogin,
+  authPostApiV1AuthLoginJsonLoginJson,
+  authGetApiV1AuthMeGetCurrentUserProfile,
+  authPostApiV1AuthLogoutLogout,
+  authPostApiV1AuthTokenOauthToken,
+  authGetApiV1AuthAdminUsersListUsers,
+  authPostApiV1AuthAdminUsersCreateUser,
+  authDeleteApiV1AuthAdminUsersUserIdDeleteUser,
+  authGetApiV1AuthAdminUsersUserIdGetUser,
+  authPutApiV1AuthAdminUsersUserIdUpdateUser,
+  authPostApiV1AuthAdminUsersUserIdActivateActivateUser,
+  authPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUser,
+  authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPassword,
+  authPostApiV1AuthOauth2ClientsCreateOauthClient,
+  authGetApiV1AuthOauth2ClientsClientIdGetOauthClient,
+  authGetApiV1AuthOauth2AuthorizeOauthAuthorize,
+  ninPostApiV1NinVerifyVerifyNin,
+  ninGetApiV1NinStatusNinGetNinStatus,
+  ninPostApiV1NinLookupLookupNin,
+  bvnPostApiV1BvnVerifyVerifyBvn,
+  bvnGetApiV1BvnStatusBvnGetBvnStatus,
+  bvnPostApiV1BvnLookupLookupBvn,
+  bvnPostApiV1BvnMatchMatchBvn,
+  bvnGetApiV1BvnBanksGetSupportedBanks,
+  smsPostApiV1SmsSendSendSms,
+  smsPostApiV1SmsBulkSendBulkSms,
+  smsPostApiV1SmsOtpGenerateGenerateOtp,
+  smsPostApiV1SmsOtpVerifyVerifyOtp,
+  smsGetApiV1SmsStatusMessageIdGetMessageStatus,
+  smsGetApiV1SmsBalanceGetSmsBalance,
+  smsGetApiV1SmsTemplatesGetMessageTemplates,
+  aiPostApiV1AiChatChatCompletion,
+  aiPostApiV1AiGenerateGenerateContent,
+  aiPostApiV1AiAnalyzeAnalyzeText,
+  aiPostApiV1AiTranslateTranslateText,
+  aiGetApiV1AiModelsGetAvailableModels,
+  aiGetApiV1AiConversationsConversationIdGetConversation,
+  aiGetApiV1AiUsageGetUsageStatistics,
+  healthGetApiV1ServicesHealthGetServicesHealth,
+  healthGetApiV1DpiHealthGetDpiHealth,
+  healthGetApiV1ServicesServiceNameHealthGetServiceHealth,
+  healthGetApiV1ServicesServiceNameMetricsGetServiceMetrics,
+  examplesGetApiV1ExamplesNinNinExamples,
+  examplesGetApiV1ExamplesSmsSmsExamples,
+  examplesGetApiV1ExamplesAuthAuthExamples,
+  examplesGetApiV1ExamplesIntegrationIntegrationExamples,
 } from "../sdk.gen";
-import { queryOptions, type UseMutationOptions } from "@tanstack/react-query";
+import {
+  queryOptions,
+  type UseMutationOptions,
+  type DefaultError,
+} from "@tanstack/react-query";
 import type {
-  HealthCheckHealthGetData,
-  RootGetData,
-  OpenidConfigurationWellKnownOpenidConfigurationGetData,
-  JwksWellKnownJwksJsonGetData,
-  RegisterUserApiV1AuthRegisterPostData,
-  RegisterUserApiV1AuthRegisterPostError,
-  RegisterUserApiV1AuthRegisterPostResponse,
-  LoginUserApiV1AuthLoginPostData,
-  LoginUserApiV1AuthLoginPostError,
-  LoginUserApiV1AuthLoginPostResponse,
-  LoginUserJsonApiV1AuthLoginJsonPostData,
-  LoginUserJsonApiV1AuthLoginJsonPostError,
-  LoginUserJsonApiV1AuthLoginJsonPostResponse,
-  GetUserInfoApiV1AuthUserinfoGetData,
-  ReadUserMeApiV1AuthMeGetData,
-  CreateOauthClientApiV1Oauth2ClientsPostData,
-  CreateOauthClientApiV1Oauth2ClientsPostError,
-  CreateOauthClientApiV1Oauth2ClientsPostResponse,
-  GetOauthClientApiV1Oauth2ClientsClientIdGetData,
-  AuthorizeApiV1Oauth2AuthorizeGetData,
-  GetTokenApiV1Oauth2TokenPostData,
-  GetTokenApiV1Oauth2TokenPostError,
-  GetTokenApiV1Oauth2TokenPostResponse,
-  VerifyNinBvnApiV1IdentityVerifyNinBvnPostData,
-  VerifyNinBvnApiV1IdentityVerifyNinBvnPostError,
-  VerifyNinBvnApiV1IdentityVerifyNinBvnPostResponse,
-  GetVerificationStatusApiV1IdentityVerificationStatusGetData,
+  ApiGetHealthHealthCheckData,
+  ApiGetMetricsMetricsData,
+  ApiGetRootRootData,
+  AuthPostApiV1AuthLoginLoginData,
+  AuthPostApiV1AuthLoginLoginError,
+  AuthPostApiV1AuthLoginJsonLoginJsonData,
+  AuthPostApiV1AuthLoginJsonLoginJsonError,
+  AuthGetApiV1AuthMeGetCurrentUserProfileData,
+  AuthPostApiV1AuthLogoutLogoutData,
+  AuthPostApiV1AuthTokenOauthTokenData,
+  AuthPostApiV1AuthTokenOauthTokenError,
+  AuthGetApiV1AuthAdminUsersListUsersData,
+  AuthPostApiV1AuthAdminUsersCreateUserData,
+  AuthPostApiV1AuthAdminUsersCreateUserError,
+  AuthDeleteApiV1AuthAdminUsersUserIdDeleteUserData,
+  AuthDeleteApiV1AuthAdminUsersUserIdDeleteUserError,
+  AuthGetApiV1AuthAdminUsersUserIdGetUserData,
+  AuthPutApiV1AuthAdminUsersUserIdUpdateUserData,
+  AuthPutApiV1AuthAdminUsersUserIdUpdateUserError,
+  AuthPostApiV1AuthAdminUsersUserIdActivateActivateUserData,
+  AuthPostApiV1AuthAdminUsersUserIdActivateActivateUserError,
+  AuthPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserData,
+  AuthPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserError,
+  AuthPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordData,
+  AuthPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordError,
+  AuthPostApiV1AuthOauth2ClientsCreateOauthClientData,
+  AuthPostApiV1AuthOauth2ClientsCreateOauthClientError,
+  AuthGetApiV1AuthOauth2ClientsClientIdGetOauthClientData,
+  AuthGetApiV1AuthOauth2AuthorizeOauthAuthorizeData,
+  NinPostApiV1NinVerifyVerifyNinData,
+  NinPostApiV1NinVerifyVerifyNinError,
+  NinGetApiV1NinStatusNinGetNinStatusData,
+  NinPostApiV1NinLookupLookupNinData,
+  NinPostApiV1NinLookupLookupNinError,
+  BvnPostApiV1BvnVerifyVerifyBvnData,
+  BvnPostApiV1BvnVerifyVerifyBvnError,
+  BvnGetApiV1BvnStatusBvnGetBvnStatusData,
+  BvnPostApiV1BvnLookupLookupBvnData,
+  BvnPostApiV1BvnLookupLookupBvnError,
+  BvnPostApiV1BvnMatchMatchBvnData,
+  BvnPostApiV1BvnMatchMatchBvnError,
+  BvnGetApiV1BvnBanksGetSupportedBanksData,
+  SmsPostApiV1SmsSendSendSmsData,
+  SmsPostApiV1SmsSendSendSmsError,
+  SmsPostApiV1SmsBulkSendBulkSmsData,
+  SmsPostApiV1SmsBulkSendBulkSmsError,
+  SmsPostApiV1SmsOtpGenerateGenerateOtpData,
+  SmsPostApiV1SmsOtpGenerateGenerateOtpError,
+  SmsPostApiV1SmsOtpVerifyVerifyOtpData,
+  SmsPostApiV1SmsOtpVerifyVerifyOtpError,
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatusData,
+  SmsGetApiV1SmsBalanceGetSmsBalanceData,
+  SmsGetApiV1SmsTemplatesGetMessageTemplatesData,
+  AiPostApiV1AiChatChatCompletionData,
+  AiPostApiV1AiChatChatCompletionError,
+  AiPostApiV1AiGenerateGenerateContentData,
+  AiPostApiV1AiGenerateGenerateContentError,
+  AiPostApiV1AiAnalyzeAnalyzeTextData,
+  AiPostApiV1AiAnalyzeAnalyzeTextError,
+  AiPostApiV1AiTranslateTranslateTextData,
+  AiPostApiV1AiTranslateTranslateTextError,
+  AiGetApiV1AiModelsGetAvailableModelsData,
+  AiGetApiV1AiConversationsConversationIdGetConversationData,
+  AiGetApiV1AiUsageGetUsageStatisticsData,
+  HealthGetApiV1ServicesHealthGetServicesHealthData,
+  HealthGetApiV1DpiHealthGetDpiHealthData,
+  HealthGetApiV1ServicesServiceNameHealthGetServiceHealthData,
+  HealthGetApiV1ServicesServiceNameMetricsGetServiceMetricsData,
+  ExamplesGetApiV1ExamplesNinNinExamplesData,
+  ExamplesGetApiV1ExamplesSmsSmsExamplesData,
+  ExamplesGetApiV1ExamplesAuthAuthExamplesData,
+  ExamplesGetApiV1ExamplesIntegrationIntegrationExamplesData,
 } from "../types.gen";
 import { client as _heyApiClient } from "../client.gen";
 
@@ -54,7 +137,7 @@ export type QueryKey<TOptions extends Options> = [
   Pick<TOptions, "baseUrl" | "body" | "headers" | "path" | "query"> & {
     _id: string;
     _infinite?: boolean;
-    tags?: ReadonlyArray<string>;
+    tags?: readonly string[];
   },
 ];
 
@@ -62,7 +145,7 @@ const createQueryKey = <TOptions extends Options>(
   id: string,
   options?: TOptions,
   infinite?: boolean,
-  tags?: ReadonlyArray<string>
+  tags?: readonly string[]
 ): [QueryKey<TOptions>[0]] => {
   const params: QueryKey<TOptions>[0] = {
     _id: id,
@@ -91,20 +174,20 @@ const createQueryKey = <TOptions extends Options>(
   return [params];
 };
 
-export const healthCheckHealthGetQueryKey = (
-  options?: Options<HealthCheckHealthGetData>
-) => createQueryKey("healthCheckHealthGet", options);
+export const apiGetHealthHealthCheckQueryKey = (
+  options?: Options<ApiGetHealthHealthCheckData>
+) => createQueryKey("apiGetHealthHealthCheck", options);
 
 /**
  * Health Check
  * Health check endpoint.
  */
-export const healthCheckHealthGetOptions = (
-  options?: Options<HealthCheckHealthGetData>
+export const apiGetHealthHealthCheckOptions = (
+  options?: Options<ApiGetHealthHealthCheckData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await healthCheckHealthGet({
+      const { data } = await apiGetHealthHealthCheck({
         ...options,
         ...queryKey[0],
         signal,
@@ -112,21 +195,48 @@ export const healthCheckHealthGetOptions = (
       });
       return data;
     },
-    queryKey: healthCheckHealthGetQueryKey(options),
+    queryKey: apiGetHealthHealthCheckQueryKey(options),
   });
 };
 
-export const rootGetQueryKey = (options?: Options<RootGetData>) =>
-  createQueryKey("rootGet", options);
+export const apiGetMetricsMetricsQueryKey = (
+  options?: Options<ApiGetMetricsMetricsData>
+) => createQueryKey("apiGetMetricsMetrics", options);
+
+/**
+ * Metrics
+ * Prometheus metrics endpoint.
+ */
+export const apiGetMetricsMetricsOptions = (
+  options?: Options<ApiGetMetricsMetricsData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await apiGetMetricsMetrics({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: apiGetMetricsMetricsQueryKey(options),
+  });
+};
+
+export const apiGetRootRootQueryKey = (options?: Options<ApiGetRootRootData>) =>
+  createQueryKey("apiGetRootRoot", options);
 
 /**
  * Root
  * Root endpoint.
  */
-export const rootGetOptions = (options?: Options<RootGetData>) => {
+export const apiGetRootRootOptions = (
+  options?: Options<ApiGetRootRootData>
+) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await rootGet({
+      const { data } = await apiGetRootRoot({
         ...options,
         ...queryKey[0],
         signal,
@@ -134,53 +244,24 @@ export const rootGetOptions = (options?: Options<RootGetData>) => {
       });
       return data;
     },
-    queryKey: rootGetQueryKey(options),
+    queryKey: apiGetRootRootQueryKey(options),
   });
 };
 
-export const openidConfigurationWellKnownOpenidConfigurationGetQueryKey = (
-  options?: Options<OpenidConfigurationWellKnownOpenidConfigurationGetData>
-) =>
-  createQueryKey("openidConfigurationWellKnownOpenidConfigurationGet", options);
+export const authPostApiV1AuthLoginLoginQueryKey = (
+  options: Options<AuthPostApiV1AuthLoginLoginData>
+) => createQueryKey("authPostApiV1AuthLoginLogin", options);
 
 /**
- * Openid Configuration
- * OpenID Connect Discovery endpoint.
+ * Login
+ * 🔐 OAuth2 Compatible Login
  */
-export const openidConfigurationWellKnownOpenidConfigurationGetOptions = (
-  options?: Options<OpenidConfigurationWellKnownOpenidConfigurationGetData>
+export const authPostApiV1AuthLoginLoginOptions = (
+  options: Options<AuthPostApiV1AuthLoginLoginData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await openidConfigurationWellKnownOpenidConfigurationGet(
-        {
-          ...options,
-          ...queryKey[0],
-          signal,
-          throwOnError: true,
-        }
-      );
-      return data;
-    },
-    queryKey:
-      openidConfigurationWellKnownOpenidConfigurationGetQueryKey(options),
-  });
-};
-
-export const jwksWellKnownJwksJsonGetQueryKey = (
-  options?: Options<JwksWellKnownJwksJsonGetData>
-) => createQueryKey("jwksWellKnownJwksJsonGet", options);
-
-/**
- * Jwks
- * JSON Web Key Set endpoint.
- */
-export const jwksWellKnownJwksJsonGetOptions = (
-  options?: Options<JwksWellKnownJwksJsonGetData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await jwksWellKnownJwksJsonGet({
+      const { data } = await authPostApiV1AuthLoginLogin({
         ...options,
         ...queryKey[0],
         signal,
@@ -188,53 +269,28 @@ export const jwksWellKnownJwksJsonGetOptions = (
       });
       return data;
     },
-    queryKey: jwksWellKnownJwksJsonGetQueryKey(options),
-  });
-};
-
-export const registerUserApiV1AuthRegisterPostQueryKey = (
-  options: Options<RegisterUserApiV1AuthRegisterPostData>
-) => createQueryKey("registerUserApiV1AuthRegisterPost", options);
-
-/**
- * Register User
- * Register a new user.
- */
-export const registerUserApiV1AuthRegisterPostOptions = (
-  options: Options<RegisterUserApiV1AuthRegisterPostData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await registerUserApiV1AuthRegisterPost({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: registerUserApiV1AuthRegisterPostQueryKey(options),
+    queryKey: authPostApiV1AuthLoginLoginQueryKey(options),
   });
 };
 
 /**
- * Register User
- * Register a new user.
+ * Login
+ * 🔐 OAuth2 Compatible Login
  */
-export const registerUserApiV1AuthRegisterPostMutation = (
-  options?: Partial<Options<RegisterUserApiV1AuthRegisterPostData>>
+export const authPostApiV1AuthLoginLoginMutation = (
+  options?: Partial<Options<AuthPostApiV1AuthLoginLoginData>>
 ): UseMutationOptions<
-  RegisterUserApiV1AuthRegisterPostResponse,
-  RegisterUserApiV1AuthRegisterPostError,
-  Options<RegisterUserApiV1AuthRegisterPostData>
+  unknown,
+  AuthPostApiV1AuthLoginLoginError,
+  Options<AuthPostApiV1AuthLoginLoginData>
 > => {
   const mutationOptions: UseMutationOptions<
-    RegisterUserApiV1AuthRegisterPostResponse,
-    RegisterUserApiV1AuthRegisterPostError,
-    Options<RegisterUserApiV1AuthRegisterPostData>
+    unknown,
+    AuthPostApiV1AuthLoginLoginError,
+    Options<AuthPostApiV1AuthLoginLoginData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await registerUserApiV1AuthRegisterPost({
+      const { data } = await authPostApiV1AuthLoginLogin({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -245,20 +301,20 @@ export const registerUserApiV1AuthRegisterPostMutation = (
   return mutationOptions;
 };
 
-export const loginUserApiV1AuthLoginPostQueryKey = (
-  options: Options<LoginUserApiV1AuthLoginPostData>
-) => createQueryKey("loginUserApiV1AuthLoginPost", options);
+export const authPostApiV1AuthLoginJsonLoginJsonQueryKey = (
+  options: Options<AuthPostApiV1AuthLoginJsonLoginJsonData>
+) => createQueryKey("authPostApiV1AuthLoginJsonLoginJson", options);
 
 /**
- * Login User
- * OAuth2 compatible token login, get an access token for future requests.
+ * Login Json
+ * 🚀 JSON Login for Nigerian Startups
  */
-export const loginUserApiV1AuthLoginPostOptions = (
-  options: Options<LoginUserApiV1AuthLoginPostData>
+export const authPostApiV1AuthLoginJsonLoginJsonOptions = (
+  options: Options<AuthPostApiV1AuthLoginJsonLoginJsonData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await loginUserApiV1AuthLoginPost({
+      const { data } = await authPostApiV1AuthLoginJsonLoginJson({
         ...options,
         ...queryKey[0],
         signal,
@@ -266,28 +322,28 @@ export const loginUserApiV1AuthLoginPostOptions = (
       });
       return data;
     },
-    queryKey: loginUserApiV1AuthLoginPostQueryKey(options),
+    queryKey: authPostApiV1AuthLoginJsonLoginJsonQueryKey(options),
   });
 };
 
 /**
- * Login User
- * OAuth2 compatible token login, get an access token for future requests.
+ * Login Json
+ * 🚀 JSON Login for Nigerian Startups
  */
-export const loginUserApiV1AuthLoginPostMutation = (
-  options?: Partial<Options<LoginUserApiV1AuthLoginPostData>>
+export const authPostApiV1AuthLoginJsonLoginJsonMutation = (
+  options?: Partial<Options<AuthPostApiV1AuthLoginJsonLoginJsonData>>
 ): UseMutationOptions<
-  LoginUserApiV1AuthLoginPostResponse,
-  LoginUserApiV1AuthLoginPostError,
-  Options<LoginUserApiV1AuthLoginPostData>
+  unknown,
+  AuthPostApiV1AuthLoginJsonLoginJsonError,
+  Options<AuthPostApiV1AuthLoginJsonLoginJsonData>
 > => {
   const mutationOptions: UseMutationOptions<
-    LoginUserApiV1AuthLoginPostResponse,
-    LoginUserApiV1AuthLoginPostError,
-    Options<LoginUserApiV1AuthLoginPostData>
+    unknown,
+    AuthPostApiV1AuthLoginJsonLoginJsonError,
+    Options<AuthPostApiV1AuthLoginJsonLoginJsonData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await loginUserApiV1AuthLoginPost({
+      const { data } = await authPostApiV1AuthLoginJsonLoginJson({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -298,20 +354,20 @@ export const loginUserApiV1AuthLoginPostMutation = (
   return mutationOptions;
 };
 
-export const loginUserJsonApiV1AuthLoginJsonPostQueryKey = (
-  options: Options<LoginUserJsonApiV1AuthLoginJsonPostData>
-) => createQueryKey("loginUserJsonApiV1AuthLoginJsonPost", options);
+export const authGetApiV1AuthMeGetCurrentUserProfileQueryKey = (
+  options?: Options<AuthGetApiV1AuthMeGetCurrentUserProfileData>
+) => createQueryKey("authGetApiV1AuthMeGetCurrentUserProfile", options);
 
 /**
- * Login User Json
- * Login with JSON payload.
+ * Get Current User Profile
+ * 👤 Get Current User Profile
  */
-export const loginUserJsonApiV1AuthLoginJsonPostOptions = (
-  options: Options<LoginUserJsonApiV1AuthLoginJsonPostData>
+export const authGetApiV1AuthMeGetCurrentUserProfileOptions = (
+  options?: Options<AuthGetApiV1AuthMeGetCurrentUserProfileData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await loginUserJsonApiV1AuthLoginJsonPost({
+      const { data } = await authGetApiV1AuthMeGetCurrentUserProfile({
         ...options,
         ...queryKey[0],
         signal,
@@ -319,28 +375,53 @@ export const loginUserJsonApiV1AuthLoginJsonPostOptions = (
       });
       return data;
     },
-    queryKey: loginUserJsonApiV1AuthLoginJsonPostQueryKey(options),
+    queryKey: authGetApiV1AuthMeGetCurrentUserProfileQueryKey(options),
+  });
+};
+
+export const authPostApiV1AuthLogoutLogoutQueryKey = (
+  options?: Options<AuthPostApiV1AuthLogoutLogoutData>
+) => createQueryKey("authPostApiV1AuthLogoutLogout", options);
+
+/**
+ * Logout
+ * 🚪 User Logout
+ */
+export const authPostApiV1AuthLogoutLogoutOptions = (
+  options?: Options<AuthPostApiV1AuthLogoutLogoutData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await authPostApiV1AuthLogoutLogout({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: authPostApiV1AuthLogoutLogoutQueryKey(options),
   });
 };
 
 /**
- * Login User Json
- * Login with JSON payload.
+ * Logout
+ * 🚪 User Logout
  */
-export const loginUserJsonApiV1AuthLoginJsonPostMutation = (
-  options?: Partial<Options<LoginUserJsonApiV1AuthLoginJsonPostData>>
+export const authPostApiV1AuthLogoutLogoutMutation = (
+  options?: Partial<Options<AuthPostApiV1AuthLogoutLogoutData>>
 ): UseMutationOptions<
-  LoginUserJsonApiV1AuthLoginJsonPostResponse,
-  LoginUserJsonApiV1AuthLoginJsonPostError,
-  Options<LoginUserJsonApiV1AuthLoginJsonPostData>
+  unknown,
+  DefaultError,
+  Options<AuthPostApiV1AuthLogoutLogoutData>
 > => {
   const mutationOptions: UseMutationOptions<
-    LoginUserJsonApiV1AuthLoginJsonPostResponse,
-    LoginUserJsonApiV1AuthLoginJsonPostError,
-    Options<LoginUserJsonApiV1AuthLoginJsonPostData>
+    unknown,
+    DefaultError,
+    Options<AuthPostApiV1AuthLogoutLogoutData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await loginUserJsonApiV1AuthLoginJsonPost({
+      const { data } = await authPostApiV1AuthLogoutLogout({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -351,20 +432,20 @@ export const loginUserJsonApiV1AuthLoginJsonPostMutation = (
   return mutationOptions;
 };
 
-export const getUserInfoApiV1AuthUserinfoGetQueryKey = (
-  options?: Options<GetUserInfoApiV1AuthUserinfoGetData>
-) => createQueryKey("getUserInfoApiV1AuthUserinfoGet", options);
+export const authPostApiV1AuthTokenOauthTokenQueryKey = (
+  options: Options<AuthPostApiV1AuthTokenOauthTokenData>
+) => createQueryKey("authPostApiV1AuthTokenOauthToken", options);
 
 /**
- * Get User Info
- * Get current user information.
+ * Oauth Token
+ * 🔑 OAuth2 Token Endpoint
  */
-export const getUserInfoApiV1AuthUserinfoGetOptions = (
-  options?: Options<GetUserInfoApiV1AuthUserinfoGetData>
+export const authPostApiV1AuthTokenOauthTokenOptions = (
+  options: Options<AuthPostApiV1AuthTokenOauthTokenData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getUserInfoApiV1AuthUserinfoGet({
+      const { data } = await authPostApiV1AuthTokenOauthToken({
         ...options,
         ...queryKey[0],
         signal,
@@ -372,78 +453,28 @@ export const getUserInfoApiV1AuthUserinfoGetOptions = (
       });
       return data;
     },
-    queryKey: getUserInfoApiV1AuthUserinfoGetQueryKey(options),
-  });
-};
-
-export const readUserMeApiV1AuthMeGetQueryKey = (
-  options?: Options<ReadUserMeApiV1AuthMeGetData>
-) => createQueryKey("readUserMeApiV1AuthMeGet", options);
-
-/**
- * Read User Me
- * Get current user.
- */
-export const readUserMeApiV1AuthMeGetOptions = (
-  options?: Options<ReadUserMeApiV1AuthMeGetData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await readUserMeApiV1AuthMeGet({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: readUserMeApiV1AuthMeGetQueryKey(options),
-  });
-};
-
-export const createOauthClientApiV1Oauth2ClientsPostQueryKey = (
-  options: Options<CreateOauthClientApiV1Oauth2ClientsPostData>
-) => createQueryKey("createOauthClientApiV1Oauth2ClientsPost", options);
-
-/**
- * Create Oauth Client
- * Create a new OAuth2 client.
- */
-export const createOauthClientApiV1Oauth2ClientsPostOptions = (
-  options: Options<CreateOauthClientApiV1Oauth2ClientsPostData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await createOauthClientApiV1Oauth2ClientsPost({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: createOauthClientApiV1Oauth2ClientsPostQueryKey(options),
+    queryKey: authPostApiV1AuthTokenOauthTokenQueryKey(options),
   });
 };
 
 /**
- * Create Oauth Client
- * Create a new OAuth2 client.
+ * Oauth Token
+ * 🔑 OAuth2 Token Endpoint
  */
-export const createOauthClientApiV1Oauth2ClientsPostMutation = (
-  options?: Partial<Options<CreateOauthClientApiV1Oauth2ClientsPostData>>
+export const authPostApiV1AuthTokenOauthTokenMutation = (
+  options?: Partial<Options<AuthPostApiV1AuthTokenOauthTokenData>>
 ): UseMutationOptions<
-  CreateOauthClientApiV1Oauth2ClientsPostResponse,
-  CreateOauthClientApiV1Oauth2ClientsPostError,
-  Options<CreateOauthClientApiV1Oauth2ClientsPostData>
+  unknown,
+  AuthPostApiV1AuthTokenOauthTokenError,
+  Options<AuthPostApiV1AuthTokenOauthTokenData>
 > => {
   const mutationOptions: UseMutationOptions<
-    CreateOauthClientApiV1Oauth2ClientsPostResponse,
-    CreateOauthClientApiV1Oauth2ClientsPostError,
-    Options<CreateOauthClientApiV1Oauth2ClientsPostData>
+    unknown,
+    AuthPostApiV1AuthTokenOauthTokenError,
+    Options<AuthPostApiV1AuthTokenOauthTokenData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await createOauthClientApiV1Oauth2ClientsPost({
+      const { data } = await authPostApiV1AuthTokenOauthToken({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -454,20 +485,20 @@ export const createOauthClientApiV1Oauth2ClientsPostMutation = (
   return mutationOptions;
 };
 
-export const getOauthClientApiV1Oauth2ClientsClientIdGetQueryKey = (
-  options: Options<GetOauthClientApiV1Oauth2ClientsClientIdGetData>
-) => createQueryKey("getOauthClientApiV1Oauth2ClientsClientIdGet", options);
+export const authGetApiV1AuthAdminUsersListUsersQueryKey = (
+  options?: Options<AuthGetApiV1AuthAdminUsersListUsersData>
+) => createQueryKey("authGetApiV1AuthAdminUsersListUsers", options);
 
 /**
- * Get Oauth Client
- * Get OAuth2 client by ID.
+ * List Users
+ * 📋 List All Users (Admin Only)
  */
-export const getOauthClientApiV1Oauth2ClientsClientIdGetOptions = (
-  options: Options<GetOauthClientApiV1Oauth2ClientsClientIdGetData>
+export const authGetApiV1AuthAdminUsersListUsersOptions = (
+  options?: Options<AuthGetApiV1AuthAdminUsersListUsersData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getOauthClientApiV1Oauth2ClientsClientIdGet({
+      const { data } = await authGetApiV1AuthAdminUsersListUsers({
         ...options,
         ...queryKey[0],
         signal,
@@ -475,24 +506,24 @@ export const getOauthClientApiV1Oauth2ClientsClientIdGetOptions = (
       });
       return data;
     },
-    queryKey: getOauthClientApiV1Oauth2ClientsClientIdGetQueryKey(options),
+    queryKey: authGetApiV1AuthAdminUsersListUsersQueryKey(options),
   });
 };
 
-export const authorizeApiV1Oauth2AuthorizeGetQueryKey = (
-  options: Options<AuthorizeApiV1Oauth2AuthorizeGetData>
-) => createQueryKey("authorizeApiV1Oauth2AuthorizeGet", options);
+export const authPostApiV1AuthAdminUsersCreateUserQueryKey = (
+  options: Options<AuthPostApiV1AuthAdminUsersCreateUserData>
+) => createQueryKey("authPostApiV1AuthAdminUsersCreateUser", options);
 
 /**
- * Authorize
- * OAuth2 authorization endpoint.
+ * Create User
+ * 👥 Create User Account (Admin Only)
  */
-export const authorizeApiV1Oauth2AuthorizeGetOptions = (
-  options: Options<AuthorizeApiV1Oauth2AuthorizeGetData>
+export const authPostApiV1AuthAdminUsersCreateUserOptions = (
+  options: Options<AuthPostApiV1AuthAdminUsersCreateUserData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await authorizeApiV1Oauth2AuthorizeGet({
+      const { data } = await authPostApiV1AuthAdminUsersCreateUser({
         ...options,
         ...queryKey[0],
         signal,
@@ -500,53 +531,28 @@ export const authorizeApiV1Oauth2AuthorizeGetOptions = (
       });
       return data;
     },
-    queryKey: authorizeApiV1Oauth2AuthorizeGetQueryKey(options),
-  });
-};
-
-export const getTokenApiV1Oauth2TokenPostQueryKey = (
-  options: Options<GetTokenApiV1Oauth2TokenPostData>
-) => createQueryKey("getTokenApiV1Oauth2TokenPost", options);
-
-/**
- * Get Token
- * OAuth2 token endpoint.
- */
-export const getTokenApiV1Oauth2TokenPostOptions = (
-  options: Options<GetTokenApiV1Oauth2TokenPostData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getTokenApiV1Oauth2TokenPost({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: getTokenApiV1Oauth2TokenPostQueryKey(options),
+    queryKey: authPostApiV1AuthAdminUsersCreateUserQueryKey(options),
   });
 };
 
 /**
- * Get Token
- * OAuth2 token endpoint.
+ * Create User
+ * 👥 Create User Account (Admin Only)
  */
-export const getTokenApiV1Oauth2TokenPostMutation = (
-  options?: Partial<Options<GetTokenApiV1Oauth2TokenPostData>>
+export const authPostApiV1AuthAdminUsersCreateUserMutation = (
+  options?: Partial<Options<AuthPostApiV1AuthAdminUsersCreateUserData>>
 ): UseMutationOptions<
-  GetTokenApiV1Oauth2TokenPostResponse,
-  GetTokenApiV1Oauth2TokenPostError,
-  Options<GetTokenApiV1Oauth2TokenPostData>
+  unknown,
+  AuthPostApiV1AuthAdminUsersCreateUserError,
+  Options<AuthPostApiV1AuthAdminUsersCreateUserData>
 > => {
   const mutationOptions: UseMutationOptions<
-    GetTokenApiV1Oauth2TokenPostResponse,
-    GetTokenApiV1Oauth2TokenPostError,
-    Options<GetTokenApiV1Oauth2TokenPostData>
+    unknown,
+    AuthPostApiV1AuthAdminUsersCreateUserError,
+    Options<AuthPostApiV1AuthAdminUsersCreateUserData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await getTokenApiV1Oauth2TokenPost({
+      const { data } = await authPostApiV1AuthAdminUsersCreateUser({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -557,49 +563,24 @@ export const getTokenApiV1Oauth2TokenPostMutation = (
   return mutationOptions;
 };
 
-export const verifyNinBvnApiV1IdentityVerifyNinBvnPostQueryKey = (
-  options: Options<VerifyNinBvnApiV1IdentityVerifyNinBvnPostData>
-) => createQueryKey("verifyNinBvnApiV1IdentityVerifyNinBvnPost", options);
-
 /**
- * Verify Nin Bvn
- * Verify NIN and/or BVN for the current user.
+ * Delete User
+ * 🗑️ Delete User (Admin Only)
  */
-export const verifyNinBvnApiV1IdentityVerifyNinBvnPostOptions = (
-  options: Options<VerifyNinBvnApiV1IdentityVerifyNinBvnPostData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await verifyNinBvnApiV1IdentityVerifyNinBvnPost({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: verifyNinBvnApiV1IdentityVerifyNinBvnPostQueryKey(options),
-  });
-};
-
-/**
- * Verify Nin Bvn
- * Verify NIN and/or BVN for the current user.
- */
-export const verifyNinBvnApiV1IdentityVerifyNinBvnPostMutation = (
-  options?: Partial<Options<VerifyNinBvnApiV1IdentityVerifyNinBvnPostData>>
+export const authDeleteApiV1AuthAdminUsersUserIdDeleteUserMutation = (
+  options?: Partial<Options<AuthDeleteApiV1AuthAdminUsersUserIdDeleteUserData>>
 ): UseMutationOptions<
-  VerifyNinBvnApiV1IdentityVerifyNinBvnPostResponse,
-  VerifyNinBvnApiV1IdentityVerifyNinBvnPostError,
-  Options<VerifyNinBvnApiV1IdentityVerifyNinBvnPostData>
+  unknown,
+  AuthDeleteApiV1AuthAdminUsersUserIdDeleteUserError,
+  Options<AuthDeleteApiV1AuthAdminUsersUserIdDeleteUserData>
 > => {
   const mutationOptions: UseMutationOptions<
-    VerifyNinBvnApiV1IdentityVerifyNinBvnPostResponse,
-    VerifyNinBvnApiV1IdentityVerifyNinBvnPostError,
-    Options<VerifyNinBvnApiV1IdentityVerifyNinBvnPostData>
+    unknown,
+    AuthDeleteApiV1AuthAdminUsersUserIdDeleteUserError,
+    Options<AuthDeleteApiV1AuthAdminUsersUserIdDeleteUserData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await verifyNinBvnApiV1IdentityVerifyNinBvnPost({
+      const { data } = await authDeleteApiV1AuthAdminUsersUserIdDeleteUser({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -610,25 +591,78 @@ export const verifyNinBvnApiV1IdentityVerifyNinBvnPostMutation = (
   return mutationOptions;
 };
 
-export const getVerificationStatusApiV1IdentityVerificationStatusGetQueryKey = (
-  options?: Options<GetVerificationStatusApiV1IdentityVerificationStatusGetData>
+export const authGetApiV1AuthAdminUsersUserIdGetUserQueryKey = (
+  options: Options<AuthGetApiV1AuthAdminUsersUserIdGetUserData>
+) => createQueryKey("authGetApiV1AuthAdminUsersUserIdGetUser", options);
+
+/**
+ * Get User
+ * 👤 Get User by ID (Admin Only)
+ */
+export const authGetApiV1AuthAdminUsersUserIdGetUserOptions = (
+  options: Options<AuthGetApiV1AuthAdminUsersUserIdGetUserData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await authGetApiV1AuthAdminUsersUserIdGetUser({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: authGetApiV1AuthAdminUsersUserIdGetUserQueryKey(options),
+  });
+};
+
+/**
+ * Update User
+ * ✏️ Update User (Admin Only)
+ */
+export const authPutApiV1AuthAdminUsersUserIdUpdateUserMutation = (
+  options?: Partial<Options<AuthPutApiV1AuthAdminUsersUserIdUpdateUserData>>
+): UseMutationOptions<
+  unknown,
+  AuthPutApiV1AuthAdminUsersUserIdUpdateUserError,
+  Options<AuthPutApiV1AuthAdminUsersUserIdUpdateUserData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    AuthPutApiV1AuthAdminUsersUserIdUpdateUserError,
+    Options<AuthPutApiV1AuthAdminUsersUserIdUpdateUserData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await authPutApiV1AuthAdminUsersUserIdUpdateUser({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const authPostApiV1AuthAdminUsersUserIdActivateActivateUserQueryKey = (
+  options: Options<AuthPostApiV1AuthAdminUsersUserIdActivateActivateUserData>
 ) =>
   createQueryKey(
-    "getVerificationStatusApiV1IdentityVerificationStatusGet",
+    "authPostApiV1AuthAdminUsersUserIdActivateActivateUser",
     options
   );
 
 /**
- * Get Verification Status
- * Get current user's verification status.
+ * Activate User
+ * ✅ Activate User Account (Admin Only)
  */
-export const getVerificationStatusApiV1IdentityVerificationStatusGetOptions = (
-  options?: Options<GetVerificationStatusApiV1IdentityVerificationStatusGetData>
+export const authPostApiV1AuthAdminUsersUserIdActivateActivateUserOptions = (
+  options: Options<AuthPostApiV1AuthAdminUsersUserIdActivateActivateUserData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
       const { data } =
-        await getVerificationStatusApiV1IdentityVerificationStatusGet({
+        await authPostApiV1AuthAdminUsersUserIdActivateActivateUser({
           ...options,
           ...queryKey[0],
           signal,
@@ -637,6 +671,1440 @@ export const getVerificationStatusApiV1IdentityVerificationStatusGetOptions = (
       return data;
     },
     queryKey:
-      getVerificationStatusApiV1IdentityVerificationStatusGetQueryKey(options),
+      authPostApiV1AuthAdminUsersUserIdActivateActivateUserQueryKey(options),
+  });
+};
+
+/**
+ * Activate User
+ * ✅ Activate User Account (Admin Only)
+ */
+export const authPostApiV1AuthAdminUsersUserIdActivateActivateUserMutation = (
+  options?: Partial<
+    Options<AuthPostApiV1AuthAdminUsersUserIdActivateActivateUserData>
+  >
+): UseMutationOptions<
+  unknown,
+  AuthPostApiV1AuthAdminUsersUserIdActivateActivateUserError,
+  Options<AuthPostApiV1AuthAdminUsersUserIdActivateActivateUserData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    AuthPostApiV1AuthAdminUsersUserIdActivateActivateUserError,
+    Options<AuthPostApiV1AuthAdminUsersUserIdActivateActivateUserData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } =
+        await authPostApiV1AuthAdminUsersUserIdActivateActivateUser({
+          ...options,
+          ...localOptions,
+          throwOnError: true,
+        });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const authPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserQueryKey =
+  (
+    options: Options<AuthPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserData>
+  ) =>
+    createQueryKey(
+      "authPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUser",
+      options
+    );
+
+/**
+ * Deactivate User
+ * ❌ Deactivate User Account (Admin Only)
+ */
+export const authPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserOptions =
+  (
+    options: Options<AuthPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserData>
+  ) => {
+    return queryOptions({
+      queryFn: async ({ queryKey, signal }) => {
+        const { data } =
+          await authPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUser({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true,
+          });
+        return data;
+      },
+      queryKey:
+        authPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserQueryKey(
+          options
+        ),
+    });
+  };
+
+/**
+ * Deactivate User
+ * ❌ Deactivate User Account (Admin Only)
+ */
+export const authPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserMutation =
+  (
+    options?: Partial<
+      Options<AuthPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserData>
+    >
+  ): UseMutationOptions<
+    unknown,
+    AuthPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserError,
+    Options<AuthPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserData>
+  > => {
+    const mutationOptions: UseMutationOptions<
+      unknown,
+      AuthPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserError,
+      Options<AuthPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUserData>
+    > = {
+      mutationFn: async (localOptions) => {
+        const { data } =
+          await authPostApiV1AuthAdminUsersUserIdDeactivateDeactivateUser({
+            ...options,
+            ...localOptions,
+            throwOnError: true,
+          });
+        return data;
+      },
+    };
+    return mutationOptions;
+  };
+
+export const authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordQueryKey =
+  (
+    options: Options<AuthPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordData>
+  ) =>
+    createQueryKey(
+      "authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPassword",
+      options
+    );
+
+/**
+ * Reset User Password
+ * 🔑 Reset User Password (Admin Only)
+ */
+export const authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordOptions =
+  (
+    options: Options<AuthPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordData>
+  ) => {
+    return queryOptions({
+      queryFn: async ({ queryKey, signal }) => {
+        const { data } =
+          await authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPassword(
+            {
+              ...options,
+              ...queryKey[0],
+              signal,
+              throwOnError: true,
+            }
+          );
+        return data;
+      },
+      queryKey:
+        authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordQueryKey(
+          options
+        ),
+    });
+  };
+
+/**
+ * Reset User Password
+ * 🔑 Reset User Password (Admin Only)
+ */
+export const authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordMutation =
+  (
+    options?: Partial<
+      Options<AuthPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordData>
+    >
+  ): UseMutationOptions<
+    unknown,
+    AuthPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordError,
+    Options<AuthPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordData>
+  > => {
+    const mutationOptions: UseMutationOptions<
+      unknown,
+      AuthPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordError,
+      Options<AuthPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordData>
+    > = {
+      mutationFn: async (localOptions) => {
+        const { data } =
+          await authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPassword(
+            {
+              ...options,
+              ...localOptions,
+              throwOnError: true,
+            }
+          );
+        return data;
+      },
+    };
+    return mutationOptions;
+  };
+
+export const authPostApiV1AuthOauth2ClientsCreateOauthClientQueryKey = (
+  options: Options<AuthPostApiV1AuthOauth2ClientsCreateOauthClientData>
+) => createQueryKey("authPostApiV1AuthOauth2ClientsCreateOauthClient", options);
+
+/**
+ * Create Oauth Client
+ * 🔗 Create OAuth2 Client
+ */
+export const authPostApiV1AuthOauth2ClientsCreateOauthClientOptions = (
+  options: Options<AuthPostApiV1AuthOauth2ClientsCreateOauthClientData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await authPostApiV1AuthOauth2ClientsCreateOauthClient({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: authPostApiV1AuthOauth2ClientsCreateOauthClientQueryKey(options),
+  });
+};
+
+/**
+ * Create Oauth Client
+ * 🔗 Create OAuth2 Client
+ */
+export const authPostApiV1AuthOauth2ClientsCreateOauthClientMutation = (
+  options?: Partial<
+    Options<AuthPostApiV1AuthOauth2ClientsCreateOauthClientData>
+  >
+): UseMutationOptions<
+  unknown,
+  AuthPostApiV1AuthOauth2ClientsCreateOauthClientError,
+  Options<AuthPostApiV1AuthOauth2ClientsCreateOauthClientData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    AuthPostApiV1AuthOauth2ClientsCreateOauthClientError,
+    Options<AuthPostApiV1AuthOauth2ClientsCreateOauthClientData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await authPostApiV1AuthOauth2ClientsCreateOauthClient({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const authGetApiV1AuthOauth2ClientsClientIdGetOauthClientQueryKey = (
+  options: Options<AuthGetApiV1AuthOauth2ClientsClientIdGetOauthClientData>
+) =>
+  createQueryKey(
+    "authGetApiV1AuthOauth2ClientsClientIdGetOauthClient",
+    options
+  );
+
+/**
+ * Get Oauth Client
+ * 🔍 Get OAuth2 Client
+ */
+export const authGetApiV1AuthOauth2ClientsClientIdGetOauthClientOptions = (
+  options: Options<AuthGetApiV1AuthOauth2ClientsClientIdGetOauthClientData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } =
+        await authGetApiV1AuthOauth2ClientsClientIdGetOauthClient({
+          ...options,
+          ...queryKey[0],
+          signal,
+          throwOnError: true,
+        });
+      return data;
+    },
+    queryKey:
+      authGetApiV1AuthOauth2ClientsClientIdGetOauthClientQueryKey(options),
+  });
+};
+
+export const authGetApiV1AuthOauth2AuthorizeOauthAuthorizeQueryKey = (
+  options?: Options<AuthGetApiV1AuthOauth2AuthorizeOauthAuthorizeData>
+) => createQueryKey("authGetApiV1AuthOauth2AuthorizeOauthAuthorize", options);
+
+/**
+ * Oauth Authorize
+ * 🔐 OAuth2 Authorization Endpoint
+ */
+export const authGetApiV1AuthOauth2AuthorizeOauthAuthorizeOptions = (
+  options?: Options<AuthGetApiV1AuthOauth2AuthorizeOauthAuthorizeData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await authGetApiV1AuthOauth2AuthorizeOauthAuthorize({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: authGetApiV1AuthOauth2AuthorizeOauthAuthorizeQueryKey(options),
+  });
+};
+
+export const ninPostApiV1NinVerifyVerifyNinQueryKey = (
+  options: Options<NinPostApiV1NinVerifyVerifyNinData>
+) => createQueryKey("ninPostApiV1NinVerifyVerifyNin", options);
+
+/**
+ * Verify Nin
+ * 🇳🇬 Verify Nigerian Identity Number (NIN)
+ */
+export const ninPostApiV1NinVerifyVerifyNinOptions = (
+  options: Options<NinPostApiV1NinVerifyVerifyNinData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ninPostApiV1NinVerifyVerifyNin({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ninPostApiV1NinVerifyVerifyNinQueryKey(options),
+  });
+};
+
+/**
+ * Verify Nin
+ * 🇳🇬 Verify Nigerian Identity Number (NIN)
+ */
+export const ninPostApiV1NinVerifyVerifyNinMutation = (
+  options?: Partial<Options<NinPostApiV1NinVerifyVerifyNinData>>
+): UseMutationOptions<
+  unknown,
+  NinPostApiV1NinVerifyVerifyNinError,
+  Options<NinPostApiV1NinVerifyVerifyNinData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    NinPostApiV1NinVerifyVerifyNinError,
+    Options<NinPostApiV1NinVerifyVerifyNinData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ninPostApiV1NinVerifyVerifyNin({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ninGetApiV1NinStatusNinGetNinStatusQueryKey = (
+  options: Options<NinGetApiV1NinStatusNinGetNinStatusData>
+) => createQueryKey("ninGetApiV1NinStatusNinGetNinStatus", options);
+
+/**
+ * Get Nin Status
+ * 📊 Get NIN Verification Status
+ */
+export const ninGetApiV1NinStatusNinGetNinStatusOptions = (
+  options: Options<NinGetApiV1NinStatusNinGetNinStatusData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ninGetApiV1NinStatusNinGetNinStatus({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ninGetApiV1NinStatusNinGetNinStatusQueryKey(options),
+  });
+};
+
+export const ninPostApiV1NinLookupLookupNinQueryKey = (
+  options: Options<NinPostApiV1NinLookupLookupNinData>
+) => createQueryKey("ninPostApiV1NinLookupLookupNin", options);
+
+/**
+ * Lookup Nin
+ * 🔍 Basic NIN Lookup
+ */
+export const ninPostApiV1NinLookupLookupNinOptions = (
+  options: Options<NinPostApiV1NinLookupLookupNinData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ninPostApiV1NinLookupLookupNin({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ninPostApiV1NinLookupLookupNinQueryKey(options),
+  });
+};
+
+/**
+ * Lookup Nin
+ * 🔍 Basic NIN Lookup
+ */
+export const ninPostApiV1NinLookupLookupNinMutation = (
+  options?: Partial<Options<NinPostApiV1NinLookupLookupNinData>>
+): UseMutationOptions<
+  unknown,
+  NinPostApiV1NinLookupLookupNinError,
+  Options<NinPostApiV1NinLookupLookupNinData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    NinPostApiV1NinLookupLookupNinError,
+    Options<NinPostApiV1NinLookupLookupNinData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ninPostApiV1NinLookupLookupNin({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const bvnPostApiV1BvnVerifyVerifyBvnQueryKey = (
+  options: Options<BvnPostApiV1BvnVerifyVerifyBvnData>
+) => createQueryKey("bvnPostApiV1BvnVerifyVerifyBvn", options);
+
+/**
+ * Verify Bvn
+ * 🇳🇬 Verify Bank Verification Number (BVN)
+ */
+export const bvnPostApiV1BvnVerifyVerifyBvnOptions = (
+  options: Options<BvnPostApiV1BvnVerifyVerifyBvnData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await bvnPostApiV1BvnVerifyVerifyBvn({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: bvnPostApiV1BvnVerifyVerifyBvnQueryKey(options),
+  });
+};
+
+/**
+ * Verify Bvn
+ * 🇳🇬 Verify Bank Verification Number (BVN)
+ */
+export const bvnPostApiV1BvnVerifyVerifyBvnMutation = (
+  options?: Partial<Options<BvnPostApiV1BvnVerifyVerifyBvnData>>
+): UseMutationOptions<
+  unknown,
+  BvnPostApiV1BvnVerifyVerifyBvnError,
+  Options<BvnPostApiV1BvnVerifyVerifyBvnData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    BvnPostApiV1BvnVerifyVerifyBvnError,
+    Options<BvnPostApiV1BvnVerifyVerifyBvnData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await bvnPostApiV1BvnVerifyVerifyBvn({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const bvnGetApiV1BvnStatusBvnGetBvnStatusQueryKey = (
+  options: Options<BvnGetApiV1BvnStatusBvnGetBvnStatusData>
+) => createQueryKey("bvnGetApiV1BvnStatusBvnGetBvnStatus", options);
+
+/**
+ * Get Bvn Status
+ * 📊 Get BVN Verification Status
+ */
+export const bvnGetApiV1BvnStatusBvnGetBvnStatusOptions = (
+  options: Options<BvnGetApiV1BvnStatusBvnGetBvnStatusData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await bvnGetApiV1BvnStatusBvnGetBvnStatus({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: bvnGetApiV1BvnStatusBvnGetBvnStatusQueryKey(options),
+  });
+};
+
+export const bvnPostApiV1BvnLookupLookupBvnQueryKey = (
+  options: Options<BvnPostApiV1BvnLookupLookupBvnData>
+) => createQueryKey("bvnPostApiV1BvnLookupLookupBvn", options);
+
+/**
+ * Lookup Bvn
+ * 🔍 Basic BVN Lookup
+ */
+export const bvnPostApiV1BvnLookupLookupBvnOptions = (
+  options: Options<BvnPostApiV1BvnLookupLookupBvnData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await bvnPostApiV1BvnLookupLookupBvn({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: bvnPostApiV1BvnLookupLookupBvnQueryKey(options),
+  });
+};
+
+/**
+ * Lookup Bvn
+ * 🔍 Basic BVN Lookup
+ */
+export const bvnPostApiV1BvnLookupLookupBvnMutation = (
+  options?: Partial<Options<BvnPostApiV1BvnLookupLookupBvnData>>
+): UseMutationOptions<
+  unknown,
+  BvnPostApiV1BvnLookupLookupBvnError,
+  Options<BvnPostApiV1BvnLookupLookupBvnData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    BvnPostApiV1BvnLookupLookupBvnError,
+    Options<BvnPostApiV1BvnLookupLookupBvnData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await bvnPostApiV1BvnLookupLookupBvn({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const bvnPostApiV1BvnMatchMatchBvnQueryKey = (
+  options: Options<BvnPostApiV1BvnMatchMatchBvnData>
+) => createQueryKey("bvnPostApiV1BvnMatchMatchBvn", options);
+
+/**
+ * Match Bvn
+ * 🔗 Match BVN with User Data
+ */
+export const bvnPostApiV1BvnMatchMatchBvnOptions = (
+  options: Options<BvnPostApiV1BvnMatchMatchBvnData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await bvnPostApiV1BvnMatchMatchBvn({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: bvnPostApiV1BvnMatchMatchBvnQueryKey(options),
+  });
+};
+
+/**
+ * Match Bvn
+ * 🔗 Match BVN with User Data
+ */
+export const bvnPostApiV1BvnMatchMatchBvnMutation = (
+  options?: Partial<Options<BvnPostApiV1BvnMatchMatchBvnData>>
+): UseMutationOptions<
+  unknown,
+  BvnPostApiV1BvnMatchMatchBvnError,
+  Options<BvnPostApiV1BvnMatchMatchBvnData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    BvnPostApiV1BvnMatchMatchBvnError,
+    Options<BvnPostApiV1BvnMatchMatchBvnData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await bvnPostApiV1BvnMatchMatchBvn({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const bvnGetApiV1BvnBanksGetSupportedBanksQueryKey = (
+  options?: Options<BvnGetApiV1BvnBanksGetSupportedBanksData>
+) => createQueryKey("bvnGetApiV1BvnBanksGetSupportedBanks", options);
+
+/**
+ * Get Supported Banks
+ * 🏦 Get Supported Nigerian Banks
+ */
+export const bvnGetApiV1BvnBanksGetSupportedBanksOptions = (
+  options?: Options<BvnGetApiV1BvnBanksGetSupportedBanksData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await bvnGetApiV1BvnBanksGetSupportedBanks({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: bvnGetApiV1BvnBanksGetSupportedBanksQueryKey(options),
+  });
+};
+
+export const smsPostApiV1SmsSendSendSmsQueryKey = (
+  options: Options<SmsPostApiV1SmsSendSendSmsData>
+) => createQueryKey("smsPostApiV1SmsSendSendSms", options);
+
+/**
+ * Send Sms
+ * 📱 Send SMS to Nigerian Number
+ */
+export const smsPostApiV1SmsSendSendSmsOptions = (
+  options: Options<SmsPostApiV1SmsSendSendSmsData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsPostApiV1SmsSendSendSms({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsPostApiV1SmsSendSendSmsQueryKey(options),
+  });
+};
+
+/**
+ * Send Sms
+ * 📱 Send SMS to Nigerian Number
+ */
+export const smsPostApiV1SmsSendSendSmsMutation = (
+  options?: Partial<Options<SmsPostApiV1SmsSendSendSmsData>>
+): UseMutationOptions<
+  unknown,
+  SmsPostApiV1SmsSendSendSmsError,
+  Options<SmsPostApiV1SmsSendSendSmsData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    SmsPostApiV1SmsSendSendSmsError,
+    Options<SmsPostApiV1SmsSendSendSmsData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await smsPostApiV1SmsSendSendSms({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const smsPostApiV1SmsBulkSendBulkSmsQueryKey = (
+  options: Options<SmsPostApiV1SmsBulkSendBulkSmsData>
+) => createQueryKey("smsPostApiV1SmsBulkSendBulkSms", options);
+
+/**
+ * Send Bulk Sms
+ * 📤 Send Bulk SMS Messages
+ */
+export const smsPostApiV1SmsBulkSendBulkSmsOptions = (
+  options: Options<SmsPostApiV1SmsBulkSendBulkSmsData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsPostApiV1SmsBulkSendBulkSms({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsPostApiV1SmsBulkSendBulkSmsQueryKey(options),
+  });
+};
+
+/**
+ * Send Bulk Sms
+ * 📤 Send Bulk SMS Messages
+ */
+export const smsPostApiV1SmsBulkSendBulkSmsMutation = (
+  options?: Partial<Options<SmsPostApiV1SmsBulkSendBulkSmsData>>
+): UseMutationOptions<
+  unknown,
+  SmsPostApiV1SmsBulkSendBulkSmsError,
+  Options<SmsPostApiV1SmsBulkSendBulkSmsData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    SmsPostApiV1SmsBulkSendBulkSmsError,
+    Options<SmsPostApiV1SmsBulkSendBulkSmsData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await smsPostApiV1SmsBulkSendBulkSms({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const smsPostApiV1SmsOtpGenerateGenerateOtpQueryKey = (
+  options: Options<SmsPostApiV1SmsOtpGenerateGenerateOtpData>
+) => createQueryKey("smsPostApiV1SmsOtpGenerateGenerateOtp", options);
+
+/**
+ * Generate Otp
+ * 🔐 Generate and Send OTP
+ */
+export const smsPostApiV1SmsOtpGenerateGenerateOtpOptions = (
+  options: Options<SmsPostApiV1SmsOtpGenerateGenerateOtpData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsPostApiV1SmsOtpGenerateGenerateOtp({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsPostApiV1SmsOtpGenerateGenerateOtpQueryKey(options),
+  });
+};
+
+/**
+ * Generate Otp
+ * 🔐 Generate and Send OTP
+ */
+export const smsPostApiV1SmsOtpGenerateGenerateOtpMutation = (
+  options?: Partial<Options<SmsPostApiV1SmsOtpGenerateGenerateOtpData>>
+): UseMutationOptions<
+  unknown,
+  SmsPostApiV1SmsOtpGenerateGenerateOtpError,
+  Options<SmsPostApiV1SmsOtpGenerateGenerateOtpData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    SmsPostApiV1SmsOtpGenerateGenerateOtpError,
+    Options<SmsPostApiV1SmsOtpGenerateGenerateOtpData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await smsPostApiV1SmsOtpGenerateGenerateOtp({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const smsPostApiV1SmsOtpVerifyVerifyOtpQueryKey = (
+  options: Options<SmsPostApiV1SmsOtpVerifyVerifyOtpData>
+) => createQueryKey("smsPostApiV1SmsOtpVerifyVerifyOtp", options);
+
+/**
+ * Verify Otp
+ * ✅ Verify OTP Code
+ */
+export const smsPostApiV1SmsOtpVerifyVerifyOtpOptions = (
+  options: Options<SmsPostApiV1SmsOtpVerifyVerifyOtpData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsPostApiV1SmsOtpVerifyVerifyOtp({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsPostApiV1SmsOtpVerifyVerifyOtpQueryKey(options),
+  });
+};
+
+/**
+ * Verify Otp
+ * ✅ Verify OTP Code
+ */
+export const smsPostApiV1SmsOtpVerifyVerifyOtpMutation = (
+  options?: Partial<Options<SmsPostApiV1SmsOtpVerifyVerifyOtpData>>
+): UseMutationOptions<
+  unknown,
+  SmsPostApiV1SmsOtpVerifyVerifyOtpError,
+  Options<SmsPostApiV1SmsOtpVerifyVerifyOtpData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    SmsPostApiV1SmsOtpVerifyVerifyOtpError,
+    Options<SmsPostApiV1SmsOtpVerifyVerifyOtpData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await smsPostApiV1SmsOtpVerifyVerifyOtp({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const smsGetApiV1SmsStatusMessageIdGetMessageStatusQueryKey = (
+  options: Options<SmsGetApiV1SmsStatusMessageIdGetMessageStatusData>
+) => createQueryKey("smsGetApiV1SmsStatusMessageIdGetMessageStatus", options);
+
+/**
+ * Get Message Status
+ * 📊 Check Message Delivery Status
+ */
+export const smsGetApiV1SmsStatusMessageIdGetMessageStatusOptions = (
+  options: Options<SmsGetApiV1SmsStatusMessageIdGetMessageStatusData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsGetApiV1SmsStatusMessageIdGetMessageStatus({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsGetApiV1SmsStatusMessageIdGetMessageStatusQueryKey(options),
+  });
+};
+
+export const smsGetApiV1SmsBalanceGetSmsBalanceQueryKey = (
+  options?: Options<SmsGetApiV1SmsBalanceGetSmsBalanceData>
+) => createQueryKey("smsGetApiV1SmsBalanceGetSmsBalance", options);
+
+/**
+ * Get Sms Balance
+ * 💰 Check SMS Credit Balance
+ */
+export const smsGetApiV1SmsBalanceGetSmsBalanceOptions = (
+  options?: Options<SmsGetApiV1SmsBalanceGetSmsBalanceData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsGetApiV1SmsBalanceGetSmsBalance({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsGetApiV1SmsBalanceGetSmsBalanceQueryKey(options),
+  });
+};
+
+export const smsGetApiV1SmsTemplatesGetMessageTemplatesQueryKey = (
+  options?: Options<SmsGetApiV1SmsTemplatesGetMessageTemplatesData>
+) => createQueryKey("smsGetApiV1SmsTemplatesGetMessageTemplates", options);
+
+/**
+ * Get Message Templates
+ * 📝 Get Message Templates
+ */
+export const smsGetApiV1SmsTemplatesGetMessageTemplatesOptions = (
+  options?: Options<SmsGetApiV1SmsTemplatesGetMessageTemplatesData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsGetApiV1SmsTemplatesGetMessageTemplates({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsGetApiV1SmsTemplatesGetMessageTemplatesQueryKey(options),
+  });
+};
+
+export const aiPostApiV1AiChatChatCompletionQueryKey = (
+  options: Options<AiPostApiV1AiChatChatCompletionData>
+) => createQueryKey("aiPostApiV1AiChatChatCompletion", options);
+
+/**
+ * Chat Completion
+ * 🤖 Interactive Chat Completion
+ */
+export const aiPostApiV1AiChatChatCompletionOptions = (
+  options: Options<AiPostApiV1AiChatChatCompletionData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await aiPostApiV1AiChatChatCompletion({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: aiPostApiV1AiChatChatCompletionQueryKey(options),
+  });
+};
+
+/**
+ * Chat Completion
+ * 🤖 Interactive Chat Completion
+ */
+export const aiPostApiV1AiChatChatCompletionMutation = (
+  options?: Partial<Options<AiPostApiV1AiChatChatCompletionData>>
+): UseMutationOptions<
+  unknown,
+  AiPostApiV1AiChatChatCompletionError,
+  Options<AiPostApiV1AiChatChatCompletionData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    AiPostApiV1AiChatChatCompletionError,
+    Options<AiPostApiV1AiChatChatCompletionData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await aiPostApiV1AiChatChatCompletion({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const aiPostApiV1AiGenerateGenerateContentQueryKey = (
+  options: Options<AiPostApiV1AiGenerateGenerateContentData>
+) => createQueryKey("aiPostApiV1AiGenerateGenerateContent", options);
+
+/**
+ * Generate Content
+ * 📝 Generate Content
+ */
+export const aiPostApiV1AiGenerateGenerateContentOptions = (
+  options: Options<AiPostApiV1AiGenerateGenerateContentData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await aiPostApiV1AiGenerateGenerateContent({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: aiPostApiV1AiGenerateGenerateContentQueryKey(options),
+  });
+};
+
+/**
+ * Generate Content
+ * 📝 Generate Content
+ */
+export const aiPostApiV1AiGenerateGenerateContentMutation = (
+  options?: Partial<Options<AiPostApiV1AiGenerateGenerateContentData>>
+): UseMutationOptions<
+  unknown,
+  AiPostApiV1AiGenerateGenerateContentError,
+  Options<AiPostApiV1AiGenerateGenerateContentData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    AiPostApiV1AiGenerateGenerateContentError,
+    Options<AiPostApiV1AiGenerateGenerateContentData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await aiPostApiV1AiGenerateGenerateContent({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const aiPostApiV1AiAnalyzeAnalyzeTextQueryKey = (
+  options: Options<AiPostApiV1AiAnalyzeAnalyzeTextData>
+) => createQueryKey("aiPostApiV1AiAnalyzeAnalyzeText", options);
+
+/**
+ * Analyze Text
+ * 🔍 Analyze Text Content
+ */
+export const aiPostApiV1AiAnalyzeAnalyzeTextOptions = (
+  options: Options<AiPostApiV1AiAnalyzeAnalyzeTextData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await aiPostApiV1AiAnalyzeAnalyzeText({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: aiPostApiV1AiAnalyzeAnalyzeTextQueryKey(options),
+  });
+};
+
+/**
+ * Analyze Text
+ * 🔍 Analyze Text Content
+ */
+export const aiPostApiV1AiAnalyzeAnalyzeTextMutation = (
+  options?: Partial<Options<AiPostApiV1AiAnalyzeAnalyzeTextData>>
+): UseMutationOptions<
+  unknown,
+  AiPostApiV1AiAnalyzeAnalyzeTextError,
+  Options<AiPostApiV1AiAnalyzeAnalyzeTextData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    AiPostApiV1AiAnalyzeAnalyzeTextError,
+    Options<AiPostApiV1AiAnalyzeAnalyzeTextData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await aiPostApiV1AiAnalyzeAnalyzeText({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const aiPostApiV1AiTranslateTranslateTextQueryKey = (
+  options: Options<AiPostApiV1AiTranslateTranslateTextData>
+) => createQueryKey("aiPostApiV1AiTranslateTranslateText", options);
+
+/**
+ * Translate Text
+ * 🌍 Nigerian Language Translation
+ */
+export const aiPostApiV1AiTranslateTranslateTextOptions = (
+  options: Options<AiPostApiV1AiTranslateTranslateTextData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await aiPostApiV1AiTranslateTranslateText({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: aiPostApiV1AiTranslateTranslateTextQueryKey(options),
+  });
+};
+
+/**
+ * Translate Text
+ * 🌍 Nigerian Language Translation
+ */
+export const aiPostApiV1AiTranslateTranslateTextMutation = (
+  options?: Partial<Options<AiPostApiV1AiTranslateTranslateTextData>>
+): UseMutationOptions<
+  unknown,
+  AiPostApiV1AiTranslateTranslateTextError,
+  Options<AiPostApiV1AiTranslateTranslateTextData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    AiPostApiV1AiTranslateTranslateTextError,
+    Options<AiPostApiV1AiTranslateTranslateTextData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await aiPostApiV1AiTranslateTranslateText({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const aiGetApiV1AiModelsGetAvailableModelsQueryKey = (
+  options?: Options<AiGetApiV1AiModelsGetAvailableModelsData>
+) => createQueryKey("aiGetApiV1AiModelsGetAvailableModels", options);
+
+/**
+ * Get Available Models
+ * 🧠 Get Available AI Models
+ */
+export const aiGetApiV1AiModelsGetAvailableModelsOptions = (
+  options?: Options<AiGetApiV1AiModelsGetAvailableModelsData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await aiGetApiV1AiModelsGetAvailableModels({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: aiGetApiV1AiModelsGetAvailableModelsQueryKey(options),
+  });
+};
+
+export const aiGetApiV1AiConversationsConversationIdGetConversationQueryKey = (
+  options: Options<AiGetApiV1AiConversationsConversationIdGetConversationData>
+) =>
+  createQueryKey(
+    "aiGetApiV1AiConversationsConversationIdGetConversation",
+    options
+  );
+
+/**
+ * Get Conversation
+ * 💬 Get Conversation History
+ */
+export const aiGetApiV1AiConversationsConversationIdGetConversationOptions = (
+  options: Options<AiGetApiV1AiConversationsConversationIdGetConversationData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } =
+        await aiGetApiV1AiConversationsConversationIdGetConversation({
+          ...options,
+          ...queryKey[0],
+          signal,
+          throwOnError: true,
+        });
+      return data;
+    },
+    queryKey:
+      aiGetApiV1AiConversationsConversationIdGetConversationQueryKey(options),
+  });
+};
+
+export const aiGetApiV1AiUsageGetUsageStatisticsQueryKey = (
+  options?: Options<AiGetApiV1AiUsageGetUsageStatisticsData>
+) => createQueryKey("aiGetApiV1AiUsageGetUsageStatistics", options);
+
+/**
+ * Get Usage Statistics
+ * 📊 Get Token Usage Statistics
+ */
+export const aiGetApiV1AiUsageGetUsageStatisticsOptions = (
+  options?: Options<AiGetApiV1AiUsageGetUsageStatisticsData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await aiGetApiV1AiUsageGetUsageStatistics({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: aiGetApiV1AiUsageGetUsageStatisticsQueryKey(options),
+  });
+};
+
+export const healthGetApiV1ServicesHealthGetServicesHealthQueryKey = (
+  options?: Options<HealthGetApiV1ServicesHealthGetServicesHealthData>
+) => createQueryKey("healthGetApiV1ServicesHealthGetServicesHealth", options);
+
+/**
+ * Get Services Health
+ * 💚 Platform Health Overview
+ *
+ * Comprehensive health check for all backend services.
+ * Essential for monitoring Nigerian DPI platform status.
+ */
+export const healthGetApiV1ServicesHealthGetServicesHealthOptions = (
+  options?: Options<HealthGetApiV1ServicesHealthGetServicesHealthData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await healthGetApiV1ServicesHealthGetServicesHealth({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: healthGetApiV1ServicesHealthGetServicesHealthQueryKey(options),
+  });
+};
+
+export const healthGetApiV1DpiHealthGetDpiHealthQueryKey = (
+  options?: Options<HealthGetApiV1DpiHealthGetDpiHealthData>
+) => createQueryKey("healthGetApiV1DpiHealthGetDpiHealth", options);
+
+/**
+ * Get Dpi Health
+ * 🇳🇬 Nigerian DPI Services Health
+ *
+ * Focused health check for core DPI services.
+ * Tailored for Nigerian startup developers.
+ */
+export const healthGetApiV1DpiHealthGetDpiHealthOptions = (
+  options?: Options<HealthGetApiV1DpiHealthGetDpiHealthData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await healthGetApiV1DpiHealthGetDpiHealth({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: healthGetApiV1DpiHealthGetDpiHealthQueryKey(options),
+  });
+};
+
+export const healthGetApiV1ServicesServiceNameHealthGetServiceHealthQueryKey = (
+  options: Options<HealthGetApiV1ServicesServiceNameHealthGetServiceHealthData>
+) =>
+  createQueryKey(
+    "healthGetApiV1ServicesServiceNameHealthGetServiceHealth",
+    options
+  );
+
+/**
+ * Get Service Health
+ * 🔍 Individual Service Health
+ *
+ * Detailed health check for a specific service.
+ * Essential for troubleshooting and monitoring.
+ */
+export const healthGetApiV1ServicesServiceNameHealthGetServiceHealthOptions = (
+  options: Options<HealthGetApiV1ServicesServiceNameHealthGetServiceHealthData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } =
+        await healthGetApiV1ServicesServiceNameHealthGetServiceHealth({
+          ...options,
+          ...queryKey[0],
+          signal,
+          throwOnError: true,
+        });
+      return data;
+    },
+    queryKey:
+      healthGetApiV1ServicesServiceNameHealthGetServiceHealthQueryKey(options),
+  });
+};
+
+export const healthGetApiV1ServicesServiceNameMetricsGetServiceMetricsQueryKey =
+  (
+    options: Options<HealthGetApiV1ServicesServiceNameMetricsGetServiceMetricsData>
+  ) =>
+    createQueryKey(
+      "healthGetApiV1ServicesServiceNameMetricsGetServiceMetrics",
+      options
+    );
+
+/**
+ * Get Service Metrics
+ * 📈 Service Performance Metrics
+ *
+ * Detailed performance and usage metrics for specific service.
+ * Critical for capacity planning and optimization.
+ */
+export const healthGetApiV1ServicesServiceNameMetricsGetServiceMetricsOptions =
+  (
+    options: Options<HealthGetApiV1ServicesServiceNameMetricsGetServiceMetricsData>
+  ) => {
+    return queryOptions({
+      queryFn: async ({ queryKey, signal }) => {
+        const { data } =
+          await healthGetApiV1ServicesServiceNameMetricsGetServiceMetrics({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true,
+          });
+        return data;
+      },
+      queryKey:
+        healthGetApiV1ServicesServiceNameMetricsGetServiceMetricsQueryKey(
+          options
+        ),
+    });
+  };
+
+export const examplesGetApiV1ExamplesNinNinExamplesQueryKey = (
+  options?: Options<ExamplesGetApiV1ExamplesNinNinExamplesData>
+) => createQueryKey("examplesGetApiV1ExamplesNinNinExamples", options);
+
+/**
+ * Nin Examples
+ * 📋 NIN Verification Examples
+ */
+export const examplesGetApiV1ExamplesNinNinExamplesOptions = (
+  options?: Options<ExamplesGetApiV1ExamplesNinNinExamplesData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await examplesGetApiV1ExamplesNinNinExamples({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: examplesGetApiV1ExamplesNinNinExamplesQueryKey(options),
+  });
+};
+
+export const examplesGetApiV1ExamplesSmsSmsExamplesQueryKey = (
+  options?: Options<ExamplesGetApiV1ExamplesSmsSmsExamplesData>
+) => createQueryKey("examplesGetApiV1ExamplesSmsSmsExamples", options);
+
+/**
+ * Sms Examples
+ * 📱 Nigerian SMS Examples
+ */
+export const examplesGetApiV1ExamplesSmsSmsExamplesOptions = (
+  options?: Options<ExamplesGetApiV1ExamplesSmsSmsExamplesData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await examplesGetApiV1ExamplesSmsSmsExamples({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: examplesGetApiV1ExamplesSmsSmsExamplesQueryKey(options),
+  });
+};
+
+export const examplesGetApiV1ExamplesAuthAuthExamplesQueryKey = (
+  options?: Options<ExamplesGetApiV1ExamplesAuthAuthExamplesData>
+) => createQueryKey("examplesGetApiV1ExamplesAuthAuthExamples", options);
+
+/**
+ * Auth Examples
+ * 🔐 OAuth2 Bearer Token Examples
+ */
+export const examplesGetApiV1ExamplesAuthAuthExamplesOptions = (
+  options?: Options<ExamplesGetApiV1ExamplesAuthAuthExamplesData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await examplesGetApiV1ExamplesAuthAuthExamples({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: examplesGetApiV1ExamplesAuthAuthExamplesQueryKey(options),
+  });
+};
+
+export const examplesGetApiV1ExamplesIntegrationIntegrationExamplesQueryKey = (
+  options?: Options<ExamplesGetApiV1ExamplesIntegrationIntegrationExamplesData>
+) =>
+  createQueryKey(
+    "examplesGetApiV1ExamplesIntegrationIntegrationExamples",
+    options
+  );
+
+/**
+ * Integration Examples
+ * 🚀 Complete DPI Integration Examples
+ */
+export const examplesGetApiV1ExamplesIntegrationIntegrationExamplesOptions = (
+  options?: Options<ExamplesGetApiV1ExamplesIntegrationIntegrationExamplesData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } =
+        await examplesGetApiV1ExamplesIntegrationIntegrationExamples({
+          ...options,
+          ...queryKey[0],
+          signal,
+          throwOnError: true,
+        });
+      return data;
+    },
+    queryKey:
+      examplesGetApiV1ExamplesIntegrationIntegrationExamplesQueryKey(options),
   });
 };

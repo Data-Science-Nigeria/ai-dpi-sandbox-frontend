@@ -1,6 +1,6 @@
 "use client";
 
-import { loginUserApiV1AuthLoginPostMutation } from "@/client/@tanstack/react-query.gen";
+import { authPostApiV1AuthLoginJsonLoginJsonMutation } from "@/client/@tanstack/react-query.gen";
 import { Button } from "@/components/ui/button";
 import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,8 +39,8 @@ export function SignInForm() {
   });
 
   const login = useMutation({
-    ...loginUserApiV1AuthLoginPostMutation(),
-    onSuccess: (tokenRes) => {
+    ...authPostApiV1AuthLoginJsonLoginJsonMutation(),
+    onSuccess: (tokenRes: any) => {
       setAuth(tokenRes);
 
       client.setConfig({
@@ -74,7 +74,7 @@ export function SignInForm() {
     login.mutate(
       {
         body: {
-          username: data.email,
+          identifier: data.email,
           password: data.password,
         },
       },
