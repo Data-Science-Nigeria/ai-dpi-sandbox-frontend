@@ -17,16 +17,27 @@ const getBackgroundColor = (email: string): string => {
 };
 
 export const Avatar = () => {
-  const { auth } = useAuthStore();
+  const { auth, isAuthenticated } = useAuthStore();
 
-  if (!auth.user?.email) return null;
+  // Don't show avatar if user is not authenticated
+  if (!isAuthenticated()) return null;
+
+  // Show loading state if authenticated but user data not loaded yet
+  if (!auth.user?.email) {
+    return (
+      <div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse flex items-center justify-center">
+        <span className="text-xs text-gray-500">...</span>
+      </div>
+    );
+  }
 
   const firstLetter = auth.user.email.charAt(0).toUpperCase();
   const backgroundColor = getBackgroundColor(auth.user.email);
 
   return (
     <button
-      className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-medium ${backgroundColor}`}
+      className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-medium ${backgroundColor} hover:opacity-80 transition-opacity`}
+      title={auth.user.email}
     >
       {firstLetter}
     </button>

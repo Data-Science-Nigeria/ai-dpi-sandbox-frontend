@@ -5,11 +5,10 @@ import { Search } from "./search";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobilenav";
 import { Avatar } from "./avatar";
+import { useLogout } from "../../hooks/use-logout";
 
 export function Header() {
-  const handleLogout = () => {
-    console.log("Logout clicked");
-  };
+  const { handleLogout } = useLogout();
 
   const handleSupport = () => {
     console.log("Support clicked");

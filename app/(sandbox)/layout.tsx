@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Header } from "./components/header";
 import Sidebar from "./components/sidebar";
+import { Providers } from "../auth/providers";
+import { useAuthInit } from "../hooks/use-auth-init";
 
 export default function SandboxLayout({
   children,
@@ -10,6 +12,7 @@ export default function SandboxLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  useAuthInit();
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -31,14 +34,16 @@ export default function SandboxLayout({
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Sidebar isOpen={sidebarOpen} onToggle={handleSidebarToggle} />
-      <Header />
-      <main
-        className={`pt-[4rem] sm:pt-[5rem] md:pt-[5.5rem] transition-all duration-300 ${sidebarOpen ? "ml-0 xs:ml-56 sm:ml-64" : "ml-12 xs:ml-12 sm:ml-16"}`}
-      >
-        <div className="p-2 xs:p-4 sm:p-6">{children}</div>
-      </main>
-    </div>
+    <Providers>
+      <div className="min-h-screen bg-background">
+        <Sidebar isOpen={sidebarOpen} onToggle={handleSidebarToggle} />
+        <Header />
+        <main
+          className={`pt-[4rem] sm:pt-[5rem] md:pt-[5.5rem] transition-all duration-300 ${sidebarOpen ? "ml-0 xs:ml-56 sm:ml-64" : "ml-12 xs:ml-12 sm:ml-16"}`}
+        >
+          <div className="p-2 xs:p-4 sm:p-6">{children}</div>
+        </main>
+      </div>
+    </Providers>
   );
 }

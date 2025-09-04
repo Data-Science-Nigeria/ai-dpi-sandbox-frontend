@@ -16,6 +16,7 @@ import { PasswordInput } from "@/app/auth/components/password-input";
 import { useAuthStore } from "@/app/store/use-auth-store";
 import { client } from "@/client/client.gen";
 import { Logo } from "@/app/components/logo";
+import { authGetApiV1AuthMeGetCurrentUserProfile } from "@/client/sdk.gen";
 
 const signInSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -25,7 +26,7 @@ const signInSchema = z.object({
 type SignInData = z.infer<typeof signInSchema>;
 
 export function SignInForm() {
-  const { setAuth } = useAuthStore();
+  const { setAuth, setUser } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
@@ -40,7 +41,7 @@ export function SignInForm() {
 
   const login = useMutation({
     ...authPostApiV1AuthLoginJsonLoginJsonMutation(),
-    onSuccess: (tokenRes: any) => {
+    onSuccess: async (tokenRes: any) => {
       setAuth(tokenRes);
 
       client.setConfig({
@@ -48,6 +49,15 @@ export function SignInForm() {
           Authorization: `Bearer ${tokenRes.access_token}`,
         },
       });
+
+      // Fetch user profile after successful login
+      try {
+        const { data: userProfile } =
+          await authGetApiV1AuthMeGetCurrentUserProfile();
+        setUser(userProfile as any);
+      } catch (error) {
+        console.error("Failed to fetch user profile:", error);
+      }
 
       router.push("/introduction");
       setIsSubmitting(false);

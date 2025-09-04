@@ -10,15 +10,13 @@ import {
 } from "@heroicons/react/24/outline";
 import { useTheme } from "../../hooks/use-theme";
 import { Avatar } from "./avatar";
+import { useLogout } from "../../hooks/use-logout";
 
 export function MobileNav() {
   const { effectiveTheme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    console.log("Logout clicked");
-    setIsMenuOpen(false);
-  };
+  const { handleLogout } = useLogout();
 
   const handleThemeToggle = () => {
     toggleTheme();
