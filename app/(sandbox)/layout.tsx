@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Header } from "./components/header";
 import Sidebar from "./components/sidebar";
 import { Providers } from "../auth/providers";
-import { useAuthInit } from "../hooks/use-auth-init";
 import { ProtectRoute } from "../auth/components/protect-route";
 
 export default function SandboxLayout({
@@ -13,7 +12,6 @@ export default function SandboxLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  useAuthInit();
 
   useEffect(() => {
     const checkScreenSize = () => {

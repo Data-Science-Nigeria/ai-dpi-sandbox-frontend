@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import {
   Tooltip,
   TooltipTrigger,
@@ -17,8 +18,10 @@ export default function ServiceCard({
   description,
   href,
 }: ServiceCardProps) {
+  const router = useRouter();
+
   const handleDocs = () => {
-    window.location.href = href;
+    router.push(href);
   };
 
   return (

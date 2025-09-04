@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 type Auth = {
   access_token: string;
@@ -7,7 +7,7 @@ type Auth = {
   expires_in?: number;
   refresh_token?: string | null;
   user?: {
-    id?: number;
+    id?: string;
     email?: string;
     is_verified?: boolean;
     created_at?: string;
@@ -15,14 +15,14 @@ type Auth = {
 };
 
 const initialAuth: Auth = {
-  access_token: '',
+  access_token: "",
   user: null,
 };
 
 interface AuthState {
   auth: Auth;
   setAuth: (auth: Partial<Auth>, ttlInMs?: number) => void;
-  setUser: (user: Auth['user']) => void;
+  setUser: (user: Auth["user"]) => void;
   clearAuth: () => void;
   isAuthenticated: () => boolean;
 }
@@ -34,9 +34,11 @@ export const useAuthStore = create<AuthState>()(
         auth: initialAuth,
 
         setAuth: (auth, ttlInMs) => {
-          const expiryTime = ttlInMs || (auth.expires_in ? auth.expires_in * 1000 : 1000 * 60 * 60);
+          const expiryTime =
+            ttlInMs ||
+            (auth.expires_in ? auth.expires_in * 1000 : 1000 * 60 * 60);
           const expiry = Date.now() + expiryTime;
-          localStorage.setItem('auth_expiry', expiry.toString());
+          localStorage.setItem("auth_expiry", expiry.toString());
           set((state) => ({ auth: { ...state.auth, ...auth } }));
         },
 
@@ -50,16 +52,16 @@ export const useAuthStore = create<AuthState>()(
         },
 
         clearAuth: () => {
-          localStorage.removeItem('auth_expiry');
+          localStorage.removeItem("auth_expiry");
           set({ auth: initialAuth });
         },
       }),
       {
-        name: 'auth-storage',
+        name: "auth-storage",
         partialize: (state) => ({ auth: state.auth }),
 
         onRehydrateStorage: () => (state) => {
-          const expiry = localStorage.getItem('auth_expiry');
+          const expiry = localStorage.getItem("auth_expiry");
           const now = Date.now();
 
           if (expiry && now > Number(expiry)) {
@@ -70,8 +72,8 @@ export const useAuthStore = create<AuthState>()(
       }
     ),
     {
-      name: 'Auth Store',
-      enabled: process.env.NODE_ENV === 'development',
+      name: "Auth Store",
+      enabled: process.env.NODE_ENV === "development",
     }
   )
 );
