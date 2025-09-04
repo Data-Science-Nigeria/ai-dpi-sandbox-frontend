@@ -6,6 +6,7 @@ Sandbox Frontend
 
 - [Technologies](#technologies)
 - [Setup](#setup)
+- [Endpoint Generation System](#endpoint-generation-system)
 - [Contributing](#contributing)
 - [Conventions & Rules](#conventions-&-rules)
 
@@ -33,7 +34,63 @@ It is **required** to learn about the following tools:
 
 Before getting started, ensure that you have a NextJS Framework knowledge, Tailwind CSS knowledge. **Please make sure you've read Conventions & Rules before starting.**
 
+## Endpoint Generation System
+
+This project includes an automated endpoint generation system that creates API testing pages from OpenAPI client types.
+
+### Commands
+
+```bash
+# Generate endpoint pages manually
+yarn endpoints:generate
+
+# Watch for client file changes and auto-regenerate
+yarn endpoints:watch
+
+# Generate client AND endpoint pages
+yarn openapi-ts
+```
+
+### Why JavaScript (not TypeScript)?
+
+The scripts are written in **plain JavaScript** (.js files) instead of TypeScript (.ts) because:
+
+- **No build step needed** - JavaScript runs directly with `node`
+- **No TypeScript compiler required** - Avoids dependency on `tsx` or `tsc`
+- **Simpler execution** - Just `node script.js` instead of compilation first
+- **Fewer dependencies** - Works with basic Node.js installation
+
+### How Each Script Works
+
+**`yarn endpoints:generate`**
+
+- Runs `generate-endpoint-pages.js` once
+- Scans `client/types.gen.ts` for endpoint definitions
+- Creates pages for ai, bvn, ivr, nin, sms, two-way-sms only
+- Removes unwanted category folders
+
+**`yarn endpoints:watch`**
+
+- Runs `watch-and-generate.js` continuously
+- Monitors `client/types.gen.ts` and `client/client.gen.ts` for file changes
+- Auto-runs the generator when files are modified
+- Keeps process alive until you stop it (Ctrl+C)
+
+**`yarn openapi-ts`**
+
+- First runs `openapi-ts` (generates client from OpenAPI spec)
+- Then automatically runs `node scripts/generate-endpoint-pages.js`
+- **Chains the commands** so endpoint pages update whenever you regenerate the client
+
+This means when your API changes → run `yarn openapi-ts` → both client types AND endpoint pages update automatically.
+
 ### Download or clone the repository
+
+### Generate API Endpoint Pages
+
+```bash
+yarn endpoints:generate
+```
 
 ### Install dependencies
 
@@ -50,7 +107,6 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 
 ## Contributing
 

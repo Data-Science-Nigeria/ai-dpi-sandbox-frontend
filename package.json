@@ -13,7 +13,10 @@
     "prettier:check": "prettier --check './app/**/*.{ts,tsx,js,jsx}'",
     "eslint": "eslint --ext js,ts,tsx ./app",
     "eslint:fix": "export NODE_OPTIONS=--max_old_space_size=8192;eslint --fix --ext .ts,.tsx .",
-    "openapi-ts": "openapi-ts"
+    "openapi-ts": "openapi-ts && node scripts/generate-endpoint-pages.js",
+    "endpoints:generate": "node scripts/generate-endpoint-pages.js",
+    "endpoints:watch": "node scripts/watch-and-generate.js",
+    "postinstall": "yarn endpoints:generate"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

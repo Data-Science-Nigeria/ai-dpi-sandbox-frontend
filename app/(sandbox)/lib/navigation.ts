@@ -4,34 +4,117 @@ interface NavigationPage {
 }
 
 export const navigationPages: NavigationPage[] = [
-  { title: "Dashboard", href: "/introduction" },
-  { title: "API Documentation", href: "/docs" },
-  { title: "AI Service", href: "/introduction/services/ai" },
-  { title: "Generate Content", href: "/introduction/services/ai/generate" },
-  { title: "Analyze Data", href: "/introduction/services/ai/analyze" },
-  { title: "BVN Service", href: "/introduction/services/bvn" },
-  { title: "Verify BVN", href: "/introduction/services/bvn/verify" },
-  { title: "BVN Lookup", href: "/introduction/services/bvn/lookup" },
-  { title: "BVN Status", href: "/introduction/services/bvn/status" },
-  { title: "IVR Service", href: "/introduction/services/ivr" },
-  { title: "Create Call", href: "/introduction/services/ivr/call" },
-  { title: "Call Status", href: "/introduction/services/ivr/call-status" },
-  { title: "NIN Service", href: "/introduction/services/nin" },
-  { title: "Verify NIN", href: "/introduction/services/nin/verify" },
-  { title: "NIN Lookup", href: "/introduction/services/nin/lookup" },
-  { title: "NIN Status", href: "/introduction/services/nin/status" },
-  { title: "SMS Service", href: "/introduction/services/sms" },
-  { title: "Send SMS", href: "/introduction/services/sms/send" },
-  { title: "Bulk SMS", href: "/introduction/services/sms/bulk" },
-  { title: "SMS Status", href: "/introduction/services/sms/status" },
-  { title: "Two-Way SMS", href: "/introduction/services/two-way-sms" },
   {
-    title: "Send Interactive SMS",
-    href: "/introduction/services/two-way-sms/interactive",
+    title: "Dashboard",
+    href: "/introduction",
   },
   {
-    title: "Handle Response",
-    href: "/introduction/services/two-way-sms/response",
+    title: "API Documentation",
+    href: "/docs",
+  },
+  {
+    title: "Ai Service",
+    href: "/introduction/services/ai",
+  },
+  {
+    title: "Chat",
+    href: "/introduction/services/ai/chat",
+  },
+  {
+    title: "Generate",
+    href: "/introduction/services/ai/generate",
+  },
+  {
+    title: "Analyze",
+    href: "/introduction/services/ai/analyze",
+  },
+  {
+    title: "Translate",
+    href: "/introduction/services/ai/translate",
+  },
+  {
+    title: "Models",
+    href: "/introduction/services/ai/models",
+  },
+  {
+    title: "Conversations",
+    href: "/introduction/services/ai/conversations",
+  },
+  {
+    title: "Usage",
+    href: "/introduction/services/ai/usage",
+  },
+  {
+    title: "Bvn Service",
+    href: "/introduction/services/bvn",
+  },
+  {
+    title: "Verify",
+    href: "/introduction/services/bvn/verify",
+  },
+  {
+    title: "Status",
+    href: "/introduction/services/bvn/status",
+  },
+  {
+    title: "Lookup",
+    href: "/introduction/services/bvn/lookup",
+  },
+  {
+    title: "Match",
+    href: "/introduction/services/bvn/match",
+  },
+  {
+    title: "Banks",
+    href: "/introduction/services/bvn/banks",
+  },
+  {
+    title: "Nin Service",
+    href: "/introduction/services/nin",
+  },
+  {
+    title: "Verify",
+    href: "/introduction/services/nin/verify",
+  },
+  {
+    title: "Status",
+    href: "/introduction/services/nin/status",
+  },
+  {
+    title: "Lookup",
+    href: "/introduction/services/nin/lookup",
+  },
+  {
+    title: "Sms Service",
+    href: "/introduction/services/sms",
+  },
+  {
+    title: "Send",
+    href: "/introduction/services/sms/send",
+  },
+  {
+    title: "Bulk",
+    href: "/introduction/services/sms/bulk",
+  },
+  {
+    title: "Otp",
+    href: "/introduction/services/sms/otp",
+  },
+  {
+    title: "Otp",
+    href: "/introduction/services/sms/otp",
+  },
+  {
+    title: "Status",
+    href: "/introduction/services/sms/status",
+  },
+  {
+    title: "Balance",
+    href: "/introduction/services/sms/balance",
+  },
+  {
+    title: "Templates",
+    href: "/introduction/services/sms/templates",
   },
 ];
 

@@ -4,13 +4,13 @@ import { ApiClientInterface } from "../../components/api-client-interface";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
-export default function SMSStatusPage() {
+export default function SmsGetApiV1SmsStatusMessageIdGetMessageStatusPage() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">
         <ApiClientInterface
           initialMethod="GET"
-          initialPath="/api/v1/status/{message_id}"
+          initialPath="/api/v1/sms/status/{message_id}"
         />
       </div>
       <div className="p-3 sm:p-6 border-t">

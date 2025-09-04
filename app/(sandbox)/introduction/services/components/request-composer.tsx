@@ -2,13 +2,6 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Play, Plus, Trash2, Copy } from "lucide-react";
@@ -38,8 +31,8 @@ export function RequestComposer({
   initialPath = "",
 }: RequestComposerProps) {
   const baseUrl = getBaseUrl();
-  const [method, setMethod] = useState(initialMethod);
-  const [path] = useState(initialPath);
+  const method = initialMethod;
+  const path = initialPath;
   const [headers, setHeaders] = useState<Header[]>([
     { key: "Content-Type", value: "application/json", enabled: true },
     { key: "Authorization", value: "Bearer your-token-here", enabled: true },
@@ -88,18 +81,22 @@ export function RequestComposer({
     <div className="flex flex-col h-full">
       <div className="p-2 sm:p-4 border-b bg-card">
         <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
-          <Select value={method} onValueChange={setMethod}>
-            <SelectTrigger className="w-full sm:w-24">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="GET">GET</SelectItem>
-              <SelectItem value="POST">POST</SelectItem>
-              <SelectItem value="PUT">PUT</SelectItem>
-              <SelectItem value="DELETE">DELETE</SelectItem>
-              <SelectItem value="PATCH">PATCH</SelectItem>
-            </SelectContent>
-          </Select>
+          <span
+            className={cn(
+              "px-3 py-2 text-sm font-medium rounded border",
+              method === "GET"
+                ? "bg-blue-50 text-blue-700 border-blue-200"
+                : method === "POST"
+                  ? "bg-green-50 text-green-700 border-green-200"
+                  : method === "PUT"
+                    ? "bg-yellow-50 text-yellow-700 border-yellow-200"
+                    : method === "DELETE"
+                      ? "bg-red-50 text-red-700 border-red-200"
+                      : "bg-gray-50 text-gray-700 border-gray-200"
+            )}
+          >
+            {method}
+          </span>
 
           <div className="flex-1 flex items-center gap-2">
             <BaseUrlIcon baseUrl={baseUrl} />

@@ -4,13 +4,13 @@ import { ApiClientInterface } from "../../components/api-client-interface";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
-export default function BulkSMSPage() {
+export default function SmsPostApiV1SmsBulkSendBulkSmsPage() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">
         <ApiClientInterface
           initialMethod="POST"
-          initialPath="/api/v1/send/bulk"
+          initialPath="/api/v1/sms/bulk"
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
