@@ -34,7 +34,6 @@ export const useLogout = () => {
       router.push("/auth/signin");
     } catch (error) {
       toast.error(getApiErrorMessage(error));
-      // Clear auth even if logout fails
       clearAuth();
       router.push("/auth/signin");
     }
