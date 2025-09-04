@@ -23,7 +23,6 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
     const checkAuthStatus = async () => {
       if (isCheckingAuth.current) return;
 
-      // Check if user is already authenticated from store
       if (checkAuth() && auth.user) {
         setIsAuthenticated(true);
         return;
