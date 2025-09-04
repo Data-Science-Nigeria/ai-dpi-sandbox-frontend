@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
-import { PanelLeft, PanelRight, FileText } from "lucide-react";
+import { PanelLeft, PanelRight, FileText, Code } from "lucide-react";
 import { menuItems } from "../introduction/data/data";
 
 interface SidebarProps {
@@ -256,7 +256,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                         }
                                       `}
                                     >
-                                      <FileText className="w-3 h-3 mr-2" />
+                                      <Code className="w-3 h-3 mr-2" />
                                       <span
                                         className={`font-mono mr-2 ${
                                           selectedItem === endpointId

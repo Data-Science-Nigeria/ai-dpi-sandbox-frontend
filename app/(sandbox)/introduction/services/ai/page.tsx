@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { ApiClientInterface } from "../components/api-client-interface";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import { Zap, FileText, BarChart3 } from "lucide-react";
+import { Zap, Code, BarChart3 } from "lucide-react";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
@@ -73,7 +73,7 @@ export default function AIServicePage() {
           <div className="grid gap-6">
             <section>
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <FileText className="h-5 w-5" />
+                <Code className="h-5 w-5" />
                 Available Endpoints
               </h2>
 

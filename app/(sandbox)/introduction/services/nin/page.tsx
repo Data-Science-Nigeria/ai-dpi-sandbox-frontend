@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { ApiClientInterface } from "../components/api-client-interface";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import { Shield, CheckCircle, AlertTriangle, BarChart3 } from "lucide-react";
+import { Shield, Code, AlertTriangle, BarChart3 } from "lucide-react";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
@@ -76,7 +76,7 @@ export default function NINServicePage() {
           <div className="grid gap-4 sm:gap-6">
             <section>
               <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                <Code className="h-4 w-4 sm:h-5 sm:w-5" />
                 Available Endpoints
               </h2>
 

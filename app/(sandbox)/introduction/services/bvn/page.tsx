@@ -4,12 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { ApiClientInterface } from "../components/api-client-interface";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import {
-  CreditCard,
-  CheckCircle,
-  AlertTriangle,
-  BarChart3,
-} from "lucide-react";
+import { CreditCard, Code, AlertTriangle, BarChart3 } from "lucide-react";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
@@ -81,7 +76,7 @@ export default function BVNServicePage() {
           <div className="grid gap-6">
             <section>
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <CheckCircle className="h-5 w-5" />
+                <Code className="h-5 w-5" />
                 Available Endpoints
               </h2>
 
