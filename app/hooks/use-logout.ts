@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { getApiErrorMessage } from "@/lib/get-api-error-message";
 import { useAuthStore } from "@/app/store/use-auth-store";
 import { useAlert } from "./use-alert";
+import { client } from "@/client/client.gen";
 
 export const useLogout = () => {
   const { logout: logoutAlert } = useAlert();
@@ -16,13 +17,25 @@ export const useLogout = () => {
   });
 
   const handleLogout = async () => {
+    const { auth } = useAuthStore.getState();
+
     try {
+      // Set authorization header before logout
+      if (auth.access_token) {
+        client.setConfig({
+          headers: {
+            Authorization: `Bearer ${auth.access_token}`,
+          },
+        });
+      }
+
       await logout.mutateAsync({});
       clearAuth();
       router.push("/auth/signin");
     } catch (error) {
-      console.log(error);
       toast.error(getApiErrorMessage(error));
+      clearAuth();
+      router.push("/auth/signin");
     }
   };
 
