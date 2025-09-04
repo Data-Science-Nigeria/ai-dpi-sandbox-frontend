@@ -2,59 +2,80 @@
 
 import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
 import { authGetApiV1AuthMeGetCurrentUserProfile } from "@/client/sdk.gen";
+import { client } from "@/client/client.gen";
 import React, { useLayoutEffect, useState, useRef } from "react";
 import { useAuthStore } from "@/app/store/use-auth-store";
 
 export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const { setAuth, auth } = useAuthStore();
+  const [isHydrated, setIsHydrated] = useState(false);
+  const { setAuth, auth, isAuthenticated: checkAuth } = useAuthStore();
   const isCheckingAuth = useRef(false);
 
   useLayoutEffect(() => {
-    const checkAuth = async () => {
+    // Wait for Zustand to hydrate
+    setIsHydrated(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!isHydrated) return;
+
+    const checkAuthStatus = async () => {
       if (isCheckingAuth.current) return;
 
-      // If user already exists in store, skip API call
-      if (auth.user) {
+      // Check if user is already authenticated from store
+      if (checkAuth() && auth.user) {
         setIsAuthenticated(true);
         return;
       }
 
-      isCheckingAuth.current = true;
+      // If we have a token but no user, fetch user data
+      if (checkAuth() && !auth.user) {
+        isCheckingAuth.current = true;
 
-      try {
-        const res = await authGetApiV1AuthMeGetCurrentUserProfile();
+        try {
+          client.setConfig({
+            headers: {
+              Authorization: `Bearer ${auth.access_token}`,
+            },
+          });
 
-        if (res.error) {
-          const errMsg = getApiErrorMessage(res.error);
-          throw new Error(`API error ${errMsg}`);
+          const res = await authGetApiV1AuthMeGetCurrentUserProfile();
+
+          if (res.error) {
+            const errMsg = getApiErrorMessage(res.error);
+            throw new Error(`API error ${errMsg}`);
+          }
+
+          const userData = res.data as {
+            email?: string;
+            is_verified?: boolean;
+            id?: string;
+          };
+          setAuth({
+            user: {
+              email: userData?.email || "",
+              is_verified: userData?.is_verified,
+              id: userData?.id,
+            },
+          });
+
+          setIsAuthenticated(true);
+        } catch {
+          window.location.href = "/auth/signin";
+        } finally {
+          isCheckingAuth.current = false;
         }
-
-        const userData = res.data as {
-          email?: string;
-          is_verified?: boolean;
-          id?: string;
-        };
-        setAuth({
-          user: {
-            email: userData?.email || "",
-            is_verified: userData?.is_verified,
-            id: userData?.id,
-          },
-        });
-
-        setIsAuthenticated(true);
-      } catch {
+      } else {
+        // No token, redirect to signin
         window.location.href = "/auth/signin";
-      } finally {
-        isCheckingAuth.current = false;
       }
     };
 
-    checkAuth();
-  }, [setAuth, auth.user]);
+    checkAuthStatus();
+  }, [isHydrated, setAuth, auth.user, auth.access_token, checkAuth]);
 
-  if (isAuthenticated === null) {
+  if (!isHydrated || isAuthenticated === null) {
     return null;
   }
 
