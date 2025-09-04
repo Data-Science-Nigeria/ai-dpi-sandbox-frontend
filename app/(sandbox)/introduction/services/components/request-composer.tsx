@@ -12,6 +12,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Play, Plus, Trash2, Copy } from "lucide-react";
+import { BaseUrlIcon } from "./base-url-icon";
+import { getBaseUrl } from "@/lib/env";
 
 interface Header {
   key: string;
@@ -35,8 +37,9 @@ export function RequestComposer({
   initialMethod = "GET",
   initialPath = "",
 }: RequestComposerProps) {
+  const baseUrl = getBaseUrl();
   const [method, setMethod] = useState(initialMethod);
-  const [url, setUrl] = useState(`http://localhost:8080${initialPath}`);
+  const [path] = useState(initialPath);
   const [headers, setHeaders] = useState<Header[]>([
     { key: "Content-Type", value: "application/json", enabled: true },
     { key: "Authorization", value: "Bearer your-token-here", enabled: true },
@@ -63,9 +66,10 @@ export function RequestComposer({
   };
 
   const handleSend = () => {
+    const fullUrl = `${baseUrl.replace(/\/$/, "")}${path}`;
     onSendRequest({
       method,
-      url,
+      url: fullUrl,
       headers: headers.filter((h) => h.enabled && h.key),
       body: method !== "GET" ? body : "",
     });
@@ -97,13 +101,16 @@ export function RequestComposer({
             </SelectContent>
           </Select>
 
-          <input
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            className="flex-1 px-3 py-2 border rounded-md bg-background text-sm"
-            placeholder="Enter request URL"
-          />
+          <div className="flex-1 flex items-center gap-2">
+            <BaseUrlIcon baseUrl={baseUrl} />
+            <input
+              type="text"
+              value={path}
+              readOnly
+              className="flex-1 px-3 py-2 border rounded-md bg-muted text-sm cursor-not-allowed"
+              placeholder="/api/v1/endpoint"
+            />
+          </div>
 
           <Button onClick={handleSend} className="px-4 sm:px-6">
             <Play className="h-4 w-4 mr-2" />
