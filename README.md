@@ -34,6 +34,41 @@ It is **required** to learn about the following tools:
 
 Before getting started, ensure that you have a NextJS Framework knowledge, Tailwind CSS knowledge. **Please make sure you've read Conventions & Rules before starting.**
 
+### Getting Started
+
+1. **Clone the repository**
+
+   ```bash
+   git clone <repository-url>
+   cd sandbox-frontend
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   yarn install
+   ```
+
+3. **Generate API endpoint pages**
+
+   ```bash
+   # If you have an OpenAPI spec configured
+   yarn openapi-ts
+
+   # OR generate pages manually
+   yarn endpoints:generate
+   ```
+
+4. **Start the development server**
+
+   ```bash
+   yarn dev
+   ```
+
+5. **Open your browser**
+
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
+
 ## Endpoint Generation System
 
 This project includes an automated endpoint generation system that creates API testing pages from OpenAPI client types.
@@ -84,29 +119,15 @@ The scripts are written in **plain JavaScript** (.js files) instead of TypeScrip
 
 This means when your API changes → run `yarn openapi-ts` → both client types AND endpoint pages update automatically.
 
-### Download or clone the repository
+### Optional: Watch for Changes (Development)
 
-### Generate API Endpoint Pages
-
-```bash
-yarn endpoints:generate
-```
-
-### Install dependencies
+During development, you can run the file watcher to automatically regenerate endpoint pages when your API client files change:
 
 ```bash
-
-yarn install
+yarn endpoints:watch
 ```
 
-### After, run the development server:
-
-```bash
-
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This keeps running and auto-regenerates pages when `client/types.gen.ts` or `client/client.gen.ts` change. Press `Ctrl+C` to stop.
 
 ## Contributing
 
