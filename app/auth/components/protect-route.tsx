@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { getApiErrorMessage } from '@/app/utils/get-api-error-message';
-import { readUserMeApiV1AuthMeGet } from '@/client/sdk.gen';
-import React, { useLayoutEffect, useState } from 'react';
-import { useAuthStore } from '@/app/store/use-auth-store';
+import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
+import { authGetApiV1AuthMeGetCurrentUserProfile } from "@/client/sdk.gen";
+import React, { useLayoutEffect, useState } from "react";
+import { useAuthStore } from "@/app/store/use-auth-store";
 
 export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -12,7 +12,7 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
   useLayoutEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await readUserMeApiV1AuthMeGet();
+        const res = await authGetApiV1AuthMeGetCurrentUserProfile();
 
         console.log(res);
 
@@ -21,18 +21,19 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
           throw new Error(`API error ${errMsg}`);
         }
 
+        const userData = res.data as any;
         setAuth({
           user: {
-            email: res.data?.email || '',
-            is_verified: res.data?.is_verified,
-            id: res?.data?.id,
+            email: userData?.email || "",
+            is_verified: userData?.is_verified,
+            id: userData?.id,
           },
         });
 
         setIsAuthenticated(true);
       } catch (error) {
         console.log(error);
-        window.location.href = '/auth/signin';
+        window.location.href = "/auth/signin";
       }
     };
 

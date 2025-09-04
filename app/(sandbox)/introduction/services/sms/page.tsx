@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { MessageSquare, Code, Users, BarChart3 } from "lucide-react";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { SuspenseWrapper } from "../components/suspense-wrapper";
 
 const smsEndpoints = [
   {
@@ -42,7 +43,7 @@ const smsEndpoints = [
   },
 ];
 
-export default function SMSServicePage() {
+function SMSServiceContent() {
   const searchParams = useSearchParams();
   const selectedEndpoint = searchParams.get("endpoint");
 
@@ -219,5 +220,13 @@ export default function SMSServicePage() {
         <PageNavigation {...getNavigation("/introduction/services/sms")} />
       </div>
     </div>
+  );
+}
+
+export default function SMSServicePage() {
+  return (
+    <SuspenseWrapper>
+      <SMSServiceContent />
+    </SuspenseWrapper>
   );
 }

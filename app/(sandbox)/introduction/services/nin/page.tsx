@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Shield, Code, AlertTriangle, BarChart3 } from "lucide-react";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { SuspenseWrapper } from "../components/suspense-wrapper";
 
 const ninEndpoints = [
   {
@@ -38,7 +39,7 @@ const ninEndpoints = [
   },
 ];
 
-export default function NINServicePage() {
+function NINServiceContent() {
   const searchParams = useSearchParams();
   const selectedEndpoint = searchParams.get("endpoint");
 
@@ -258,5 +259,13 @@ export default function NINServicePage() {
         <PageNavigation {...getNavigation("/introduction/services/nin")} />
       </div>
     </div>
+  );
+}
+
+export default function NINServicePage() {
+  return (
+    <SuspenseWrapper>
+      <NINServiceContent />
+    </SuspenseWrapper>
   );
 }

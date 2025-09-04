@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { CreditCard, Code, AlertTriangle, BarChart3 } from "lucide-react";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { SuspenseWrapper } from "../components/suspense-wrapper";
 
 const bvnEndpoints = [
   {
@@ -38,7 +39,7 @@ const bvnEndpoints = [
   },
 ];
 
-export default function BVNServicePage() {
+function BVNServiceContent() {
   const searchParams = useSearchParams();
   const selectedEndpoint = searchParams.get("endpoint");
 
@@ -286,5 +287,13 @@ export default function BVNServicePage() {
         <PageNavigation {...getNavigation("/introduction/services/bvn")} />
       </div>
     </div>
+  );
+}
+
+export default function BVNServicePage() {
+  return (
+    <SuspenseWrapper>
+      <BVNServiceContent />
+    </SuspenseWrapper>
   );
 }

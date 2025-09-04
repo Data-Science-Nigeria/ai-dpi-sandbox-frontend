@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Zap, Code, BarChart3 } from "lucide-react";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { SuspenseWrapper } from "../components/suspense-wrapper";
 
 const aiEndpoints = [
   {
@@ -35,7 +36,7 @@ const aiEndpoints = [
   },
 ];
 
-export default function AIServicePage() {
+function AIServiceContent() {
   const searchParams = useSearchParams();
   const selectedEndpoint = searchParams.get("endpoint");
 
@@ -176,5 +177,13 @@ export default function AIServicePage() {
         <PageNavigation {...getNavigation("/introduction/services/ai")} />
       </div>
     </div>
+  );
+}
+
+export default function AIServicePage() {
+  return (
+    <SuspenseWrapper>
+      <AIServiceContent />
+    </SuspenseWrapper>
   );
 }

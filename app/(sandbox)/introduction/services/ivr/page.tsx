@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Phone, Code, BarChart3, Headphones } from "lucide-react";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { SuspenseWrapper } from "../components/suspense-wrapper";
 
 const ivrEndpoints = [
   {
@@ -34,7 +35,7 @@ const ivrEndpoints = [
   },
 ];
 
-export default function IVRServicePage() {
+function IVRServiceContent() {
   const searchParams = useSearchParams();
   const selectedEndpoint = searchParams.get("endpoint");
 
@@ -244,5 +245,13 @@ export default function IVRServicePage() {
         <PageNavigation {...getNavigation("/introduction/services/ivr")} />
       </div>
     </div>
+  );
+}
+
+export default function IVRServicePage() {
+  return (
+    <SuspenseWrapper>
+      <IVRServiceContent />
+    </SuspenseWrapper>
   );
 }

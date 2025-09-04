@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { MessageCircle, Code, BarChart3 } from "lucide-react";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { SuspenseWrapper } from "../components/suspense-wrapper";
 
 const twoWaySmsEndpoints = [
   {
@@ -34,7 +35,7 @@ const twoWaySmsEndpoints = [
   },
 ];
 
-export default function TwoWaySMSServicePage() {
+function TwoWaySMSServiceContent() {
   const searchParams = useSearchParams();
   const selectedEndpoint = searchParams.get("endpoint");
 
@@ -176,5 +177,13 @@ export default function TwoWaySMSServicePage() {
         />
       </div>
     </div>
+  );
+}
+
+export default function TwoWaySMSServicePage() {
+  return (
+    <SuspenseWrapper>
+      <TwoWaySMSServiceContent />
+    </SuspenseWrapper>
   );
 }
