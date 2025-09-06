@@ -3,10 +3,12 @@
 import { useState } from "react";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Users, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { CreateUserModal } from "../components/create-user-modal";
 import { UserGrowthChart } from "../components/user-growth-chart";
+import { TotalUsersCard } from "../components/total-users-card";
+import { UserTable } from "../components/user-table";
+import { PageHeader } from "../components/page-header";
 import { authGetApiV1AuthAdminUsersListUsersOptions } from "@/client/@tanstack/react-query.gen";
 import { useQuery } from "@tanstack/react-query";
 
@@ -85,62 +87,33 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <Button
-          onClick={() => setShowCreateModal(true)}
-          className="bg-[#00A859] hover:bg-[#00A859]/90"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Create User
-        </Button>
-      </div>
+      <PageHeader
+        title="Admin Dashboard"
+        action={
+          <Button
+            onClick={() => setShowCreateModal(true)}
+            className="bg-[#00A859] hover:bg-[#00A859]/90"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Create User
+          </Button>
+        }
+      />
 
       {/* Top Row - Total Users and Growth Chart */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Total Users Card */}
-        <div className="bg-white dark:bg-[#1C1E22] rounded-lg border p-4 h-full">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-[#00A859]" />
-              <h3 className="text-lg font-semibold">Total Users</h3>
-            </div>
-            <div className="flex gap-1 relative z-10">
-              <select
-                value={selectedMonth || ""}
-                onChange={(e) => setSelectedMonth(Number(e.target.value))}
-                className="px-2 py-1 border rounded text-xs w-18 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white relative z-20"
-              >
-                {availableMonths.map((month) => (
-                  <option key={month} value={month}>
-                    {new Date(0, month - 1).toLocaleString("default", {
-                      month: "short",
-                    })}
-                  </option>
-                ))}
-              </select>
-              <select
-                value={selectedYear || ""}
-                onChange={(e) => {
-                  setSelectedYear(Number(e.target.value));
-                  setSelectedMonth(null); // Reset month when year changes
-                }}
-                className="px-2 py-1 border rounded text-xs w-18 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white relative z-20"
-              >
-                {availableYears.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="flex items-end justify-center flex-1 pb-4">
-            <div className="text-7xl font-bold text-[#00A859] mt-8">
-              {totalUsers.toLocaleString()}
-            </div>
-          </div>
-        </div>
+        <TotalUsersCard
+          totalUsers={totalUsers}
+          selectedMonth={selectedMonth}
+          selectedYear={selectedYear}
+          availableMonths={availableMonths}
+          availableYears={availableYears}
+          onMonthChange={setSelectedMonth}
+          onYearChange={(year) => {
+            setSelectedYear(year);
+            setSelectedMonth(null);
+          }}
+        />
 
         {/* Growth Chart */}
         <div className="lg:col-span-2">
@@ -159,58 +132,7 @@ export default function AdminDashboard() {
             See more &gt;
           </a>
         </div>
-
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-800">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Email
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Role
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Date Added
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {isLoading ? (
-                <tr>
-                  <td
-                    colSpan={4}
-                    className="px-6 py-4 text-center text-gray-500"
-                  >
-                    Loading users...
-                  </td>
-                </tr>
-              ) : (
-                recentUsers.map((user, index: number) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      {user.first_name && user.last_name
-                        ? `${user.first_name} ${user.last_name}`
-                        : user.email}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      {user.email}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Badge variant="secondary">{user.role || "User"}</Badge>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(user.created_at).toLocaleDateString()}
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+        <UserTable users={recentUsers} isLoading={isLoading} />
       </div>
 
       <CreateUserModal

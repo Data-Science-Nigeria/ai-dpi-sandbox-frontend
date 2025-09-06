@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Edit, Trash2 } from "lucide-react";
 import { ConfirmationModal } from "../components/confirmation-modal";
 import { EditUserModal } from "../components/edit-user-modal";
+import { UserTable } from "../components/user-table";
+import { Pagination } from "../components/pagination";
+import { PageHeader } from "../components/page-header";
 import {
   authGetApiV1AuthAdminUsersListUsersOptions,
   authDeleteApiV1AuthAdminUsersUserIdDeleteUserMutation,
@@ -93,109 +95,39 @@ export default function ManageUsers() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Manage Users</h1>
+      <PageHeader title="Manage Users" />
 
-      <div className="bg-white dark:bg-[#1C1E22] rounded-lg border">
-        {isLoading ? (
-          <div className="p-8 text-center text-gray-500">Loading users...</div>
-        ) : userRoleUsers.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">No user found</div>
-        ) : (
-          <>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 dark:bg-gray-800">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Name
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Email
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Role
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Date Added
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {currentUsers.map((user: User) => (
-                    <tr key={user.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        {user.first_name && user.last_name
-                          ? `${user.first_name} ${user.last_name}`
-                          : user.email}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        {user.email}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <Badge variant="secondary">{user.role || "User"}</Badge>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(user.created_at).toLocaleDateString()}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleEdit(user)}
-                        >
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleDelete(user)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex justify-between items-center p-4 border-t">
-                <div className="text-sm text-gray-500">
-                  Showing {startIndex + 1} to{" "}
-                  {Math.min(startIndex + usersPerPage, userRoleUsers.length)} of{" "}
-                  {userRoleUsers.length} users
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.max(1, prev - 1))
-                    }
-                    disabled={currentPage === 1}
-                  >
-                    Previous
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.min(totalPages, prev + 1))
-                    }
-                    disabled={currentPage === totalPages}
-                  >
-                    Next
-                  </Button>
-                </div>
-              </div>
-            )}
-          </>
-        )}
+      <div>
+        <UserTable
+          users={currentUsers}
+          isLoading={isLoading}
+          emptyMessage="No user found"
+          actions={(user) => (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleEdit(user)}
+              >
+                <Edit className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleDelete(user)}
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            </>
+          )}
+        />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={userRoleUsers.length}
+          itemsPerPage={usersPerPage}
+          onPageChange={setCurrentPage}
+        />
       </div>
 
       <ConfirmationModal

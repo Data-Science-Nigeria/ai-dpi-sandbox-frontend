@@ -40,13 +40,14 @@ export function SignInForm() {
   });
 
   const login = useMutation({
-    ...authPostApiV1AuthLoginJsonLoginJsonMutation(),
-    onSuccess: async (tokenRes: {
-      access_token: string;
-      expires_in?: number;
-      token_type?: string;
-      refresh_token?: string;
-    }) => {
+    mutationFn: authPostApiV1AuthLoginJsonLoginJsonMutation().mutationFn,
+    onSuccess: async (data) => {
+      const tokenRes = data as {
+        access_token: string;
+        expires_in?: number;
+        token_type?: string;
+        refresh_token?: string;
+      };
       setAuth(tokenRes);
 
       client.setConfig({
@@ -94,14 +95,21 @@ export function SignInForm() {
     onError: (error: unknown) => {
       setIsSubmitting(false);
 
+      const errorObj = error as {
+        status_code?: number;
+        response?: { status?: number };
+        status?: number;
+        code?: number;
+        error?: string;
+      };
       const status =
-        error?.status_code ||
-        error?.response?.status ||
-        error?.status ||
-        error?.code;
+        errorObj?.status_code ||
+        errorObj?.response?.status ||
+        errorObj?.status ||
+        errorObj?.code;
       const errorMessage =
         status === 401 || status === 400 || status === 403
-          ? error?.error || "Incorrect email or password"
+          ? errorObj?.error || "Incorrect email or password"
           : getApiErrorMessage(error);
       toast.error(errorMessage);
     },
@@ -119,14 +127,21 @@ export function SignInForm() {
       },
       {
         onError: (error: unknown) => {
+          const errorObj = error as {
+            status_code?: number;
+            response?: { status?: number };
+            status?: number;
+            code?: number;
+            error?: string;
+          };
           const status =
-            error?.status_code ||
-            error?.response?.status ||
-            error?.status ||
-            error?.code;
+            errorObj?.status_code ||
+            errorObj?.response?.status ||
+            errorObj?.status ||
+            errorObj?.code;
           const errorMessage =
             status === 401 || status === 400 || status === 403
-              ? error?.error || "Incorrect email or password"
+              ? errorObj?.error || "Incorrect email or password"
               : getApiErrorMessage(error);
           setError("email", { message: errorMessage });
         },
