@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -43,6 +43,17 @@ export function EditUserModal({
     email: user.email,
   });
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  // Reset form data when modal opens or user changes
+  useEffect(() => {
+    if (isOpen) {
+      setFormData({
+        first_name: user.first_name || "",
+        last_name: user.last_name || "",
+        email: user.email,
+      });
+    }
+  }, [isOpen, user]);
 
   const updateUser = useMutation({
     ...authPutApiV1AuthAdminUsersUserIdUpdateUserMutation(),

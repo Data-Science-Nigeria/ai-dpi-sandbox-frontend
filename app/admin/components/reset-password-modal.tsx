@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -14,6 +14,7 @@ import { authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordMutation
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
+import { PasswordInput } from "@/app/auth/components/password-input";
 
 interface User {
   id: number;
@@ -35,12 +36,10 @@ export function ResetPasswordModal({
   onClose,
   user,
 }: ResetPasswordModalProps) {
-  const [formData, setFormData] = useState({
-    newPassword: "",
-    confirmPassword: "",
-  });
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const newPasswordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
   const resetPassword = useMutation({
     ...authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordMutation(),
@@ -49,14 +48,17 @@ export function ResetPasswordModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const newPassword = newPasswordRef.current?.value || "";
+    const confirmPassword = confirmPasswordRef.current?.value || "";
+
     // Validate passwords
     const newErrors: { [key: string]: string } = {};
 
-    if (formData.newPassword.length < 6) {
+    if (newPassword.length < 6) {
       newErrors.newPassword = "Password must be at least 6 characters";
     }
 
-    if (formData.newPassword !== formData.confirmPassword) {
+    if (newPassword !== confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
     }
 
@@ -70,18 +72,21 @@ export function ResetPasswordModal({
   };
 
   const confirmReset = async () => {
+    const newPassword = newPasswordRef.current?.value || "";
+
     resetPassword.mutate(
       {
         path: { user_id: user.id },
         body: {
-          new_password: formData.newPassword,
+          new_password: newPassword,
         },
       },
       {
         onSuccess: () => {
           toast.success("Password reset successfully");
           onClose();
-          setFormData({ newPassword: "", confirmPassword: "" });
+          if (newPasswordRef.current) newPasswordRef.current.value = "";
+          if (confirmPasswordRef.current) confirmPasswordRef.current.value = "";
           setShowConfirmModal(false);
         },
         onError: (error) => {
@@ -91,25 +96,10 @@ export function ResetPasswordModal({
     );
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
-  };
-
   const handleClose = () => {
     onClose();
-    setFormData({ newPassword: "", confirmPassword: "" });
+    if (newPasswordRef.current) newPasswordRef.current.value = "";
+    if (confirmPasswordRef.current) confirmPasswordRef.current.value = "";
     setErrors({});
   };
 
@@ -127,43 +117,17 @@ export function ResetPasswordModal({
           </AlertDialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                New Password
-              </label>
-              <input
-                type="password"
-                name="newPassword"
-                value={formData.newPassword}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-md"
-                required
-              />
-              {errors.newPassword && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.newPassword}
-                </p>
-              )}
-            </div>
+            <PasswordInput
+              ref={newPasswordRef}
+              label="New Password"
+              error={errors.newPassword}
+            />
 
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-md"
-                required
-              />
-              {errors.confirmPassword && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.confirmPassword}
-                </p>
-              )}
-            </div>
+            <PasswordInput
+              ref={confirmPasswordRef}
+              label="Confirm Password"
+              error={errors.confirmPassword}
+            />
 
             <AlertDialogFooter>
               <Button type="button" variant="outline" onClick={handleClose}>
