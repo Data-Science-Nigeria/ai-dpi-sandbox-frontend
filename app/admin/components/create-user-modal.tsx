@@ -10,7 +10,7 @@ import {
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
 import { authPostApiV1AuthAdminUsersCreateUserMutation } from "@/client/@tanstack/react-query.gen";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
 
@@ -20,6 +20,7 @@ interface CreateUserModalProps {
 }
 
 export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     email: "",
     first_name: "",
@@ -47,6 +48,9 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
       },
       {
         onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["authGetApiV1AuthAdminUsersListUsers"],
+          });
           toast.success("User created successfully");
           onClose();
           setFormData({

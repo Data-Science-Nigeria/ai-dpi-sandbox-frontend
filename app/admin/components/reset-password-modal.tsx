@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { ConfirmationModal } from "./confirmation-modal";
 import { authPostApiV1AuthAdminUsersUserIdResetPasswordResetUserPasswordMutation } from "@/client/@tanstack/react-query.gen";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
 import { PasswordInput } from "@/app/auth/components/password-input";
@@ -36,6 +36,7 @@ export function ResetPasswordModal({
   onClose,
   user,
 }: ResetPasswordModalProps) {
+  const queryClient = useQueryClient();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const newPasswordRef = useRef<HTMLInputElement>(null);
@@ -83,6 +84,9 @@ export function ResetPasswordModal({
       },
       {
         onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["authGetApiV1AuthAdminUsersListUsers"],
+          });
           toast.success("Password reset successfully");
           onClose();
           if (newPasswordRef.current) newPasswordRef.current.value = "";

@@ -186,9 +186,9 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
 
                 {/* Days Grid */}
                 <div className="grid grid-cols-7 gap-1 mb-3">
-                  {["S", "M", "T", "W", "T", "F", "S"].map((day) => (
+                  {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
                     <div
-                      key={day}
+                      key={index}
                       className="text-xs text-center p-1 font-medium text-gray-500"
                     >
                       {day}
