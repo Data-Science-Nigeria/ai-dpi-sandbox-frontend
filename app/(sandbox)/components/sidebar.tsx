@@ -32,7 +32,6 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
             return;
           }
 
-          // Check if current path matches any endpoint
           if (subItem.endpoints) {
             const activeEndpoint = subItem.endpoints.find(
               (endpoint) => endpoint.href === pathname
