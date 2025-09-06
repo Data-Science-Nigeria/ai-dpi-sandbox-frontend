@@ -5,32 +5,15 @@ import Link from "next/link";
 import { Footer } from "./components/footer";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "./store/use-auth-store";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { isAuthenticated, isAdmin, auth } = useAuthStore();
-  const router = useRouter();
+  const { isAuthenticated, isAdmin } = useAuthStore();
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     setIsHydrated(true);
   }, []);
-
-  useEffect(() => {
-    if (!isHydrated) return;
-
-    const isLoggedIn = isAuthenticated();
-    const userIsAdmin = isAdmin();
-
-    if (isLoggedIn && auth.user) {
-      if (userIsAdmin) {
-        router.push("/admin/dashboard");
-      } else {
-        router.push("/introduction");
-      }
-    }
-  }, [isHydrated, isAuthenticated, isAdmin, auth.user, router]);
 
   const isLoggedIn = isAuthenticated();
   const userIsAdmin = isAdmin();
