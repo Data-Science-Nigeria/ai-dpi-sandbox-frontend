@@ -5,10 +5,44 @@ import Link from "next/link";
 import { Footer } from "./components/footer";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "./store/use-auth-store";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, isAdmin, auth } = useAuthStore();
+  const router = useRouter();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+
+    const isLoggedIn = isAuthenticated();
+    const userIsAdmin = isAdmin();
+
+    if (isLoggedIn && auth.user) {
+      if (userIsAdmin) {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/introduction");
+      }
+    }
+  }, [isHydrated, isAuthenticated, isAdmin, auth.user, router]);
+
   const isLoggedIn = isAuthenticated();
+  const userIsAdmin = isAdmin();
+
+  const getDashboardUrl = () => {
+    if (!isLoggedIn) return "/auth/signin";
+    return userIsAdmin ? "/admin/dashboard" : "/introduction";
+  };
+
+  if (!isHydrated) {
+    return null;
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-white dark:bg-[#121418] text-black dark:text-white">
@@ -27,7 +61,7 @@ export default function Home() {
           </h1>
 
           <div className="flex justify-center">
-            <Link href={isLoggedIn ? "/introduction" : "/auth/signin"}>
+            <Link href={getDashboardUrl()}>
               <Button className="px-8 py-3 bg-[#00A859] text-white hover:bg-[#008A4A] transition-colors">
                 {isLoggedIn ? "Return to Dashboard" : "Login"}
               </Button>

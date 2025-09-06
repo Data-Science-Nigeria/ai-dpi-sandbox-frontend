@@ -5,12 +5,21 @@ import { authGetApiV1AuthMeGetCurrentUserProfile } from "@/client/sdk.gen";
 import { client } from "@/client/client.gen";
 import React, { useLayoutEffect, useState, useRef } from "react";
 import { useAuthStore } from "@/app/store/use-auth-store";
+import { useRouter, usePathname } from "next/navigation";
 
 export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
-  const { setAuth, auth, isAuthenticated: checkAuth } = useAuthStore();
+  const {
+    setAuth,
+    auth,
+    isAuthenticated: checkAuth,
+    clearAuth,
+    setUser,
+  } = useAuthStore();
   const isCheckingAuth = useRef(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useLayoutEffect(() => {
     // Wait for Zustand to hydrate
@@ -23,7 +32,26 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
     const checkAuthStatus = async () => {
       if (isCheckingAuth.current) return;
 
+      // If we have both token and user, check if user is on correct route
       if (checkAuth() && auth.user) {
+        const userRole = auth.user.role;
+        const isAdminRoute = pathname.startsWith("/admin");
+
+        // Role-based route validation
+        if (
+          userRole === "admin" &&
+          !isAdminRoute &&
+          !pathname.startsWith("/auth")
+        ) {
+          router.push("/admin/dashboard");
+          return;
+        }
+
+        if (userRole === "user" && isAdminRoute) {
+          router.push("/introduction");
+          return;
+        }
+
         setIsAuthenticated(true);
         return;
       }
@@ -50,29 +78,57 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
             email?: string;
             is_verified?: boolean;
             id?: string;
+            role?: string;
           };
-          setAuth({
-            user: {
-              email: userData?.email || "",
-              is_verified: userData?.is_verified,
-              id: userData?.id,
-            },
-          });
+
+          const user = {
+            email: userData?.email || "",
+            is_verified: userData?.is_verified,
+            id: userData?.id,
+            role: userData?.role || "user",
+          };
+
+          setUser(user);
+
+          // Role-based redirect after fetching user data
+          const isAdminRoute = pathname.startsWith("/admin");
+
+          if (
+            user.role === "admin" &&
+            !isAdminRoute &&
+            !pathname.startsWith("/auth")
+          ) {
+            router.push("/admin/dashboard");
+          } else if (user.role === "user" && isAdminRoute) {
+            router.push("/introduction");
+          }
 
           setIsAuthenticated(true);
-        } catch {
-          window.location.href = "/auth/signin";
+        } catch (error) {
+          console.error("Auth check failed:", error);
+          clearAuth();
+          router.push("/auth/signin");
         } finally {
           isCheckingAuth.current = false;
         }
       } else {
         // No token, redirect to signin
-        window.location.href = "/auth/signin";
+        router.push("/auth/signin");
       }
     };
 
     checkAuthStatus();
-  }, [isHydrated, setAuth, auth.user, auth.access_token, checkAuth]);
+  }, [
+    isHydrated,
+    setAuth,
+    setUser,
+    auth.user,
+    auth.access_token,
+    checkAuth,
+    clearAuth,
+    router,
+    pathname,
+  ]);
 
   if (!isHydrated || isAuthenticated === null) {
     return null;

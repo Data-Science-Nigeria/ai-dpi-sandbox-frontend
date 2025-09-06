@@ -11,6 +11,7 @@ type Auth = {
     email?: string;
     is_verified?: boolean;
     created_at?: string;
+    role?: string;
   } | null;
 };
 
@@ -25,6 +26,7 @@ interface AuthState {
   setUser: (user: Auth["user"]) => void;
   clearAuth: () => void;
   isAuthenticated: () => boolean;
+  isAdmin: () => boolean;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -59,9 +61,20 @@ export const useAuthStore = create<AuthState>()(
           return !!state.auth.access_token;
         },
 
+        isAdmin: (): boolean => {
+          const state = get();
+          return state.auth.user?.role === "admin";
+        },
+
         clearAuth: () => {
           localStorage.removeItem("auth_expiry");
           set({ auth: initialAuth });
+          // Clear client config
+          import("@/client/client.gen").then(({ client }) => {
+            client.setConfig({
+              headers: {},
+            });
+          });
         },
       }),
       {
@@ -76,6 +89,15 @@ export const useAuthStore = create<AuthState>()(
           if (expiry && now > Number(expiry)) {
             // Token has expired
             state.clearAuth();
+          } else if (state.auth.access_token) {
+            // Set client config on rehydration if token exists
+            import("@/client/client.gen").then(({ client }) => {
+              client.setConfig({
+                headers: {
+                  Authorization: `Bearer ${state.auth.access_token}`,
+                },
+              });
+            });
           }
         },
       }

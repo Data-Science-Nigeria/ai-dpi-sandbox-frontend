@@ -41,7 +41,12 @@ export function SignInForm() {
 
   const login = useMutation({
     ...authPostApiV1AuthLoginJsonLoginJsonMutation(),
-    onSuccess: async (tokenRes: any) => {
+    onSuccess: async (tokenRes: {
+      access_token: string;
+      expires_in?: number;
+      token_type?: string;
+      refresh_token?: string;
+    }) => {
       setAuth(tokenRes);
 
       client.setConfig({
@@ -54,15 +59,39 @@ export function SignInForm() {
       try {
         const { data: userProfile } =
           await authGetApiV1AuthMeGetCurrentUserProfile();
-        setUser(userProfile as any);
+
+        const profileData = userProfile as {
+          email?: string;
+          is_verified?: boolean;
+          id?: string;
+          role?: string;
+        };
+
+        const user = {
+          email: profileData?.email || "",
+          is_verified: profileData?.is_verified,
+          id: profileData?.id,
+          role: profileData?.role || "user",
+        };
+
+        setUser(user);
+
+        // Redirect based on user role
+        if (user.role === "admin") {
+          router.push("/admin/dashboard");
+        } else {
+          router.push("/introduction");
+        }
       } catch (error) {
         console.error("Failed to fetch user profile:", error);
+        toast.error("Failed to load user profile");
+        // Clear auth on profile fetch error
+        setAuth({ access_token: "" });
       }
 
-      router.push("/introduction");
       setIsSubmitting(false);
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       setIsSubmitting(false);
 
       const status =
@@ -89,7 +118,7 @@ export function SignInForm() {
         },
       },
       {
-        onError: (error: any) => {
+        onError: (error: unknown) => {
           const status =
             error?.status_code ||
             error?.response?.status ||

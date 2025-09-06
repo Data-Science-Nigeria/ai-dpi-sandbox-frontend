@@ -17,7 +17,7 @@ const getBackgroundColor = (email: string): string => {
 };
 
 export const Avatar = () => {
-  const { auth, isAuthenticated } = useAuthStore();
+  const { auth, isAuthenticated, isAdmin } = useAuthStore();
 
   // Don't show avatar if user is not authenticated
   if (!isAuthenticated()) return null;
@@ -31,15 +31,26 @@ export const Avatar = () => {
     );
   }
 
+  const displayName = auth.user.email;
+
   const firstLetter = auth.user.email.charAt(0).toUpperCase();
+
   const backgroundColor = getBackgroundColor(auth.user.email);
+  const userRole = isAdmin() ? "Admin" : "User";
 
   return (
-    <button
-      className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-medium ${backgroundColor} hover:opacity-80 transition-opacity`}
-      title={auth.user.email}
-    >
-      {firstLetter}
-    </button>
+    <div className="flex items-center gap-2">
+      <button
+        className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-medium ${backgroundColor} hover:opacity-80 transition-opacity`}
+        title={`${displayName} (${userRole})`}
+      >
+        {firstLetter}
+      </button>
+      {isAdmin() && (
+        <span className="text-xs bg-[#00A859] text-white px-2 py-1 rounded-full font-medium">
+          Admin
+        </span>
+      )}
+    </div>
   );
 };

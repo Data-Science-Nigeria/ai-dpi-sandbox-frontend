@@ -31,10 +31,18 @@ export const useLogout = () => {
 
       await logout.mutateAsync({});
       clearAuth();
+      // Clear client config
+      client.setConfig({
+        headers: {},
+      });
       router.push("/auth/signin");
     } catch (error) {
       toast.error(getApiErrorMessage(error));
       clearAuth();
+      // Clear client config
+      client.setConfig({
+        headers: {},
+      });
       router.push("/auth/signin");
     }
   };
