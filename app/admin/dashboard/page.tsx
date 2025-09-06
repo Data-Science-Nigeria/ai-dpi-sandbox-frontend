@@ -17,36 +17,71 @@ interface User {
   last_name?: string;
   is_active: boolean;
   created_at: string;
+  role?: string;
 }
 
 export default function AdminDashboard() {
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const { data: users = [], isLoading } = useQuery({
     ...authGetApiV1AuthAdminUsersListUsersOptions(),
   });
 
-  const currentYear = new Date().getFullYear();
   const typedUsers = users as User[];
-  const totalUsers = typedUsers.length;
-  const recentUsers = typedUsers.slice(0, 5);
+  const userRoleUsers = typedUsers.filter(
+    (user) => user.role === "user" || !user.role
+  );
 
-  // Calculate user growth from actual user data
-  const chartData = React.useMemo(() => {
-    if (!typedUsers.length) return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  // Get available years from actual user data
+  const availableYears = React.useMemo(() => {
+    const years = new Set<number>();
+    userRoleUsers.forEach((user) => {
+      const createdDate = new Date(user.created_at);
+      years.add(createdDate.getFullYear());
+    });
+    return Array.from(years).sort((a, b) => b - a); // Most recent first
+  }, [userRoleUsers]);
 
-    const monthlyData = new Array(12).fill(0);
-    typedUsers.forEach((user) => {
+  // Get available months for selected year
+  const availableMonths = React.useMemo(() => {
+    if (!selectedYear) return [];
+    const months = new Set<number>();
+    userRoleUsers.forEach((user) => {
       const createdDate = new Date(user.created_at);
       if (createdDate.getFullYear() === selectedYear) {
-        monthlyData[createdDate.getMonth()]++;
+        months.add(createdDate.getMonth() + 1);
       }
     });
+    return Array.from(months).sort((a, b) => b - a); // Most recent first
+  }, [userRoleUsers, selectedYear]);
 
-    return monthlyData;
-  }, [typedUsers, selectedYear]);
+  // Set default values when data loads
+  React.useEffect(() => {
+    if (availableYears.length > 0 && selectedYear === null) {
+      setSelectedYear(availableYears[0]); // Most recent year
+    }
+  }, [availableYears, selectedYear]);
+
+  React.useEffect(() => {
+    if (availableMonths.length > 0 && selectedMonth === null) {
+      setSelectedMonth(availableMonths[0]); // Most recent month
+    }
+  }, [availableMonths, selectedMonth]);
+
+  // Filter users by selected month and year for Total Users count
+  const filteredUsers = userRoleUsers.filter((user) => {
+    if (!selectedMonth || !selectedYear) return false;
+    const createdDate = new Date(user.created_at);
+    return (
+      createdDate.getMonth() + 1 === selectedMonth &&
+      createdDate.getFullYear() === selectedYear
+    );
+  });
+
+  const totalUsers = filteredUsers.length;
+  const recentUsers = userRoleUsers.slice(0, 5); // Show only users with 'user' role
 
   return (
     <div className="space-y-6">
@@ -62,57 +97,61 @@ export default function AdminDashboard() {
       </div>
 
       {/* Top Row - Total Users and Growth Chart */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Total Users Card */}
-        <div className="bg-white dark:bg-[#1C1E22] rounded-lg border p-6">
+        <div className="bg-white dark:bg-[#1C1E22] rounded-lg border p-4 h-full">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">Total Users</h3>
-            <Users className="w-5 h-5 text-[#00A859]" />
-          </div>
-
-          <div className="space-y-4">
-            <div className="text-3xl font-bold text-[#00A859]">
-              {totalUsers.toLocaleString()}
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-[#00A859]" />
+              <h3 className="text-lg font-semibold">Total Users</h3>
             </div>
-
-            <div className="flex gap-2">
+            <div className="flex gap-1 relative z-10">
               <select
-                value={selectedMonth}
+                value={selectedMonth || ""}
                 onChange={(e) => setSelectedMonth(Number(e.target.value))}
-                className="px-3 py-1 border rounded text-sm"
+                className="px-2 py-1 border rounded text-xs w-18 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white relative z-20"
               >
-                {Array.from({ length: 12 }, (_, i) => (
-                  <option key={i + 1} value={i + 1}>
-                    {new Date(0, i).toLocaleString("default", {
-                      month: "long",
+                {availableMonths.map((month) => (
+                  <option key={month} value={month}>
+                    {new Date(0, month - 1).toLocaleString("default", {
+                      month: "short",
                     })}
                   </option>
                 ))}
               </select>
-
               <select
-                value={selectedYear}
-                onChange={(e) => setSelectedYear(Number(e.target.value))}
-                className="px-3 py-1 border rounded text-sm"
+                value={selectedYear || ""}
+                onChange={(e) => {
+                  setSelectedYear(Number(e.target.value));
+                  setSelectedMonth(null); // Reset month when year changes
+                }}
+                className="px-2 py-1 border rounded text-xs w-18 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white relative z-20"
               >
-                {Array.from({ length: 5 }, (_, i) => (
-                  <option key={currentYear - i} value={currentYear - i}>
-                    {currentYear - i}
+                {availableYears.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
                   </option>
                 ))}
               </select>
+            </div>
+          </div>
+          <div className="flex items-end justify-center flex-1 pb-4">
+            <div className="text-7xl font-bold text-[#00A859] mt-8">
+              {totalUsers.toLocaleString()}
             </div>
           </div>
         </div>
 
         {/* Growth Chart */}
-        <UserGrowthChart data={chartData} />
+        <div className="lg:col-span-2">
+          <UserGrowthChart userRoleUsers={userRoleUsers} />
+        </div>
       </div>
 
       {/* Manage Users Preview */}
       <div className="bg-white dark:bg-[#1C1E22] rounded-lg border">
         <div className="flex justify-between items-center p-6 border-b">
-          <h3 className="text-lg font-semibold">Manage Users Preview</h3>
+          <h3 className="text-lg font-semibold">Manage Users</h3>
           <a
             href="/admin/manage-users"
             className="text-[#00A859] hover:underline text-sm"
@@ -161,7 +200,7 @@ export default function AdminDashboard() {
                       {user.email}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <Badge variant="secondary">User</Badge>
+                      <Badge variant="secondary">{user.role || "User"}</Badge>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {new Date(user.created_at).toLocaleDateString()}

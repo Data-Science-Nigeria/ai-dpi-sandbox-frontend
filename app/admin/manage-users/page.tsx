@@ -21,6 +21,7 @@ interface User {
   last_name?: string;
   is_active: boolean;
   created_at: string;
+  role?: string;
 }
 
 export default function ManageUsers() {
@@ -38,10 +39,15 @@ export default function ManageUsers() {
     ...authDeleteApiV1AuthAdminUsersUserIdDeleteUserMutation(),
   });
 
+  // Filter to show only users with 'user' role
+  const userRoleUsers = (users as User[]).filter(
+    (user) => user.role === "user" || !user.role
+  );
+
   const usersPerPage = 10;
-  const totalPages = Math.ceil((users as User[]).length / usersPerPage);
+  const totalPages = Math.ceil(userRoleUsers.length / usersPerPage);
   const startIndex = (currentPage - 1) * usersPerPage;
-  const currentUsers = (users as User[]).slice(
+  const currentUsers = userRoleUsers.slice(
     startIndex,
     startIndex + usersPerPage
   );
@@ -92,7 +98,7 @@ export default function ManageUsers() {
       <div className="bg-white dark:bg-[#1C1E22] rounded-lg border">
         {isLoading ? (
           <div className="p-8 text-center text-gray-500">Loading users...</div>
-        ) : (users as User[]).length === 0 ? (
+        ) : userRoleUsers.length === 0 ? (
           <div className="p-8 text-center text-gray-500">No user found</div>
         ) : (
           <>
@@ -129,7 +135,7 @@ export default function ManageUsers() {
                         {user.email}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <Badge variant="secondary">User</Badge>
+                        <Badge variant="secondary">{user.role || "User"}</Badge>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {new Date(user.created_at).toLocaleDateString()}
@@ -161,11 +167,8 @@ export default function ManageUsers() {
               <div className="flex justify-between items-center p-4 border-t">
                 <div className="text-sm text-gray-500">
                   Showing {startIndex + 1} to{" "}
-                  {Math.min(
-                    startIndex + usersPerPage,
-                    (users as User[]).length
-                  )}{" "}
-                  of {(users as User[]).length} users
+                  {Math.min(startIndex + usersPerPage, userRoleUsers.length)} of{" "}
+                  {userRoleUsers.length} users
                 </div>
                 <div className="flex gap-2">
                   <Button

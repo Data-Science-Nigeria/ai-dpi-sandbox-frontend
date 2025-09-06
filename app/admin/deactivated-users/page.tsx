@@ -19,6 +19,7 @@ interface User {
   last_name?: string;
   is_active: boolean;
   created_at: string;
+  role?: string;
 }
 
 export default function DeactivatedUsers() {
@@ -27,7 +28,9 @@ export default function DeactivatedUsers() {
     ...authGetApiV1AuthAdminUsersListUsersOptions(),
   });
 
-  const users = (allUsers as User[]).filter((user: User) => !user.is_active);
+  const users = (allUsers as User[]).filter(
+    (user: User) => !user.is_active && (user.role === "user" || !user.role)
+  );
 
   const [currentPage, setCurrentPage] = useState(1);
   const [showActivateModal, setShowActivateModal] = useState(false);
@@ -116,7 +119,7 @@ export default function DeactivatedUsers() {
                         {user.email}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <Badge variant="secondary">User</Badge>
+                        <Badge variant="secondary">{user.role || "User"}</Badge>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {new Date(user.created_at).toLocaleDateString()}
