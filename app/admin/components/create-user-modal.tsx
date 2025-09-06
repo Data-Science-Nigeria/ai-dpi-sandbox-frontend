@@ -24,6 +24,7 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
     email: "",
     first_name: "",
     last_name: "",
+    username: "",
     password: "",
   });
 
@@ -40,6 +41,7 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
           email: formData.email,
           first_name: formData.first_name,
           last_name: formData.last_name,
+          username: formData.username,
           password: formData.password,
         },
       },
@@ -51,6 +53,7 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
             email: "",
             first_name: "",
             last_name: "",
+            username: "",
             password: "",
           });
         },
@@ -94,6 +97,18 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
               type="text"
               name="last_name"
               value={formData.last_name}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-md"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Username</label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-md"
               required
