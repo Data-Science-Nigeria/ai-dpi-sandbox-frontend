@@ -8,95 +8,317 @@ import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
+import { LanguageSelector } from "../components/language-selector";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 const twoWaySmsEndpoints = [
   {
-    name: "Send Interactive SMS",
+    name: "Handle Incoming Customer SMS",
     method: "POST",
-    path: "/api/v1/interactive",
-    description: "Send interactive SMS with response options",
-    example: {
-      to: "+2348012345678",
-      message:
-        "Welcome to MyBank!\n\nReply:\n1 - Balance\n2 - History\n3 - Transfer\n4 - Support\n\nExpires in 5 min",
-      session_id: "session_abc123",
-      timeout: 300,
-      sender_id: "MyBank",
-      session_data: {
-        user_id: "user_789",
-        account_number: "1234567890",
-        customer_name: "Adebayo Johnson",
-        account_type: "savings",
-      },
-      menu_options: [
-        { key: "1", action: "check_balance", description: "Check Balance" },
-        {
-          key: "2",
-          action: "transaction_history",
-          description: "Transaction History",
-        },
-        { key: "3", action: "transfer_money", description: "Transfer Money" },
-        {
-          key: "4",
-          action: "customer_support",
-          description: "Customer Support",
-        },
-      ],
-      fallback_message: "Invalid option. Please reply with 1, 2, 3, or 4.",
-      callback_url: "https://myapp.com/webhooks/sms-response",
+    path: "/api/v1/two-way-sms/webhook",
+    description: "Webhook endpoint receives incoming SMS",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/two-way-sms/webhook \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "from": "+2348012345678",
+    "to": "+2341234567890",
+    "message": "BALANCE",
+    "message_id": "msg_incoming_123",
+    "timestamp": "2025-08-25T20:45:30Z"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/two-way-sms/webhook', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    from: "+2348012345678",
+    to: "+2341234567890",
+    message: "BALANCE",
+    message_id: "msg_incoming_123",
+    timestamp: "2025-08-25T20:45:30Z"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/two-way-sms/webhook',
+    headers={
+        'Content-Type': 'application/json'
+    },
+    json={
+        'from': '+2348012345678',
+        'to': '+2341234567890',
+        'message': 'BALANCE',
+        'message_id': 'msg_incoming_123',
+        'timestamp': '2025-08-25T20:45:30Z'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/two-way-sms/webhook');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'from' => '+2348012345678',
+    'to' => '+2341234567890',
+    'message' => 'BALANCE',
+    'message_id' => 'msg_incoming_123',
+    'timestamp' => '2025-08-25T20:45:30Z'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/two-way-sms/webhook"))
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"from":"+2348012345678","to":"+2341234567890","message":"BALANCE","message_id":"msg_incoming_123","timestamp":"2025-08-25T20:45:30Z"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      status: "success",
-      session_id: "session_abc123",
-      message_id: "msg_interactive_001",
-      to: "+2348012345678",
-      message_sent:
-        "Welcome to MyBank!\n\nReply:\n1 - Balance\n2 - History\n3 - Transfer\n4 - Support\n\nExpires in 5 min",
-      session_expires_at: "2024-01-15T10:35:00Z",
-      cost: 4.5,
-      currency: "NGN",
-      created_at: "2024-01-15T10:30:00Z",
+      status: "processed",
+      conversation_id: "conv_789012",
+      auto_reply: {
+        message:
+          "Your account balance is ₦25,450.00. Reply HELP for more options.",
+        sent: true,
+        message_id: "msg_reply_456",
+      },
+      workflow_triggered: "banking_keywords",
     },
   },
   {
-    name: "Handle Response",
+    name: "Create Interactive Survey Workflow",
     method: "POST",
-    path: "/api/v1/response",
-    description: "Process incoming SMS response",
-    example: {
-      from: "+2348012345678",
-      message: "1",
-      session_id: "session_abc123",
-      received_at: "2024-01-15T10:31:30Z",
-      network: "MTN",
+    path: "/api/v1/two-way-sms/create-workflow",
+    description: "Create interactive survey workflow",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/two-way-sms/create-workflow \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "name": "Customer Satisfaction Survey",
+    "trigger_keyword": "SURVEY",
+    "steps": [
+      {
+        "step": 1,
+        "message": "Thank you for choosing our service! How would you rate your experience? Reply 1-5 (1=Poor, 5=Excellent)",
+        "expected_input": "number",
+        "validation": "range:1-5"
+      },
+      {
+        "step": 2,
+        "message": "What can we improve? Reply with your suggestions or SKIP to finish.",
+        "expected_input": "text",
+        "optional": true
+      },
+      {
+        "step": 3,
+        "message": "Thank you for your feedback! We appreciate your input.",
+        "final_step": true
+      }
+    ]
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/two-way-sms/create-workflow', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: "Customer Satisfaction Survey",
+    trigger_keyword: "SURVEY",
+    steps: [
+      {
+        step: 1,
+        message: "Thank you for choosing our service! How would you rate your experience? Reply 1-5 (1=Poor, 5=Excellent)",
+        expected_input: "number",
+        validation: "range:1-5"
+      },
+      {
+        step: 2,
+        message: "What can we improve? Reply with your suggestions or SKIP to finish.",
+        expected_input: "text",
+        optional: true
+      },
+      {
+        step: 3,
+        message: "Thank you for your feedback! We appreciate your input.",
+        final_step: true
+      }
+    ]
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/two-way-sms/create-workflow',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'name': 'Customer Satisfaction Survey',
+        'trigger_keyword': 'SURVEY',
+        'steps': [
+            {
+                'step': 1,
+                'message': 'Thank you for choosing our service! How would you rate your experience? Reply 1-5 (1=Poor, 5=Excellent)',
+                'expected_input': 'number',
+                'validation': 'range:1-5'
+            },
+            {
+                'step': 2,
+                'message': 'What can we improve? Reply with your suggestions or SKIP to finish.',
+                'expected_input': 'text',
+                'optional': True
+            },
+            {
+                'step': 3,
+                'message': 'Thank you for your feedback! We appreciate your input.',
+                'final_step': True
+            }
+        ]
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/two-way-sms/create-workflow');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'name' => 'Customer Satisfaction Survey',
+    'trigger_keyword' => 'SURVEY',
+    'steps' => [
+        [
+            'step' => 1,
+            'message' => 'Thank you for choosing our service! How would you rate your experience? Reply 1-5 (1=Poor, 5=Excellent)',
+            'expected_input' => 'number',
+            'validation' => 'range:1-5'
+        ],
+        [
+            'step' => 2,
+            'message' => 'What can we improve? Reply with your suggestions or SKIP to finish.',
+            'expected_input' => 'text',
+            'optional' => true
+        ],
+        [
+            'step' => 3,
+            'message' => 'Thank you for your feedback! We appreciate your input.',
+            'final_step' => true
+        ]
+    ]
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/two-way-sms/create-workflow"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"name":"Customer Satisfaction Survey","trigger_keyword":"SURVEY","steps":[{"step":1,"message":"Thank you for choosing our service! How would you rate your experience? Reply 1-5 (1=Poor, 5=Excellent)","expected_input":"number","validation":"range:1-5"},{"step":2,"message":"What can we improve? Reply with your suggestions or SKIP to finish.","expected_input":"text","optional":true},{"step":3,"message":"Thank you for your feedback! We appreciate your input.","final_step":true}]}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      status: "success",
-      session_id: "session_abc123",
-      action_taken: "check_balance",
-      response_message: {
-        to: "+2348012345678",
-        message:
-          "Balance: ₦125,500.00\n\nLast Transaction:\nTo: Kemi Johnson\nAmount: ₦15,000\nDate: Jan 14\n\nReply MENU or END",
-        message_id: "msg_response_001",
-      },
-      session_data: {
-        user_id: "user_789",
-        account_number: "1234567890",
-        current_balance: 125500.0,
-        last_transaction: {
-          type: "transfer",
-          amount: 15000,
-          recipient: "Kemi Johnson",
-          date: "2024-01-14T15:30:00Z",
-        },
-      },
-      next_actions: [
-        { key: "MENU", action: "return_to_menu" },
-        { key: "END", action: "end_session" },
-      ],
+      workflow_id: "wf_survey_001",
+      name: "Customer Satisfaction Survey",
+      trigger_keyword: "SURVEY",
+      status: "active",
+      steps_count: 3,
+      created_at: "2025-08-25T20:45:30Z",
+      message: "Survey workflow created successfully",
+    },
+  },
+  {
+    name: "Send Manual Reply",
+    method: "POST",
+    path: "/api/v1/two-way-sms/send-reply",
+    description: "Send manual reply to customer",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/two-way-sms/send-reply \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "conversation_id": "conv_789012",
+    "to": "+2348012345678",
+    "message": "Hello! A customer service agent will assist you shortly. Your ticket number is #CS001234.",
+    "agent_id": "agent_001"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/two-way-sms/send-reply', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    conversation_id: "conv_789012",
+    to: "+2348012345678",
+    message: "Hello! A customer service agent will assist you shortly. Your ticket number is #CS001234.",
+    agent_id: "agent_001"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/two-way-sms/send-reply',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'conversation_id': 'conv_789012',
+        'to': '+2348012345678',
+        'message': 'Hello! A customer service agent will assist you shortly. Your ticket number is #CS001234.',
+        'agent_id': 'agent_001'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/two-way-sms/send-reply');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'conversation_id' => 'conv_789012',
+    'to' => '+2348012345678',
+    'message' => 'Hello! A customer service agent will assist you shortly. Your ticket number is #CS001234.',
+    'agent_id' => 'agent_001'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/two-way-sms/send-reply"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"conversation_id":"conv_789012","to":"+2348012345678","message":"Hello! A customer service agent will assist you shortly. Your ticket number is #CS001234.","agent_id":"agent_001"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
+    },
+    response: {
+      status: "sent",
+      message_id: "msg_reply_789",
+      conversation_id: "conv_789012",
+      to: "+2348012345678",
       cost: 4.5,
-      currency: "NGN",
+      timestamp: "2025-08-25T20:46:00Z",
     },
   },
 ];
@@ -175,16 +397,10 @@ function TwoWaySMSServiceContent() {
                     </p>
 
                     <div className="space-y-3 w-full">
-                      <div className="w-full">
-                        <h4 className="text-sm sm:text-base font-medium mb-2">
-                          Request Example
-                        </h4>
-                        <CodeBlock
-                          code={JSON.stringify(endpoint.example, null, 2)}
-                          language="json"
-                          title={`${endpoint.method} Request Body`}
-                        />
-                      </div>
+                      <LanguageSelector
+                        examples={endpoint.examples}
+                        title="Request Example"
+                      />
                       {endpoint.response && (
                         <div className="w-full">
                           <h4 className="text-sm sm:text-base font-medium mb-2">

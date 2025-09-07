@@ -8,81 +8,210 @@ import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
+import { LanguageSelector } from "../components/language-selector";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 const bvnEndpoints = [
   {
-    name: "Verify BVN",
+    name: "Full BVN Verification",
     method: "POST",
     path: "/api/v1/verify",
-    description: "Verify Bank Verification Number with Dojah API",
-    example: {
-      bvn: "12345678901",
-      first_name: "John",
-      last_name: "Doe",
-      date_of_birth: "1990-01-15",
-      phone_number: "+2348012345678",
-      verification_level: "full",
-      include_photo: true,
+    description: "Full BVN verification with Dojah API",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/verify \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "bvn": "12345678901"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/verify', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    bvn: "12345678901"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/verify',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'bvn': '12345678901'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/verify');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'bvn' => '12345678901'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/verify"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"bvn":"12345678901"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      status: "success",
-      verification_id: "ver_abc123",
-      bvn_valid: true,
-      match_results: {
-        name_match: 95,
-        dob_match: 100,
-        phone_match: 85,
-      },
-      customer_data: {
-        full_name: "John Doe",
-        date_of_birth: "1990-01-15",
+      bvn_verified: true,
+      verification_data: {
+        first_name: "John",
+        last_name: "Doe",
+        middle_name: "Smith",
+        date_of_birth: "1990-01-01",
         gender: "Male",
-        phone_number: "+2348012345678",
-        registration_date: "2015-03-20",
-        watch_listed: false,
+        phone_number: "08012345678",
+        email: "john.doe@email.com",
+        address: "123 Main Street, Lagos",
+        state_of_origin: "Lagos",
+        lga_of_origin: "Lagos Island",
+        bvn: "12345678901",
+        enrollment_bank: "First Bank",
+        enrollment_branch: "Victoria Island",
+        watch_listed: "No",
       },
-      banks: [
-        {
-          bank_name: "First Bank of Nigeria",
-          account_number: "3012345678",
-          account_status: "active",
-        },
-      ],
+      message: "BVN verified successfully",
     },
   },
   {
-    name: "BVN Lookup",
+    name: "Basic BVN Lookup",
     method: "POST",
     path: "/api/v1/lookup",
-    description: "Basic BVN lookup without full verification",
-    example: {
-      bvn: "12345678901",
-      verification_level: "basic",
+    description: "Basic BVN lookup",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/lookup \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "bvn": "12345678901"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/lookup', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    bvn: "12345678901"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/lookup',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'bvn': '12345678901'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/lookup');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'bvn' => '12345678901'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/lookup"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"bvn":"12345678901"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      status: "success",
-      bvn_valid: true,
-      basic_info: {
-        bvn_exists: true,
-        registration_status: "active",
-        last_updated: "2023-12-15",
+      bvn_verified: true,
+      verification_data: {
+        first_name: "John",
+        last_name: "Doe",
+        middle_name: "Smith",
+        date_of_birth: "1990-01-01",
+        gender: "Male",
+        phone_number: "08012345678",
+        email: "john.doe@email.com",
+        address: "123 Main Street, Lagos",
+        state_of_origin: "Lagos",
+        lga_of_origin: "Lagos Island",
+        bvn: "12345678901",
+        enrollment_bank: "First Bank",
+        enrollment_branch: "Victoria Island",
+        watch_listed: "No",
       },
+      message: "BVN verified successfully",
     },
   },
   {
-    name: "BVN Status",
+    name: "BVN Status Check",
     method: "GET",
     path: "/api/v1/status/{bvn}",
     description: "Get BVN verification status",
-    example: {
-      bvn: "12345678901",
+    examples: {
+      curl: `curl -X GET ${baseUrl}/api/v1/status/12345678901 \\
+  -H "Authorization: Bearer $TOKEN"`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/status/12345678901', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer ' + token
+  }
+});`,
+      python: `import requests
+
+response = requests.get(
+    '${baseUrl}/api/v1/status/12345678901',
+    headers={
+        'Authorization': f'Bearer {token}'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/status/12345678901');
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token
+]);
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/status/12345678901"))
+    .header("Authorization", "Bearer " + token)
+    .GET()
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
+      message: "BVN 12345678901 status check",
       bvn: "12345678901",
-      status: "completed",
-      verification_date: "2024-01-15T10:30:00Z",
-      result: "verified",
-      confidence_score: 92,
     },
   },
 ];
@@ -161,16 +290,10 @@ function BVNServiceContent() {
                     </p>
 
                     <div className="space-y-3 w-full">
-                      <div className="w-full">
-                        <h4 className="text-sm sm:text-base font-medium mb-2">
-                          Request Example
-                        </h4>
-                        <CodeBlock
-                          code={JSON.stringify(endpoint.example, null, 2)}
-                          language="json"
-                          title={`${endpoint.method} Request Body`}
-                        />
-                      </div>
+                      <LanguageSelector
+                        examples={endpoint.examples}
+                        title="Request Example"
+                      />
                       {endpoint.response && (
                         <div className="w-full">
                           <h4 className="text-sm sm:text-base font-medium mb-2">

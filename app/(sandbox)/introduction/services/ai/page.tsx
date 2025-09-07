@@ -8,94 +8,254 @@ import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
+import { LanguageSelector } from "../components/language-selector";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 const aiEndpoints = [
   {
-    name: "Generate Content",
+    name: "Generate Nigerian Business Plan",
     method: "POST",
-    path: "/api/v1/generate",
+    path: "/api/v1/ai/generate",
     description: "Generate AI content with Nigerian context",
-    example: {
-      prompt:
-        "Generate a welcome\nmessage for Nigerian\nfintech users with\nlocal context",
-      max_tokens: 200,
-      temperature: 0.7,
-      context: {
-        audience: "Nigerian fintech users",
-        tone: "friendly and professional",
-        language: "English with local expressions",
-        include_local_context: true,
-      },
-      response_format: "json",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/ai/generate \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "prompt": "Create a business plan for a Nigerian fintech startup focusing on mobile payments",
+    "type": "business_plan",
+    "max_tokens": 1000,
+    "context": "nigerian_market"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/ai/generate', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    prompt: "Create a business plan for a Nigerian fintech startup focusing on mobile payments",
+    type: "business_plan",
+    max_tokens: 1000,
+    context: "nigerian_market"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/ai/generate',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'prompt': 'Create a business plan for a Nigerian fintech startup focusing on mobile payments',
+        'type': 'business_plan',
+        'max_tokens': 1000,
+        'context': 'nigerian_market'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/ai/generate');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'prompt' => 'Create a business plan for a Nigerian fintech startup focusing on mobile payments',
+    'type' => 'business_plan',
+    'max_tokens' => 1000,
+    'context' => 'nigerian_market'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/ai/generate"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"prompt":"Create a business plan for a Nigerian fintech startup focusing on mobile payments","type":"business_plan","max_tokens":1000,"context":"nigerian_market"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      id: "gen_abc123",
-      content:
-        "Welcome to our\nplatform! Join our\ncommunity of forward-thinking\nNigerians. We're here to\nmake your financial\njourney smoother. 🇳🇬",
-      tokens_used: 32,
-      processing_time_ms: 1200,
+      generated_text:
+        "# Nigerian Fintech Business Plan\n\n## Executive Summary\nOur fintech startup, PayNaija, aims to revolutionize mobile payments across Nigeria by providing seamless, secure, and affordable digital payment solutions...",
+      tokens_used: 987,
+      generation_id: "gen_ai_123456",
+      context_applied: "nigerian_market",
+      timestamp: "2025-08-25T20:45:30Z",
     },
   },
   {
-    name: "Analyze Data",
+    name: "Analyze Nigerian Market Data",
     method: "POST",
-    path: "/api/v1/analyze",
-    description: "Analyze data with AI insights",
-    example: {
-      data: [
-        {
-          transaction_amount: 5000,
-          user_age: 25,
-          location: "Lagos",
-          transaction_type: "transfer",
-        },
-        {
-          transaction_amount: 15000,
-          user_age: 35,
-          location: "Abuja",
-          transaction_type: "payment",
-        },
-        {
-          transaction_amount: 8000,
-          user_age: 28,
-          location: "Port Harcourt",
-          transaction_type: "withdrawal",
-        },
-        {
-          transaction_amount: 12000,
-          user_age: 42,
-          location: "Kano",
-          transaction_type: "deposit",
-        },
-      ],
-      analysis_type: "comprehensive",
-      metrics: [
-        "average_transaction",
-        "age_demographics",
-        "location_trends",
-        "transaction_patterns",
-      ],
-      filters: {
-        min_amount: 1000,
-        date_range: "last_30_days",
-      },
+    path: "/api/v1/ai/analyze",
+    description: "Analyze data with AI insights for Nigerian market",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/ai/analyze \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "data": "Lagos fintech adoption rate increased 45% in 2024. Mobile banking users grew from 2.1M to 3.8M. Digital payments volume reached ₦12.5 trillion.",
+    "analysis_type": "market_trends",
+    "focus": "nigerian_fintech"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/ai/analyze', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    data: "Lagos fintech adoption rate increased 45% in 2024. Mobile banking users grew from 2.1M to 3.8M. Digital payments volume reached ₦12.5 trillion.",
+    analysis_type: "market_trends",
+    focus: "nigerian_fintech"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/ai/analyze',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'data': 'Lagos fintech adoption rate increased 45% in 2024. Mobile banking users grew from 2.1M to 3.8M. Digital payments volume reached ₦12.5 trillion.',
+        'analysis_type': 'market_trends',
+        'focus': 'nigerian_fintech'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/ai/analyze');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'data' => 'Lagos fintech adoption rate increased 45% in 2024. Mobile banking users grew from 2.1M to 3.8M. Digital payments volume reached ₦12.5 trillion.',
+    'analysis_type' => 'market_trends',
+    'focus' => 'nigerian_fintech'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/ai/analyze"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"data":"Lagos fintech adoption rate increased 45% in 2024. Mobile banking users grew from 2.1M to 3.8M. Digital payments volume reached ₦12.5 trillion.","analysis_type":"market_trends","focus":"nigerian_fintech"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      summary: {
-        total_transactions: 4,
-        average_amount: 10000,
-        most_common_location: "Lagos",
-        age_group_distribution: {
-          "25-30": 50,
-          "31-40": 25,
-          "41-50": 25,
-        },
+      analysis: {
+        key_insights: [
+          "Strong fintech growth trajectory in Lagos market",
+          "81% increase in mobile banking adoption",
+          "Significant digital payment volume growth",
+        ],
+        trends: [
+          "Accelerating digital transformation",
+          "Increasing consumer trust in mobile banking",
+          "Growing payment digitization",
+        ],
+        recommendations: [
+          "Focus on Lagos market expansion",
+          "Invest in mobile-first solutions",
+          "Target underbanked populations",
+        ],
       },
-      insights: [
-        "Higher transaction\nvolumes in major cities",
-        "Younger users prefer\ndigital transfers",
-        "Peak activity during\nbusiness hours",
-      ],
+      confidence_score: 0.92,
+      analysis_id: "ana_ai_789012",
+    },
+  },
+  {
+    name: "Generate Marketing Content",
+    method: "POST",
+    path: "/api/v1/ai/generate",
+    description: "Generate marketing content for Nigerian audience",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/ai/generate \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "prompt": "Write a social media post for a Nigerian e-commerce platform launching same-day delivery in Lagos",
+    "type": "social_media",
+    "tone": "exciting",
+    "platform": "instagram"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/ai/generate', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    prompt: "Write a social media post for a Nigerian e-commerce platform launching same-day delivery in Lagos",
+    type: "social_media",
+    tone: "exciting",
+    platform: "instagram"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/ai/generate',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'prompt': 'Write a social media post for a Nigerian e-commerce platform launching same-day delivery in Lagos',
+        'type': 'social_media',
+        'tone': 'exciting',
+        'platform': 'instagram'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/ai/generate');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'prompt' => 'Write a social media post for a Nigerian e-commerce platform launching same-day delivery in Lagos',
+    'type' => 'social_media',
+    'tone' => 'exciting',
+    'platform' => 'instagram'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/ai/generate"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"prompt":"Write a social media post for a Nigerian e-commerce platform launching same-day delivery in Lagos","type":"social_media","tone":"exciting","platform":"instagram"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
+    },
+    response: {
+      generated_text:
+        "🚀 BREAKING: Same-day delivery is now LIVE in Lagos! 📦✨\n\nOrder before 2PM and get your items delivered the same day! From Victoria Island to Ikeja, we've got you covered. 🏃♂️💨\n\n#LagosDelivery #SameDayDelivery #NigerianEcommerce #FastDelivery",
+      tokens_used: 45,
+      generation_id: "gen_ai_345678",
+      optimized_for: "instagram",
     },
   },
 ];
@@ -174,16 +334,10 @@ function AIServiceContent() {
                     </p>
 
                     <div className="space-y-3 w-full">
-                      <div className="w-full">
-                        <h4 className="text-sm sm:text-base font-medium mb-2">
-                          Request Example
-                        </h4>
-                        <CodeBlock
-                          code={JSON.stringify(endpoint.example, null, 2)}
-                          language="json"
-                          title={`${endpoint.method} Request Body`}
-                        />
-                      </div>
+                      <LanguageSelector
+                        examples={endpoint.examples}
+                        title="Request Example"
+                      />
                       {endpoint.response && (
                         <div className="w-full">
                           <h4 className="text-sm sm:text-base font-medium mb-2">

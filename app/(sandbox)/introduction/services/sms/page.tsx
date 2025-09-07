@@ -8,121 +8,321 @@ import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
+import { LanguageSelector } from "../components/language-selector";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 const smsEndpoints = [
   {
-    name: "Send SMS",
+    name: "Send OTP for User Verification",
     method: "POST",
-    path: "/api/v1/send",
+    path: "/api/v1/sms/send",
     description: "Send SMS to Nigerian phone number",
-    example: {
-      to: "+2348012345678",
-      message:
-        "Your OTP is 123456.\nValid for 5 minutes.\nDo not share this\ncode with anyone.",
-      sender_id: "MyFintech",
-      message_type: "transactional",
-      priority: "high",
-      schedule_time: null,
-      callback_url: "https://myapp.com/\nwebhooks/sms-status",
-      metadata: {
-        user_id: "user_789",
-        transaction_id: "txn_456",
-        purpose: "otp_verification",
-      },
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/sms/send \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "to": "+2348012345678",
+    "message": "Your OTP is 123456. Valid for 5 minutes. Do not share with anyone.",
+    "type": "otp"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/sms/send', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    to: "+2348012345678",
+    message: "Your OTP is 123456. Valid for 5 minutes. Do not share with anyone.",
+    type: "otp"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/sms/send',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'to': '+2348012345678',
+        'message': 'Your OTP is 123456. Valid for 5 minutes. Do not share with anyone.',
+        'type': 'otp'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/sms/send');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'to' => '+2348012345678',
+    'message' => 'Your OTP is 123456. Valid for 5 minutes. Do not share with anyone.',
+    'type' => 'otp'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/sms/send"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"to":"+2348012345678","message":"Your OTP is 123456. Valid for 5 minutes. Do not share with anyone.","type":"otp"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      status: "success",
-      message_id: "msg_abc123",
+      status: "sent",
+      message_id: "msg_sms_789012345",
       to: "+2348012345678",
-      message:
-        "Your OTP is 123456.\nValid for 5 minutes.\nDo not share this\ncode with anyone.",
-      sender_id: "MyFintech",
+      message: "Your OTP is 123456. Valid for 5 minutes.",
+      network: "MTN",
       cost: 4.5,
-      currency: "NGN",
-      delivery_status: "queued",
-      created_at: "2024-01-15T10:30:00Z",
-      estimated_delivery: "2024-01-15T10:30:15Z",
+      units_used: 1,
+      timestamp: "2025-08-25T20:45:30Z",
+      estimated_delivery: "2025-08-25T20:45:35Z",
     },
   },
   {
-    name: "Bulk SMS",
+    name: "Send Payment Confirmation",
     method: "POST",
-    path: "/api/v1/send/bulk",
-    description: "Send SMS to multiple Nigerian phone numbers",
-    example: {
-      recipients: [
-        {
-          phone: "+2348012345678",
-          name: "John Doe",
-          variables: { balance: "50,000" },
-        },
-        {
-          phone: "+2347012345678",
-          name: "Jane Smith",
-          variables: { balance: "75,000" },
-        },
-        {
-          phone: "+2349012345678",
-          name: "Ahmed Hassan",
-          variables: { balance: "120,000" },
-        },
-      ],
-      message:
-        "Hello {{name}},\nyour account balance\nis ₦{{balance}}.\nThank you for\nbanking with us!",
-      sender_id: "MyBank",
-      message_type: "promotional",
-      batch_size: 100,
-      send_rate: "10/minute",
+    path: "/api/v1/sms/send",
+    description: "Send payment confirmation SMS",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/sms/send \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "to": "+2348012345678",
+    "message": "Payment of ₦5,000 received successfully. Transaction ID: TXN123456. Thank you for your business!",
+    "type": "notification"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/sms/send', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    to: "+2348012345678",
+    message: "Payment of ₦5,000 received successfully. Transaction ID: TXN123456. Thank you for your business!",
+    type: "notification"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/sms/send',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'to': '+2348012345678',
+        'message': 'Payment of ₦5,000 received successfully. Transaction ID: TXN123456. Thank you for your business!',
+        'type': 'notification'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/sms/send');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'to' => '+2348012345678',
+    'message' => 'Payment of ₦5,000 received successfully. Transaction ID: TXN123456. Thank you for your business!',
+    'type' => 'notification'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/sms/send"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"to":"+2348012345678","message":"Payment of ₦5,000 received successfully. Transaction ID: TXN123456. Thank you for your business!","type":"notification"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      status: "success",
-      batch_id: "batch_xyz789",
+      status: "sent",
+      message_id: "msg_sms_789012346",
+      to: "+2348012345678",
+      network: "Airtel",
+      cost: 4.5,
+      units_used: 1,
+    },
+  },
+  {
+    name: "Send Bulk Marketing SMS",
+    method: "POST",
+    path: "/api/v1/sms/send-bulk",
+    description: "Send SMS to multiple Nigerian phone numbers",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/sms/send-bulk \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "recipients": [
+      "+2348012345678",
+      "+2348087654321",
+      "+2348098765432"
+    ],
+    "message": "Special offer! Get 20% off your next purchase. Use code SAVE20. Valid until midnight. Shop now!",
+    "type": "marketing",
+    "sender_id": "YourBrand"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/sms/send-bulk', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    recipients: [
+      "+2348012345678",
+      "+2348087654321",
+      "+2348098765432"
+    ],
+    message: "Special offer! Get 20% off your next purchase. Use code SAVE20. Valid until midnight. Shop now!",
+    type: "marketing",
+    sender_id: "YourBrand"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/sms/send-bulk',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'recipients': [
+            '+2348012345678',
+            '+2348087654321',
+            '+2348098765432'
+        ],
+        'message': 'Special offer! Get 20% off your next purchase. Use code SAVE20. Valid until midnight. Shop now!',
+        'type': 'marketing',
+        'sender_id': 'YourBrand'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/sms/send-bulk');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'recipients' => [
+        '+2348012345678',
+        '+2348087654321',
+        '+2348098765432'
+    ],
+    'message' => 'Special offer! Get 20% off your next purchase. Use code SAVE20. Valid until midnight. Shop now!',
+    'type' => 'marketing',
+    'sender_id' => 'YourBrand'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/sms/send-bulk"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"recipients":["+2348012345678","+2348087654321","+2348098765432"],"message":"Special offer! Get 20% off your next purchase. Use code SAVE20. Valid until midnight. Shop now!","type":"marketing","sender_id":"YourBrand"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
+    },
+    response: {
+      status: "queued",
+      batch_id: "batch_sms_456789",
       total_recipients: 3,
       estimated_cost: 13.5,
-      currency: "NGN",
+      estimated_delivery: "2025-08-25T20:50:00Z",
       messages: [
         {
-          message_id: "msg_001",
+          message_id: "msg_sms_789012347",
           to: "+2348012345678",
           status: "queued",
         },
         {
-          message_id: "msg_002",
-          to: "+2347012345678",
+          message_id: "msg_sms_789012348",
+          to: "+2348087654321",
           status: "queued",
         },
         {
-          message_id: "msg_003",
-          to: "+2349012345678",
+          message_id: "msg_sms_789012349",
+          to: "+2348098765432",
           status: "queued",
         },
       ],
     },
   },
   {
-    name: "SMS Status",
+    name: "Check Message Delivery Status",
     method: "GET",
-    path: "/api/v1/status/{message_id}",
+    path: "/api/v1/sms/status/{message_id}",
     description: "Get SMS delivery status",
-    example: {
-      message_id: "msg_abc123",
+    examples: {
+      curl: `curl -X GET ${baseUrl}/api/v1/sms/status/msg_sms_789012345 \\
+  -H "Authorization: Bearer $TOKEN"`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/sms/status/msg_sms_789012345', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer ' + token
+  }
+});`,
+      python: `import requests
+
+response = requests.get(
+    '${baseUrl}/api/v1/sms/status/msg_sms_789012345',
+    headers={
+        'Authorization': f'Bearer {token}'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/sms/status/msg_sms_789012345');
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token
+]);
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/sms/status/msg_sms_789012345"))
+    .header("Authorization", "Bearer " + token)
+    .GET()
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      message_id: "msg_abc123",
-      to: "+2348012345678",
+      message_id: "msg_sms_789012345",
       status: "delivered",
-      delivery_time: "2024-01-15T10:30:12Z",
+      to: "+2348012345678",
       network: "MTN",
+      sent_at: "2025-08-25T20:45:30Z",
+      delivered_at: "2025-08-25T20:45:33Z",
       cost: 4.5,
-      currency: "NGN",
-      attempts: 1,
-      error_code: null,
-      error_message: null,
-      metadata: {
-        user_id: "user_789",
-        transaction_id: "txn_456",
-        purpose: "otp_verification",
-      },
     },
   },
 ];
@@ -201,16 +401,10 @@ function SMSServiceContent() {
                     </p>
 
                     <div className="space-y-3 w-full">
-                      <div className="w-full">
-                        <h4 className="text-sm sm:text-base font-medium mb-2">
-                          Request Example
-                        </h4>
-                        <CodeBlock
-                          code={JSON.stringify(endpoint.example, null, 2)}
-                          language="json"
-                          title={`${endpoint.method} Request Body`}
-                        />
-                      </div>
+                      <LanguageSelector
+                        examples={endpoint.examples}
+                        title="Request Example"
+                      />
                       {endpoint.response && (
                         <div className="w-full">
                           <h4 className="text-sm sm:text-base font-medium mb-2">
@@ -295,21 +489,53 @@ function SMSServiceContent() {
                       International format (recommended)
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <code className="bg-muted px-2 py-1 rounded">
-                      0XXXXXXXXXX
-                    </code>
-                    <span className="text-muted-foreground">Local format</span>
+                </div>
+
+                <div className="mt-4">
+                  <h4 className="font-medium mb-2">Invalid formats</h4>
+                  <div className="space-y-1 text-sm">
+                    <div className="flex items-center gap-2">
+                      <code className="bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300 px-2 py-1 rounded">
+                        &quot;8012345678&quot;
+                      </code>
+                      <span className="text-red-600 dark:text-red-400">
+                        ❌ (missing leading zero)
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <code className="bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300 px-2 py-1 rounded">
+                        &quot;2348012345678&quot;
+                      </code>
+                      <span className="text-red-600 dark:text-red-400">
+                        ❌ (missing plus sign)
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <code className="bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300 px-2 py-1 rounded">
+                        &quot;+234801234567&quot;
+                      </code>
+                      <span className="text-red-600 dark:text-red-400">
+                        ❌ (too short)
+                      </span>
+                    </div>
                   </div>
                 </div>
 
                 <div className="mt-4">
                   <h4 className="font-medium mb-2">Examples</h4>
-                  <div className="space-y-1 text-sm text-muted-foreground">
-                    <div>MTN: +2348012345678 or 08012345678</div>
-                    <div>Airtel: +2347012345678 or 07012345678</div>
-                    <div>Glo: +2348052345678 or 08052345678</div>
-                    <div>9mobile: +2349012345678 or 09012345678</div>
+                  <div className="space-y-1 text-sm">
+                    <div className="text-yellow-600 dark:text-yellow-400">
+                      MTN: +2348012345678
+                    </div>
+                    <div className="text-red-600 dark:text-red-400">
+                      Airtel: +2347012345678
+                    </div>
+                    <div className="text-green-800 dark:text-green-600">
+                      Glo: +2348052345678
+                    </div>
+                    <div className="text-green-500 dark:text-green-400">
+                      9mobile: +2349012345678
+                    </div>
                   </div>
                 </div>
               </div>

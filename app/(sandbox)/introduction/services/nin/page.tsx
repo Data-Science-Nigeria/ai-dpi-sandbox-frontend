@@ -8,102 +8,200 @@ import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
+import { LanguageSelector } from "../components/language-selector";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 const ninEndpoints = [
   {
     name: "Verify NIN",
     method: "POST",
-    path: "/api/v1/verify",
-    description: "Verify Nigerian National Identity Number with Dojah API",
-    example: {
-      nin: "12345678901",
-      first_name: "Adebayo",
-      last_name: "Johnson",
-      date_of_birth: "1985-06-20",
-      phone_number: "+2348012345678",
-      verification_level: "full",
-      include_photo: true,
-      consent_given: true,
+    path: "/api/v1/nin/verify",
+    description: "Verify Nigerian National Identity Number",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/nin/verify \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "nin": "12345678901"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/nin/verify', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    nin: "12345678901"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/nin/verify',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'nin': '12345678901'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/nin/verify');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'nin' => '12345678901'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/nin/verify"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"nin":"12345678901"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      status: "success",
-      verification_id: "nin_ver_abc123",
-      nin_valid: true,
-      match_results: {
-        name_match: 98,
-        dob_match: 100,
-        phone_match: 90,
-        overall_confidence: 96,
-      },
-      personal_data: {
-        nin: "12345678901",
-        full_name: "Adebayo Johnson",
+      status: "verified",
+      nin: "12345678901",
+      data: {
         first_name: "Adebayo",
-        middle_name: "Olumide",
-        last_name: "Johnson",
-        date_of_birth: "1985-06-20",
+        last_name: "Ogundimu",
+        middle_name: "Tunde",
+        date_of_birth: "1990-05-15",
         gender: "Male",
-        phone_number: "+2348012345678",
-        email: "adebayo.johnson@email.com",
-        address: {
-          street: "15 Victoria Island Road",
-          city: "Lagos",
-          state: "Lagos State",
-          lga: "Lagos Island",
-          country: "Nigeria",
-        },
-        marital_status: "Married",
-        occupation: "Software Engineer",
-        nationality: "Nigerian",
-        state_of_origin: "Ogun State",
-        lga_of_origin: "Abeokuta North",
+        phone: "+2348012345678",
+        email: "adebayo@example.com",
+        address: "123 Lagos Street, Victoria Island, Lagos",
+        state_of_origin: "Lagos",
+        lga_of_origin: "Lagos Island",
       },
-      verification_metadata: {
-        verified_at: "2024-01-15T10:30:00Z",
-        verification_method: "dojah_api",
-        data_source: "nimc",
-        watch_list_status: "clear",
-      },
+      verification_id: "ver_nin_123456789",
+      timestamp: "2025-08-25T20:45:30Z",
+      cost: 50.0,
     },
   },
   {
-    name: "NIN Lookup",
+    name: "Quick NIN Validation",
     method: "POST",
-    path: "/api/v1/lookup",
-    description: "Basic NIN lookup without full verification",
-    example: {
-      nin: "12345678901",
-      verification_level: "basic",
+    path: "/api/v1/nin/lookup",
+    description: "Quick NIN validation",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/nin/lookup \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "nin": "12345678901"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/nin/lookup', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    nin: "12345678901"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/nin/lookup',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'nin': '12345678901'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/nin/lookup');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'nin' => '12345678901'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/nin/lookup"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"nin":"12345678901"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      status: "success",
-      nin_valid: true,
+      status: "valid",
+      nin: "12345678901",
+      exists: true,
       basic_info: {
-        nin_exists: true,
-        registration_status: "active",
-        last_updated: "2023-12-15",
-        issuing_date: "2015-03-10",
-        expiry_status: "valid",
+        first_name: "Adebayo",
+        last_name: "Ogundimu",
       },
     },
   },
   {
-    name: "NIN Status",
+    name: "Check Verification Status",
     method: "GET",
-    path: "/api/v1/status/{nin}",
-    description: "Get NIN verification status",
-    example: {
-      nin: "12345678901",
+    path: "/api/v1/nin/status/{nin}",
+    description: "Check NIN verification status",
+    examples: {
+      curl: `curl -X GET ${baseUrl}/api/v1/nin/status/12345678901 \\
+  -H "Authorization: Bearer $TOKEN"`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/nin/status/12345678901', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer ' + token
+  }
+});`,
+      python: `import requests
+
+response = requests.get(
+    '${baseUrl}/api/v1/nin/status/12345678901',
+    headers={
+        'Authorization': f'Bearer {token}'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/nin/status/12345678901');
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token
+]);
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/nin/status/12345678901"))
+    .header("Authorization", "Bearer " + token)
+    .GET()
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
       nin: "12345678901",
-      verification_status: "completed",
-      verification_date: "2024-01-15T10:30:00Z",
-      result: "verified",
-      confidence_score: 96,
-      processing_time_ms: 2500,
-      cost: 150.0,
-      currency: "NGN",
+      last_verified: "2025-08-25T20:45:30Z",
+      verification_count: 3,
+      status: "verified",
     },
   },
 ];
@@ -182,16 +280,10 @@ function NINServiceContent() {
                     </p>
 
                     <div className="space-y-3 w-full">
-                      <div className="w-full">
-                        <h4 className="text-sm sm:text-base font-medium mb-2">
-                          Request Example
-                        </h4>
-                        <CodeBlock
-                          code={JSON.stringify(endpoint.example, null, 2)}
-                          language="json"
-                          title={`${endpoint.method} Request Body`}
-                        />
-                      </div>
+                      <LanguageSelector
+                        examples={endpoint.examples}
+                        title="Request Example"
+                      />
                       {endpoint.response && (
                         <div className="w-full">
                           <h4 className="text-sm sm:text-base font-medium mb-2">

@@ -8,101 +8,225 @@ import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
+import { LanguageSelector } from "../components/language-selector";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 const ivrEndpoints = [
   {
-    name: "Create Call",
+    name: "Create Banking IVR Flow",
     method: "POST",
-    path: "/api/v1/call",
-    description: "Initiate IVR call to Nigerian phone number",
-    example: {
-      to: "+2348012345678",
-      flow_id: "customer_service_flow",
-      language: "en",
-      fallback_language: "ha",
-      variables: {
-        customer_name: "Adebayo Johnson",
-        account_balance: "125,500",
-        last_transaction: "Transfer to Kemi - ₦15,000",
-        account_type: "Savings",
-        branch_name: "Victoria Island",
+    path: "/api/v1/ivr/create-flow",
+    description: "Create IVR flow for banking services",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/ivr/create-flow \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "name": "Banking IVR",
+    "language": "english_ng",
+    "flow": {
+      "welcome": {
+        "message": "Welcome to First Bank. Press 1 for account balance, 2 for transaction history, 3 for customer service",
+        "options": {
+          "1": "check_balance",
+          "2": "transaction_history",
+          "3": "customer_service"
+        }
       },
-      settings: {
-        max_duration: 300,
-        retry_attempts: 2,
-        timeout_seconds: 30,
-        record_call: true,
-        dtmf_timeout: 10,
+      "check_balance": {
+        "message": "Please enter your account number followed by the hash key",
+        "input_type": "account_number",
+        "next": "balance_response"
+      }
+    }
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/ivr/create-flow', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: "Banking IVR",
+    language: "english_ng",
+    flow: {
+      welcome: {
+        message: "Welcome to First Bank. Press 1 for account balance, 2 for transaction history, 3 for customer service",
+        options: {
+          "1": "check_balance",
+          "2": "transaction_history",
+          "3": "customer_service"
+        }
       },
-      callback_url: "https://myapp.com/webhooks/ivr-status",
-      metadata: {
-        user_id: "user_789",
-        session_id: "sess_456",
-        purpose: "account_inquiry",
-      },
+      check_balance: {
+        message: "Please enter your account number followed by the hash key",
+        input_type: "account_number",
+        next: "balance_response"
+      }
+    }
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/ivr/create-flow',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'name': 'Banking IVR',
+        'language': 'english_ng',
+        'flow': {
+            'welcome': {
+                'message': 'Welcome to First Bank. Press 1 for account balance, 2 for transaction history, 3 for customer service',
+                'options': {
+                    '1': 'check_balance',
+                    '2': 'transaction_history',
+                    '3': 'customer_service'
+                }
+            },
+            'check_balance': {
+                'message': 'Please enter your account number followed by the hash key',
+                'input_type': 'account_number',
+                'next': 'balance_response'
+            }
+        }
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/ivr/create-flow');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'name' => 'Banking IVR',
+    'language' => 'english_ng',
+    'flow' => [
+        'welcome' => [
+            'message' => 'Welcome to First Bank. Press 1 for account balance, 2 for transaction history, 3 for customer service',
+            'options' => [
+                '1' => 'check_balance',
+                '2' => 'transaction_history',
+                '3' => 'customer_service'
+            ]
+        ],
+        'check_balance' => [
+            'message' => 'Please enter your account number followed by the hash key',
+            'input_type' => 'account_number',
+            'next' => 'balance_response'
+        ]
+    ]
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/ivr/create-flow"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"name":"Banking IVR","language":"english_ng","flow":{"welcome":{"message":"Welcome to First Bank. Press 1 for account balance, 2 for transaction history, 3 for customer service","options":{"1":"check_balance","2":"transaction_history","3":"customer_service"}},"check_balance":{"message":"Please enter your account number followed by the hash key","input_type":"account_number","next":"balance_response"}}}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      status: "success",
-      call_id: "call_abc123",
-      to: "+2348012345678",
-      flow_id: "customer_service_flow",
-      call_status: "initiated",
-      estimated_duration: 180,
-      cost_estimate: 25.5,
-      currency: "NGN",
-      created_at: "2024-01-15T10:30:00Z",
-      expected_completion: "2024-01-15T10:33:00Z",
-      tracking_url: "https://api.myapp.com/calls/call_abc123/status",
+      flow_id: "banking_ivr_001",
+      name: "Banking IVR",
+      language: "english_ng",
+      status: "active",
+      created_at: "2025-01-15T10:30:00Z",
+      steps_count: 2,
+      estimated_duration: "3-5 minutes",
+      message: "IVR flow created successfully",
     },
   },
   {
-    name: "Call Status",
-    method: "GET",
-    path: "/api/v1/call/{call_id}",
-    description: "Get IVR call status and results",
-    example: {
-      call_id: "call_abc123",
+    name: "Handle Incoming Call",
+    method: "POST",
+    path: "/api/v1/ivr/handle-call",
+    description: "Handle incoming IVR call",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/ivr/handle-call \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "call_id": "call_123456",
+    "from": "+2348012345678",
+    "to": "+2341234567890",
+    "flow_id": "banking_ivr_001"
+  }'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/ivr/handle-call', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    call_id: "call_123456",
+    from: "+2348012345678",
+    to: "+2341234567890",
+    flow_id: "banking_ivr_001"
+  })
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/ivr/handle-call',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'call_id': 'call_123456',
+        'from': '+2348012345678',
+        'to': '+2341234567890',
+        'flow_id': 'banking_ivr_001'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/ivr/handle-call');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'call_id' => 'call_123456',
+    'from' => '+2348012345678',
+    'to' => '+2341234567890',
+    'flow_id' => 'banking_ivr_001'
+]));
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/ivr/handle-call"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{"call_id":"call_123456","from":"+2348012345678","to":"+2341234567890","flow_id":"banking_ivr_001"}"
+    ))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
     response: {
-      call_id: "call_abc123",
-      status: "completed",
-      call_details: {
-        to: "+2348012345678",
-        duration: 165,
-        start_time: "2024-01-15T10:30:05Z",
-        end_time: "2024-01-15T10:32:50Z",
-        answered: true,
-        completion_reason: "user_hangup",
+      call_id: "call_123456",
+      status: "in_progress",
+      current_step: "welcome",
+      response: {
+        action: "play_message",
+        message: "Welcome to First Bank. Press 1 for account balance...",
+        voice: "nigerian_female",
+        language: "english_ng",
       },
-      flow_execution: {
-        flow_id: "customer_service_flow",
-        steps_completed: 4,
-        total_steps: 5,
-        user_inputs: [
-          { step: "main_menu", input: "1", timestamp: "2024-01-15T10:30:15Z" },
-          {
-            step: "account_menu",
-            input: "2",
-            timestamp: "2024-01-15T10:30:45Z",
-          },
-          {
-            step: "balance_inquiry",
-            input: "#",
-            timestamp: "2024-01-15T10:31:30Z",
-          },
-        ],
-        final_action: "balance_provided",
-      },
-      cost: {
-        total_cost: 22.75,
-        currency: "NGN",
-        breakdown: {
-          connection_fee: 5.0,
-          per_minute_rate: 10.75,
-          minutes_billed: 2.75,
-        },
-      },
-      recording_url: "https://recordings.myapp.com/call_abc123.mp3",
+      next_expected: "dtmf_input",
     },
   },
 ];
@@ -181,16 +305,10 @@ function IVRServiceContent() {
                     </p>
 
                     <div className="space-y-3 w-full">
-                      <div className="w-full">
-                        <h4 className="text-sm sm:text-base font-medium mb-2">
-                          Request Example
-                        </h4>
-                        <CodeBlock
-                          code={JSON.stringify(endpoint.example, null, 2)}
-                          language="json"
-                          title={`${endpoint.method} Request Body`}
-                        />
-                      </div>
+                      <LanguageSelector
+                        examples={endpoint.examples}
+                        title="Request Example"
+                      />
                       {endpoint.response && (
                         <div className="w-full">
                           <h4 className="text-sm sm:text-base font-medium mb-2">
