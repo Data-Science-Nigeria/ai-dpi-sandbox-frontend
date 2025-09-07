@@ -14,6 +14,11 @@ interface ErrorResponse {
 }
 
 export function getApiErrorMessage(error: any): string {
+  // Handle API error format: {error: "message", status_code: 400}
+  if (error.error && typeof error.error === "string") {
+    return error.error;
+  }
+
   // If error has a detail property
   if (error.detail) {
     // Case 1: detail is an array (validation errors)
@@ -26,11 +31,11 @@ export function getApiErrorMessage(error: any): string {
       return `${fieldName}: ${firstError.msg}`;
     }
     // Case 2: detail is a string
-    else if (typeof error.detail === 'string') {
+    else if (typeof error.detail === "string") {
       return error.detail;
     }
   }
 
   // Fallback for unexpected error formats
-  return error.message || 'An error occurred. Please try again later.';
+  return error.message || "An error occurred. Please try again later.";
 }

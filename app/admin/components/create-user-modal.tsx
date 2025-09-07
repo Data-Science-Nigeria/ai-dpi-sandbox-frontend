@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Eye, EyeOff } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -28,6 +29,7 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
     username: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const createUser = useMutation({
     ...authPostApiV1AuthAdminUsersCreateUserMutation(),
@@ -143,14 +145,23 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
             <label className="block text-xs sm:text-sm font-medium mb-0.5 sm:mb-1">
               Password
             </label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-2 py-1 sm:px-3 sm:py-2 border rounded-md text-xs sm:text-sm"
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full px-2 py-1 sm:px-3 sm:py-2 pr-8 border rounded-md text-xs sm:text-sm"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
           </div>
 
           <AlertDialogFooter>
