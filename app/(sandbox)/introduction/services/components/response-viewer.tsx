@@ -3,8 +3,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { Copy, Download, Clock, Zap } from "lucide-react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface ResponseData {
   status: number;
@@ -22,6 +31,7 @@ interface ResponseViewerProps {
 
 export function ResponseViewer({ response, loading }: ResponseViewerProps) {
   const [activeTab, setActiveTab] = useState<"body" | "headers">("body");
+  const [viewMode, setViewMode] = useState<"pretty" | "raw">("pretty");
 
   const getStatusColor = (status: number) => {
     if (status >= 200 && status < 300)
@@ -44,6 +54,14 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
+  };
+
+  const formatResponseData = (data: unknown) => {
+    return JSON.stringify(data, null, viewMode === "pretty" ? 2 : 0);
+  };
+
+  const getLanguageForHighlighter = () => {
+    return "json";
   };
 
   const downloadResponse = () => {
@@ -146,38 +164,79 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
       </div>
 
       <div className="border-b bg-card">
-        <div className="flex">
-          <button
-            onClick={() => setActiveTab("body")}
-            className={cn(
-              "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
-              activeTab === "body"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            )}
-          >
-            Response Body
-          </button>
-          <button
-            onClick={() => setActiveTab("headers")}
-            className={cn(
-              "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
-              activeTab === "headers"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            )}
-          >
-            Headers ({Object.keys(response.headers).length})
-          </button>
+        <div className="flex items-center justify-between">
+          <div className="flex">
+            <button
+              onClick={() => setActiveTab("body")}
+              className={cn(
+                "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
+                activeTab === "body"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Response Body
+            </button>
+            <button
+              onClick={() => setActiveTab("headers")}
+              className={cn(
+                "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
+                activeTab === "headers"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Headers ({Object.keys(response.headers).length})
+            </button>
+          </div>
+
+          {activeTab === "body" && (
+            <div className="flex items-center gap-2 px-4 py-2">
+              <Select
+                value={viewMode}
+                onValueChange={(value: "pretty" | "raw") => setViewMode(value)}
+              >
+                <SelectTrigger className="w-20 h-8">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pretty">Pretty</SelectItem>
+                  <SelectItem value="raw">Raw</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <div className="text-xs text-muted-foreground px-2 py-1 bg-muted rounded">
+                JSON
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       <div className="flex-1 overflow-hidden">
         {activeTab === "body" && (
           <ScrollArea className="h-full">
-            <pre className="p-2 sm:p-4 text-xs sm:text-sm font-mono whitespace-pre-wrap break-words">
-              {JSON.stringify(response.data, null, 2)}
-            </pre>
+            <div className="p-2 sm:p-4">
+              {viewMode === "pretty" ? (
+                <SyntaxHighlighter
+                  language={getLanguageForHighlighter()}
+                  style={tomorrow}
+                  customStyle={{
+                    margin: 0,
+                    padding: 0,
+                    background: "transparent",
+                    fontSize: "0.75rem",
+                  }}
+                  wrapLongLines
+                >
+                  {formatResponseData(response.data)}
+                </SyntaxHighlighter>
+              ) : (
+                <pre className="text-xs sm:text-sm font-mono whitespace-pre-wrap break-words">
+                  {formatResponseData(response.data)}
+                </pre>
+              )}
+            </div>
           </ScrollArea>
         )}
 

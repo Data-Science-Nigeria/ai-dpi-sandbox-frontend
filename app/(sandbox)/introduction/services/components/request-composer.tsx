@@ -6,7 +6,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Play, Plus, Trash2, Copy } from "lucide-react";
 import { BaseUrlIcon } from "./base-url-icon";
+import { ConnectionIcon } from "./connection-icon";
 import { getBaseUrl } from "@/lib/env";
+import { useAuthStore } from "@/app/store/use-auth-store";
 
 interface Header {
   key: string;
@@ -33,12 +35,26 @@ export function RequestComposer({
   const baseUrl = getBaseUrl();
   const method = initialMethod;
   const path = initialPath;
+  const { auth } = useAuthStore();
   const [headers, setHeaders] = useState<Header[]>([
     { key: "Content-Type", value: "application/json", enabled: true },
-    { key: "Authorization", value: "Bearer your-token-here", enabled: true },
   ]);
   const [body, setBody] = useState("{\n  \n}");
   const [activeTab, setActiveTab] = useState<"headers" | "body">("headers");
+
+  // Get all headers including the automatic authorization header
+  const getAllHeaders = (): Header[] => {
+    const authHeader: Header[] = auth.access_token
+      ? [
+          {
+            key: "Authorization",
+            value: `Bearer ${auth.access_token}`,
+            enabled: true,
+          },
+        ]
+      : [];
+    return [...authHeader, ...headers];
+  };
 
   const addHeader = () => {
     setHeaders([...headers, { key: "", value: "", enabled: true }]);
@@ -60,10 +76,11 @@ export function RequestComposer({
 
   const handleSend = () => {
     const fullUrl = `${baseUrl.replace(/\/$/, "")}${path}`;
+    const allHeaders = getAllHeaders();
     onSendRequest({
       method,
       url: fullUrl,
-      headers: headers.filter((h) => h.enabled && h.key),
+      headers: allHeaders.filter((h) => h.enabled && h.key),
       body: method !== "GET" ? body : "",
     });
   };
@@ -127,7 +144,7 @@ export function RequestComposer({
                 : "border-transparent text-muted-foreground hover:text-foreground"
             )}
           >
-            Headers ({headers.filter((h) => h.enabled && h.key).length})
+            Headers ({getAllHeaders().filter((h) => h.enabled && h.key).length})
           </button>
           {method !== "GET" && (
             <button
@@ -157,50 +174,95 @@ export function RequestComposer({
 
             <ScrollArea className="flex-1">
               <div className="p-2 sm:p-4 space-y-2">
-                {headers.map((header, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2"
-                  >
-                    <div className="flex items-center gap-2 sm:contents">
-                      <input
-                        type="checkbox"
-                        checked={header.enabled}
-                        onChange={(e) =>
-                          updateHeader(index, "enabled", e.target.checked)
-                        }
-                        className="w-4 h-4"
-                      />
-                      <input
-                        type="text"
-                        value={header.key}
-                        onChange={(e) =>
-                          updateHeader(index, "key", e.target.value)
-                        }
-                        placeholder="Header name"
-                        className="flex-1 sm:flex-1 px-3 py-2 border rounded-md bg-background text-sm"
-                      />
+                {getAllHeaders().map((header, index) => {
+                  const isAuthHeader = header.key === "Authorization";
+                  const actualIndex = isAuthHeader
+                    ? -1
+                    : index - (auth.access_token ? 1 : 0);
+
+                  return (
+                    <div
+                      key={isAuthHeader ? "auth-header" : index}
+                      className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2"
+                    >
+                      <div className="flex items-center gap-2 sm:contents">
+                        <input
+                          type="checkbox"
+                          checked={header.enabled}
+                          onChange={(e) => {
+                            if (!isAuthHeader) {
+                              updateHeader(
+                                actualIndex,
+                                "enabled",
+                                e.target.checked
+                              );
+                            }
+                          }}
+                          disabled={isAuthHeader}
+                          className="w-4 h-4"
+                        />
+                        <input
+                          type="text"
+                          value={header.key}
+                          onChange={(e) => {
+                            if (!isAuthHeader) {
+                              updateHeader(actualIndex, "key", e.target.value);
+                            }
+                          }}
+                          placeholder="Header name"
+                          readOnly={isAuthHeader}
+                          className={cn(
+                            "flex-1 sm:flex-1 px-3 py-2 border rounded-md text-sm",
+                            isAuthHeader
+                              ? "bg-muted cursor-not-allowed"
+                              : "bg-background"
+                          )}
+                        />
+                      </div>
+                      <div className="flex items-center gap-2 sm:contents">
+                        <input
+                          type="text"
+                          value={
+                            isAuthHeader
+                              ? "Bearer {{access_token}}"
+                              : header.value
+                          }
+                          onChange={(e) => {
+                            if (!isAuthHeader) {
+                              updateHeader(
+                                actualIndex,
+                                "value",
+                                e.target.value
+                              );
+                            }
+                          }}
+                          placeholder="Header value"
+                          readOnly={isAuthHeader}
+                          className={cn(
+                            "flex-1 sm:flex-1 px-3 py-2 border rounded-md text-sm",
+                            isAuthHeader
+                              ? "bg-muted cursor-not-allowed"
+                              : "bg-background"
+                          )}
+                        />
+                        {!isAuthHeader && (
+                          <Button
+                            onClick={() => removeHeader(actualIndex)}
+                            variant="ghost"
+                            size="sm"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        )}
+                        {isAuthHeader && (
+                          <div className="w-10 h-10 flex items-center justify-center">
+                            <ConnectionIcon />
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 sm:contents">
-                      <input
-                        type="text"
-                        value={header.value}
-                        onChange={(e) =>
-                          updateHeader(index, "value", e.target.value)
-                        }
-                        placeholder="Header value"
-                        className="flex-1 sm:flex-1 px-3 py-2 border rounded-md bg-background text-sm"
-                      />
-                      <Button
-                        onClick={() => removeHeader(index)}
-                        variant="ghost"
-                        size="sm"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </ScrollArea>
           </div>
