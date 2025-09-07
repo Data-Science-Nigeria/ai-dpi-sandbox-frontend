@@ -28,6 +28,7 @@ export default function ActiveUsers() {
   const queryClient = useQueryClient();
   const { data: allUsers = [], isLoading } = useQuery({
     ...authGetApiV1AuthAdminUsersListUsersOptions(),
+    refetchInterval: 3000, // Auto-refresh every 3 seconds
   });
 
   const users = (allUsers as User[]).filter(

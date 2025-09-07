@@ -30,6 +30,7 @@ export default function ManageUsers() {
   const queryClient = useQueryClient();
   const { data: users = [], isLoading } = useQuery({
     ...authGetApiV1AuthAdminUsersListUsersOptions(),
+    refetchInterval: 3000, // Auto-refresh every 3 seconds
   });
 
   const [currentPage, setCurrentPage] = useState(1);

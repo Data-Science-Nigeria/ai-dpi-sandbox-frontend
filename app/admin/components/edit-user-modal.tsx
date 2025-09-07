@@ -98,14 +98,14 @@ export function EditUserModal({
   return (
     <>
       <AlertDialog open={isOpen} onOpenChange={onClose}>
-        <AlertDialogContent className="max-w-md">
+        <AlertDialogContent className="w-[280px] sm:w-[calc(100vw-8rem)] sm:max-w-md mx-auto max-h-[80vh] overflow-y-auto">
           <AlertDialogHeader>
             <AlertDialogTitle>Edit User</AlertDialogTitle>
           </AlertDialogHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-1.5 sm:space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-xs sm:text-sm font-medium mb-0.5 sm:mb-1">
                 First Name
               </label>
               <input
@@ -113,12 +113,12 @@ export function EditUserModal({
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-md"
+                className="w-full px-1.5 py-0.5 sm:px-3 sm:py-2 border rounded-md text-xs sm:text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-xs sm:text-sm font-medium mb-0.5 sm:mb-1">
                 Last Name
               </label>
               <input
@@ -126,18 +126,20 @@ export function EditUserModal({
                 name="last_name"
                 value={formData.last_name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-md"
+                className="w-full px-1.5 py-0.5 sm:px-3 sm:py-2 border rounded-md text-xs sm:text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
+              <label className="block text-xs sm:text-sm font-medium mb-0.5 sm:mb-1">
+                Email
+              </label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-md"
+                className="w-full px-1.5 py-0.5 sm:px-3 sm:py-2 border rounded-md text-xs sm:text-sm"
                 required
               />
             </div>

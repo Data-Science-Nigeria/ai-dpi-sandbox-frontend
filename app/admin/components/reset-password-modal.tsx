@@ -110,7 +110,7 @@ export function ResetPasswordModal({
   return (
     <>
       <AlertDialog open={isOpen} onOpenChange={handleClose}>
-        <AlertDialogContent className="max-w-md">
+        <AlertDialogContent className="w-[280px] sm:w-[calc(100vw-8rem)] sm:max-w-md mx-auto max-h-[80vh] overflow-y-auto">
           <AlertDialogHeader>
             <AlertDialogTitle>
               Reset Password for{" "}
@@ -120,7 +120,7 @@ export function ResetPasswordModal({
             </AlertDialogTitle>
           </AlertDialogHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-1.5 sm:space-y-4">
             <PasswordInput
               ref={newPasswordRef}
               label="New Password"

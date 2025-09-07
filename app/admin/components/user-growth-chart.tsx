@@ -2,6 +2,11 @@
 
 import React, { useState } from "react";
 import { TrendingUp, Calendar } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface User {
   created_at: string;
@@ -13,13 +18,6 @@ interface UserGrowthChartProps {
 
 export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
   const [showCalendar, setShowCalendar] = useState(false);
-  const [tooltip, setTooltip] = useState<{
-    show: boolean;
-    x: number;
-    y: number;
-    value: number;
-    month: string;
-  } | null>(null);
   const [calendarYear, setCalendarYear] = useState(new Date().getFullYear());
   const [calendarMonth, setCalendarMonth] = useState(new Date().getMonth());
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -124,7 +122,7 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
   ];
 
   return (
-    <div className="bg-white dark:bg-[#1C1E22] rounded-lg border p-4">
+    <div className="bg-white dark:bg-[#1C1E22] rounded-lg border p-4 overflow-x-auto">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <TrendingUp className="w-5 h-5 text-[#00A859]" />
@@ -139,16 +137,16 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
               <Calendar className="w-4 h-4" />
             </button>
             {showCalendar && (
-              <div className="absolute right-0 top-8 bg-white dark:bg-gray-800 border rounded-lg p-3 shadow-lg z-30 w-64">
+              <div className="absolute right-0 top-7 bg-white dark:bg-gray-800 border rounded-lg p-1.5 shadow-lg z-30 w-44 sm:w-48">
                 {/* Year Selection */}
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-1">
                   <button
                     onClick={() => setCalendarYear(calendarYear - 1)}
                     className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                   >
                     ←
                   </button>
-                  <span className="font-medium">{calendarYear}</span>
+                  <span className="font-medium text-xs">{calendarYear}</span>
                   <button
                     onClick={() => setCalendarYear(calendarYear + 1)}
                     className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
@@ -158,7 +156,7 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
                 </div>
 
                 {/* Month Selection */}
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-1">
                   <button
                     onClick={() =>
                       setCalendarMonth(
@@ -169,7 +167,7 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
                   >
                     ←
                   </button>
-                  <span className="font-medium text-sm">
+                  <span className="font-medium text-xs">
                     {monthNames[calendarMonth]}
                   </span>
                   <button
@@ -185,11 +183,11 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
                 </div>
 
                 {/* Days Grid */}
-                <div className="grid grid-cols-7 gap-1 mb-3">
+                <div className="grid grid-cols-7 gap-px mb-1">
                   {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
                     <div
                       key={index}
-                      className="text-xs text-center p-1 font-medium text-gray-500"
+                      className="text-xs text-center py-0.5 px-0 font-medium text-gray-500"
                     >
                       {day}
                     </div>
@@ -199,7 +197,7 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
                   {Array.from({
                     length: getFirstDayOfMonth(calendarYear, calendarMonth),
                   }).map((_, index) => (
-                    <div key={`empty-${index}`} className="p-1"></div>
+                    <div key={`empty-${index}`} className="p-0.5"></div>
                   ))}
 
                   {/* Days */}
@@ -228,14 +226,22 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
                             setShowCalendar(false);
                           }
                         }}
-                        className={`text-xs p-1 rounded ${
+                        className={`text-xs py-0.5 px-1 rounded text-center ${
                           isSelected
                             ? "bg-[#00A859] text-white"
-                            : date > new Date()
-                              ? "text-gray-300 cursor-not-allowed"
+                            : (() => {
+                                  const today = new Date();
+                                  today.setHours(23, 59, 59, 999);
+                                  return date > today;
+                                })()
+                              ? "text-gray-400 cursor-not-allowed opacity-50"
                               : "hover:bg-gray-100 dark:hover:bg-gray-700"
                         }`}
-                        disabled={date > new Date()}
+                        disabled={(() => {
+                          const today = new Date();
+                          today.setHours(23, 59, 59, 999);
+                          return date > today;
+                        })()}
                       >
                         {day}
                       </button>
@@ -256,7 +262,7 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
                         setCalendarMonth(new Date().getMonth());
                         setShowCalendar(false);
                       }}
-                      className="w-full text-xs p-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded"
+                      className="w-full text-xs p-1.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded"
                     >
                       Return to Today
                     </button>
@@ -268,8 +274,8 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
         </div>
       </div>
 
-      <div className="h-48 relative">
-        <div className="relative h-40 ml-8">
+      <div className="h-48 relative overflow-x-auto">
+        <div className="relative h-40 ml-8 min-w-[600px]">
           <svg
             width="100%"
             height="100%"
@@ -310,25 +316,23 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
                   : (index / (chartData.length - 1)) * 500;
               const y = 160 - (value / scaledMaxValue) * 160;
               return (
-                <circle
-                  key={index}
-                  cx={x}
-                  cy={y}
-                  r="4"
-                  fill="#00A859"
-                  className="hover:r-6 transition-all cursor-pointer"
-                  onMouseEnter={(e) => {
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    setTooltip({
-                      show: true,
-                      x: rect.left + rect.width / 2,
-                      y: rect.top - 10,
-                      value,
-                      month: months[index],
-                    });
-                  }}
-                  onMouseLeave={() => setTooltip(null)}
-                />
+                <Tooltip key={index}>
+                  <TooltipTrigger asChild>
+                    <circle
+                      cx={x}
+                      cy={y}
+                      r="4"
+                      fill="#00A859"
+                      className="hover:r-6 transition-all cursor-pointer"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="font-medium">{months[index]}</div>
+                    <div>
+                      {value} {value === 1 ? "user" : "users"}
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
               );
             })}
 
@@ -369,23 +373,6 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
       <div className="mt-2 text-xs text-gray-600 dark:text-gray-400">
         Showing data up to: {selectedDate.toLocaleDateString()}
       </div>
-
-      {/* Tooltip */}
-      {tooltip && (
-        <div
-          className="fixed bg-gray-900 text-white text-xs px-2 py-1 rounded shadow-lg z-50 pointer-events-none"
-          style={{
-            left: tooltip.x - 30,
-            top: tooltip.y - 35,
-            transform: "translateX(-50%)",
-          }}
-        >
-          <div className="font-medium">{tooltip.month}</div>
-          <div>
-            {tooltip.value} {tooltip.value === 1 ? "user" : "users"}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { User } from "lucide-react";
 import { CreateUserModal } from "../components/create-user-modal";
 import { UserGrowthChart } from "../components/user-growth-chart";
 import { TotalUsersCard } from "../components/total-users-card";
@@ -29,6 +29,7 @@ export default function AdminDashboard() {
 
   const { data: users = [], isLoading } = useQuery({
     ...authGetApiV1AuthAdminUsersListUsersOptions(),
+    refetchInterval: 3000, // Auto-refresh every 3 seconds
   });
 
   const typedUsers = users as User[];
@@ -94,8 +95,8 @@ export default function AdminDashboard() {
             onClick={() => setShowCreateModal(true)}
             className="bg-[#00A859] hover:bg-[#00A859]/90"
           >
-            <Plus className="w-4 h-4 mr-2" />
-            Create User
+            <User className="w-4 h-4 sm:mr-2 text-white" />
+            <span className="hidden sm:inline text-white">Create User</span>
           </Button>
         }
       />
