@@ -105,15 +105,15 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
   return (
     <div className="flex flex-col h-full">
       <div className="p-2 sm:p-4 border-b bg-card">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full lg:w-auto">
-            <div className="flex items-center gap-2">
-              <span className="text-xs sm:text-sm text-muted-foreground">
+        <div className="space-y-3">
+          <div className="flex flex-col xxs:flex-row xxs:flex-wrap items-start gap-2 xxs:gap-3 xs:gap-4">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
                 Status:
               </span>
               <span
                 className={cn(
-                  "font-mono font-medium text-xs sm:text-sm",
+                  "font-mono font-medium text-xs sm:text-sm break-all",
                   getStatusColor(response.status)
                 )}
               >
@@ -123,29 +123,29 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
 
             <div className="flex items-center gap-2">
               <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
-              <span className="text-xs sm:text-sm text-muted-foreground">
+              <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
                 {response.duration}ms
               </span>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs sm:text-sm text-muted-foreground">
+              <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
                 Size:
               </span>
-              <span className="text-xs sm:text-sm font-medium">
+              <span className="text-xs sm:text-sm font-medium whitespace-nowrap">
                 {formatBytes(response.size)}
               </span>
             </div>
           </div>
 
-          <div className="flex gap-2 w-full sm:w-auto">
+          <div className="flex flex-col xxs:flex-row gap-2">
             <Button
               onClick={() =>
                 copyToClipboard(JSON.stringify(response.data, null, 2))
               }
               variant="outline"
               size="sm"
-              className="flex-1 sm:flex-none"
+              className="flex-1 xxs:flex-none"
             >
               <Copy className="h-4 w-4 mr-2" />
               Copy
@@ -154,7 +154,7 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
               onClick={downloadResponse}
               variant="outline"
               size="sm"
-              className="flex-1 sm:flex-none"
+              className="flex-1 xxs:flex-none"
             >
               <Download className="h-4 w-4 mr-2" />
               Download
@@ -164,12 +164,12 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
       </div>
 
       <div className="border-b bg-card">
-        <div className="flex items-center justify-between">
-          <div className="flex">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex overflow-x-auto">
             <button
               onClick={() => setActiveTab("body")}
               className={cn(
-                "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
+                "px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
                 activeTab === "body"
                   ? "border-primary text-primary"
                   : "border-transparent text-muted-foreground hover:text-foreground"
@@ -180,7 +180,7 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
             <button
               onClick={() => setActiveTab("headers")}
               className={cn(
-                "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
+                "px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
                 activeTab === "headers"
                   ? "border-primary text-primary"
                   : "border-transparent text-muted-foreground hover:text-foreground"
@@ -191,12 +191,12 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
           </div>
 
           {activeTab === "body" && (
-            <div className="flex items-center gap-2 px-4 py-2">
+            <div className="flex items-center gap-2 px-2 sm:px-4 py-2 border-t sm:border-t-0">
               <Select
                 value={viewMode}
                 onValueChange={(value: "pretty" | "raw") => setViewMode(value)}
               >
-                <SelectTrigger className="w-20 h-8">
+                <SelectTrigger className="w-16 sm:w-20 h-7 sm:h-8 text-xs">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -245,11 +245,14 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
             <div className="p-2 sm:p-4">
               <div className="space-y-2">
                 {Object.entries(response.headers).map(([key, value]) => (
-                  <div key={key} className="flex flex-col sm:flex-row">
-                    <div className="w-full sm:w-1/3 font-medium text-xs sm:text-sm text-muted-foreground pr-0 sm:pr-4 mb-1 sm:mb-0">
+                  <div
+                    key={key}
+                    className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_2fr] gap-1 sm:gap-4"
+                  >
+                    <div className="font-medium text-xs sm:text-sm text-muted-foreground break-all">
                       {key}:
                     </div>
-                    <div className="flex-1 text-xs sm:text-sm font-mono break-all">
+                    <div className="text-xs sm:text-sm font-mono break-all">
                       {value}
                     </div>
                   </div>

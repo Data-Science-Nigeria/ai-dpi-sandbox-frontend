@@ -97,36 +97,41 @@ export function RequestComposer({
   return (
     <div className="flex flex-col h-full">
       <div className="p-2 sm:p-4 border-b bg-card">
-        <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
-          <span
-            className={cn(
-              "px-3 py-2 text-sm font-medium rounded border",
-              method === "GET"
-                ? "bg-blue-50 text-blue-700 border-blue-200"
-                : method === "POST"
-                  ? "bg-green-50 text-green-700 border-green-200"
-                  : method === "PUT"
-                    ? "bg-yellow-50 text-yellow-700 border-yellow-200"
-                    : method === "DELETE"
-                      ? "bg-red-50 text-red-700 border-red-200"
-                      : "bg-gray-50 text-gray-700 border-gray-200"
-            )}
-          >
-            {method}
-          </span>
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+            <span
+              className={cn(
+                "px-3 py-2 text-xs sm:text-sm font-medium rounded border whitespace-nowrap",
+                method === "GET"
+                  ? "bg-blue-50 text-blue-700 border-blue-200"
+                  : method === "POST"
+                    ? "bg-green-50 text-green-700 border-green-200"
+                    : method === "PUT"
+                      ? "bg-yellow-50 text-yellow-700 border-yellow-200"
+                      : method === "DELETE"
+                        ? "bg-red-50 text-red-700 border-red-200"
+                        : "bg-gray-50 text-gray-700 border-gray-200"
+              )}
+            >
+              {method}
+            </span>
 
-          <div className="flex-1 flex items-center gap-2">
-            <BaseUrlIcon baseUrl={baseUrl} />
-            <input
-              type="text"
-              value={path}
-              readOnly
-              className="flex-1 px-3 py-2 border rounded-md bg-muted text-sm cursor-not-allowed"
-              placeholder="/api/v1/endpoint"
-            />
+            <div className="flex-1 flex items-center gap-2 min-w-0">
+              <BaseUrlIcon baseUrl={baseUrl} />
+              <input
+                type="text"
+                value={path}
+                readOnly
+                className="flex-1 px-3 py-2 border rounded-md bg-muted text-xs sm:text-sm cursor-not-allowed min-w-0"
+                placeholder="/api/v1/endpoint"
+              />
+            </div>
           </div>
 
-          <Button onClick={handleSend} className="px-4 sm:px-6">
+          <Button
+            onClick={handleSend}
+            className="w-full xxs:w-auto xxs:self-end px-4 sm:px-6"
+          >
             <Play className="h-4 w-4 mr-2" />
             Send
           </Button>
@@ -183,68 +188,62 @@ export function RequestComposer({
                   return (
                     <div
                       key={isAuthHeader ? "auth-header" : index}
-                      className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2"
+                      className="grid grid-cols-1 xs:grid-cols-[auto_1fr_1fr_auto] gap-2 items-center"
                     >
-                      <div className="flex items-center gap-2 sm:contents">
-                        <input
-                          type="checkbox"
-                          checked={header.enabled}
-                          onChange={(e) => {
-                            if (!isAuthHeader) {
-                              updateHeader(
-                                actualIndex,
-                                "enabled",
-                                e.target.checked
-                              );
-                            }
-                          }}
-                          disabled={isAuthHeader}
-                          className="w-4 h-4"
-                        />
-                        <input
-                          type="text"
-                          value={header.key}
-                          onChange={(e) => {
-                            if (!isAuthHeader) {
-                              updateHeader(actualIndex, "key", e.target.value);
-                            }
-                          }}
-                          placeholder="Header name"
-                          readOnly={isAuthHeader}
-                          className={cn(
-                            "flex-1 sm:flex-1 px-3 py-2 border rounded-md text-sm",
-                            isAuthHeader
-                              ? "bg-muted cursor-not-allowed"
-                              : "bg-background"
-                          )}
-                        />
-                      </div>
-                      <div className="flex items-center gap-2 sm:contents">
-                        <input
-                          type="text"
-                          value={
-                            isAuthHeader
-                              ? "Bearer {{access_token}}"
-                              : header.value
+                      <input
+                        type="checkbox"
+                        checked={header.enabled}
+                        onChange={(e) => {
+                          if (!isAuthHeader) {
+                            updateHeader(
+                              actualIndex,
+                              "enabled",
+                              e.target.checked
+                            );
                           }
-                          onChange={(e) => {
-                            if (!isAuthHeader) {
-                              updateHeader(
-                                actualIndex,
-                                "value",
-                                e.target.value
-                              );
-                            }
-                          }}
-                          placeholder="Header value"
-                          readOnly={isAuthHeader}
-                          className={cn(
-                            "flex-1 sm:flex-1 px-3 py-2 border rounded-md text-sm",
-                            isAuthHeader
-                              ? "bg-muted cursor-not-allowed"
-                              : "bg-background"
-                          )}
-                        />
+                        }}
+                        disabled={isAuthHeader}
+                        className="w-4 h-4 justify-self-start"
+                      />
+                      <input
+                        type="text"
+                        value={header.key}
+                        onChange={(e) => {
+                          if (!isAuthHeader) {
+                            updateHeader(actualIndex, "key", e.target.value);
+                          }
+                        }}
+                        placeholder="Header name"
+                        readOnly={isAuthHeader}
+                        className={cn(
+                          "px-3 py-2 border rounded-md text-xs sm:text-sm min-w-0",
+                          isAuthHeader
+                            ? "bg-muted cursor-not-allowed"
+                            : "bg-background"
+                        )}
+                      />
+                      <input
+                        type="text"
+                        value={
+                          isAuthHeader
+                            ? "Bearer {{access_token}}"
+                            : header.value
+                        }
+                        onChange={(e) => {
+                          if (!isAuthHeader) {
+                            updateHeader(actualIndex, "value", e.target.value);
+                          }
+                        }}
+                        placeholder="Header value"
+                        readOnly={isAuthHeader}
+                        className={cn(
+                          "px-3 py-2 border rounded-md text-xs sm:text-sm min-w-0",
+                          isAuthHeader
+                            ? "bg-muted cursor-not-allowed"
+                            : "bg-background"
+                        )}
+                      />
+                      <div className="flex justify-end">
                         {!isAuthHeader && (
                           <Button
                             onClick={() => removeHeader(actualIndex)}
