@@ -51,26 +51,31 @@ function TwoWaySMSServiceContent() {
   }
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="p-3 sm:p-6 border-b bg-card">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-            <h1 className="text-xl sm:text-2xl font-bold">Two-Way SMS</h1>
+    <div className="h-full flex flex-col mt-4 sm:mt-0">
+      <div className="p-2 xs:p-3 sm:p-6 border-b bg-card">
+        <div className="flex flex-col xs:flex-row items-start xs:items-center gap-1 xs:gap-2 sm:gap-3 mb-1 xs:mb-2">
+          <div className="flex items-center gap-1 xs:gap-2 sm:gap-3">
+            <MessageCircle className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-primary" />
+            <h1 className="text-lg xs:text-xl sm:text-2xl font-bold leading-tight">
+              Two-Way SMS
+            </h1>
           </div>
-          <Badge variant="secondary" className="text-xs sm:text-sm">
+          <Badge
+            variant="secondary"
+            className="text-[10px] xs:text-xs sm:text-sm"
+          >
             Interactive Messaging
           </Badge>
         </div>
-        <p className="text-sm sm:text-base text-muted-foreground">
+        <p className="text-xs xs:text-sm sm:text-base text-muted-foreground leading-tight">
           Interactive SMS messaging service for conversational experiences with
           Nigerian customers
         </p>
       </div>
 
       <ScrollArea className="flex-1">
-        <div className="p-3 sm:p-6">
-          <div className="grid gap-4 sm:gap-6">
+        <div className="p-2 xs:p-3 sm:p-6">
+          <div className="grid gap-3 xs:gap-4 sm:gap-6">
             <section>
               <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
                 <Code className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -171,7 +176,7 @@ function TwoWaySMSServiceContent() {
         </div>
       </ScrollArea>
 
-      <div className="p-3 sm:p-6 border-t">
+      <div className="p-2 xs:p-3 sm:p-6 border-t">
         <PageNavigation
           {...getNavigation("/introduction/services/two-way-sms")}
         />

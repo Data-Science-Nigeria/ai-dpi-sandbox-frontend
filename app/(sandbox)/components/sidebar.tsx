@@ -87,6 +87,10 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
   const handleItemSelect = (itemId: string) => {
     setSelectedItem(itemId);
+    // Auto-close sidebar on small screens (640px and below)
+    if (window.innerWidth <= 640) {
+      onToggle();
+    }
   };
 
   return (

@@ -49,12 +49,6 @@ export function UserGrowthChart({ userRoleUsers = [] }: UserGrowthChartProps) {
       }
     });
 
-    console.log(
-      "Selected date:",
-      selectedDate.toLocaleDateString(),
-      "Chart data:",
-      monthlyData
-    );
     return monthlyData;
   }, [userRoleUsers, selectedDate]);
 
