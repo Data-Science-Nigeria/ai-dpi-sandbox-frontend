@@ -3,16 +3,16 @@
 import { Wifi } from "lucide-react";
 import {
   Tooltip,
-  TooltipContent,
+  //  TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useAuthStore } from "@/app/store/use-auth-store";
+// import { useAuthStore } from "@/app/store/use-auth-store";
 
 export function ConnectionIcon() {
-  const { auth } = useAuthStore();
-  const token = auth.access_token;
+  // const { auth } = useAuthStore();
+  // const token = auth.access_token;
 
-  if (!token) return null;
+  // if (!token) return null;
 
   return (
     <Tooltip>
@@ -21,9 +21,9 @@ export function ConnectionIcon() {
           <Wifi className="h-4 w-4" />
         </div>
       </TooltipTrigger>
-      <TooltipContent className="max-w-xs">
-        <p className="font-mono text-xs break-all">Bearer {token}</p>
-      </TooltipContent>
+      {/*    <TooltipContent className="max-w-xs">
+        <p className="font-mono text-xs break-all">Bearer  token</p>
+      </TooltipContent> */}
     </Tooltip>
   );
 }
