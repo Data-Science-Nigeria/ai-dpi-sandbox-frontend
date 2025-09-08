@@ -372,9 +372,9 @@ function SMSServiceContent() {
               </h2>
 
               <div className="space-y-3 sm:space-y-4">
-                {smsEndpoints.map((endpoint) => (
+                {smsEndpoints.map((endpoint, index) => (
                   <div
-                    key={endpoint.path}
+                    key={`${endpoint.path}-${index}`}
                     className="border rounded-lg p-3 sm:p-4 hover:bg-accent/50 transition-colors w-full"
                   >
                     <div className="flex flex-col sm:flex-row items-start justify-between mb-2 gap-2">

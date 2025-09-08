@@ -85,7 +85,7 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
     },
     response: {
       generated_text:
-        "# Nigerian Fintech Business Plan\n\n## Executive Summary\nOur fintech startup, PayNaija, aims to revolutionize mobile payments across Nigeria by providing seamless, secure, and affordable digital payment solutions...",
+        "# Nigerian Fintech Business Plan\n\n## Executive Summary\n",
       tokens_used: 987,
       generation_id: "gen_ai_123456",
       context_applied: "nigerian_market",
@@ -102,7 +102,7 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
   -H "Authorization: Bearer $TOKEN" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "data": "Lagos fintech adoption rate increased 45% in 2024. Mobile banking users grew from 2.1M to 3.8M. Digital payments volume reached ₦12.5 trillion.",
+    "data": "Lagos fintech adoption rate increased 45% in 2024. Mobile banking users grew from 2.1M to 3.8M.",
     "analysis_type": "market_trends",
     "focus": "nigerian_fintech"
   }'`,
@@ -252,7 +252,7 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
     },
     response: {
       generated_text:
-        "🚀 BREAKING: Same-day delivery is now LIVE in Lagos! 📦✨\n\nOrder before 2PM and get your items delivered the same day! From Victoria Island to Ikeja, we've got you covered. 🏃♂️💨\n\n#LagosDelivery #SameDayDelivery #NigerianEcommerce #FastDelivery",
+        "🚀 BREAKING: Same-day delivery is now LIVE in Lagos!, we've got you covered.",
       tokens_used: 45,
       generation_id: "gen_ai_345678",
       optimized_for: "instagram",
@@ -305,9 +305,9 @@ function AIServiceContent() {
               </h2>
 
               <div className="space-y-2 xs:space-y-3 sm:space-y-4">
-                {aiEndpoints.map((endpoint) => (
+                {aiEndpoints.map((endpoint, index) => (
                   <div
-                    key={endpoint.path}
+                    key={`${endpoint.path}-${index}`}
                     className="border rounded-lg p-3 sm:p-4 hover:bg-accent/50 transition-colors w-full"
                   >
                     <div className="flex flex-col sm:flex-row items-start justify-between mb-2 gap-2">
