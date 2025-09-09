@@ -10,7 +10,7 @@ import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
 import { LanguageSelector } from "../components/language-selector";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://dsnsandbox.com";
 
 const smsEndpoints = [
   {
