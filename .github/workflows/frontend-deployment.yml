@@ -15,9 +15,12 @@ jobs:
         uses: actions/checkout@v4
 
       # Package source (exclude git + node_modules)
-      - name: Create source tarball
+      - name: Create source tarball (HEAD only)
         run: |
-          tar --exclude='.git' --exclude='node_modules' -czf source.tgz .
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git archive --format=tar -o source.tar HEAD
+          gzip -9 source.tar
+          mv source.tar.gz source.tgz
 
       # Write SSH key
       - name: Prepare SSH
