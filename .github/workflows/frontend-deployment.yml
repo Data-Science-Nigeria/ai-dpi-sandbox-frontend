@@ -66,4 +66,3 @@ jobs:
 
           # Quick health probe
           curl -sI http://127.0.0.1:8080 | head -n1 || true
-REMOTE
