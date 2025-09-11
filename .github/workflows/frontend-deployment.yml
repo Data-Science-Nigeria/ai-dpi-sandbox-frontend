@@ -6,59 +6,86 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     environment: sandbox-frontend-env
+
+    env:
+      BUILD_DIR: .next
+      RELEASES_DIR: ${{ secrets.VM_PATH }}/releases
+      CURRENT_LINK: ${{ secrets.VM_PATH }}/current
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create source tarball (HEAD only)
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: yarn install --frozen-lockfile
+
+      - name: Build (Next.js)
+        run: yarn build
+
+      # Package the **runtime** needed for `yarn start` (no dev files)
+      - name: Archive runtime bundle
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          git archive --format=tar -o source.tar HEAD
-          gzip -9 source.tar
-          mv source.tar.gz source.tgz
+          mkdir -p artifact runtime
+          cp -r .next runtime/.next
+          cp -r public runtime/public 2>/dev/null || true
+          cp package.json yarn.lock runtime/
+          shopt -s nullglob; cp next.config.* runtime/ || true
+          tar -C runtime -czf artifact/frontend.tgz .
 
-      - name: Prepare SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/azurevm.key
-          sed -i 's/\r$//' ~/.ssh/azurevm.key
-          chmod 600 ~/.ssh/azurevm.key
+      # Copy tarball to VM (lands at /tmp/artifact/frontend.tgz)
+      - name: Copy to VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          source: "artifact/frontend.tgz"
+          target: "/tmp/"
 
-      - name: Upload to VM
-        run: scp -o StrictHostKeyChecking=no -i ~/.ssh/azurevm.key \
-             source.tgz ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:/tmp/source.tgz
+      # Unpack, install **production** deps, flip symlink, restart service on :8080
+      - name: Activate release
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            set -euo pipefail
+            BASE="${{ secrets.VM_PATH }}"
+            TS=$(date +%Y%m%d%H%M%S)
+            NEW_RELEASE="$BASE/releases/$TS"
 
-      - name: Deploy on VM
-        env:
-          VM_PATH: ${{ secrets.VM_PATH }}              # /opt/nextapp
-          SERVICE: ${{ secrets.SERVICE_NAME || 'sandbox-frontend' }}
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/azurevm.key \
-            ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} 'bash -s' <<'REMOTE'
-          set -euo pipefail
-          BASE="${VM_PATH:-/opt/nextapp}"
-          TS=$(date +%Y%m%d%H%M%S)
-          NEW_REL="$BASE/releases/$TS"
+            mkdir -p "$NEW_RELEASE"
+            tar -C "$NEW_RELEASE" -xzf /tmp/artifact/frontend.tgz
+            rm -f /tmp/artifact/frontend.tgz
 
-          mkdir -p "$NEW_REL"
-          tar -C "$NEW_REL" -xzf /tmp/source.tgz
-          rm -f /tmp/source.tgz
+            # ensure ownership matches your systemd unit (User=azureuser)
+            sudo chown -R azureuser:azureuser "$NEW_RELEASE" "$BASE"
 
-          # Build as azureuser (matches your systemd unit)
-          sudo chown -R azureuser:azureuser "$BASE" "$NEW_REL"
-          cd "$NEW_REL"
-          command -v yarn >/dev/null 2>&1 || sudo npm i -g yarn
-          sudo -u azureuser yarn --frozen-lockfile
-          sudo -u azureuser yarn build
-          test -d ".next" || { echo "Build failed: .next missing"; exit 1; }
+            cd "$NEW_RELEASE"
+            # install only what's needed to run `yarn start`
+            sudo -u azureuser yarn install --production --frozen-lockfile
 
-          ln -sfn "$NEW_REL" "$BASE/current"
+            # sanity checks
+            test -d ".next" && test -f "package.json" || { echo "Runtime bundle incomplete"; exit 1; }
 
-          sudo systemctl daemon-reload
-          sudo systemctl restart "${SERVICE:-sandbox-frontend}"
-          sudo systemctl --no-pager status "${SERVICE:-sandbox-frontend}" | sed -n '1,20p'
-          curl -sI http://127.0.0.1:8080 | head -n1 || true
+            # atomically activate and restart the app on :8080
+            ln -sfn "$NEW_RELEASE" "$BASE/current"
+            sudo systemctl daemon-reload
+            sudo systemctl restart sandbox-frontend
+
+            # optional: show quick health
+            curl -sI http://127.0.0.1:8080 | head -n1 || true
+
+            echo "Activated release: $NEW_RELEASE"
