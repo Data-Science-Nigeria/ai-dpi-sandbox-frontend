@@ -1,0 +1,65 @@
+name: Deploy Sandbox Frontend to Azure VM
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      BUILD_DIR: .next
+      RELEASES_DIR: ${{ secrets.VM_PATH }}/releases
+      CURRENT_LINK: ${{ secrets.VM_PATH }}/current
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+
+      - name: Install deps
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      # Package build into a tarball for atomic release
+      - name: Archive build
+        run: |
+          mkdir -p artifact
+          tar -C $BUILD_DIR -czf artifact/frontend.tgz .
+
+      # Copy tarball to VM
+      - name: Copy to VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          source: "artifact/frontend.tgz"
+          target: "/tmp/"
+
+      # Unpack to timestamped release, flip symlink, reload nginx
+      - name: Activate release
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            set -euo pipefail
+            TS=$(date +%Y%m%d%H%M%S)
+            NEW_RELEASE="${{ secrets.VM_PATH }}/releases/${TS}"
+            mkdir -p "$NEW_RELEASE"
+            tar -C "$NEW_RELEASE" -xzf /tmp/artifact/frontend.tgz
+            ln -sfn "$NEW_RELEASE" "${{ secrets.VM_PATH }}/current"
+            sudo nginx -t && sudo systemctl reload nginx
+            rm -f /tmp/artifact/frontend.tgz
+            echo "Activated release: $NEW_RELEASE"
