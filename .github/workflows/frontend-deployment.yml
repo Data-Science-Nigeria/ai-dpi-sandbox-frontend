@@ -1,0 +1,37 @@
+name: Deploy Sandbox Frontend to Azure VM
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      BUILD_DIR: ${{ secrets.BUILD_DIR || 'build' }}
+      RELEASES_DIR: ${{ secrets.VM_PATH }}/releases
+      CURRENT_LINK: ${{ secrets.VM_PATH }}/current
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Package build into a tarball for atomic release
+      - name: Archive build
+        run: |
+          mkdir -p artifact
+          tar -C $BUILD_DIR -czf artifact/frontend.tgz .
