@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     environment: sandbox-frontend-env
 
@@ -14,34 +14,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Create source tarball (no node_modules)
+      # Package source (exclude git + node_modules)
+      - name: Create source tarball
         run: |
-          tar --exclude='.git' --exclude='node_modules' \
-              -czf source.tgz .
+          tar --exclude='.git' --exclude='node_modules' -czf source.tgz .
 
-      - name: Write SSH key
+      # Write SSH key
+      - name: Prepare SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/azurevm.key
           sed -i 's/\r$//' ~/.ssh/azurevm.key
           chmod 600 ~/.ssh/azurevm.key
 
-      - name: Copy source to VM
+      # Copy source to VM
+      - name: Upload to VM
         run: scp -o StrictHostKeyChecking=no -i ~/.ssh/azurevm.key \
-              source.tgz ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:/tmp/source.tgz
+             source.tgz ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:/tmp/source.tgz
 
-      - name: Deploy on VM (build, flip, restart service)
+      # Build on VM, flip symlink, restart service on :8080
+      - name: Deploy on VM
         env:
-          VM_PATH: ${{ secrets.VM_PATH }}          # e.g. /opt/nextapp
-          ENV_FILE: ${{ secrets.ENV_FILE }}        # optional: contents of prod .env
+          VM_PATH: ${{ secrets.VM_PATH }}              # e.g. /opt/nextapp
+          SERVICE: ${{ secrets.SERVICE_NAME || 'sandbox-frontend' }}
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/azurevm.key \
             ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} 'bash -s' <<'REMOTE'
@@ -54,30 +49,20 @@ jobs:
           tar -C "$NEW_REL" -xzf /tmp/source.tgz
           rm -f /tmp/source.tgz
 
-          # Ensure ownership for build steps
-          sudo chown -R www-data:www-data "$BASE" "$NEW_REL"
-
-          # Optional: (re)write .env from secret
-          if [ -n "${ENV_FILE:-}" ]; then
-            install -o www-data -g www-data -m 640 /dev/stdin "$BASE/shared/.env" <<'EOFENV'
-${ENV_FILE}
-EOFENV
-          fi
-          ln -sfn "$BASE/shared/.env" "$NEW_REL/.env"
-
-          # Install deps & build with www-data user
+          # Build as azureuser (your systemd user)
+          sudo chown -R azureuser:azureuser "$BASE" "$NEW_REL"
           cd "$NEW_REL"
-          sudo -u www-data yarn --frozen-lockfile
-          sudo -u www-data yarn build
+          sudo -u azureuser yarn --frozen-lockfile
+          sudo -u azureuser yarn build
           test -d ".next" || { echo "Build failed: .next missing"; exit 1; }
 
-          # Activate
+          # Activate atomically
           ln -sfn "$NEW_REL" "$BASE/current"
 
-          # Restart Next service on :8080
+          # Restart service on :8080
           sudo systemctl daemon-reload
-          sudo systemctl restart next-frontend
-          sudo systemctl --no-pager status next-frontend | sed -n '1,20p'
+          sudo systemctl restart "${SERVICE:-sandbox-frontend}"
+          sudo systemctl --no-pager status "${SERVICE:-sandbox-frontend}" | sed -n '1,20p'
 
           # Quick health probe
           curl -sI http://127.0.0.1:8080 | head -n1 || true
