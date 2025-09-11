@@ -75,7 +75,7 @@ jobs:
 
             cd "$NEW_RELEASE"
             # install only what's needed to run `yarn start`
-            sudo -u azureuser yarn install --production --frozen-lockfile
+            sudo -u azureuser yarn install --immutable --mode=skip-build
 
             # sanity checks
             test -d ".next" && test -f "package.json" || { echo "Runtime bundle incomplete"; exit 1; }
