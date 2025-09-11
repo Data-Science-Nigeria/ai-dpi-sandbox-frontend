@@ -14,7 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Package source (exclude git + node_modules)
       - name: Create source tarball (HEAD only)
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -22,7 +21,6 @@ jobs:
           gzip -9 source.tar
           mv source.tar.gz source.tgz
 
-      # Write SSH key
       - name: Prepare SSH
         run: |
           mkdir -p ~/.ssh
@@ -30,15 +28,13 @@ jobs:
           sed -i 's/\r$//' ~/.ssh/azurevm.key
           chmod 600 ~/.ssh/azurevm.key
 
-      # Copy source to VM
       - name: Upload to VM
         run: scp -o StrictHostKeyChecking=no -i ~/.ssh/azurevm.key \
              source.tgz ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:/tmp/source.tgz
 
-      # Build on VM, flip symlink, restart service on :8080
       - name: Deploy on VM
         env:
-          VM_PATH: ${{ secrets.VM_PATH }}              # e.g. /opt/nextapp
+          VM_PATH: ${{ secrets.VM_PATH }}              # /opt/nextapp
           SERVICE: ${{ secrets.SERVICE_NAME || 'sandbox-frontend' }}
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/azurevm.key \
@@ -52,20 +48,17 @@ jobs:
           tar -C "$NEW_REL" -xzf /tmp/source.tgz
           rm -f /tmp/source.tgz
 
-          # Build as azureuser (your systemd user)
+          # Build as azureuser (matches your systemd unit)
           sudo chown -R azureuser:azureuser "$BASE" "$NEW_REL"
           cd "$NEW_REL"
+          command -v yarn >/dev/null 2>&1 || sudo npm i -g yarn
           sudo -u azureuser yarn --frozen-lockfile
           sudo -u azureuser yarn build
           test -d ".next" || { echo "Build failed: .next missing"; exit 1; }
 
-          # Activate atomically
           ln -sfn "$NEW_REL" "$BASE/current"
 
-          # Restart service on :8080
           sudo systemctl daemon-reload
           sudo systemctl restart "${SERVICE:-sandbox-frontend}"
           sudo systemctl --no-pager status "${SERVICE:-sandbox-frontend}" | sed -n '1,20p'
-
-          # Quick health probe
           curl -sI http://127.0.0.1:8080 | head -n1 || true
