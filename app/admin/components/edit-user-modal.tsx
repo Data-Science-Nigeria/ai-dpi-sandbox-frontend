@@ -10,7 +10,7 @@ import {
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
 import { ConfirmationModal } from "./confirmation-modal";
-import { authPutApiV1AuthAdminUsersUserIdUpdateUserMutation } from "@/client/@tanstack/react-query.gen";
+import { adminPutApiV1AdminUsersUserIdUpdateUserMutation } from "@/client/@tanstack/react-query.gen";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
@@ -56,7 +56,7 @@ export function EditUserModal({
   }, [isOpen, user]);
 
   const updateUser = useMutation({
-    ...authPutApiV1AuthAdminUsersUserIdUpdateUserMutation(),
+    ...adminPutApiV1AdminUsersUserIdUpdateUserMutation(),
   });
 
   const handleSubmit = (e: React.FormEvent) => {

@@ -9,7 +9,7 @@ import { UserGrowthChart } from "../components/user-growth-chart";
 import { TotalUsersCard } from "../components/total-users-card";
 import { UserTable } from "../components/user-table";
 import { PageHeader } from "../components/page-header";
-import { authGetApiV1AuthAdminUsersListUsersOptions } from "@/client/@tanstack/react-query.gen";
+import { adminGetApiV1AdminUsersListUsersOptions } from "@/client/@tanstack/react-query.gen";
 import { useQuery } from "@tanstack/react-query";
 
 interface User {
@@ -28,7 +28,7 @@ export default function AdminDashboard() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const { data: users = [], isLoading } = useQuery({
-    ...authGetApiV1AuthAdminUsersListUsersOptions(),
+    ...adminGetApiV1AdminUsersListUsersOptions(),
     refetchInterval: 3000, // Auto-refresh every 3 seconds
   });
 

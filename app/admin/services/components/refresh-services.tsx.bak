@@ -1,0 +1,53 @@
+"use client";
+
+import { RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { adminPostApiV1AdminRefreshServicesRefreshServicesMutation } from "@/client/@tanstack/react-query.gen";
+import { toast } from "sonner";
+import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
+
+export function RefreshServices() {
+  const queryClient = useQueryClient();
+  const refreshServices = useMutation({
+    ...adminPostApiV1AdminRefreshServicesRefreshServicesMutation(),
+  });
+
+  const handleRefresh = async () => {
+    refreshServices.mutate(
+      {},
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["adminGetApiV1AdminServicesListServices"],
+          });
+          toast.success("Services refreshed successfully");
+        },
+        onError: (error) => {
+          toast.error(getApiErrorMessage(error));
+        },
+      }
+    );
+  };
+
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-semibold">Refresh Services</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Update the list of available services from the server
+          </p>
+        </div>
+        <Button
+          onClick={handleRefresh}
+          disabled={refreshServices.isPending}
+          className="flex items-center gap-2"
+        >
+          <RefreshCw className={`w-4 h-4 ${refreshServices.isPending ? "animate-spin" : ""}`} />
+          {refreshServices.isPending ? "Refreshing..." : "Refresh"}
+        </Button>
+      </div>
+    </div>
+  );
+}

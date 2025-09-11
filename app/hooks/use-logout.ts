@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { authPostApiV1AuthLogoutLogoutMutation } from "@/client/@tanstack/react-query.gen";
+import { authenticationPostApiV1AuthLogoutLogoutUserMutation } from "@/client/@tanstack/react-query.gen";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getApiErrorMessage } from "@/lib/get-api-error-message";
@@ -13,7 +13,7 @@ export const useLogout = () => {
   const { clearAuth } = useAuthStore();
 
   const logout = useMutation({
-    ...authPostApiV1AuthLogoutLogoutMutation(),
+    ...authenticationPostApiV1AuthLogoutLogoutUserMutation(),
   });
 
   const handleLogout = async () => {

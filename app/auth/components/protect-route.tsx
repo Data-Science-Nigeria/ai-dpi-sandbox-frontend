@@ -1,7 +1,7 @@
 "use client";
 
 import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
-import { authGetApiV1AuthMeGetCurrentUserProfile } from "@/client/sdk.gen";
+import { authenticationGetApiV1AuthMeReadUserMe } from "@/client/sdk.gen";
 import { client } from "@/client/client.gen";
 import React, { useLayoutEffect, useState, useRef } from "react";
 import { useAuthStore } from "@/app/store/use-auth-store";
@@ -67,25 +67,18 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
             },
           });
 
-          const res = await authGetApiV1AuthMeGetCurrentUserProfile();
+          const res = await authenticationGetApiV1AuthMeReadUserMe();
 
           if (res.error) {
             const errMsg = getApiErrorMessage(res.error);
             throw new Error(`API error ${errMsg}`);
           }
 
-          const userData = res.data as {
-            email?: string;
-            is_verified?: boolean;
-            id?: string;
-            role?: string;
-          };
-
           const user = {
-            email: userData?.email || "",
-            is_verified: userData?.is_verified,
-            id: userData?.id,
-            role: userData?.role || "user",
+            email: res.data?.email || "",
+            is_verified: res.data?.is_active,
+            id: res.data?.id?.toString(),
+            role: res.data?.role || "user",
           };
 
           setUser(user);

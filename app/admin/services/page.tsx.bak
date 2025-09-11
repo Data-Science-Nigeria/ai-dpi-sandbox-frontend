@@ -1,0 +1,17 @@
+"use client";
+
+import { PageHeader } from "../components/page-header";
+import { RefreshServices } from "./components/refresh-services";
+import { ListServices } from "./components/list-services";
+
+export default function ServicesPage() {
+  return (
+    <div className="p-6">
+      <PageHeader title="Services Management" />
+      <div className="mt-6 space-y-6">
+        <RefreshServices />
+        <ListServices />
+      </div>
+    </div>
+  );
+}

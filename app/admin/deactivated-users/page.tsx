@@ -7,8 +7,8 @@ import { UserTable } from "../components/user-table";
 import { Pagination } from "../components/pagination";
 import { PageHeader } from "../components/page-header";
 import {
-  authGetApiV1AuthAdminUsersListUsersOptions,
-  authPostApiV1AuthAdminUsersUserIdActivateActivateUserMutation,
+  adminGetApiV1AdminUsersListUsersOptions,
+  adminPostApiV1AdminUsersUserIdActivateActivateUserMutation,
 } from "@/client/@tanstack/react-query.gen";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -27,7 +27,7 @@ interface User {
 export default function DeactivatedUsers() {
   const queryClient = useQueryClient();
   const { data: allUsers = [], isLoading } = useQuery({
-    ...authGetApiV1AuthAdminUsersListUsersOptions(),
+    ...adminGetApiV1AdminUsersListUsersOptions(),
     refetchInterval: 3000, // Auto-refresh every 3 seconds
   });
 
@@ -40,7 +40,7 @@ export default function DeactivatedUsers() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   const activateUser = useMutation({
-    ...authPostApiV1AuthAdminUsersUserIdActivateActivateUserMutation(),
+    ...adminPostApiV1AdminUsersUserIdActivateActivateUserMutation(),
   });
 
   const usersPerPage = 10;
@@ -63,7 +63,7 @@ export default function DeactivatedUsers() {
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ["authGetApiV1AuthAdminUsersListUsers"],
+            queryKey: ["adminGetApiV1AdminUsersListUsers"],
           });
           toast.success("User activated successfully");
           setShowActivateModal(false);

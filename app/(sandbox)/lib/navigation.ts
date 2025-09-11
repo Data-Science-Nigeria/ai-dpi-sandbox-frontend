@@ -17,16 +17,16 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/ai",
   },
   {
-    title: "Chat",
-    href: "/introduction/services/ai/chat",
-  },
-  {
     title: "Generate",
     href: "/introduction/services/ai/generate",
   },
   {
     title: "Analyze",
     href: "/introduction/services/ai/analyze",
+  },
+  {
+    title: "Chat",
+    href: "/introduction/services/ai/chat",
   },
   {
     title: "Translate",
@@ -67,6 +67,18 @@ export const navigationPages: NavigationPage[] = [
   {
     title: "Banks",
     href: "/introduction/services/bvn/banks",
+  },
+  {
+    title: "Ivr Service",
+    href: "/introduction/services/ivr",
+  },
+  {
+    title: "Call",
+    href: "/introduction/services/ivr/call",
+  },
+  {
+    title: "Menu",
+    href: "/introduction/services/ivr/menu",
   },
   {
     title: "Nin Service",
@@ -115,6 +127,18 @@ export const navigationPages: NavigationPage[] = [
   {
     title: "Templates",
     href: "/introduction/services/sms/templates",
+  },
+  {
+    title: "Two-way-sms Service",
+    href: "/introduction/services/two-way-sms",
+  },
+  {
+    title: "Send",
+    href: "/introduction/services/two-way-sms/send",
+  },
+  {
+    title: "Receive",
+    href: "/introduction/services/two-way-sms/receive",
   },
 ];
 

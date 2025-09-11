@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
-import { authPostApiV1AuthAdminUsersCreateUserMutation } from "@/client/@tanstack/react-query.gen";
+import { adminPostApiV1AdminUsersCreateUserMutation } from "@/client/@tanstack/react-query.gen";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
@@ -32,7 +32,7 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const createUser = useMutation({
-    ...authPostApiV1AuthAdminUsersCreateUserMutation(),
+    ...adminPostApiV1AdminUsersCreateUserMutation(),
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -51,7 +51,7 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ["authGetApiV1AuthAdminUsersListUsers"],
+            queryKey: ["adminGetApiV1AdminUsersListUsers"],
           });
           toast.success("User created successfully");
           onClose();

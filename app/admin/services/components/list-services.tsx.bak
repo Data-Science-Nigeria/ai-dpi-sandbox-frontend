@@ -1,0 +1,85 @@
+"use client";
+
+import { Badge } from "@/components/ui/badge";
+import { useQuery } from "@tanstack/react-query";
+import { adminGetApiV1AdminServicesListServicesOptions } from "@/client/@tanstack/react-query.gen";
+
+export function ListServices() {
+  const { data: services = [], isLoading } = useQuery({
+    ...adminGetApiV1AdminServicesListServicesOptions(),
+  });
+
+  const servicesArray = Array.isArray(services) ? services : [];
+
+  const getStatusColor = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case "healthy":
+      case "active":
+        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+      case "unhealthy":
+      case "inactive":
+        return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+      case "degraded":
+      case "maintenance":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
+      default:
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
+        <h2 className="text-lg font-semibold mb-4">Available Services</h2>
+        <div className="space-y-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="animate-pulse">
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-2"></div>
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
+      <h2 className="text-lg font-semibold mb-4">Available Services</h2>
+      
+      {servicesArray.length === 0 ? (
+        <p className="text-gray-600 dark:text-gray-400">No services found.</p>
+      ) : (
+        <div className="space-y-4">
+          {servicesArray.map((service: any, index: number) => (
+            <div
+              key={service.name || index}
+              className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="font-medium">{service.name}</h3>
+                    <Badge className={getStatusColor(service.status)}>
+                      {service.status || "unknown"}
+                    </Badge>
+                  </div>
+                  {service.url && (
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      {service.url}
+                    </p>
+                  )}
+                  {service.last_check && (
+                    <p className="text-xs text-gray-500 dark:text-gray-500">
+                      Last check: {new Date(service.last_check).toLocaleString()}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

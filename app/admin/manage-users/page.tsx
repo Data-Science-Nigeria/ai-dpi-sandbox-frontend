@@ -9,8 +9,8 @@ import { UserTable } from "../components/user-table";
 import { Pagination } from "../components/pagination";
 import { PageHeader } from "../components/page-header";
 import {
-  authGetApiV1AuthAdminUsersListUsersOptions,
-  authDeleteApiV1AuthAdminUsersUserIdDeleteUserMutation,
+  adminGetApiV1AdminUsersListUsersOptions,
+  adminDeleteApiV1AdminUsersUserIdDeleteUserMutation,
 } from "@/client/@tanstack/react-query.gen";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -29,7 +29,7 @@ interface User {
 export default function ManageUsers() {
   const queryClient = useQueryClient();
   const { data: users = [], isLoading } = useQuery({
-    ...authGetApiV1AuthAdminUsersListUsersOptions(),
+    ...adminGetApiV1AdminUsersListUsersOptions(),
     refetchInterval: 3000, // Auto-refresh every 3 seconds
   });
 
@@ -39,7 +39,7 @@ export default function ManageUsers() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   const deleteUser = useMutation({
-    ...authDeleteApiV1AuthAdminUsersUserIdDeleteUserMutation(),
+    ...adminDeleteApiV1AdminUsersUserIdDeleteUserMutation(),
   });
 
   // Filter to show only users with 'user' role
@@ -75,7 +75,7 @@ export default function ManageUsers() {
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ["authGetApiV1AuthAdminUsersListUsers"],
+            queryKey: ["adminGetApiV1AdminUsersListUsers"],
           });
           toast.success("User deleted successfully");
           setShowDeleteModal(false);
@@ -90,7 +90,7 @@ export default function ManageUsers() {
 
   const handleUpdateUser = () => {
     queryClient.invalidateQueries({
-      queryKey: ["authGetApiV1AuthAdminUsersListUsers"],
+      queryKey: ["adminGetApiV1AdminUsersListUsers"],
     });
   };
 

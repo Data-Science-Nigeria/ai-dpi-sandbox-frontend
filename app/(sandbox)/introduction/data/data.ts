@@ -41,12 +41,6 @@ export const menuItems: MenuItem[] = [
         href: "/introduction/services/ai",
         endpoints: [
           {
-            name: "Chat",
-            method: "POST",
-            path: "/api/v1/ai/chat",
-            href: "/introduction/services/ai/chat",
-          },
-          {
             name: "Generate",
             method: "POST",
             path: "/api/v1/ai/generate",
@@ -57,6 +51,12 @@ export const menuItems: MenuItem[] = [
             method: "POST",
             path: "/api/v1/ai/analyze",
             href: "/introduction/services/ai/analyze",
+          },
+          {
+            name: "Chat",
+            method: "POST",
+            path: "/api/v1/ai/chat",
+            href: "/introduction/services/ai/chat",
           },
           {
             name: "Translate",
@@ -118,6 +118,25 @@ export const menuItems: MenuItem[] = [
             method: "GET",
             path: "/api/v1/bvn/banks",
             href: "/introduction/services/bvn/banks",
+          },
+        ],
+      },
+      {
+        id: "ivr",
+        label: "IVR",
+        href: "/introduction/services/ivr",
+        endpoints: [
+          {
+            name: "Call",
+            method: "POST",
+            path: "/api/v1/ivr/call",
+            href: "/introduction/services/ivr/call",
+          },
+          {
+            name: "Menu",
+            method: "GET",
+            path: "/api/v1/ivr/menu",
+            href: "/introduction/services/ivr/menu",
           },
         ],
       },
@@ -192,6 +211,25 @@ export const menuItems: MenuItem[] = [
             method: "GET",
             path: "/api/v1/sms/templates",
             href: "/introduction/services/sms/templates",
+          },
+        ],
+      },
+      {
+        id: "two-way-sms",
+        label: "TWO-WAY-SMS",
+        href: "/introduction/services/two-way-sms",
+        endpoints: [
+          {
+            name: "Send",
+            method: "POST",
+            path: "/api/v1/two-way-sms/send",
+            href: "/introduction/services/two-way-sms/send",
+          },
+          {
+            name: "Receive",
+            method: "POST",
+            path: "/api/v1/two-way-sms/receive",
+            href: "/introduction/services/two-way-sms/receive",
           },
         ],
       },

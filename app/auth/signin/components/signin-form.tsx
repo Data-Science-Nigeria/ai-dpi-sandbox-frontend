@@ -1,6 +1,6 @@
 "use client";
 
-import { authPostApiV1AuthLoginJsonLoginJsonMutation } from "@/client/@tanstack/react-query.gen";
+import { authenticationPostApiV1AuthLoginJsonLoginUserJsonMutation } from "@/client/@tanstack/react-query.gen";
 import { Button } from "@/components/ui/button";
 import { getApiErrorMessage } from "@/app/utils/get-api-error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,10 +16,10 @@ import { PasswordInput } from "@/app/auth/components/password-input";
 import { useAuthStore } from "@/app/store/use-auth-store";
 import { client } from "@/client/client.gen";
 import { Logo } from "@/app/components/logo";
-import { authGetApiV1AuthMeGetCurrentUserProfile } from "@/client/sdk.gen";
+import { authenticationGetApiV1AuthMeReadUserMe } from "@/client/sdk.gen";
 
 const signInSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email"),
+  email: z.string().min(1, "Username or email is required"),
   password: z.string().min(1, "Password is required"),
 });
 
@@ -40,7 +40,8 @@ export function SignInForm() {
   });
 
   const login = useMutation({
-    mutationFn: authPostApiV1AuthLoginJsonLoginJsonMutation().mutationFn,
+    mutationFn:
+      authenticationPostApiV1AuthLoginJsonLoginUserJsonMutation().mutationFn,
     onSuccess: async (data) => {
       const tokenRes = data as {
         access_token: string;
@@ -59,23 +60,30 @@ export function SignInForm() {
       // Fetch user profile after successful login
       try {
         const { data: userProfile } =
-          await authGetApiV1AuthMeGetCurrentUserProfile();
-
-        const profileData = userProfile as {
-          email?: string;
-          is_verified?: boolean;
-          id?: string;
-          role?: string;
-        };
+          await authenticationGetApiV1AuthMeReadUserMe();
 
         const user = {
-          email: profileData?.email || "",
-          is_verified: profileData?.is_verified,
-          id: profileData?.id,
-          role: profileData?.role || "user",
+          email: userProfile?.email || "",
+          is_verified: userProfile?.is_active,
+          id: userProfile?.id?.toString(),
+          role: userProfile?.role || "user",
         };
 
         setUser(user);
+
+        // Check if user is verified before allowing access
+        if (!user.is_verified) {
+          const errorMessage =
+            user.role === "admin"
+              ? "Admin account not verified"
+              : "User not verified, contact Administrator";
+
+          toast.error(errorMessage);
+          // Clear auth for unverified users
+          setAuth({ access_token: "" });
+          setIsSubmitting(false);
+          return;
+        }
 
         // Redirect based on user role
         if (user.role === "admin") {
@@ -173,10 +181,10 @@ export function SignInForm() {
 
           <div>
             <label className="block text-sm font-medium text-gray-600 dark:text-white">
-              Email address
+              Username or Email address
             </label>
             <input
-              type="email"
+              type="text"
               {...register("email")}
               className="mt-1 w-full rounded border p-2 focus:border-[#0A5A1A] focus:ring-[#0A5A1A] focus:outline-none dark:text-white"
             />

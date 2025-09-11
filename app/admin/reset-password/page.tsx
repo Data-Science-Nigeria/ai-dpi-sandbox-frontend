@@ -6,7 +6,7 @@ import { ResetPasswordModal } from "../components/reset-password-modal";
 import { UserTable } from "../components/user-table";
 import { Pagination } from "../components/pagination";
 import { PageHeader } from "../components/page-header";
-import { authGetApiV1AuthAdminUsersListUsersOptions } from "@/client/@tanstack/react-query.gen";
+import { adminGetApiV1AdminUsersListUsersOptions } from "@/client/@tanstack/react-query.gen";
 import { useQuery } from "@tanstack/react-query";
 
 interface User {
@@ -21,7 +21,7 @@ interface User {
 
 export default function ResetPassword() {
   const { data: users = [], isLoading } = useQuery({
-    ...authGetApiV1AuthAdminUsersListUsersOptions(),
+    ...adminGetApiV1AdminUsersListUsersOptions(),
   });
 
   const [currentPage, setCurrentPage] = useState(1);
