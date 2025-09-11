@@ -9,10 +9,6 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction",
   },
   {
-    title: "API Documentation",
-    href: "/docs",
-  },
-  {
     title: "Ai Service",
     href: "/introduction/services/ai",
   },
