@@ -24,6 +24,9 @@ jobs:
           node-version: "20"
           cache: "yarn"
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Install deps
         run: yarn install --frozen-lockfile
 
