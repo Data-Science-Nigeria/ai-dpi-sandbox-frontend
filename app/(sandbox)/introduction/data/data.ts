@@ -1,4 +1,4 @@
-import { PlayIcon, BookOpenIcon, CubeIcon } from "@heroicons/react/24/outline";
+import { PlayIcon, CubeIcon } from "@heroicons/react/24/outline";
 
 export interface MenuItem {
   id: string;
@@ -21,13 +21,6 @@ export const menuItems: MenuItem[] = [
     icon: PlayIcon,
     hasDropdown: true,
     items: [{ id: "dashboard", label: "Dashboard", href: "/introduction" }],
-  },
-  {
-    id: "api-documentation",
-    label: "API Documentation",
-    icon: BookOpenIcon,
-    hasDropdown: true,
-    items: [{ id: "overview", label: "Overview", href: "/docs" }],
   },
   {
     id: "core-resources",
