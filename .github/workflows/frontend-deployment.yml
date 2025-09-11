@@ -43,7 +43,7 @@ jobs:
           shopt -s nullglob; cp next.config.* runtime/ || true
           tar -C runtime -czf artifact/frontend.tgz .
 
-      # Copy tarball to VM -> /tmp/frontend.tgz (explicit path)
+      # Copy tarball to VM (lands at /tmp/artifact/frontend.tgz)
       - name: Copy to VM
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -51,7 +51,7 @@ jobs:
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.VM_SSH_KEY }}
           source: "artifact/frontend.tgz"
-          target: "/tmp/frontend.tgz"
+          target: "/tmp/"
 
       # Unpack, install prod deps, flip symlink, restart service on :8088
       - name: Activate release
@@ -66,14 +66,12 @@ jobs:
             TS=$(date +%Y%m%d%H%M%S)
             NEW_RELEASE="$BASE/releases/$TS"
 
-            # Make sure base dirs exist and belong to azureuser (matches systemd)
             sudo install -d -o azureuser -g azureuser "$BASE/releases" "$BASE/shared" "$NEW_RELEASE"
 
-            # Unpack artifact placed at /tmp/frontend.tgz
-            tar -C "$NEW_RELEASE" -xzf /tmp/frontend.tgz
-            rm -f /tmp/frontend.tgz
+            # ✅ scp puts it here: /tmp/artifact/frontend.tgz
+            tar -C "$NEW_RELEASE" -xzf /tmp/artifact/frontend.tgz
+            rm -f /tmp/artifact/frontend.tgz
 
-            # Install runtime deps with Yarn Berry (immutable)
             cd "$NEW_RELEASE"
             sudo chown -R azureuser:azureuser "$NEW_RELEASE"
             if yarn -v | grep -qE '^[0-1]\.'; then
@@ -82,15 +80,11 @@ jobs:
               sudo -u azureuser yarn install --immutable --mode=skip-build
             fi
 
-            # Sanity checks
             test -d ".next" && test -f "package.json" || { echo "Runtime bundle incomplete"; exit 1; }
 
-            # Atomically activate and restart Next service (listens on 127.0.0.1:8088)
             ln -sfn "$NEW_RELEASE" "$BASE/current"
             sudo systemctl daemon-reload
             sudo systemctl restart sandbox-frontend
 
-            # Quick health probe on 8088
             curl -sI http://127.0.0.1:8088 | head -n1 || true
-
             echo "Activated release: $NEW_RELEASE"
