@@ -73,9 +73,14 @@ jobs:
             tar -C "$NEW_RELEASE" -xzf /tmp/frontend.tgz
             rm -f /tmp/frontend.tgz
 
+            # Install runtime deps with Yarn Berry (immutable)
             cd "$NEW_RELEASE"
-            # install only what's needed to run yarn start
-            sudo -u azureuser yarn install --immutable --mode=skip-build
+            sudo chown -R azureuser:azureuser "$NEW_RELEASE"
+            if yarn -v | grep -qE '^[0-1]\.'; then
+              sudo -u azureuser yarn install --frozen-lockfile --production=true
+            else
+              sudo -u azureuser yarn install --immutable --mode=skip-build
+            fi
 
             # Sanity checks
             test -d ".next" && test -f "package.json" || { echo "Runtime bundle incomplete"; exit 1; }
