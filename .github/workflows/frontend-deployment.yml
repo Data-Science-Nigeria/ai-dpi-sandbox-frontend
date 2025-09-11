@@ -35,3 +35,30 @@ jobs:
         run: |
           mkdir -p artifact
           tar -C $BUILD_DIR -czf artifact/frontend.tgz .
+
+      # Copy tarball to VM
+      - name: Copy to VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          source: "artifact/frontend.tgz"
+          target: "/tmp/"
+
+      # Unpack to timestamped release, flip symlink, reload nginx
+      - name: Activate release
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            set -euo pipefail
+            TS=$(date +%Y%m%d%H%M%S)
+            NEW_RELEASE=${{ env.RELEASES_DIR }}/${TS}
+            mkdir -p "$NEW_RELEASE"
+            tar -C "$NEW_RELEASE" -xzf /tmp/frontend.tgz
+            ln -sfn "$NEW_RELEASE" ${{ env.CURRENT_LINK }}
+            sudo nginx -t && sudo systemctl reload nginx
+            echo "Activated release: $NEW_RELEASE"
