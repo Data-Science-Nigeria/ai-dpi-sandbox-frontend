@@ -10,11 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: sandbox-frontend-env
 
-    env:
-      BUILD_DIR: .next
-      RELEASES_DIR: ${{ secrets.VM_PATH }}/releases
-      CURRENT_LINK: ${{ secrets.VM_PATH }}/current
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,42 +22,63 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install deps
-        run: yarn install --frozen-lockfile
-
-      - name: Build
-        run: yarn build
-
-      # Package build into a tarball for atomic release
-      - name: Archive build
+      - name: Create source tarball (no node_modules)
         run: |
-          mkdir -p artifact
-          tar -C $BUILD_DIR -czf artifact/frontend.tgz .
+          tar --exclude='.git' --exclude='node_modules' \
+              -czf source.tgz .
 
-      # Copy tarball to VM
-      - name: Copy to VM
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_KEY }}
-          source: "artifact/frontend.tgz"
-          target: "/tmp/"
+      - name: Write SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/azurevm.key
+          sed -i 's/\r$//' ~/.ssh/azurevm.key
+          chmod 600 ~/.ssh/azurevm.key
 
-      # Unpack to timestamped release, flip symlink, reload nginx
-      - name: Activate release
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_KEY }}
-          script: |
-            set -euo pipefail
-            TS=$(date +%Y%m%d%H%M%S)
-            NEW_RELEASE="${{ secrets.VM_PATH }}/releases/${TS}"
-            mkdir -p "$NEW_RELEASE"
-            tar -C "$NEW_RELEASE" -xzf /tmp/artifact/frontend.tgz
-            ln -sfn "$NEW_RELEASE" "${{ secrets.VM_PATH }}/current"
-            sudo nginx -t && sudo systemctl reload nginx
-            rm -f /tmp/artifact/frontend.tgz
-            echo "Activated release: $NEW_RELEASE"
+      - name: Copy source to VM
+        run: scp -o StrictHostKeyChecking=no -i ~/.ssh/azurevm.key \
+              source.tgz ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:/tmp/source.tgz
+
+      - name: Deploy on VM (build, flip, restart service)
+        env:
+          VM_PATH: ${{ secrets.VM_PATH }}          # e.g. /opt/nextapp
+          ENV_FILE: ${{ secrets.ENV_FILE }}        # optional: contents of prod .env
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/azurevm.key \
+            ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} 'bash -s' <<'REMOTE'
+          set -euo pipefail
+          BASE="${VM_PATH:-/opt/nextapp}"
+          TS=$(date +%Y%m%d%H%M%S)
+          NEW_REL="$BASE/releases/$TS"
+
+          mkdir -p "$NEW_REL"
+          tar -C "$NEW_REL" -xzf /tmp/source.tgz
+          rm -f /tmp/source.tgz
+
+          # Ensure ownership for build steps
+          sudo chown -R www-data:www-data "$BASE" "$NEW_REL"
+
+          # Optional: (re)write .env from secret
+          if [ -n "${ENV_FILE:-}" ]; then
+            install -o www-data -g www-data -m 640 /dev/stdin "$BASE/shared/.env" <<'EOFENV'
+${ENV_FILE}
+EOFENV
+          fi
+          ln -sfn "$BASE/shared/.env" "$NEW_REL/.env"
+
+          # Install deps & build with www-data user
+          cd "$NEW_REL"
+          sudo -u www-data yarn --frozen-lockfile
+          sudo -u www-data yarn build
+          test -d ".next" || { echo "Build failed: .next missing"; exit 1; }
+
+          # Activate
+          ln -sfn "$NEW_REL" "$BASE/current"
+
+          # Restart Next service on :8080
+          sudo systemctl daemon-reload
+          sudo systemctl restart next-frontend
+          sudo systemctl --no-pager status next-frontend | sed -n '1,20p'
+
+          # Quick health probe
+          curl -sI http://127.0.0.1:8080 | head -n1 || true
+REMOTE
