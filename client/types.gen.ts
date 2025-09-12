@@ -2301,5 +2301,5 @@ export type ApiGetMetricsMetrics5Responses = {
 };
 
 export type ClientOptions = {
-  baseUrl: "http://dsnsandbox.com:8080" | (string & {});
+  baseUrl: "https://api.dsnsandbox.com" | (string & {});
 };
