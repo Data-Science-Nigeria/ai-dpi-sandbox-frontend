@@ -36,7 +36,7 @@ Before getting started, ensure that you have a NextJS Framework knowledge, Tailw
 
 ### Getting Started
 
-1. **Clone the repository**
+1. **Clone the repository into your dir**
 
    ```bash
    git clone <repository-url>
