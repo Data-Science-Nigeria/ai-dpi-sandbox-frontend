@@ -39,7 +39,7 @@ jobs:
           mkdir -p artifact runtime
           cp -r .next runtime/.next
           cp -r public runtime/public 2>/dev/null || true
-          cp package.json yarn.lock runtime/
+          cp package.json yarn.lock .env runtime/
           shopt -s nullglob; cp next.config.* runtime/ || true
           tar -C runtime -czf artifact/frontend.tgz .
 
