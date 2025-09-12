@@ -18,6 +18,16 @@ function extractEndpointsFromTypes() {
   while ((match = dataTypeRegex.exec(content)) !== null) {
     const [, typeName, urlPath] = match;
 
+    // Skip health and metrics endpoints
+    if (
+      urlPath.includes("/health") ||
+      urlPath.includes("/metrics") ||
+      urlPath === "/health" ||
+      urlPath === "/metrics"
+    ) {
+      continue;
+    }
+
     // Parse method from type name
     const methodMatch = typeName.match(/^(\w+)(Get|Post|Put|Delete|Patch)/);
     if (!methodMatch) continue;
@@ -30,6 +40,11 @@ function extractEndpointsFromTypes() {
 
     const category = pathParts[2]; // e.g., 'sms', 'nin', 'bvn'
     const subcategory = pathParts[3]; // e.g., 'send', 'verify'
+
+    // Skip if subcategory is health or metrics
+    if (subcategory === "health" || subcategory === "metrics") {
+      continue;
+    }
 
     // Extract request type if it's a POST/PUT/PATCH
     let requestType;

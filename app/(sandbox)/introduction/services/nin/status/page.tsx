@@ -4,7 +4,7 @@ import { ApiClientInterface } from "../../components/api-client-interface";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
-export default function NinGetApiV1NinStatusNinGetNinStatusPage() {
+export default function ApiGetApiV1StatusNinGetNinStatusPage() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">

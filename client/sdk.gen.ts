@@ -29,52 +29,33 @@ import type {
   RateLimitPostApiV1RateLimiterLimitCheckRateLimitResponses,
   RateLimitGetApiV1RateLimiterStatusGetRateLimitStatusData,
   RateLimitGetApiV1RateLimiterStatusGetRateLimitStatusResponses,
-  AiPostApiV1AiGenerateGenerateContentData,
-  AiPostApiV1AiGenerateGenerateContentResponses,
-  AiPostApiV1AiGenerateGenerateContentErrors,
-  AiPostApiV1AiAnalyzeAnalyzeTextData,
-  AiPostApiV1AiAnalyzeAnalyzeTextResponses,
-  AiPostApiV1AiAnalyzeAnalyzeTextErrors,
-  AiPostApiV1AiChatChatCompletionData,
-  AiPostApiV1AiChatChatCompletionResponses,
-  AiPostApiV1AiChatChatCompletionErrors,
-  AiPostApiV1AiTranslateTranslateTextData,
-  AiPostApiV1AiTranslateTranslateTextResponses,
-  AiPostApiV1AiTranslateTranslateTextErrors,
-  AiGetApiV1AiModelsGetAvailableModelsData,
-  AiGetApiV1AiModelsGetAvailableModelsResponses,
-  AiGetApiV1AiConversationsConversationIdGetConversationData,
-  AiGetApiV1AiConversationsConversationIdGetConversationResponses,
-  AiGetApiV1AiConversationsConversationIdGetConversationErrors,
-  AiGetApiV1AiUsageGetUsageStatisticsData,
-  AiGetApiV1AiUsageGetUsageStatisticsResponses,
-  BvnPostApiV1BvnVerifyVerifyBvnData,
-  BvnPostApiV1BvnVerifyVerifyBvnResponses,
-  BvnPostApiV1BvnVerifyVerifyBvnErrors,
-  BvnGetApiV1BvnStatusBvnGetBvnStatusData,
-  BvnGetApiV1BvnStatusBvnGetBvnStatusResponses,
-  BvnGetApiV1BvnStatusBvnGetBvnStatusErrors,
-  BvnPostApiV1BvnLookupLookupBvnData,
-  BvnPostApiV1BvnLookupLookupBvnResponses,
-  BvnPostApiV1BvnLookupLookupBvnErrors,
-  BvnPostApiV1BvnMatchMatchBvnData,
-  BvnPostApiV1BvnMatchMatchBvnResponses,
-  BvnPostApiV1BvnMatchMatchBvnErrors,
-  BvnGetApiV1BvnBanksGetSupportedBanksData,
-  BvnGetApiV1BvnBanksGetSupportedBanksResponses,
+  ApiPostApiV1VerifyVerifyBvnData,
+  ApiPostApiV1VerifyVerifyBvnResponses,
+  ApiPostApiV1VerifyVerifyBvnErrors,
+  ApiGetApiV1StatusBvnGetBvnStatusData,
+  ApiGetApiV1StatusBvnGetBvnStatusResponses,
+  ApiGetApiV1StatusBvnGetBvnStatusErrors,
+  ApiPostApiV1LookupLookupBvnBasicData,
+  ApiPostApiV1LookupLookupBvnBasicResponses,
+  ApiPostApiV1LookupLookupBvnBasicErrors,
+  ApiPostApiV1MatchMatchBvnData,
+  ApiPostApiV1MatchMatchBvnResponses,
+  ApiPostApiV1MatchMatchBvnErrors,
+  ApiGetApiV1BanksGetSupportedBanksData,
+  ApiGetApiV1BanksGetSupportedBanksResponses,
   IvrPostApiV1IvrCallInitiateCallData,
   IvrPostApiV1IvrCallInitiateCallResponses,
   IvrGetApiV1IvrMenuGetMenuData,
   IvrGetApiV1IvrMenuGetMenuResponses,
-  NinPostApiV1NinVerifyVerifyNinData,
-  NinPostApiV1NinVerifyVerifyNinResponses,
-  NinPostApiV1NinVerifyVerifyNinErrors,
-  NinGetApiV1NinStatusNinGetNinStatusData,
-  NinGetApiV1NinStatusNinGetNinStatusResponses,
-  NinGetApiV1NinStatusNinGetNinStatusErrors,
-  NinPostApiV1NinLookupLookupNinData,
-  NinPostApiV1NinLookupLookupNinResponses,
-  NinPostApiV1NinLookupLookupNinErrors,
+  ApiPostApiV1VerifyVerifyNinData,
+  ApiPostApiV1VerifyVerifyNinResponses,
+  ApiPostApiV1VerifyVerifyNinErrors,
+  ApiGetApiV1StatusNinGetNinStatusData,
+  ApiGetApiV1StatusNinGetNinStatusResponses,
+  ApiGetApiV1StatusNinGetNinStatusErrors,
+  ApiPostApiV1LookupLookupNinBasicData,
+  ApiPostApiV1LookupLookupNinBasicResponses,
+  ApiPostApiV1LookupLookupNinBasicErrors,
   TwoWaySmsPostApiV1TwoWaySmsSendSendSmsData,
   TwoWaySmsPostApiV1TwoWaySmsSendSendSmsResponses,
   TwoWaySmsPostApiV1TwoWaySmsReceiveReceiveSmsData,
@@ -162,6 +143,25 @@ import type {
   SmsGetApiV1SmsBalanceGetSmsBalanceResponses,
   SmsGetApiV1SmsTemplatesGetMessageTemplatesData,
   SmsGetApiV1SmsTemplatesGetMessageTemplatesResponses,
+  AiPostApiV1AiChatChatCompletionData,
+  AiPostApiV1AiChatChatCompletionResponses,
+  AiPostApiV1AiChatChatCompletionErrors,
+  AiPostApiV1AiGenerateGenerateContentData,
+  AiPostApiV1AiGenerateGenerateContentResponses,
+  AiPostApiV1AiGenerateGenerateContentErrors,
+  AiPostApiV1AiAnalyzeAnalyzeTextData,
+  AiPostApiV1AiAnalyzeAnalyzeTextResponses,
+  AiPostApiV1AiAnalyzeAnalyzeTextErrors,
+  AiPostApiV1AiTranslateTranslateTextData,
+  AiPostApiV1AiTranslateTranslateTextResponses,
+  AiPostApiV1AiTranslateTranslateTextErrors,
+  AiGetApiV1AiModelsGetAvailableModelsData,
+  AiGetApiV1AiModelsGetAvailableModelsResponses,
+  AiGetApiV1AiConversationsConversationIdGetConversationData,
+  AiGetApiV1AiConversationsConversationIdGetConversationResponses,
+  AiGetApiV1AiConversationsConversationIdGetConversationErrors,
+  AiGetApiV1AiUsageGetUsageStatisticsData,
+  AiGetApiV1AiUsageGetUsageStatisticsResponses,
   ApiGetMetricsMetrics2Data,
   ApiGetMetricsMetrics2Responses,
   ApiGetHealthHealthCheck2Data,
@@ -175,6 +175,20 @@ import type {
   Oauth2PostApiV1Oauth2TokenGetTokenData,
   Oauth2PostApiV1Oauth2TokenGetTokenResponses,
   Oauth2PostApiV1Oauth2TokenGetTokenErrors,
+  ApiGetHealthHealthCheck3Data,
+  ApiGetHealthHealthCheck3Responses,
+  ApiGetRootRoot3Data,
+  ApiGetRootRoot3Responses,
+  ApiGetMetricsMetrics3Data,
+  ApiGetMetricsMetrics3Responses,
+  ApiGetHealthHealthCheck4Data,
+  ApiGetHealthHealthCheck4Responses,
+  ApiGetMetricsMetrics4Data,
+  ApiGetMetricsMetrics4Responses,
+  ApiGetHealthHealthCheck5Data,
+  ApiGetHealthHealthCheck5Responses,
+  ApiGetMetricsMetrics5Data,
+  ApiGetMetricsMetrics5Responses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -472,211 +486,17 @@ export const rateLimitGetApiV1RateLimiterStatusGetRateLimitStatus = <
 };
 
 /**
- * Generate Content
- * 📝 Generate Content
- */
-export const aiPostApiV1AiGenerateGenerateContent = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<AiPostApiV1AiGenerateGenerateContentData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    AiPostApiV1AiGenerateGenerateContentResponses,
-    AiPostApiV1AiGenerateGenerateContentErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/generate",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Analyze Text
- * 🔍 Analyze Text Content
- */
-export const aiPostApiV1AiAnalyzeAnalyzeText = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<AiPostApiV1AiAnalyzeAnalyzeTextData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    AiPostApiV1AiAnalyzeAnalyzeTextResponses,
-    AiPostApiV1AiAnalyzeAnalyzeTextErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/analyze",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Chat Completion
- * 🤖 Interactive Chat Completion
- */
-export const aiPostApiV1AiChatChatCompletion = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<AiPostApiV1AiChatChatCompletionData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    AiPostApiV1AiChatChatCompletionResponses,
-    AiPostApiV1AiChatChatCompletionErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/chat",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Translate Text
- * 🌍 Nigerian Language Translation
- */
-export const aiPostApiV1AiTranslateTranslateText = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<AiPostApiV1AiTranslateTranslateTextData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    AiPostApiV1AiTranslateTranslateTextResponses,
-    AiPostApiV1AiTranslateTranslateTextErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/translate",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Available Models
- * 🧠 Get Available AI Models
- */
-export const aiGetApiV1AiModelsGetAvailableModels = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<AiGetApiV1AiModelsGetAvailableModelsData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    AiGetApiV1AiModelsGetAvailableModelsResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/models",
-    ...options,
-  });
-};
-
-/**
- * Get Conversation
- * 💬 Get Conversation History
- */
-export const aiGetApiV1AiConversationsConversationIdGetConversation = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<
-    AiGetApiV1AiConversationsConversationIdGetConversationData,
-    ThrowOnError
-  >
-) => {
-  return (options.client ?? _heyApiClient).get<
-    AiGetApiV1AiConversationsConversationIdGetConversationResponses,
-    AiGetApiV1AiConversationsConversationIdGetConversationErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/conversations/{conversation_id}",
-    ...options,
-  });
-};
-
-/**
- * Get Usage Statistics
- * 📊 Get Token Usage Statistics
- */
-export const aiGetApiV1AiUsageGetUsageStatistics = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<AiGetApiV1AiUsageGetUsageStatisticsData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    AiGetApiV1AiUsageGetUsageStatisticsResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/usage",
-    ...options,
-  });
-};
-
-/**
  * Verify Bvn
- * 🇳🇬 Verify Bank Verification Number (BVN)
+ * Verify BVN using Dojah API.
  */
-export const bvnPostApiV1BvnVerifyVerifyBvn = <
+export const apiPostApiV1VerifyVerifyBvn = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<BvnPostApiV1BvnVerifyVerifyBvnData, ThrowOnError>
+  options: Options<ApiPostApiV1VerifyVerifyBvnData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    BvnPostApiV1BvnVerifyVerifyBvnResponses,
-    BvnPostApiV1BvnVerifyVerifyBvnErrors,
+    ApiPostApiV1VerifyVerifyBvnResponses,
+    ApiPostApiV1VerifyVerifyBvnErrors,
     ThrowOnError
   >({
     security: [
@@ -696,16 +516,16 @@ export const bvnPostApiV1BvnVerifyVerifyBvn = <
 
 /**
  * Get Bvn Status
- * 📊 Get BVN Verification Status
+ * Get BVN verification status.
  */
-export const bvnGetApiV1BvnStatusBvnGetBvnStatus = <
+export const apiGetApiV1StatusBvnGetBvnStatus = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<BvnGetApiV1BvnStatusBvnGetBvnStatusData, ThrowOnError>
+  options: Options<ApiGetApiV1StatusBvnGetBvnStatusData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    BvnGetApiV1BvnStatusBvnGetBvnStatusResponses,
-    BvnGetApiV1BvnStatusBvnGetBvnStatusErrors,
+    ApiGetApiV1StatusBvnGetBvnStatusResponses,
+    ApiGetApiV1StatusBvnGetBvnStatusErrors,
     ThrowOnError
   >({
     security: [
@@ -720,17 +540,17 @@ export const bvnGetApiV1BvnStatusBvnGetBvnStatus = <
 };
 
 /**
- * Lookup Bvn
- * 🔍 Basic BVN Lookup
+ * Lookup Bvn Basic
+ * Basic BVN lookup without full verification.
  */
-export const bvnPostApiV1BvnLookupLookupBvn = <
+export const apiPostApiV1LookupLookupBvnBasic = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<BvnPostApiV1BvnLookupLookupBvnData, ThrowOnError>
+  options: Options<ApiPostApiV1LookupLookupBvnBasicData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    BvnPostApiV1BvnLookupLookupBvnResponses,
-    BvnPostApiV1BvnLookupLookupBvnErrors,
+    ApiPostApiV1LookupLookupBvnBasicResponses,
+    ApiPostApiV1LookupLookupBvnBasicErrors,
     ThrowOnError
   >({
     security: [
@@ -750,16 +570,14 @@ export const bvnPostApiV1BvnLookupLookupBvn = <
 
 /**
  * Match Bvn
- * 🔗 Match BVN with User Data
+ * Match BVN against provided identity attributes (placeholder).
  */
-export const bvnPostApiV1BvnMatchMatchBvn = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<BvnPostApiV1BvnMatchMatchBvnData, ThrowOnError>
+export const apiPostApiV1MatchMatchBvn = <ThrowOnError extends boolean = false>(
+  options: Options<ApiPostApiV1MatchMatchBvnData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    BvnPostApiV1BvnMatchMatchBvnResponses,
-    BvnPostApiV1BvnMatchMatchBvnErrors,
+    ApiPostApiV1MatchMatchBvnResponses,
+    ApiPostApiV1MatchMatchBvnErrors,
     ThrowOnError
   >({
     security: [
@@ -779,15 +597,15 @@ export const bvnPostApiV1BvnMatchMatchBvn = <
 
 /**
  * Get Supported Banks
- * 🏦 Get Supported Nigerian Banks
+ * Return supported Nigerian banks (placeholder list).
  */
-export const bvnGetApiV1BvnBanksGetSupportedBanks = <
+export const apiGetApiV1BanksGetSupportedBanks = <
   ThrowOnError extends boolean = false,
 >(
-  options?: Options<BvnGetApiV1BvnBanksGetSupportedBanksData, ThrowOnError>
+  options?: Options<ApiGetApiV1BanksGetSupportedBanksData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    BvnGetApiV1BvnBanksGetSupportedBanksResponses,
+    ApiGetApiV1BanksGetSupportedBanksResponses,
     unknown,
     ThrowOnError
   >({
@@ -850,16 +668,16 @@ export const ivrGetApiV1IvrMenuGetMenu = <ThrowOnError extends boolean = false>(
 
 /**
  * Verify Nin
- * 🇳🇬 Verify Nigerian Identity Number (NIN)
+ * Verify NIN using Dojah API.
  */
-export const ninPostApiV1NinVerifyVerifyNin = <
+export const apiPostApiV1VerifyVerifyNin = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<NinPostApiV1NinVerifyVerifyNinData, ThrowOnError>
+  options: Options<ApiPostApiV1VerifyVerifyNinData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    NinPostApiV1NinVerifyVerifyNinResponses,
-    NinPostApiV1NinVerifyVerifyNinErrors,
+    ApiPostApiV1VerifyVerifyNinResponses,
+    ApiPostApiV1VerifyVerifyNinErrors,
     ThrowOnError
   >({
     security: [
@@ -879,16 +697,16 @@ export const ninPostApiV1NinVerifyVerifyNin = <
 
 /**
  * Get Nin Status
- * 📊 Get NIN Verification Status
+ * Get NIN verification status.
  */
-export const ninGetApiV1NinStatusNinGetNinStatus = <
+export const apiGetApiV1StatusNinGetNinStatus = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<NinGetApiV1NinStatusNinGetNinStatusData, ThrowOnError>
+  options: Options<ApiGetApiV1StatusNinGetNinStatusData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    NinGetApiV1NinStatusNinGetNinStatusResponses,
-    NinGetApiV1NinStatusNinGetNinStatusErrors,
+    ApiGetApiV1StatusNinGetNinStatusResponses,
+    ApiGetApiV1StatusNinGetNinStatusErrors,
     ThrowOnError
   >({
     security: [
@@ -903,17 +721,17 @@ export const ninGetApiV1NinStatusNinGetNinStatus = <
 };
 
 /**
- * Lookup Nin
- * 🔍 Basic NIN Lookup
+ * Lookup Nin Basic
+ * Basic NIN lookup without full verification.
  */
-export const ninPostApiV1NinLookupLookupNin = <
+export const apiPostApiV1LookupLookupNinBasic = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<NinPostApiV1NinLookupLookupNinData, ThrowOnError>
+  options: Options<ApiPostApiV1LookupLookupNinBasicData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    NinPostApiV1NinLookupLookupNinResponses,
-    NinPostApiV1NinLookupLookupNinErrors,
+    ApiPostApiV1LookupLookupNinBasicResponses,
+    ApiPostApiV1LookupLookupNinBasicErrors,
     ThrowOnError
   >({
     security: [
@@ -2068,6 +1886,200 @@ export const smsGetApiV1SmsTemplatesGetMessageTemplates = <
 };
 
 /**
+ * Chat Completion
+ * 🤖 Interactive Chat Completion
+ */
+export const aiPostApiV1AiChatChatCompletion = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<AiPostApiV1AiChatChatCompletionData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AiPostApiV1AiChatChatCompletionResponses,
+    AiPostApiV1AiChatChatCompletionErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/chat",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Generate Content
+ * 📝 Generate Content
+ */
+export const aiPostApiV1AiGenerateGenerateContent = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<AiPostApiV1AiGenerateGenerateContentData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AiPostApiV1AiGenerateGenerateContentResponses,
+    AiPostApiV1AiGenerateGenerateContentErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/generate",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Analyze Text
+ * 🔍 Analyze Text Content
+ */
+export const aiPostApiV1AiAnalyzeAnalyzeText = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<AiPostApiV1AiAnalyzeAnalyzeTextData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AiPostApiV1AiAnalyzeAnalyzeTextResponses,
+    AiPostApiV1AiAnalyzeAnalyzeTextErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/analyze",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Translate Text
+ * 🌍 Nigerian Language Translation
+ */
+export const aiPostApiV1AiTranslateTranslateText = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<AiPostApiV1AiTranslateTranslateTextData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AiPostApiV1AiTranslateTranslateTextResponses,
+    AiPostApiV1AiTranslateTranslateTextErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/translate",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Available Models
+ * 🧠 Get Available AI Models
+ */
+export const aiGetApiV1AiModelsGetAvailableModels = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<AiGetApiV1AiModelsGetAvailableModelsData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    AiGetApiV1AiModelsGetAvailableModelsResponses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/models",
+    ...options,
+  });
+};
+
+/**
+ * Get Conversation
+ * 💬 Get Conversation History
+ */
+export const aiGetApiV1AiConversationsConversationIdGetConversation = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    AiGetApiV1AiConversationsConversationIdGetConversationData,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).get<
+    AiGetApiV1AiConversationsConversationIdGetConversationResponses,
+    AiGetApiV1AiConversationsConversationIdGetConversationErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/conversations/{conversation_id}",
+    ...options,
+  });
+};
+
+/**
+ * Get Usage Statistics
+ * 📊 Get Token Usage Statistics
+ */
+export const aiGetApiV1AiUsageGetUsageStatistics = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<AiGetApiV1AiUsageGetUsageStatisticsData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    AiGetApiV1AiUsageGetUsageStatisticsResponses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/usage",
+    ...options,
+  });
+};
+
+/**
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
@@ -2216,5 +2228,162 @@ export const oauth2PostApiV1Oauth2TokenGetToken = <
       "Content-Type": "application/x-www-form-urlencoded",
       ...options.headers,
     },
+  });
+};
+
+/**
+ * Health Check
+ */
+export const apiGetHealthHealthCheck3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck3Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetHealthHealthCheck3Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/sms/health",
+    ...options,
+  });
+};
+
+/**
+ * Root
+ */
+export const apiGetRootRoot3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot3Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetRootRoot3Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/sms/",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetrics3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics3Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetMetricsMetrics3Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/sms/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Health Check
+ */
+export const apiGetHealthHealthCheck4 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck4Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetHealthHealthCheck4Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/bvn/health",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetrics4 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics4Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetMetricsMetrics4Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/bvn/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Health Check
+ */
+export const apiGetHealthHealthCheck5 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck5Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetHealthHealthCheck5Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/nin/health",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetrics5 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics5Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetMetricsMetrics5Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/nin/metrics",
+    ...options,
   });
 };

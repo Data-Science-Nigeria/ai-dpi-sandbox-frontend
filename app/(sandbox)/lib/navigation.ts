@@ -13,16 +13,16 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/ai",
   },
   {
+    title: "Chat",
+    href: "/introduction/services/ai/chat",
+  },
+  {
     title: "Generate",
     href: "/introduction/services/ai/generate",
   },
   {
     title: "Analyze",
     href: "/introduction/services/ai/analyze",
-  },
-  {
-    title: "Chat",
-    href: "/introduction/services/ai/chat",
   },
   {
     title: "Translate",

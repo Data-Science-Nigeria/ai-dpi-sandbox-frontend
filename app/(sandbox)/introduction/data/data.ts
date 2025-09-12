@@ -34,6 +34,12 @@ export const menuItems: MenuItem[] = [
         href: "/introduction/services/ai",
         endpoints: [
           {
+            name: "Chat",
+            method: "POST",
+            path: "/api/v1/ai/chat",
+            href: "/introduction/services/ai/chat",
+          },
+          {
             name: "Generate",
             method: "POST",
             path: "/api/v1/ai/generate",
@@ -44,12 +50,6 @@ export const menuItems: MenuItem[] = [
             method: "POST",
             path: "/api/v1/ai/analyze",
             href: "/introduction/services/ai/analyze",
-          },
-          {
-            name: "Chat",
-            method: "POST",
-            path: "/api/v1/ai/chat",
-            href: "/introduction/services/ai/chat",
           },
           {
             name: "Translate",
@@ -204,6 +204,12 @@ export const menuItems: MenuItem[] = [
             method: "GET",
             path: "/api/v1/sms/templates",
             href: "/introduction/services/sms/templates",
+          },
+          {
+            name: "Endpoint",
+            method: "GET",
+            path: "/api/v1/sms/",
+            href: "/introduction/services/sms/undefined",
           },
         ],
       },
