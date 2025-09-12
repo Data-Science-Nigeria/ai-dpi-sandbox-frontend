@@ -23,6 +23,6 @@ export type CreateClientConfig<T extends DefaultClientOptions = ClientOptions> =
 
 export const client = createClient(
   createConfig<ClientOptions>({
-    baseUrl: "http://dsnsandbox.com:8080",
+    baseUrl: "http://api.dsnsandbox.com",
   })
 );
