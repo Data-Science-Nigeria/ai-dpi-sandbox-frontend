@@ -19,7 +19,7 @@ const getBackgroundColor = (email: string): string => {
 export const Avatar = () => {
   const { auth, isAuthenticated, isAdmin } = useAuthStore();
 
-  // Don't show avatar if user is not authenticated
+  // Don't show avatar if user is notauthenticated
   if (!isAuthenticated()) return null;
 
   // Show loading state if authenticated but user data not loaded yet
