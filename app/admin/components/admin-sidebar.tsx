@@ -65,6 +65,10 @@ export default function AdminSidebar({ isOpen, onToggle }: AdminSidebarProps) {
   const handleItemSelect = (itemId: string, href: string) => {
     setSelectedItem(itemId);
     router.push(href);
+    // Close sidebar on small screens after navigation
+    if (window.innerWidth < 640) {
+      onToggle();
+    }
   };
 
   return (

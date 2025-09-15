@@ -32,19 +32,21 @@ export default function ServiceCard({
       <p className="text-xs xs:text-sm text-gray-600 dark:text-gray-400 mb-3 xs:mb-4 break-words">
         {description}
       </p>
-      <div className="flex items-center justify-start gap-2 service-buttons">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={handleDocs}
-              className="text-[#00A859] dark:text-[#00A859] font-medium hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200 text-xs xs:text-sm"
-            >
-              DOCS
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>Go to service overview</TooltipContent>
-        </Tooltip>
-      </div>
+      {name !== "IVR" && name !== "Two-Way SMS" && name !== "MAPS" && (
+        <div className="flex items-center justify-start gap-2 service-buttons">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={handleDocs}
+                className="text-[#00A859] dark:text-[#00A859] font-medium hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200 text-xs xs:text-sm"
+              >
+                DOCS
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>Go to service overview</TooltipContent>
+          </Tooltip>
+        </div>
+      )}
     </div>
   );
 }

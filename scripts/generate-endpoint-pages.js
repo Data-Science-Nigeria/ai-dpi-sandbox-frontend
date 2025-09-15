@@ -219,7 +219,15 @@ function generatePages() {
   );
 
   // Only include specified categories
-  const allowedCategories = ["ai", "bvn", "ivr", "nin", "sms", "two-way-sms"];
+  const allowedCategories = [
+    "ai",
+    "bvn",
+    "ivr",
+    "maps",
+    "nin",
+    "sms",
+    "two-way-sms",
+  ];
   const filteredEndpoints = endpoints.filter((e) =>
     allowedCategories.includes(e.category)
   );

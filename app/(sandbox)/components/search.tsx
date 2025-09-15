@@ -4,7 +4,15 @@ import { useEffect, useState } from "react";
 import { useSearch } from "../../hooks/use-search";
 
 export function Search() {
-  const { query, setQuery, clearSearch, matchCount } = useSearch();
+  const {
+    query,
+    setQuery,
+    clearSearch,
+    matchCount,
+    currentMatchIndex,
+    navigateToMatch,
+    handleEnterPress,
+  } = useSearch();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -61,14 +69,64 @@ export function Search() {
           placeholder="Search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleEnterPress();
+            }
+          }}
           className="w-full pl-10 pr-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
         />
       </div>
       {query && (
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">
-            {matchCount} matches
+            {matchCount > 0
+              ? `${currentMatchIndex}/${matchCount}`
+              : "0 matches"}
           </span>
+          {matchCount > 0 && (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => navigateToMatch("prev")}
+                className="p-1 text-muted-foreground hover:text-foreground rounded"
+                title="Previous match"
+              >
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+              <button
+                onClick={() => navigateToMatch("next")}
+                className="p-1 text-muted-foreground hover:text-foreground rounded"
+                title="Next match"
+              >
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          )}
           <button
             onClick={clearSearch}
             className="text-sm text-muted-foreground hover:text-foreground"

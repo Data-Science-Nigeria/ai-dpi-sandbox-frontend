@@ -210,3 +210,11 @@ body {
     height: 3000px !important;
   }
 }
+
+.search-highlight {
+  @apply bg-yellow-200 dark:bg-yellow-800;
+}
+
+.search-highlight-active {
+  @apply bg-orange-300 dark:bg-orange-700 ring-2 ring-orange-500;
+}
