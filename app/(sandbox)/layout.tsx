@@ -43,7 +43,7 @@ export default function SandboxLayout({
             <main
               className={`pt-[4rem] sm:pt-[5rem] md:pt-[5.5rem] transition-all duration-300 ${sidebarOpen ? "ml-0 xs:ml-56 sm:ml-64" : "ml-12 xs:ml-12 sm:ml-16"}`}
             >
-              <div className="p-2 xs:p-4 sm:p-6">{children}</div>
+              <div className="p-4 xs:p-4 sm:p-6">{children}</div>
             </main>
           </div>
         </UserProtectRoute>
