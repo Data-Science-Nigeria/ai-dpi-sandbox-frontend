@@ -5,79 +5,25 @@ import {
   type TDataShape,
   type Client,
   urlSearchParamsBodySerializer,
+  formDataBodySerializer,
 } from "./client";
 import type {
-  ApiGetHealthHealthCheckData,
-  ApiGetHealthHealthCheckResponses,
+  DefaultHealthCheckData,
+  DefaultHealthCheckResponses,
+  DefaultRootData,
+  DefaultRootResponses,
+  DefaultGatewayHealthData,
+  DefaultGatewayHealthResponses,
   ApiGetMetricsMetricsData,
   ApiGetMetricsMetricsResponses,
+  ApiGetHealthHealthCheckData,
+  ApiGetHealthHealthCheckResponses,
   ApiGetRootRootData,
   ApiGetRootRootResponses,
-  HealthGetApiV1HealthCheckHealthCheckData,
-  HealthGetApiV1HealthCheckHealthCheckResponses,
-  HealthGetApiV1HealthServicesGetServicesHealthData,
-  HealthGetApiV1HealthServicesGetServicesHealthResponses,
-  MonitoringGetApiV1MonitoringMetricsGetMetricsData,
-  MonitoringGetApiV1MonitoringMetricsGetMetricsResponses,
-  MonitoringGetApiV1MonitoringAlertsGetAlertsData,
-  MonitoringGetApiV1MonitoringAlertsGetAlertsResponses,
-  LoggingPostApiV1LoggingLogCreateLogData,
-  LoggingPostApiV1LoggingLogCreateLogResponses,
-  LoggingGetApiV1LoggingLogsGetLogsData,
-  LoggingGetApiV1LoggingLogsGetLogsResponses,
-  RateLimitPostApiV1RateLimiterLimitCheckRateLimitData,
-  RateLimitPostApiV1RateLimiterLimitCheckRateLimitResponses,
-  RateLimitGetApiV1RateLimiterStatusGetRateLimitStatusData,
-  RateLimitGetApiV1RateLimiterStatusGetRateLimitStatusResponses,
-  ApiPostApiV1VerifyVerifyBvnData,
-  ApiPostApiV1VerifyVerifyBvnResponses,
-  ApiPostApiV1VerifyVerifyBvnErrors,
-  ApiGetApiV1StatusBvnGetBvnStatusData,
-  ApiGetApiV1StatusBvnGetBvnStatusResponses,
-  ApiGetApiV1StatusBvnGetBvnStatusErrors,
-  ApiPostApiV1LookupLookupBvnBasicData,
-  ApiPostApiV1LookupLookupBvnBasicResponses,
-  ApiPostApiV1LookupLookupBvnBasicErrors,
-  ApiPostApiV1MatchMatchBvnData,
-  ApiPostApiV1MatchMatchBvnResponses,
-  ApiPostApiV1MatchMatchBvnErrors,
-  ApiGetApiV1BanksGetSupportedBanksData,
-  ApiGetApiV1BanksGetSupportedBanksResponses,
-  IvrPostApiV1IvrCallInitiateCallData,
-  IvrPostApiV1IvrCallInitiateCallResponses,
-  IvrGetApiV1IvrMenuGetMenuData,
-  IvrGetApiV1IvrMenuGetMenuResponses,
-  ApiPostApiV1VerifyVerifyNinData,
-  ApiPostApiV1VerifyVerifyNinResponses,
-  ApiPostApiV1VerifyVerifyNinErrors,
-  ApiGetApiV1StatusNinGetNinStatusData,
-  ApiGetApiV1StatusNinGetNinStatusResponses,
-  ApiGetApiV1StatusNinGetNinStatusErrors,
-  ApiPostApiV1LookupLookupNinBasicData,
-  ApiPostApiV1LookupLookupNinBasicResponses,
-  ApiPostApiV1LookupLookupNinBasicErrors,
-  TwoWaySmsPostApiV1TwoWaySmsSendSendSmsData,
-  TwoWaySmsPostApiV1TwoWaySmsSendSendSmsResponses,
-  TwoWaySmsPostApiV1TwoWaySmsReceiveReceiveSmsData,
-  TwoWaySmsPostApiV1TwoWaySmsReceiveReceiveSmsResponses,
-  HealthGetApiV1ServicesHealthGetServicesHealthData,
-  HealthGetApiV1ServicesHealthGetServicesHealthResponses,
-  HealthGetApiV1DpiHealthGetDpiHealthData,
-  HealthGetApiV1DpiHealthGetDpiHealthResponses,
-  HealthGetApiV1ServicesServiceNameHealthGetServiceHealthData,
-  HealthGetApiV1ServicesServiceNameHealthGetServiceHealthResponses,
-  HealthGetApiV1ServicesServiceNameHealthGetServiceHealthErrors,
-  HealthGetApiV1ServicesServiceNameMetricsGetServiceMetricsData,
-  HealthGetApiV1ServicesServiceNameMetricsGetServiceMetricsResponses,
-  HealthGetApiV1ServicesServiceNameMetricsGetServiceMetricsErrors,
-  ExamplesGetApiV1ExamplesNinNinExamplesData,
-  ExamplesGetApiV1ExamplesNinNinExamplesResponses,
-  ExamplesGetApiV1ExamplesSmsSmsExamplesData,
-  ExamplesGetApiV1ExamplesSmsSmsExamplesResponses,
-  ExamplesGetApiV1ExamplesAuthAuthExamplesData,
-  ExamplesGetApiV1ExamplesAuthAuthExamplesResponses,
-  ExamplesGetApiV1ExamplesIntegrationIntegrationExamplesData,
-  ExamplesGetApiV1ExamplesIntegrationIntegrationExamplesResponses,
+  ApiGetWellKnownOpenidConfigurationOpenidConfigurationData,
+  ApiGetWellKnownOpenidConfigurationOpenidConfigurationResponses,
+  ApiGetWellKnownJwksJsonJwksData,
+  ApiGetWellKnownJwksJsonJwksResponses,
   AuthenticationPostApiV1AuthLoginLoginUserData,
   AuthenticationPostApiV1AuthLoginLoginUserResponses,
   AuthenticationPostApiV1AuthLoginLoginUserErrors,
@@ -88,9 +34,18 @@ import type {
   AuthenticationGetApiV1AuthMeReadUserMeResponses,
   AuthenticationPostApiV1AuthLogoutLogoutUserData,
   AuthenticationPostApiV1AuthLogoutLogoutUserResponses,
-  AuthPostApiV1AuthTokenOauthTokenData,
-  AuthPostApiV1AuthTokenOauthTokenResponses,
-  AuthPostApiV1AuthTokenOauthTokenErrors,
+  Oauth2PostApiV1Oauth2ClientsCreateOauthClientData,
+  Oauth2PostApiV1Oauth2ClientsCreateOauthClientResponses,
+  Oauth2PostApiV1Oauth2ClientsCreateOauthClientErrors,
+  Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientData,
+  Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientResponses,
+  Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientErrors,
+  Oauth2GetApiV1Oauth2AuthorizeAuthorizeData,
+  Oauth2GetApiV1Oauth2AuthorizeAuthorizeResponses,
+  Oauth2GetApiV1Oauth2AuthorizeAuthorizeErrors,
+  Oauth2PostApiV1Oauth2TokenGetTokenData,
+  Oauth2PostApiV1Oauth2TokenGetTokenResponses,
+  Oauth2PostApiV1Oauth2TokenGetTokenErrors,
   AdminGetApiV1AdminUsersListUsersData,
   AdminGetApiV1AdminUsersListUsersResponses,
   AdminGetApiV1AdminUsersListUsersErrors,
@@ -115,80 +70,246 @@ import type {
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordData,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordResponses,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordErrors,
-  Oauth2PostApiV1Oauth2ClientsCreateOauthClientData,
-  Oauth2PostApiV1Oauth2ClientsCreateOauthClientResponses,
-  Oauth2PostApiV1Oauth2ClientsCreateOauthClientErrors,
-  Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientData,
-  Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientResponses,
-  Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientErrors,
-  Oauth2GetApiV1Oauth2AuthorizeAuthorizeData,
-  Oauth2GetApiV1Oauth2AuthorizeAuthorizeResponses,
-  Oauth2GetApiV1Oauth2AuthorizeAuthorizeErrors,
-  SmsPostApiV1SmsSendSendSmsData,
-  SmsPostApiV1SmsSendSendSmsResponses,
-  SmsPostApiV1SmsSendSendSmsErrors,
-  SmsPostApiV1SmsBulkSendBulkSmsData,
-  SmsPostApiV1SmsBulkSendBulkSmsResponses,
-  SmsPostApiV1SmsBulkSendBulkSmsErrors,
-  SmsPostApiV1SmsOtpGenerateGenerateOtpData,
-  SmsPostApiV1SmsOtpGenerateGenerateOtpResponses,
-  SmsPostApiV1SmsOtpGenerateGenerateOtpErrors,
-  SmsPostApiV1SmsOtpVerifyVerifyOtpData,
-  SmsPostApiV1SmsOtpVerifyVerifyOtpResponses,
-  SmsPostApiV1SmsOtpVerifyVerifyOtpErrors,
-  SmsGetApiV1SmsStatusMessageIdGetMessageStatusData,
-  SmsGetApiV1SmsStatusMessageIdGetMessageStatusResponses,
-  SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors,
-  SmsGetApiV1SmsBalanceGetSmsBalanceData,
-  SmsGetApiV1SmsBalanceGetSmsBalanceResponses,
-  SmsGetApiV1SmsTemplatesGetMessageTemplatesData,
-  SmsGetApiV1SmsTemplatesGetMessageTemplatesResponses,
-  AiPostApiV1AiChatChatCompletionData,
-  AiPostApiV1AiChatChatCompletionResponses,
-  AiPostApiV1AiChatChatCompletionErrors,
-  AiPostApiV1AiGenerateGenerateContentData,
-  AiPostApiV1AiGenerateGenerateContentResponses,
-  AiPostApiV1AiGenerateGenerateContentErrors,
-  AiPostApiV1AiAnalyzeAnalyzeTextData,
-  AiPostApiV1AiAnalyzeAnalyzeTextResponses,
-  AiPostApiV1AiAnalyzeAnalyzeTextErrors,
-  AiPostApiV1AiTranslateTranslateTextData,
-  AiPostApiV1AiTranslateTranslateTextResponses,
-  AiPostApiV1AiTranslateTranslateTextErrors,
-  AiGetApiV1AiModelsGetAvailableModelsData,
-  AiGetApiV1AiModelsGetAvailableModelsResponses,
-  AiGetApiV1AiConversationsConversationIdGetConversationData,
-  AiGetApiV1AiConversationsConversationIdGetConversationResponses,
-  AiGetApiV1AiConversationsConversationIdGetConversationErrors,
-  AiGetApiV1AiUsageGetUsageStatisticsData,
-  AiGetApiV1AiUsageGetUsageStatisticsResponses,
-  ApiGetMetricsMetrics2Data,
-  ApiGetMetricsMetrics2Responses,
+  SmsPostApiV1SendSendSmsData,
+  SmsPostApiV1SendSendSmsResponses,
+  SmsPostApiV1SendSendSmsErrors,
+  SmsPostApiV1BulkSendBulkSmsData,
+  SmsPostApiV1BulkSendBulkSmsResponses,
+  SmsPostApiV1BulkSendBulkSmsErrors,
+  SmsPostApiV1SendBulkSendBulkSmsAliasData,
+  SmsPostApiV1SendBulkSendBulkSmsAliasResponses,
+  SmsPostApiV1SendBulkSendBulkSmsAliasErrors,
+  SmsGetApiV1StatusMessageIdGetMessageStatusData,
+  SmsGetApiV1StatusMessageIdGetMessageStatusResponses,
+  SmsGetApiV1StatusMessageIdGetMessageStatusErrors,
+  SmsGetApiV1BalanceGetSmsBalanceData,
+  SmsGetApiV1BalanceGetSmsBalanceResponses,
+  SmsGetApiV1TemplatesGetMessageTemplatesData,
+  SmsGetApiV1TemplatesGetMessageTemplatesResponses,
+  SmsPostApiV1OtpGenerateGenerateOtpData,
+  SmsPostApiV1OtpGenerateGenerateOtpResponses,
+  SmsPostApiV1OtpGenerateGenerateOtpErrors,
+  SmsPostApiV1OtpVerifyVerifyOtpData,
+  SmsPostApiV1OtpVerifyVerifyOtpResponses,
+  SmsPostApiV1OtpVerifyVerifyOtpErrors,
   ApiGetHealthHealthCheck2Data,
   ApiGetHealthHealthCheck2Responses,
   ApiGetRootRoot2Data,
   ApiGetRootRoot2Responses,
-  ApiGetWellKnownOpenidConfigurationOpenidConfigurationData,
-  ApiGetWellKnownOpenidConfigurationOpenidConfigurationResponses,
-  ApiGetWellKnownJwksJsonJwksData,
-  ApiGetWellKnownJwksJsonJwksResponses,
-  Oauth2PostApiV1Oauth2TokenGetTokenData,
-  Oauth2PostApiV1Oauth2TokenGetTokenResponses,
-  Oauth2PostApiV1Oauth2TokenGetTokenErrors,
+  ApiGetMetricsMetrics2Data,
+  ApiGetMetricsMetrics2Responses,
+  HealthHealthGetData,
+  HealthHealthGetResponses,
+  ReadyReadyGetData,
+  ReadyReadyGetResponses,
+  GetModelsApiV1ModelsGetData,
+  GetModelsApiV1ModelsGetResponses,
+  ChatApiV1ChatPostData,
+  ChatApiV1ChatPostResponses,
+  ChatApiV1ChatPostErrors,
+  GetChatHistoryApiV1ChatSessionIdSessionGetData,
+  GetChatHistoryApiV1ChatSessionIdSessionGetResponses,
+  GetChatHistoryApiV1ChatSessionIdSessionGetErrors,
+  GetChatSessionsApiV1ChatSessionsAllGetData,
+  GetChatSessionsApiV1ChatSessionsAllGetResponses,
+  QueryRagApiV1RagQueryPostData,
+  QueryRagApiV1RagQueryPostResponses,
+  QueryRagApiV1RagQueryPostErrors,
+  UploadForRagApiV1RagUploadPostData,
+  UploadForRagApiV1RagUploadPostResponses,
+  UploadForRagApiV1RagUploadPostErrors,
+  SpeechToTextApiV1SpitchSpeechToTextPostData,
+  SpeechToTextApiV1SpitchSpeechToTextPostResponses,
+  SpeechToTextApiV1SpitchSpeechToTextPostErrors,
+  TextToSpeechApiV1SpitchTextToSpeechPostData,
+  TextToSpeechApiV1SpitchTextToSpeechPostResponses,
+  TextToSpeechApiV1SpitchTextToSpeechPostErrors,
+  TranslateApiV1SpitchTranslatePostData,
+  TranslateApiV1SpitchTranslatePostResponses,
+  TranslateApiV1SpitchTranslatePostErrors,
+  RootGetData,
+  RootGetResponses,
+  MetricsMetricsGetData,
+  MetricsMetricsGetResponses,
+  ApiPostApiV1VerifyVerifyNinData,
+  ApiPostApiV1VerifyVerifyNinResponses,
+  ApiPostApiV1VerifyVerifyNinErrors,
+  ApiGetApiV1StatusNinGetNinStatusData,
+  ApiGetApiV1StatusNinGetNinStatusResponses,
+  ApiGetApiV1StatusNinGetNinStatusErrors,
+  ApiPostApiV1LookupLookupNinBasicData,
+  ApiPostApiV1LookupLookupNinBasicResponses,
+  ApiPostApiV1LookupLookupNinBasicErrors,
   ApiGetHealthHealthCheck3Data,
   ApiGetHealthHealthCheck3Responses,
-  ApiGetRootRoot3Data,
-  ApiGetRootRoot3Responses,
   ApiGetMetricsMetrics3Data,
   ApiGetMetricsMetrics3Responses,
+  ApiPostApiV1VerifyVerifyBvnData,
+  ApiPostApiV1VerifyVerifyBvnResponses,
+  ApiPostApiV1VerifyVerifyBvnErrors,
+  ApiGetApiV1StatusBvnGetBvnStatusData,
+  ApiGetApiV1StatusBvnGetBvnStatusResponses,
+  ApiGetApiV1StatusBvnGetBvnStatusErrors,
+  ApiPostApiV1LookupLookupBvnBasicData,
+  ApiPostApiV1LookupLookupBvnBasicResponses,
+  ApiPostApiV1LookupLookupBvnBasicErrors,
+  ApiPostApiV1MatchMatchBvnData,
+  ApiPostApiV1MatchMatchBvnResponses,
+  ApiPostApiV1MatchMatchBvnErrors,
+  ApiGetApiV1BanksGetSupportedBanksData,
+  ApiGetApiV1BanksGetSupportedBanksResponses,
   ApiGetHealthHealthCheck4Data,
   ApiGetHealthHealthCheck4Responses,
   ApiGetMetricsMetrics4Data,
   ApiGetMetricsMetrics4Responses,
-  ApiGetHealthHealthCheck5Data,
-  ApiGetHealthHealthCheck5Responses,
   ApiGetMetricsMetrics5Data,
   ApiGetMetricsMetrics5Responses,
+  ApiGetHealthHealthCheck5Data,
+  ApiGetHealthHealthCheck5Responses,
+  ApiGetRootRoot3Data,
+  ApiGetRootRoot3Responses,
+  ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Data,
+  ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Responses,
+  ApiGetWellKnownJwksJsonJwks2Data,
+  ApiGetWellKnownJwksJsonJwks2Responses,
+  AuthenticationPostApiV1AuthLoginLoginUser2Data,
+  AuthenticationPostApiV1AuthLoginLoginUser2Responses,
+  AuthenticationPostApiV1AuthLoginLoginUser2Errors,
+  AuthenticationPostApiV1AuthLoginJsonLoginUserJson2Data,
+  AuthenticationPostApiV1AuthLoginJsonLoginUserJson2Responses,
+  AuthenticationPostApiV1AuthLoginJsonLoginUserJson2Errors,
+  AuthenticationGetApiV1AuthMeReadUserMe2Data,
+  AuthenticationGetApiV1AuthMeReadUserMe2Responses,
+  AuthenticationPostApiV1AuthLogoutLogoutUser2Data,
+  AuthenticationPostApiV1AuthLogoutLogoutUser2Responses,
+  Oauth2PostApiV1Oauth2ClientsCreateOauthClient2Data,
+  Oauth2PostApiV1Oauth2ClientsCreateOauthClient2Responses,
+  Oauth2PostApiV1Oauth2ClientsCreateOauthClient2Errors,
+  Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClient2Data,
+  Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClient2Responses,
+  Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClient2Errors,
+  Oauth2GetApiV1Oauth2AuthorizeAuthorize2Data,
+  Oauth2GetApiV1Oauth2AuthorizeAuthorize2Responses,
+  Oauth2GetApiV1Oauth2AuthorizeAuthorize2Errors,
+  Oauth2PostApiV1Oauth2TokenGetToken2Data,
+  Oauth2PostApiV1Oauth2TokenGetToken2Responses,
+  Oauth2PostApiV1Oauth2TokenGetToken2Errors,
+  AdminGetApiV1AdminUsersListUsers2Data,
+  AdminGetApiV1AdminUsersListUsers2Responses,
+  AdminGetApiV1AdminUsersListUsers2Errors,
+  AdminPostApiV1AdminUsersCreateUser2Data,
+  AdminPostApiV1AdminUsersCreateUser2Responses,
+  AdminPostApiV1AdminUsersCreateUser2Errors,
+  AdminDeleteApiV1AdminUsersUserIdDeleteUser2Data,
+  AdminDeleteApiV1AdminUsersUserIdDeleteUser2Responses,
+  AdminDeleteApiV1AdminUsersUserIdDeleteUser2Errors,
+  AdminGetApiV1AdminUsersUserIdGetUser2Data,
+  AdminGetApiV1AdminUsersUserIdGetUser2Responses,
+  AdminGetApiV1AdminUsersUserIdGetUser2Errors,
+  AdminPutApiV1AdminUsersUserIdUpdateUser2Data,
+  AdminPutApiV1AdminUsersUserIdUpdateUser2Responses,
+  AdminPutApiV1AdminUsersUserIdUpdateUser2Errors,
+  AdminPostApiV1AdminUsersUserIdActivateActivateUser2Data,
+  AdminPostApiV1AdminUsersUserIdActivateActivateUser2Responses,
+  AdminPostApiV1AdminUsersUserIdActivateActivateUser2Errors,
+  AdminPostApiV1AdminUsersUserIdDeactivateDeactivateUser2Data,
+  AdminPostApiV1AdminUsersUserIdDeactivateDeactivateUser2Responses,
+  AdminPostApiV1AdminUsersUserIdDeactivateDeactivateUser2Errors,
+  AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Data,
+  AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Responses,
+  AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Errors,
+  SmsPostApiV1SendSendSms2Data,
+  SmsPostApiV1SendSendSms2Responses,
+  SmsPostApiV1SendSendSms2Errors,
+  SmsPostApiV1BulkSendBulkSms2Data,
+  SmsPostApiV1BulkSendBulkSms2Responses,
+  SmsPostApiV1BulkSendBulkSms2Errors,
+  SmsPostApiV1SendBulkSendBulkSmsAlias2Data,
+  SmsPostApiV1SendBulkSendBulkSmsAlias2Responses,
+  SmsPostApiV1SendBulkSendBulkSmsAlias2Errors,
+  SmsGetApiV1StatusMessageIdGetMessageStatus2Data,
+  SmsGetApiV1StatusMessageIdGetMessageStatus2Responses,
+  SmsGetApiV1StatusMessageIdGetMessageStatus2Errors,
+  SmsGetApiV1BalanceGetSmsBalance2Data,
+  SmsGetApiV1BalanceGetSmsBalance2Responses,
+  SmsGetApiV1TemplatesGetMessageTemplates2Data,
+  SmsGetApiV1TemplatesGetMessageTemplates2Responses,
+  SmsPostApiV1OtpGenerateGenerateOtp2Data,
+  SmsPostApiV1OtpGenerateGenerateOtp2Responses,
+  SmsPostApiV1OtpGenerateGenerateOtp2Errors,
+  SmsPostApiV1OtpVerifyVerifyOtp2Data,
+  SmsPostApiV1OtpVerifyVerifyOtp2Responses,
+  SmsPostApiV1OtpVerifyVerifyOtp2Errors,
+  ApiGetHealthHealthCheck6Data,
+  ApiGetHealthHealthCheck6Responses,
+  ApiGetRootRoot4Data,
+  ApiGetRootRoot4Responses,
+  ApiGetMetricsMetrics6Data,
+  ApiGetMetricsMetrics6Responses,
+  HealthHealthGet2Data,
+  HealthHealthGet2Responses,
+  ReadyReadyGet2Data,
+  ReadyReadyGet2Responses,
+  GetModelsApiV1ModelsGet2Data,
+  GetModelsApiV1ModelsGet2Responses,
+  ChatApiV1ChatPost2Data,
+  ChatApiV1ChatPost2Responses,
+  ChatApiV1ChatPost2Errors,
+  GetChatHistoryApiV1ChatSessionIdSessionGet2Data,
+  GetChatHistoryApiV1ChatSessionIdSessionGet2Responses,
+  GetChatHistoryApiV1ChatSessionIdSessionGet2Errors,
+  GetChatSessionsApiV1ChatSessionsAllGet2Data,
+  GetChatSessionsApiV1ChatSessionsAllGet2Responses,
+  QueryRagApiV1RagQueryPost2Data,
+  QueryRagApiV1RagQueryPost2Responses,
+  QueryRagApiV1RagQueryPost2Errors,
+  UploadForRagApiV1RagUploadPost2Data,
+  UploadForRagApiV1RagUploadPost2Responses,
+  UploadForRagApiV1RagUploadPost2Errors,
+  SpeechToTextApiV1SpitchSpeechToTextPost2Data,
+  SpeechToTextApiV1SpitchSpeechToTextPost2Responses,
+  SpeechToTextApiV1SpitchSpeechToTextPost2Errors,
+  TextToSpeechApiV1SpitchTextToSpeechPost2Data,
+  TextToSpeechApiV1SpitchTextToSpeechPost2Responses,
+  TextToSpeechApiV1SpitchTextToSpeechPost2Errors,
+  TranslateApiV1SpitchTranslatePost2Data,
+  TranslateApiV1SpitchTranslatePost2Responses,
+  TranslateApiV1SpitchTranslatePost2Errors,
+  RootGet2Data,
+  RootGet2Responses,
+  MetricsMetricsGet2Data,
+  MetricsMetricsGet2Responses,
+  ApiPostApiV1VerifyVerifyNin2Data,
+  ApiPostApiV1VerifyVerifyNin2Responses,
+  ApiPostApiV1VerifyVerifyNin2Errors,
+  ApiGetApiV1StatusNinGetNinStatus2Data,
+  ApiGetApiV1StatusNinGetNinStatus2Responses,
+  ApiGetApiV1StatusNinGetNinStatus2Errors,
+  ApiPostApiV1LookupLookupNinBasic2Data,
+  ApiPostApiV1LookupLookupNinBasic2Responses,
+  ApiPostApiV1LookupLookupNinBasic2Errors,
+  ApiGetHealthHealthCheck7Data,
+  ApiGetHealthHealthCheck7Responses,
+  ApiGetMetricsMetrics7Data,
+  ApiGetMetricsMetrics7Responses,
+  ApiPostApiV1VerifyVerifyBvn2Data,
+  ApiPostApiV1VerifyVerifyBvn2Responses,
+  ApiPostApiV1VerifyVerifyBvn2Errors,
+  ApiGetApiV1StatusBvnGetBvnStatus2Data,
+  ApiGetApiV1StatusBvnGetBvnStatus2Responses,
+  ApiGetApiV1StatusBvnGetBvnStatus2Errors,
+  ApiPostApiV1LookupLookupBvnBasic2Data,
+  ApiPostApiV1LookupLookupBvnBasic2Responses,
+  ApiPostApiV1LookupLookupBvnBasic2Errors,
+  ApiPostApiV1MatchMatchBvn2Data,
+  ApiPostApiV1MatchMatchBvn2Responses,
+  ApiPostApiV1MatchMatchBvn2Errors,
+  ApiGetApiV1BanksGetSupportedBanks2Data,
+  ApiGetApiV1BanksGetSupportedBanks2Responses,
+  ApiGetHealthHealthCheck8Data,
+  ApiGetHealthHealthCheck8Responses,
+  ApiGetMetricsMetrics8Data,
+  ApiGetMetricsMetrics8Responses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -211,6 +332,74 @@ export type Options<
 
 /**
  * Health Check
+ * Health check endpoint
+ */
+export const defaultHealthCheck = <ThrowOnError extends boolean = false>(
+  options?: Options<DefaultHealthCheckData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    DefaultHealthCheckResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/health",
+    ...options,
+  });
+};
+
+/**
+ * Root
+ * Root endpoint
+ */
+export const defaultRoot = <ThrowOnError extends boolean = false>(
+  options?: Options<DefaultRootData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    DefaultRootResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/",
+    ...options,
+  });
+};
+
+/**
+ * Gateway Health
+ * Gateway health check
+ */
+export const defaultGatewayHealth = <ThrowOnError extends boolean = false>(
+  options?: Options<DefaultGatewayHealthData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    DefaultGatewayHealthResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/health",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetrics = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetricsData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetMetricsMetricsResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/auth/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Health Check
  * Health check endpoint.
  */
 export const apiGetHealthHealthCheck = <ThrowOnError extends boolean = false>(
@@ -221,36 +410,7 @@ export const apiGetHealthHealthCheck = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/health",
-    ...options,
-  });
-};
-
-/**
- * Metrics
- * Prometheus metrics endpoint.
- */
-export const apiGetMetricsMetrics = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetricsData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetricsResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/metrics",
+    url: "/api/v1/auth/health",
     ...options,
   });
 };
@@ -267,759 +427,48 @@ export const apiGetRootRoot = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/",
+    url: "/api/v1/auth/",
     ...options,
   });
 };
 
 /**
- * Health Check
+ * Openid Configuration
+ * OpenID Connect Discovery endpoint.
  */
-export const healthGetApiV1HealthCheckHealthCheck = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<HealthGetApiV1HealthCheckHealthCheckData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    HealthGetApiV1HealthCheckHealthCheckResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/health/check",
-    ...options,
-  });
-};
-
-/**
- * Get Services Health
- */
-export const healthGetApiV1HealthServicesGetServicesHealth = <
+export const apiGetWellKnownOpenidConfigurationOpenidConfiguration = <
   ThrowOnError extends boolean = false,
 >(
   options?: Options<
-    HealthGetApiV1HealthServicesGetServicesHealthData,
+    ApiGetWellKnownOpenidConfigurationOpenidConfigurationData,
     ThrowOnError
   >
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    HealthGetApiV1HealthServicesGetServicesHealthResponses,
+    ApiGetWellKnownOpenidConfigurationOpenidConfigurationResponses,
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/health/services",
+    url: "/api/v1/auth/.well-known/openid_configuration",
     ...options,
   });
 };
 
 /**
- * Get Metrics
+ * Jwks
+ * JSON Web Key Set endpoint.
  */
-export const monitoringGetApiV1MonitoringMetricsGetMetrics = <
+export const apiGetWellKnownJwksJsonJwks = <
   ThrowOnError extends boolean = false,
 >(
-  options?: Options<
-    MonitoringGetApiV1MonitoringMetricsGetMetricsData,
-    ThrowOnError
-  >
+  options?: Options<ApiGetWellKnownJwksJsonJwksData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    MonitoringGetApiV1MonitoringMetricsGetMetricsResponses,
+    ApiGetWellKnownJwksJsonJwksResponses,
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/monitoring/metrics",
-    ...options,
-  });
-};
-
-/**
- * Get Alerts
- */
-export const monitoringGetApiV1MonitoringAlertsGetAlerts = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<
-    MonitoringGetApiV1MonitoringAlertsGetAlertsData,
-    ThrowOnError
-  >
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    MonitoringGetApiV1MonitoringAlertsGetAlertsResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/monitoring/alerts",
-    ...options,
-  });
-};
-
-/**
- * Create Log
- */
-export const loggingPostApiV1LoggingLogCreateLog = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<LoggingPostApiV1LoggingLogCreateLogData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).post<
-    LoggingPostApiV1LoggingLogCreateLogResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/logging/log",
-    ...options,
-  });
-};
-
-/**
- * Get Logs
- */
-export const loggingGetApiV1LoggingLogsGetLogs = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<LoggingGetApiV1LoggingLogsGetLogsData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    LoggingGetApiV1LoggingLogsGetLogsResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/logging/logs",
-    ...options,
-  });
-};
-
-/**
- * Check Rate Limit
- */
-export const rateLimitPostApiV1RateLimiterLimitCheckRateLimit = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<
-    RateLimitPostApiV1RateLimiterLimitCheckRateLimitData,
-    ThrowOnError
-  >
-) => {
-  return (options?.client ?? _heyApiClient).post<
-    RateLimitPostApiV1RateLimiterLimitCheckRateLimitResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/rate-limiter/limit",
-    ...options,
-  });
-};
-
-/**
- * Get Rate Limit Status
- */
-export const rateLimitGetApiV1RateLimiterStatusGetRateLimitStatus = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<
-    RateLimitGetApiV1RateLimiterStatusGetRateLimitStatusData,
-    ThrowOnError
-  >
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    RateLimitGetApiV1RateLimiterStatusGetRateLimitStatusResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/rate-limiter/status",
-    ...options,
-  });
-};
-
-/**
- * Verify Bvn
- * Verify BVN using Dojah API.
- */
-export const apiPostApiV1VerifyVerifyBvn = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1VerifyVerifyBvnData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1VerifyVerifyBvnResponses,
-    ApiPostApiV1VerifyVerifyBvnErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/bvn/verify",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Bvn Status
- * Get BVN verification status.
- */
-export const apiGetApiV1StatusBvnGetBvnStatus = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiGetApiV1StatusBvnGetBvnStatusData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).get<
-    ApiGetApiV1StatusBvnGetBvnStatusResponses,
-    ApiGetApiV1StatusBvnGetBvnStatusErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/bvn/status/{bvn}",
-    ...options,
-  });
-};
-
-/**
- * Lookup Bvn Basic
- * Basic BVN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupBvnBasic = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1LookupLookupBvnBasicData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1LookupLookupBvnBasicResponses,
-    ApiPostApiV1LookupLookupBvnBasicErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/bvn/lookup",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Match Bvn
- * Match BVN against provided identity attributes (placeholder).
- */
-export const apiPostApiV1MatchMatchBvn = <ThrowOnError extends boolean = false>(
-  options: Options<ApiPostApiV1MatchMatchBvnData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1MatchMatchBvnResponses,
-    ApiPostApiV1MatchMatchBvnErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/bvn/match",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Supported Banks
- * Return supported Nigerian banks (placeholder list).
- */
-export const apiGetApiV1BanksGetSupportedBanks = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<ApiGetApiV1BanksGetSupportedBanksData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetApiV1BanksGetSupportedBanksResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/bvn/banks",
-    ...options,
-  });
-};
-
-/**
- * Initiate Call
- */
-export const ivrPostApiV1IvrCallInitiateCall = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<IvrPostApiV1IvrCallInitiateCallData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).post<
-    IvrPostApiV1IvrCallInitiateCallResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ivr/call",
-    ...options,
-  });
-};
-
-/**
- * Get Menu
- */
-export const ivrGetApiV1IvrMenuGetMenu = <ThrowOnError extends boolean = false>(
-  options?: Options<IvrGetApiV1IvrMenuGetMenuData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    IvrGetApiV1IvrMenuGetMenuResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ivr/menu",
-    ...options,
-  });
-};
-
-/**
- * Verify Nin
- * Verify NIN using Dojah API.
- */
-export const apiPostApiV1VerifyVerifyNin = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1VerifyVerifyNinData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1VerifyVerifyNinResponses,
-    ApiPostApiV1VerifyVerifyNinErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/nin/verify",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Nin Status
- * Get NIN verification status.
- */
-export const apiGetApiV1StatusNinGetNinStatus = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiGetApiV1StatusNinGetNinStatusData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).get<
-    ApiGetApiV1StatusNinGetNinStatusResponses,
-    ApiGetApiV1StatusNinGetNinStatusErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/nin/status/{nin}",
-    ...options,
-  });
-};
-
-/**
- * Lookup Nin Basic
- * Basic NIN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupNinBasic = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1LookupLookupNinBasicData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1LookupLookupNinBasicResponses,
-    ApiPostApiV1LookupLookupNinBasicErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/nin/lookup",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Send Sms
- */
-export const twoWaySmsPostApiV1TwoWaySmsSendSendSms = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<TwoWaySmsPostApiV1TwoWaySmsSendSendSmsData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).post<
-    TwoWaySmsPostApiV1TwoWaySmsSendSendSmsResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/two-way-sms/send",
-    ...options,
-  });
-};
-
-/**
- * Receive Sms
- */
-export const twoWaySmsPostApiV1TwoWaySmsReceiveReceiveSms = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<
-    TwoWaySmsPostApiV1TwoWaySmsReceiveReceiveSmsData,
-    ThrowOnError
-  >
-) => {
-  return (options?.client ?? _heyApiClient).post<
-    TwoWaySmsPostApiV1TwoWaySmsReceiveReceiveSmsResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/two-way-sms/receive",
-    ...options,
-  });
-};
-
-/**
- * Get Services Health
- * 💚 Platform Health Overview
- *
- * Comprehensive health check for all backend services.
- * Essential for monitoring Nigerian DPI platform status.
- */
-export const healthGetApiV1ServicesHealthGetServicesHealth = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<
-    HealthGetApiV1ServicesHealthGetServicesHealthData,
-    ThrowOnError
-  >
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    HealthGetApiV1ServicesHealthGetServicesHealthResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/services/health",
-    ...options,
-  });
-};
-
-/**
- * Get Dpi Health
- * 🇳🇬 Nigerian DPI Services Health
- *
- * Focused health check for core DPI services.
- * Tailored for Nigerian startup developers.
- */
-export const healthGetApiV1DpiHealthGetDpiHealth = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<HealthGetApiV1DpiHealthGetDpiHealthData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    HealthGetApiV1DpiHealthGetDpiHealthResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/dpi/health",
-    ...options,
-  });
-};
-
-/**
- * Get Service Health
- * 🔍 Individual Service Health
- *
- * Detailed health check for a specific service.
- * Essential for troubleshooting and monitoring.
- */
-export const healthGetApiV1ServicesServiceNameHealthGetServiceHealth = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<
-    HealthGetApiV1ServicesServiceNameHealthGetServiceHealthData,
-    ThrowOnError
-  >
-) => {
-  return (options.client ?? _heyApiClient).get<
-    HealthGetApiV1ServicesServiceNameHealthGetServiceHealthResponses,
-    HealthGetApiV1ServicesServiceNameHealthGetServiceHealthErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/services/{service_name}/health",
-    ...options,
-  });
-};
-
-/**
- * Get Service Metrics
- * 📈 Service Performance Metrics
- *
- * Detailed performance and usage metrics for specific service.
- * Critical for capacity planning and optimization.
- */
-export const healthGetApiV1ServicesServiceNameMetricsGetServiceMetrics = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<
-    HealthGetApiV1ServicesServiceNameMetricsGetServiceMetricsData,
-    ThrowOnError
-  >
-) => {
-  return (options.client ?? _heyApiClient).get<
-    HealthGetApiV1ServicesServiceNameMetricsGetServiceMetricsResponses,
-    HealthGetApiV1ServicesServiceNameMetricsGetServiceMetricsErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/services/{service_name}/metrics",
-    ...options,
-  });
-};
-
-/**
- * Nin Examples
- * 📋 NIN Verification Examples
- */
-export const examplesGetApiV1ExamplesNinNinExamples = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<ExamplesGetApiV1ExamplesNinNinExamplesData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ExamplesGetApiV1ExamplesNinNinExamplesResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/examples/nin",
-    ...options,
-  });
-};
-
-/**
- * Sms Examples
- * 📱 Nigerian SMS Examples
- */
-export const examplesGetApiV1ExamplesSmsSmsExamples = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<ExamplesGetApiV1ExamplesSmsSmsExamplesData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ExamplesGetApiV1ExamplesSmsSmsExamplesResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/examples/sms",
-    ...options,
-  });
-};
-
-/**
- * Auth Examples
- * 🔐 OAuth2 Bearer Token Examples
- */
-export const examplesGetApiV1ExamplesAuthAuthExamples = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<ExamplesGetApiV1ExamplesAuthAuthExamplesData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ExamplesGetApiV1ExamplesAuthAuthExamplesResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/examples/auth",
-    ...options,
-  });
-};
-
-/**
- * Integration Examples
- * 🚀 Complete DPI Integration Examples
- */
-export const examplesGetApiV1ExamplesIntegrationIntegrationExamples = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<
-    ExamplesGetApiV1ExamplesIntegrationIntegrationExamplesData,
-    ThrowOnError
-  >
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ExamplesGetApiV1ExamplesIntegrationIntegrationExamplesResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/examples/integration",
+    url: "/api/v1/auth/.well-known/jwks.json",
     ...options,
   });
 };
@@ -1058,12 +507,6 @@ export const authenticationPostApiV1AuthLoginLoginUser = <
     ThrowOnError
   >({
     ...urlSearchParamsBodySerializer,
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
     url: "/api/v1/auth/login",
     ...options,
     headers: {
@@ -1112,12 +555,6 @@ export const authenticationPostApiV1AuthLoginJsonLoginUserJson = <
     AuthenticationPostApiV1AuthLoginJsonLoginUserJsonErrors,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
     url: "/api/v1/auth/login/json",
     ...options,
     headers: {
@@ -1201,29 +638,26 @@ export const authenticationPostApiV1AuthLogoutLogoutUser = <
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
     url: "/api/v1/auth/logout",
     ...options,
   });
 };
 
 /**
- * Oauth Token
- * 🔑 OAuth2 Token Endpoint
+ * Create Oauth Client
+ * Create a new OAuth2 client.
  */
-export const authPostApiV1AuthTokenOauthToken = <
+export const oauth2PostApiV1Oauth2ClientsCreateOauthClient = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<AuthPostApiV1AuthTokenOauthTokenData, ThrowOnError>
+  options: Options<
+    Oauth2PostApiV1Oauth2ClientsCreateOauthClientData,
+    ThrowOnError
+  >
 ) => {
   return (options.client ?? _heyApiClient).post<
-    AuthPostApiV1AuthTokenOauthTokenResponses,
-    AuthPostApiV1AuthTokenOauthTokenErrors,
+    Oauth2PostApiV1Oauth2ClientsCreateOauthClientResponses,
+    Oauth2PostApiV1Oauth2ClientsCreateOauthClientErrors,
     ThrowOnError
   >({
     security: [
@@ -1232,10 +666,87 @@ export const authPostApiV1AuthTokenOauthToken = <
         type: "http",
       },
     ],
-    url: "/api/v1/auth/token",
+    url: "/api/v1/auth/oauth2/clients",
     ...options,
     headers: {
       "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Oauth Client
+ * Get OAuth2 client by ID.
+ */
+export const oauth2GetApiV1Oauth2ClientsClientIdGetOauthClient = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientData,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).get<
+    Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientResponses,
+    Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/auth/oauth2/clients/{client_id}",
+    ...options,
+  });
+};
+
+/**
+ * Authorize
+ * OAuth2 authorization endpoint.
+ */
+export const oauth2GetApiV1Oauth2AuthorizeAuthorize = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<Oauth2GetApiV1Oauth2AuthorizeAuthorizeData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    Oauth2GetApiV1Oauth2AuthorizeAuthorizeResponses,
+    Oauth2GetApiV1Oauth2AuthorizeAuthorizeErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/auth/oauth2/authorize",
+    ...options,
+  });
+};
+
+/**
+ * Get Token
+ * OAuth2 token endpoint.
+ */
+export const oauth2PostApiV1Oauth2TokenGetToken = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<Oauth2PostApiV1Oauth2TokenGetTokenData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    Oauth2PostApiV1Oauth2TokenGetTokenResponses,
+    Oauth2PostApiV1Oauth2TokenGetTokenErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/auth/oauth2/token",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
       ...options.headers,
     },
   });
@@ -1604,110 +1115,16 @@ export const adminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword = <
 };
 
 /**
- * Create Oauth Client
- * Create a new OAuth2 client.
- */
-export const oauth2PostApiV1Oauth2ClientsCreateOauthClient = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<
-    Oauth2PostApiV1Oauth2ClientsCreateOauthClientData,
-    ThrowOnError
-  >
-) => {
-  return (options.client ?? _heyApiClient).post<
-    Oauth2PostApiV1Oauth2ClientsCreateOauthClientResponses,
-    Oauth2PostApiV1Oauth2ClientsCreateOauthClientErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/auth/oauth2/clients",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Oauth Client
- * Get OAuth2 client by ID.
- */
-export const oauth2GetApiV1Oauth2ClientsClientIdGetOauthClient = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<
-    Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientData,
-    ThrowOnError
-  >
-) => {
-  return (options.client ?? _heyApiClient).get<
-    Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientResponses,
-    Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClientErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/auth/oauth2/clients/{client_id}",
-    ...options,
-  });
-};
-
-/**
- * Authorize
- * OAuth2 authorization endpoint.
- */
-export const oauth2GetApiV1Oauth2AuthorizeAuthorize = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<Oauth2GetApiV1Oauth2AuthorizeAuthorizeData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).get<
-    Oauth2GetApiV1Oauth2AuthorizeAuthorizeResponses,
-    Oauth2GetApiV1Oauth2AuthorizeAuthorizeErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/auth/oauth2/authorize",
-    ...options,
-  });
-};
-
-/**
  * Send Sms
- * 📱 Send SMS to Nigerian Number
  */
-export const smsPostApiV1SmsSendSendSms = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<SmsPostApiV1SmsSendSendSmsData, ThrowOnError>
+export const smsPostApiV1SendSendSms = <ThrowOnError extends boolean = false>(
+  options: Options<SmsPostApiV1SendSendSmsData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1SmsSendSendSmsResponses,
-    SmsPostApiV1SmsSendSendSmsErrors,
+    SmsPostApiV1SendSendSmsResponses,
+    SmsPostApiV1SendSendSmsErrors,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
     url: "/api/v1/sms/send",
     ...options,
     headers: {
@@ -1719,24 +1136,17 @@ export const smsPostApiV1SmsSendSendSms = <
 
 /**
  * Send Bulk Sms
- * 📤 Send Bulk SMS Messages
  */
-export const smsPostApiV1SmsBulkSendBulkSms = <
+export const smsPostApiV1BulkSendBulkSms = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<SmsPostApiV1SmsBulkSendBulkSmsData, ThrowOnError>
+  options: Options<SmsPostApiV1BulkSendBulkSmsData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1SmsBulkSendBulkSmsResponses,
-    SmsPostApiV1SmsBulkSendBulkSmsErrors,
+    SmsPostApiV1BulkSendBulkSmsResponses,
+    SmsPostApiV1BulkSendBulkSmsErrors,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
     url: "/api/v1/sms/bulk",
     ...options,
     headers: {
@@ -1747,25 +1157,94 @@ export const smsPostApiV1SmsBulkSendBulkSms = <
 };
 
 /**
- * Generate Otp
- * 🔐 Generate and Send OTP
+ * Send Bulk Sms Alias
  */
-export const smsPostApiV1SmsOtpGenerateGenerateOtp = <
+export const smsPostApiV1SendBulkSendBulkSmsAlias = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<SmsPostApiV1SmsOtpGenerateGenerateOtpData, ThrowOnError>
+  options: Options<SmsPostApiV1SendBulkSendBulkSmsAliasData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1SmsOtpGenerateGenerateOtpResponses,
-    SmsPostApiV1SmsOtpGenerateGenerateOtpErrors,
+    SmsPostApiV1SendBulkSendBulkSmsAliasResponses,
+    SmsPostApiV1SendBulkSendBulkSmsAliasErrors,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
+    url: "/api/v1/sms/send-bulk",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Message Status
+ */
+export const smsGetApiV1StatusMessageIdGetMessageStatus = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SmsGetApiV1StatusMessageIdGetMessageStatusData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    SmsGetApiV1StatusMessageIdGetMessageStatusResponses,
+    SmsGetApiV1StatusMessageIdGetMessageStatusErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/sms/status/{message_id}",
+    ...options,
+  });
+};
+
+/**
+ * Get Sms Balance
+ */
+export const smsGetApiV1BalanceGetSmsBalance = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<SmsGetApiV1BalanceGetSmsBalanceData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    SmsGetApiV1BalanceGetSmsBalanceResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/sms/balance",
+    ...options,
+  });
+};
+
+/**
+ * Get Message Templates
+ */
+export const smsGetApiV1TemplatesGetMessageTemplates = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<SmsGetApiV1TemplatesGetMessageTemplatesData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    SmsGetApiV1TemplatesGetMessageTemplatesResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/sms/templates",
+    ...options,
+  });
+};
+
+/**
+ * Generate Otp
+ */
+export const smsPostApiV1OtpGenerateGenerateOtp = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SmsPostApiV1OtpGenerateGenerateOtpData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    SmsPostApiV1OtpGenerateGenerateOtpResponses,
+    SmsPostApiV1OtpGenerateGenerateOtpErrors,
+    ThrowOnError
+  >({
     url: "/api/v1/sms/otp/generate",
     ...options,
     headers: {
@@ -1777,24 +1256,17 @@ export const smsPostApiV1SmsOtpGenerateGenerateOtp = <
 
 /**
  * Verify Otp
- * ✅ Verify OTP Code
  */
-export const smsPostApiV1SmsOtpVerifyVerifyOtp = <
+export const smsPostApiV1OtpVerifyVerifyOtp = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<SmsPostApiV1SmsOtpVerifyVerifyOtpData, ThrowOnError>
+  options: Options<SmsPostApiV1OtpVerifyVerifyOtpData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1SmsOtpVerifyVerifyOtpResponses,
-    SmsPostApiV1SmsOtpVerifyVerifyOtpErrors,
+    SmsPostApiV1OtpVerifyVerifyOtpResponses,
+    SmsPostApiV1OtpVerifyVerifyOtpErrors,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
     url: "/api/v1/sms/otp/verify",
     ...options,
     headers: {
@@ -1805,276 +1277,33 @@ export const smsPostApiV1SmsOtpVerifyVerifyOtp = <
 };
 
 /**
- * Get Message Status
- * 📊 Check Message Delivery Status
+ * Health Check
  */
-export const smsGetApiV1SmsStatusMessageIdGetMessageStatus = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<
-    SmsGetApiV1SmsStatusMessageIdGetMessageStatusData,
-    ThrowOnError
-  >
-) => {
-  return (options.client ?? _heyApiClient).get<
-    SmsGetApiV1SmsStatusMessageIdGetMessageStatusResponses,
-    SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/sms/status/{message_id}",
-    ...options,
-  });
-};
-
-/**
- * Get Sms Balance
- * 💰 Check SMS Credit Balance
- */
-export const smsGetApiV1SmsBalanceGetSmsBalance = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<SmsGetApiV1SmsBalanceGetSmsBalanceData, ThrowOnError>
+export const apiGetHealthHealthCheck2 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck2Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    SmsGetApiV1SmsBalanceGetSmsBalanceResponses,
+    ApiGetHealthHealthCheck2Responses,
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/sms/balance",
+    url: "/api/v1/sms/health",
     ...options,
   });
 };
 
 /**
- * Get Message Templates
- * 📝 Get Message Templates
+ * Root
  */
-export const smsGetApiV1SmsTemplatesGetMessageTemplates = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<
-    SmsGetApiV1SmsTemplatesGetMessageTemplatesData,
-    ThrowOnError
-  >
+export const apiGetRootRoot2 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot2Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    SmsGetApiV1SmsTemplatesGetMessageTemplatesResponses,
+    ApiGetRootRoot2Responses,
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/sms/templates",
-    ...options,
-  });
-};
-
-/**
- * Chat Completion
- * 🤖 Interactive Chat Completion
- */
-export const aiPostApiV1AiChatChatCompletion = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<AiPostApiV1AiChatChatCompletionData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    AiPostApiV1AiChatChatCompletionResponses,
-    AiPostApiV1AiChatChatCompletionErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/chat",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Generate Content
- * 📝 Generate Content
- */
-export const aiPostApiV1AiGenerateGenerateContent = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<AiPostApiV1AiGenerateGenerateContentData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    AiPostApiV1AiGenerateGenerateContentResponses,
-    AiPostApiV1AiGenerateGenerateContentErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/generate",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Analyze Text
- * 🔍 Analyze Text Content
- */
-export const aiPostApiV1AiAnalyzeAnalyzeText = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<AiPostApiV1AiAnalyzeAnalyzeTextData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    AiPostApiV1AiAnalyzeAnalyzeTextResponses,
-    AiPostApiV1AiAnalyzeAnalyzeTextErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/analyze",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Translate Text
- * 🌍 Nigerian Language Translation
- */
-export const aiPostApiV1AiTranslateTranslateText = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<AiPostApiV1AiTranslateTranslateTextData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    AiPostApiV1AiTranslateTranslateTextResponses,
-    AiPostApiV1AiTranslateTranslateTextErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/translate",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Available Models
- * 🧠 Get Available AI Models
- */
-export const aiGetApiV1AiModelsGetAvailableModels = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<AiGetApiV1AiModelsGetAvailableModelsData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    AiGetApiV1AiModelsGetAvailableModelsResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/models",
-    ...options,
-  });
-};
-
-/**
- * Get Conversation
- * 💬 Get Conversation History
- */
-export const aiGetApiV1AiConversationsConversationIdGetConversation = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<
-    AiGetApiV1AiConversationsConversationIdGetConversationData,
-    ThrowOnError
-  >
-) => {
-  return (options.client ?? _heyApiClient).get<
-    AiGetApiV1AiConversationsConversationIdGetConversationResponses,
-    AiGetApiV1AiConversationsConversationIdGetConversationErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/conversations/{conversation_id}",
-    ...options,
-  });
-};
-
-/**
- * Get Usage Statistics
- * 📊 Get Token Usage Statistics
- */
-export const aiGetApiV1AiUsageGetUsageStatistics = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<AiGetApiV1AiUsageGetUsageStatisticsData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    AiGetApiV1AiUsageGetUsageStatisticsResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/ai/usage",
+    url: "/api/v1/sms/",
     ...options,
   });
 };
@@ -2091,128 +1320,368 @@ export const apiGetMetricsMetrics2 = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/auth/metrics",
+    url: "/api/v1/sms/metrics",
     ...options,
   });
 };
 
 /**
- * Health Check
- * Health check endpoint.
+ * Health
  */
-export const apiGetHealthHealthCheck2 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck2Data, ThrowOnError>
+export const healthHealthGet = <ThrowOnError extends boolean = false>(
+  options?: Options<HealthHealthGetData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck2Responses,
+    HealthHealthGetResponses,
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/auth/health",
+    url: "/api/v1/ai/health",
     ...options,
   });
 };
 
 /**
- * Root
- * Root endpoint.
+ * Ready
  */
-export const apiGetRootRoot2 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetRootRoot2Data, ThrowOnError>
+export const readyReadyGet = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadyReadyGetData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetRootRoot2Responses,
+    ReadyReadyGetResponses,
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/auth/",
+    url: "/api/v1/ai/ready",
     ...options,
   });
 };
 
 /**
- * Openid Configuration
- * OpenID Connect Discovery endpoint.
+ * Retrieve available AI models
+ * This endpoint returns a list of all available AI models that can be used for generating responses.
+ *
+ * **Behavior**:
+ * - Fetches all currently supported models from the Groq AI platform.
+ * - Returns the models as a simple list of strings (model names or IDs).
+ * - No authentication is required for anonymous access (optional to add auth later).
+ *
+ * **Response**:
+ * - `200 OK`: A JSON list of model names/IDs, for example:
+ * ```json
+ * [
+ * {
+ * "id": "meta-llama/llama-4-maverick-17b-128e-instruct",
+ * "owned_by": "Meta",
+ * "active": true,
+ * "context_window": 131072,
+ * "max_completion_tokens": 8192
+ * }
+ * ]
+ * ```
+ *
+ * **Notes**:
+ * - This list is dynamic and may change as new models are added or deprecated.
+ * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
  */
-export const apiGetWellKnownOpenidConfigurationOpenidConfiguration = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<
-    ApiGetWellKnownOpenidConfigurationOpenidConfigurationData,
-    ThrowOnError
-  >
+export const getModelsApiV1ModelsGet = <ThrowOnError extends boolean = false>(
+  options?: Options<GetModelsApiV1ModelsGetData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetWellKnownOpenidConfigurationOpenidConfigurationResponses,
+    GetModelsApiV1ModelsGetResponses,
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/auth/.well-known/openid_configuration",
+    url: "/api/v1/ai/models/",
     ...options,
   });
 };
 
 /**
- * Jwks
- * JSON Web Key Set endpoint.
+ * Send a message to the AI and receive a response
+ * This endpoint allows the user to send a message to the AI model and receive a response.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Behavior**:
+ * - If `session_id` is provided, the message will be added to that session.
+ * - If `session_id` is not provided, a new session will be created automatically.
+ * - The AI response is generated using the specified model and parameters.
+ *
+ * **Request Body Parameters**:
+ * - `model_id` (optional, string): The AI model to use for generating responses. Defaults to the platform default if not provided.
+ * - `session_id` (optional, string): Existing chat session ID. Leave empty to start a new session.
+ * - `user_input` (required, string): The message text you want the AI to respond to.
+ * - `is_openai` (optional, boolean): Set `True` to use OpenAI API; `False` to use internal AI model. Defaults to `False`.
+ * - `temperature` (optional, float): Controls randomness of AI responses (0 = deterministic, 1 = creative). Default is 0.0.
+ * - `max_tokens` (optional, int): Maximum tokens allowed in AI response. Defaults to 2000.
+ * - `system_prompt` (optional, string): Custom system prompt to guide AI behavior.
+ *
+ * **Response**:
+ * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps.
+ * - `session_id` (string): The session ID for the conversation.
+ * - `is_openai` (boolean): Indicates which AI engine generated the response.
  */
-export const apiGetWellKnownJwksJsonJwks = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<ApiGetWellKnownJwksJsonJwksData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetWellKnownJwksJsonJwksResponses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/auth/.well-known/jwks.json",
-    ...options,
-  });
-};
-
-/**
- * Get Token
- * OAuth2 token endpoint.
- */
-export const oauth2PostApiV1Oauth2TokenGetToken = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<Oauth2PostApiV1Oauth2TokenGetTokenData, ThrowOnError>
+export const chatApiV1ChatPost = <ThrowOnError extends boolean = false>(
+  options: Options<ChatApiV1ChatPostData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    Oauth2PostApiV1Oauth2TokenGetTokenResponses,
-    Oauth2PostApiV1Oauth2TokenGetTokenErrors,
+    ChatApiV1ChatPostResponses,
+    ChatApiV1ChatPostErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/chat/",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Retrieve the chat history for a session
+ * Fetches all messages for a specific chat session.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Path Parameters**:
+ * - `session_id` (string, required): The ID of the session whose messages you want to retrieve.
+ *
+ * **Response**:
+ * - `chat_messages` (list of messages): Messages in chronological order.
+ * - `session_id` (string): The session ID.
+ * - `is_openai` (boolean): Always `False` for retrieved messages.
+ *
+ * **Errors**:
+ * - `404 Not Found`: If the session does not exist.
+ * - `500 Internal Server Error`: If there is a server/database error.
+ */
+export const getChatHistoryApiV1ChatSessionIdSessionGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetChatHistoryApiV1ChatSessionIdSessionGetData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetChatHistoryApiV1ChatSessionIdSessionGetResponses,
+    GetChatHistoryApiV1ChatSessionIdSessionGetErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/chat/{session_id}/session",
+    ...options,
+  });
+};
+
+/**
+ * Get all chat sessions
+ * Returns a list of all chat sessions for the anonymous user.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Response**:
+ * - List of `ChatSession` objects, each containing session metadata and associated messages.
+ */
+export const getChatSessionsApiV1ChatSessionsAllGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetChatSessionsApiV1ChatSessionsAllGetData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetChatSessionsApiV1ChatSessionsAllGetResponses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/chat/sessions/all",
+    ...options,
+  });
+};
+
+/**
+ * Query the RAG (Retrieval-Augmented Generation) system
+ * This endpoint allows users to query the RAG system, which combines a vector database
+ * with a language model to generate answers based on uploaded documents.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Parameters:**
+ * - `user_request.query` (str): The text query you want the system to answer.
+ * - `user_request.model_id` (Optional[str]): The ID of the LLM model to use. If not provided, the default model is used.
+ * - `user_request.system_prompt` (Optional[str]): Optional custom system prompt to influence the answer.
+ *
+ * **Behavior:**
+ * - Uses the embedding model stored in the application state to retrieve relevant documents.
+ * - Passes the retrieved context along with the query to the specified LLM.
+ * - Returns the generated answer.
+ *
+ * **Response:**
+ * ```json
+ * {
+ * "answer": "The system-generated answer based on your query and documents."
+ * }
+ * ```
+ */
+export const queryRagApiV1RagQueryPost = <ThrowOnError extends boolean = false>(
+  options: Options<QueryRagApiV1RagQueryPostData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    QueryRagApiV1RagQueryPostResponses,
+    QueryRagApiV1RagQueryPostErrors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/rag/query",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Upload documents for RAG system
+ * This endpoint allows users to upload documents (PDFs, text files, etc.)
+ * that will be processed and embedded for retrieval by the RAG system.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Parameters:**
+ * - `files` (List[UploadFile]): A list of files to upload. Multiple files can be uploaded at once.
+ *
+ * **Behavior:**
+ * - Embeds the uploaded documents using the system's embedding model.
+ * - Stores them in the vector database for later retrieval.
+ * - Each document is associated with the user ID (currently using 'anonymous').
+ *
+ * **Response:**
+ * ```json
+ * {
+ * "status": "success",
+ * "uploaded_files": ["file1.pdf", "file2.txt"]
+ * }
+ * ```
+ */
+export const uploadForRagApiV1RagUploadPost = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UploadForRagApiV1RagUploadPostData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UploadForRagApiV1RagUploadPostResponses,
+    UploadForRagApiV1RagUploadPostErrors,
+    ThrowOnError
+  >({
+    ...formDataBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/rag/upload",
+    ...options,
+    headers: {
+      "Content-Type": null,
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Transcribe audio to text
+ * Convert an audio file into written text.
+ *
+ * **Parameters:**
+ * - `file` (UploadFile): The audio file to transcribe. Supported formats include mp3, wav, etc.
+ * - `language` (str, optional): Language code of the audio. Defaults to 'en' (English).
+ * - `model` (str, optional): The transcription model to use. Defaults to 'mansa_v1'.
+ *
+ * **Returns:**
+ * - `text` (str): The transcribed text from the audio.
+ */
+export const speechToTextApiV1SpitchSpeechToTextPost = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SpeechToTextApiV1SpitchSpeechToTextPostData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    SpeechToTextApiV1SpitchSpeechToTextPostResponses,
+    SpeechToTextApiV1SpitchSpeechToTextPostErrors,
+    ThrowOnError
+  >({
+    ...formDataBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/spitch/speech-to-text",
+    ...options,
+    headers: {
+      "Content-Type": null,
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Generate speech from text
+ * Convert input text into spoken audio (speech).
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Parameters:**
+ * - `text` (str): The text content to convert to speech.
+ * - `language` (str, optional): Language code for speech generation. Defaults to 'en'.
+ * - `voice` (str, optional): The voice to use for speech. Defaults to 'lina'.
+ *
+ * **Returns:**
+ * - An audio file (MP3) containing the spoken text.
+ */
+export const textToSpeechApiV1SpitchTextToSpeechPost = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<TextToSpeechApiV1SpitchTextToSpeechPostData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    TextToSpeechApiV1SpitchTextToSpeechPostResponses,
+    TextToSpeechApiV1SpitchTextToSpeechPostErrors,
     ThrowOnError
   >({
     ...urlSearchParamsBodySerializer,
@@ -2222,10 +1691,150 @@ export const oauth2PostApiV1Oauth2TokenGetToken = <
         type: "http",
       },
     ],
-    url: "/api/v1/auth/oauth2/token",
+    url: "/api/v1/ai/spitch/text-to-speech",
     ...options,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Translate text between languages
+ * Translate input text from a source language to a target language.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Parameters:**
+ * - `text` (str): The text content to translate.
+ * - `source` (str, optional): Source language code. Defaults to 'en' (English).
+ * - `target` (str, optional): Target language code. Defaults to 'yo' (Yoruba).
+ *
+ * **Returns:**
+ * - `translation` (str): The translated text.
+ */
+export const translateApiV1SpitchTranslatePost = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<TranslateApiV1SpitchTranslatePostData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    TranslateApiV1SpitchTranslatePostResponses,
+    TranslateApiV1SpitchTranslatePostErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/spitch/translate",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Root
+ */
+export const rootGet = <ThrowOnError extends boolean = false>(
+  options?: Options<RootGetData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    RootGetResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ai/",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const metricsMetricsGet = <ThrowOnError extends boolean = false>(
+  options?: Options<MetricsMetricsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    MetricsMetricsGetResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ai/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Verify Nin
+ * Verify NIN using Dojah API.
+ */
+export const apiPostApiV1VerifyVerifyNin = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiPostApiV1VerifyVerifyNinData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1VerifyVerifyNinResponses,
+    ApiPostApiV1VerifyVerifyNinErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/nin/verify",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Nin Status
+ * Get NIN verification status.
+ */
+export const apiGetApiV1StatusNinGetNinStatus = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiGetApiV1StatusNinGetNinStatusData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    ApiGetApiV1StatusNinGetNinStatusResponses,
+    ApiGetApiV1StatusNinGetNinStatusErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/nin/status/{nin}",
+    ...options,
+  });
+};
+
+/**
+ * Lookup Nin Basic
+ * Basic NIN lookup without full verification.
+ */
+export const apiPostApiV1LookupLookupNinBasic = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiPostApiV1LookupLookupNinBasicData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1LookupLookupNinBasicResponses,
+    ApiPostApiV1LookupLookupNinBasicErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/nin/lookup",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
       ...options.headers,
     },
   });
@@ -2242,35 +1851,7 @@ export const apiGetHealthHealthCheck3 = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/sms/health",
-    ...options,
-  });
-};
-
-/**
- * Root
- */
-export const apiGetRootRoot3 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetRootRoot3Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetRootRoot3Responses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/sms/",
+    url: "/api/v1/nin/health",
     ...options,
   });
 };
@@ -2287,13 +1868,112 @@ export const apiGetMetricsMetrics3 = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/sms/metrics",
+    url: "/api/v1/nin/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Verify Bvn
+ * Verify BVN using Dojah API.
+ */
+export const apiPostApiV1VerifyVerifyBvn = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiPostApiV1VerifyVerifyBvnData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1VerifyVerifyBvnResponses,
+    ApiPostApiV1VerifyVerifyBvnErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/bvn/verify",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Bvn Status
+ * Get BVN verification status.
+ */
+export const apiGetApiV1StatusBvnGetBvnStatus = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiGetApiV1StatusBvnGetBvnStatusData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    ApiGetApiV1StatusBvnGetBvnStatusResponses,
+    ApiGetApiV1StatusBvnGetBvnStatusErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/bvn/status/{bvn}",
+    ...options,
+  });
+};
+
+/**
+ * Lookup Bvn Basic
+ * Basic BVN lookup without full verification.
+ */
+export const apiPostApiV1LookupLookupBvnBasic = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiPostApiV1LookupLookupBvnBasicData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1LookupLookupBvnBasicResponses,
+    ApiPostApiV1LookupLookupBvnBasicErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/bvn/lookup",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Match Bvn
+ * Match BVN against provided identity attributes (placeholder).
+ */
+export const apiPostApiV1MatchMatchBvn = <ThrowOnError extends boolean = false>(
+  options: Options<ApiPostApiV1MatchMatchBvnData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1MatchMatchBvnResponses,
+    ApiPostApiV1MatchMatchBvnErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/bvn/match",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Supported Banks
+ * Return supported Nigerian banks (placeholder list).
+ */
+export const apiGetApiV1BanksGetSupportedBanks = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<ApiGetApiV1BanksGetSupportedBanksData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetApiV1BanksGetSupportedBanksResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/bvn/banks",
     ...options,
   });
 };
@@ -2309,12 +1989,6 @@ export const apiGetHealthHealthCheck4 = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
     url: "/api/v1/bvn/health",
     ...options,
   });
@@ -2332,35 +2006,7 @@ export const apiGetMetricsMetrics4 = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
     url: "/api/v1/bvn/metrics",
-    ...options,
-  });
-};
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck5 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck5Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck5Responses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/nin/health",
     ...options,
   });
 };
@@ -2377,13 +2023,1771 @@ export const apiGetMetricsMetrics5 = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
+    url: "/auth/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Health Check
+ * Health check endpoint.
+ */
+export const apiGetHealthHealthCheck5 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck5Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetHealthHealthCheck5Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/auth/health",
+    ...options,
+  });
+};
+
+/**
+ * Root
+ * Root endpoint.
+ */
+export const apiGetRootRoot3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot3Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetRootRoot3Responses,
+    unknown,
+    ThrowOnError
+  >({
     security: [
       {
         scheme: "bearer",
         type: "http",
       },
     ],
-    url: "/api/v1/nin/metrics",
+    url: "/auth/",
+    ...options,
+  });
+};
+
+/**
+ * Openid Configuration
+ * OpenID Connect Discovery endpoint.
+ */
+export const apiGetWellKnownOpenidConfigurationOpenidConfiguration2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<
+    ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Data,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/auth/.well-known/openid_configuration",
+    ...options,
+  });
+};
+
+/**
+ * Jwks
+ * JSON Web Key Set endpoint.
+ */
+export const apiGetWellKnownJwksJsonJwks2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<ApiGetWellKnownJwksJsonJwks2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetWellKnownJwksJsonJwks2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/auth/.well-known/jwks.json",
+    ...options,
+  });
+};
+
+/**
+ * Login User
+ * 🔐 OAuth2 Compatible Login
+ *
+ * Authenticate user with form data and return JWT tokens.
+ * Compatible with OAuth2 password flow for API clients.
+ *
+ * **Request Format:**
+ * - Content-Type: application/x-www-form-urlencoded
+ * - username: Email or username
+ * - password: User password
+ *
+ * **Response:**
+ * - access_token: JWT token for API access
+ * - refresh_token: Token for refreshing access
+ * - token_type: "bearer"
+ * - expires_in: Token expiration in seconds
+ *
+ * **Use Cases:**
+ * - OAuth2 client applications
+ * - API integrations requiring form-based auth
+ * - Third-party service authentication
+ */
+export const authenticationPostApiV1AuthLoginLoginUser2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<AuthenticationPostApiV1AuthLoginLoginUser2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AuthenticationPostApiV1AuthLoginLoginUser2Responses,
+    AuthenticationPostApiV1AuthLoginLoginUser2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/auth/login",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Login User Json
+ * 🚀 JSON Login for Nigerian Startups
+ *
+ * Primary login endpoint for Nigerian DPI developers.
+ * Accepts JSON payload with email or username authentication.
+ *
+ * **Request Example:**
+ * ```json
+ * {
+ * "identifier": "adebayo@fintech.ng",  // Email or username
+ * "password": "SecurePass123"
+ * }
+ * ```
+ *
+ * **Features:**
+ * - ✅ Email or username login
+ * - ✅ JWT token generation
+ * - ✅ Last login tracking
+ * - ✅ Request correlation ID support
+ *
+ * **Nigerian Context:**
+ * - Supports Nigerian email domains (.ng, .com.ng)
+ * - Optimized for fintech and DPI applications
+ * - Audit logging for regulatory compliance
+ */
+export const authenticationPostApiV1AuthLoginJsonLoginUserJson2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    AuthenticationPostApiV1AuthLoginJsonLoginUserJson2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AuthenticationPostApiV1AuthLoginJsonLoginUserJson2Responses,
+    AuthenticationPostApiV1AuthLoginJsonLoginUserJson2Errors,
+    ThrowOnError
+  >({
+    url: "/auth/login/json",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Read User Me
+ * 👤 Get Current User Profile
+ *
+ * Retrieve authenticated user's profile information.
+ * Requires valid JWT token in Authorization header.
+ *
+ * **Headers Required:**
+ * - Authorization: Bearer {access_token}
+ *
+ * **Returns:**
+ * - User profile with Nigerian DPI context
+ * - NIN/BVN verification status
+ * - Account activity information
+ *
+ * **Security:**
+ * - Token validation required
+ * - Active user status check
+ * - Soft-delete filtering applied
+ */
+export const authenticationGetApiV1AuthMeReadUserMe2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<AuthenticationGetApiV1AuthMeReadUserMe2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    AuthenticationGetApiV1AuthMeReadUserMe2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/me",
+    ...options,
+  });
+};
+
+/**
+ * Logout User
+ * 🚪 User Logout
+ *
+ * Logout current user session.
+ * Client should remove tokens from storage.
+ *
+ * **Process:**
+ * 1. Client receives logout confirmation
+ * 2. Client removes access/refresh tokens
+ * 3. Tokens become invalid on next request
+ *
+ * **Best Practice:**
+ * - Clear all stored authentication data
+ * - Redirect to login page
+ * - Invalidate any cached user data
+ *
+ * **Note:** Server-side token blacklisting available
+ * for enhanced security in production.
+ */
+export const authenticationPostApiV1AuthLogoutLogoutUser2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<
+    AuthenticationPostApiV1AuthLogoutLogoutUser2Data,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    AuthenticationPostApiV1AuthLogoutLogoutUser2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/logout",
+    ...options,
+  });
+};
+
+/**
+ * Create Oauth Client
+ * Create a new OAuth2 client.
+ */
+export const oauth2PostApiV1Oauth2ClientsCreateOauthClient2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    Oauth2PostApiV1Oauth2ClientsCreateOauthClient2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    Oauth2PostApiV1Oauth2ClientsCreateOauthClient2Responses,
+    Oauth2PostApiV1Oauth2ClientsCreateOauthClient2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/oauth2/clients",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Oauth Client
+ * Get OAuth2 client by ID.
+ */
+export const oauth2GetApiV1Oauth2ClientsClientIdGetOauthClient2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClient2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).get<
+    Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClient2Responses,
+    Oauth2GetApiV1Oauth2ClientsClientIdGetOauthClient2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/oauth2/clients/{client_id}",
+    ...options,
+  });
+};
+
+/**
+ * Authorize
+ * OAuth2 authorization endpoint.
+ */
+export const oauth2GetApiV1Oauth2AuthorizeAuthorize2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<Oauth2GetApiV1Oauth2AuthorizeAuthorize2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    Oauth2GetApiV1Oauth2AuthorizeAuthorize2Responses,
+    Oauth2GetApiV1Oauth2AuthorizeAuthorize2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/oauth2/authorize",
+    ...options,
+  });
+};
+
+/**
+ * Get Token
+ * OAuth2 token endpoint.
+ */
+export const oauth2PostApiV1Oauth2TokenGetToken2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<Oauth2PostApiV1Oauth2TokenGetToken2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    Oauth2PostApiV1Oauth2TokenGetToken2Responses,
+    Oauth2PostApiV1Oauth2TokenGetToken2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/oauth2/token",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * List Users
+ * 📄 List All Nigerian Startup Users
+ *
+ * Retrieve paginated list of all registered users.
+ * Includes verification status and activity metrics.
+ *
+ * **Query Parameters:**
+ * - skip: Number of records to skip (default: 0)
+ * - limit: Maximum records to return (default: 100)
+ *
+ * **Response Includes:**
+ * - User profiles with NIN/BVN status
+ * - Last login and activity data
+ * - Account verification levels
+ * - Soft-delete filtering applied
+ *
+ * **Admin Only:** Platform oversight and user management
+ */
+export const adminGetApiV1AdminUsersListUsers2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<AdminGetApiV1AdminUsersListUsers2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    AdminGetApiV1AdminUsersListUsers2Responses,
+    AdminGetApiV1AdminUsersListUsers2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/admin/users",
+    ...options,
+  });
+};
+
+/**
+ * Create User
+ * 👥 Create Nigerian Startup Account
+ *
+ * Create new user account for Nigerian DPI developers.
+ * Only accessible by platform administrators.
+ *
+ * **Request Example:**
+ * ```json
+ * {
+ * "email": "developer@fintech.ng",
+ * "username": "fintech_dev",
+ * "password": "TempPass123",
+ * "first_name": "Adebayo",
+ * "last_name": "Ogundimu",
+ * "role": "developer"  // Optional: admin, developer
+ * }
+ * ```
+ *
+ * **Features:**
+ * - ✅ Email uniqueness validation
+ * - ✅ Username availability check
+ * - ✅ Automatic welcome email
+ * - ✅ Nigerian domain support (.ng, .com.ng)
+ *
+ * **Admin Access Required:**
+ * - Must be authenticated as admin
+ * - Closed sandbox: Only 9 Nigerian startups
+ */
+export const adminPostApiV1AdminUsersCreateUser2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<AdminPostApiV1AdminUsersCreateUser2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AdminPostApiV1AdminUsersCreateUser2Responses,
+    AdminPostApiV1AdminUsersCreateUser2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/admin/users",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Delete User
+ * 🗑️ Soft Delete User Account
+ *
+ * Mark user account as deleted (soft delete).
+ * Preserves data for audit compliance.
+ *
+ * **Process:**
+ * 1. Sets is_deleted = true
+ * 2. Records deletion timestamp
+ * 3. Maintains audit trail
+ * 4. Frees email/username for reuse
+ *
+ * **Data Retention:**
+ * - User data preserved for compliance
+ * - API access immediately revoked
+ * - Email/username become available
+ *
+ * **NDPR Compliant:** Nigerian Data Protection Regulation
+ */
+export const adminDeleteApiV1AdminUsersUserIdDeleteUser2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    AdminDeleteApiV1AdminUsersUserIdDeleteUser2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).delete<
+    AdminDeleteApiV1AdminUsersUserIdDeleteUser2Responses,
+    AdminDeleteApiV1AdminUsersUserIdDeleteUser2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/admin/users/{user_id}",
+    ...options,
+  });
+};
+
+/**
+ * Get User
+ * 🔍 Get Specific User Details
+ *
+ * Retrieve detailed information for a specific user.
+ * Includes full profile and verification status.
+ *
+ * **Path Parameters:**
+ * - user_id: Unique user identifier
+ *
+ * **Returns:**
+ * - Complete user profile
+ * - NIN/BVN verification status
+ * - Account activity history
+ * - Role and permissions
+ *
+ * **Use Cases:**
+ * - User support and troubleshooting
+ * - Account verification review
+ * - Compliance auditing
+ */
+export const adminGetApiV1AdminUsersUserIdGetUser2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<AdminGetApiV1AdminUsersUserIdGetUser2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    AdminGetApiV1AdminUsersUserIdGetUser2Responses,
+    AdminGetApiV1AdminUsersUserIdGetUser2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/admin/users/{user_id}",
+    ...options,
+  });
+};
+
+/**
+ * Update User
+ * ✏️ Update User Profile
+ *
+ * Modify user account information and settings.
+ * Supports partial updates with validation.
+ *
+ * **Updatable Fields:**
+ * - first_name, last_name
+ * - email (with uniqueness check)
+ * - username (with availability check)
+ * - role (admin, developer)
+ * - is_active status
+ *
+ * **Validation:**
+ * - Email format and domain validation
+ * - Username uniqueness across platform
+ * - Role permission verification
+ *
+ * **Audit Trail:** All changes logged for compliance
+ */
+export const adminPutApiV1AdminUsersUserIdUpdateUser2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<AdminPutApiV1AdminUsersUserIdUpdateUser2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).put<
+    AdminPutApiV1AdminUsersUserIdUpdateUser2Responses,
+    AdminPutApiV1AdminUsersUserIdUpdateUser2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/admin/users/{user_id}",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Activate User
+ * ✅ Activate User Account
+ *
+ * Enable user account for API access.
+ * Restores full platform functionality.
+ *
+ * **Effects:**
+ * - Enables login and API access
+ * - Restores DPI service usage
+ * - Allows NIN/BVN verification
+ * - Resumes audit logging
+ *
+ * **Use Cases:**
+ * - New account activation
+ * - Account restoration after suspension
+ * - Startup onboarding completion
+ *
+ * **Notification:** User receives activation email
+ */
+export const adminPostApiV1AdminUsersUserIdActivateActivateUser2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    AdminPostApiV1AdminUsersUserIdActivateActivateUser2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AdminPostApiV1AdminUsersUserIdActivateActivateUser2Responses,
+    AdminPostApiV1AdminUsersUserIdActivateActivateUser2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/admin/users/{user_id}/activate",
+    ...options,
+  });
+};
+
+/**
+ * Deactivate User
+ * ❌ Deactivate User Account
+ *
+ * Suspend user account and revoke API access.
+ * Temporary suspension without data loss.
+ *
+ * **Effects:**
+ * - Blocks login attempts
+ * - Revokes API access tokens
+ * - Suspends DPI service usage
+ * - Maintains audit trail
+ *
+ * **Use Cases:**
+ * - Policy violation suspension
+ * - Security incident response
+ * - Temporary account freeze
+ *
+ * **Reversible:** Account can be reactivated
+ */
+export const adminPostApiV1AdminUsersUserIdDeactivateDeactivateUser2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    AdminPostApiV1AdminUsersUserIdDeactivateDeactivateUser2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AdminPostApiV1AdminUsersUserIdDeactivateDeactivateUser2Responses,
+    AdminPostApiV1AdminUsersUserIdDeactivateDeactivateUser2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/admin/users/{user_id}/deactivate",
+    ...options,
+  });
+};
+
+/**
+ * Reset User Password
+ * 🔑 Admin Password Reset
+ *
+ * Reset user password for account recovery.
+ * Sends secure notification to user email.
+ *
+ * **Request Body:**
+ * ```json
+ * {
+ * "new_password": "NewSecurePass123"
+ * }
+ * ```
+ *
+ * **Security Process:**
+ * 1. Validates admin permissions
+ * 2. Hashes new password securely
+ * 3. Updates user credentials
+ * 4. Sends notification email
+ * 5. Logs password change event
+ *
+ * **Best Practice:** User should change password on next login
+ */
+export const adminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Responses,
+    AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/auth/api/v1/admin/users/{user_id}/reset-password",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Send Sms
+ */
+export const smsPostApiV1SendSendSms2 = <ThrowOnError extends boolean = false>(
+  options: Options<SmsPostApiV1SendSendSms2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    SmsPostApiV1SendSendSms2Responses,
+    SmsPostApiV1SendSendSms2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/api/v1/send",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Send Bulk Sms
+ */
+export const smsPostApiV1BulkSendBulkSms2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SmsPostApiV1BulkSendBulkSms2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    SmsPostApiV1BulkSendBulkSms2Responses,
+    SmsPostApiV1BulkSendBulkSms2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/api/v1/bulk",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Send Bulk Sms Alias
+ */
+export const smsPostApiV1SendBulkSendBulkSmsAlias2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SmsPostApiV1SendBulkSendBulkSmsAlias2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    SmsPostApiV1SendBulkSendBulkSmsAlias2Responses,
+    SmsPostApiV1SendBulkSendBulkSmsAlias2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/api/v1/send-bulk",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Message Status
+ */
+export const smsGetApiV1StatusMessageIdGetMessageStatus2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    SmsGetApiV1StatusMessageIdGetMessageStatus2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).get<
+    SmsGetApiV1StatusMessageIdGetMessageStatus2Responses,
+    SmsGetApiV1StatusMessageIdGetMessageStatus2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/api/v1/status/{message_id}",
+    ...options,
+  });
+};
+
+/**
+ * Get Sms Balance
+ */
+export const smsGetApiV1BalanceGetSmsBalance2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<SmsGetApiV1BalanceGetSmsBalance2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    SmsGetApiV1BalanceGetSmsBalance2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/api/v1/balance",
+    ...options,
+  });
+};
+
+/**
+ * Get Message Templates
+ */
+export const smsGetApiV1TemplatesGetMessageTemplates2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<SmsGetApiV1TemplatesGetMessageTemplates2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    SmsGetApiV1TemplatesGetMessageTemplates2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/api/v1/templates",
+    ...options,
+  });
+};
+
+/**
+ * Generate Otp
+ */
+export const smsPostApiV1OtpGenerateGenerateOtp2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SmsPostApiV1OtpGenerateGenerateOtp2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    SmsPostApiV1OtpGenerateGenerateOtp2Responses,
+    SmsPostApiV1OtpGenerateGenerateOtp2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/api/v1/otp/generate",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Verify Otp
+ */
+export const smsPostApiV1OtpVerifyVerifyOtp2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SmsPostApiV1OtpVerifyVerifyOtp2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    SmsPostApiV1OtpVerifyVerifyOtp2Responses,
+    SmsPostApiV1OtpVerifyVerifyOtp2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/api/v1/otp/verify",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Health Check
+ */
+export const apiGetHealthHealthCheck6 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck6Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetHealthHealthCheck6Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/sms/health",
+    ...options,
+  });
+};
+
+/**
+ * Root
+ */
+export const apiGetRootRoot4 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot4Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetRootRoot4Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetrics6 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics6Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetMetricsMetrics6Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/sms/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Health
+ */
+export const healthHealthGet2 = <ThrowOnError extends boolean = false>(
+  options?: Options<HealthHealthGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    HealthHealthGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/ai/health",
+    ...options,
+  });
+};
+
+/**
+ * Ready
+ */
+export const readyReadyGet2 = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadyReadyGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ReadyReadyGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/ready",
+    ...options,
+  });
+};
+
+/**
+ * Retrieve available AI models
+ * This endpoint returns a list of all available AI models that can be used for generating responses.
+ *
+ * **Behavior**:
+ * - Fetches all currently supported models from the Groq AI platform.
+ * - Returns the models as a simple list of strings (model names or IDs).
+ * - No authentication is required for anonymous access (optional to add auth later).
+ *
+ * **Response**:
+ * - `200 OK`: A JSON list of model names/IDs, for example:
+ * ```json
+ * [
+ * {
+ * "id": "meta-llama/llama-4-maverick-17b-128e-instruct",
+ * "owned_by": "Meta",
+ * "active": true,
+ * "context_window": 131072,
+ * "max_completion_tokens": 8192
+ * }
+ * ]
+ * ```
+ *
+ * **Notes**:
+ * - This list is dynamic and may change as new models are added or deprecated.
+ * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
+ */
+export const getModelsApiV1ModelsGet2 = <ThrowOnError extends boolean = false>(
+  options?: Options<GetModelsApiV1ModelsGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetModelsApiV1ModelsGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/models/",
+    ...options,
+  });
+};
+
+/**
+ * Send a message to the AI and receive a response
+ * This endpoint allows the user to send a message to the AI model and receive a response.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Behavior**:
+ * - If `session_id` is provided, the message will be added to that session.
+ * - If `session_id` is not provided, a new session will be created automatically.
+ * - The AI response is generated using the specified model and parameters.
+ *
+ * **Request Body Parameters**:
+ * - `model_id` (optional, string): The AI model to use for generating responses. Defaults to the platform default if not provided.
+ * - `session_id` (optional, string): Existing chat session ID. Leave empty to start a new session.
+ * - `user_input` (required, string): The message text you want the AI to respond to.
+ * - `is_openai` (optional, boolean): Set `True` to use OpenAI API; `False` to use internal AI model. Defaults to `False`.
+ * - `temperature` (optional, float): Controls randomness of AI responses (0 = deterministic, 1 = creative). Default is 0.0.
+ * - `max_tokens` (optional, int): Maximum tokens allowed in AI response. Defaults to 2000.
+ * - `system_prompt` (optional, string): Custom system prompt to guide AI behavior.
+ *
+ * **Response**:
+ * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps.
+ * - `session_id` (string): The session ID for the conversation.
+ * - `is_openai` (boolean): Indicates which AI engine generated the response.
+ */
+export const chatApiV1ChatPost2 = <ThrowOnError extends boolean = false>(
+  options: Options<ChatApiV1ChatPost2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ChatApiV1ChatPost2Responses,
+    ChatApiV1ChatPost2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/chat/",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Retrieve the chat history for a session
+ * Fetches all messages for a specific chat session.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Path Parameters**:
+ * - `session_id` (string, required): The ID of the session whose messages you want to retrieve.
+ *
+ * **Response**:
+ * - `chat_messages` (list of messages): Messages in chronological order.
+ * - `session_id` (string): The session ID.
+ * - `is_openai` (boolean): Always `False` for retrieved messages.
+ *
+ * **Errors**:
+ * - `404 Not Found`: If the session does not exist.
+ * - `500 Internal Server Error`: If there is a server/database error.
+ */
+export const getChatHistoryApiV1ChatSessionIdSessionGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    GetChatHistoryApiV1ChatSessionIdSessionGet2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetChatHistoryApiV1ChatSessionIdSessionGet2Responses,
+    GetChatHistoryApiV1ChatSessionIdSessionGet2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/chat/{session_id}/session",
+    ...options,
+  });
+};
+
+/**
+ * Get all chat sessions
+ * Returns a list of all chat sessions for the anonymous user.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Response**:
+ * - List of `ChatSession` objects, each containing session metadata and associated messages.
+ */
+export const getChatSessionsApiV1ChatSessionsAllGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetChatSessionsApiV1ChatSessionsAllGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetChatSessionsApiV1ChatSessionsAllGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/chat/sessions/all",
+    ...options,
+  });
+};
+
+/**
+ * Query the RAG (Retrieval-Augmented Generation) system
+ * This endpoint allows users to query the RAG system, which combines a vector database
+ * with a language model to generate answers based on uploaded documents.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Parameters:**
+ * - `user_request.query` (str): The text query you want the system to answer.
+ * - `user_request.model_id` (Optional[str]): The ID of the LLM model to use. If not provided, the default model is used.
+ * - `user_request.system_prompt` (Optional[str]): Optional custom system prompt to influence the answer.
+ *
+ * **Behavior:**
+ * - Uses the embedding model stored in the application state to retrieve relevant documents.
+ * - Passes the retrieved context along with the query to the specified LLM.
+ * - Returns the generated answer.
+ *
+ * **Response:**
+ * ```json
+ * {
+ * "answer": "The system-generated answer based on your query and documents."
+ * }
+ * ```
+ */
+export const queryRagApiV1RagQueryPost2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<QueryRagApiV1RagQueryPost2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    QueryRagApiV1RagQueryPost2Responses,
+    QueryRagApiV1RagQueryPost2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/rag/query",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Upload documents for RAG system
+ * This endpoint allows users to upload documents (PDFs, text files, etc.)
+ * that will be processed and embedded for retrieval by the RAG system.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Parameters:**
+ * - `files` (List[UploadFile]): A list of files to upload. Multiple files can be uploaded at once.
+ *
+ * **Behavior:**
+ * - Embeds the uploaded documents using the system's embedding model.
+ * - Stores them in the vector database for later retrieval.
+ * - Each document is associated with the user ID (currently using 'anonymous').
+ *
+ * **Response:**
+ * ```json
+ * {
+ * "status": "success",
+ * "uploaded_files": ["file1.pdf", "file2.txt"]
+ * }
+ * ```
+ */
+export const uploadForRagApiV1RagUploadPost2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UploadForRagApiV1RagUploadPost2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UploadForRagApiV1RagUploadPost2Responses,
+    UploadForRagApiV1RagUploadPost2Errors,
+    ThrowOnError
+  >({
+    ...formDataBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/rag/upload",
+    ...options,
+    headers: {
+      "Content-Type": null,
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Transcribe audio to text
+ * Convert an audio file into written text.
+ *
+ * **Parameters:**
+ * - `file` (UploadFile): The audio file to transcribe. Supported formats include mp3, wav, etc.
+ * - `language` (str, optional): Language code of the audio. Defaults to 'en' (English).
+ * - `model` (str, optional): The transcription model to use. Defaults to 'mansa_v1'.
+ *
+ * **Returns:**
+ * - `text` (str): The transcribed text from the audio.
+ */
+export const speechToTextApiV1SpitchSpeechToTextPost2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SpeechToTextApiV1SpitchSpeechToTextPost2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    SpeechToTextApiV1SpitchSpeechToTextPost2Responses,
+    SpeechToTextApiV1SpitchSpeechToTextPost2Errors,
+    ThrowOnError
+  >({
+    ...formDataBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/spitch/speech-to-text",
+    ...options,
+    headers: {
+      "Content-Type": null,
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Generate speech from text
+ * Convert input text into spoken audio (speech).
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Parameters:**
+ * - `text` (str): The text content to convert to speech.
+ * - `language` (str, optional): Language code for speech generation. Defaults to 'en'.
+ * - `voice` (str, optional): The voice to use for speech. Defaults to 'lina'.
+ *
+ * **Returns:**
+ * - An audio file (MP3) containing the spoken text.
+ */
+export const textToSpeechApiV1SpitchTextToSpeechPost2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<TextToSpeechApiV1SpitchTextToSpeechPost2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    TextToSpeechApiV1SpitchTextToSpeechPost2Responses,
+    TextToSpeechApiV1SpitchTextToSpeechPost2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/spitch/text-to-speech",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Translate text between languages
+ * Translate input text from a source language to a target language.
+ *
+ * **Authentication**:
+ * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
+ * - Tokens are issued by the Auth service: `POST /api/v1/auth/login`
+ *
+ * **Parameters:**
+ * - `text` (str): The text content to translate.
+ * - `source` (str, optional): Source language code. Defaults to 'en' (English).
+ * - `target` (str, optional): Target language code. Defaults to 'yo' (Yoruba).
+ *
+ * **Returns:**
+ * - `translation` (str): The translated text.
+ */
+export const translateApiV1SpitchTranslatePost2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<TranslateApiV1SpitchTranslatePost2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    TranslateApiV1SpitchTranslatePost2Responses,
+    TranslateApiV1SpitchTranslatePost2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/spitch/translate",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Root
+ */
+export const rootGet2 = <ThrowOnError extends boolean = false>(
+  options?: Options<RootGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    RootGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const metricsMetricsGet2 = <ThrowOnError extends boolean = false>(
+  options?: Options<MetricsMetricsGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    MetricsMetricsGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/ai/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Verify Nin
+ * Verify NIN using Dojah API.
+ */
+export const apiPostApiV1VerifyVerifyNin2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiPostApiV1VerifyVerifyNin2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1VerifyVerifyNin2Responses,
+    ApiPostApiV1VerifyVerifyNin2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/nin/api/v1/verify",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Nin Status
+ * Get NIN verification status.
+ */
+export const apiGetApiV1StatusNinGetNinStatus2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiGetApiV1StatusNinGetNinStatus2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    ApiGetApiV1StatusNinGetNinStatus2Responses,
+    ApiGetApiV1StatusNinGetNinStatus2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/nin/api/v1/status/{nin}",
+    ...options,
+  });
+};
+
+/**
+ * Lookup Nin Basic
+ * Basic NIN lookup without full verification.
+ */
+export const apiPostApiV1LookupLookupNinBasic2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiPostApiV1LookupLookupNinBasic2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1LookupLookupNinBasic2Responses,
+    ApiPostApiV1LookupLookupNinBasic2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/nin/api/v1/lookup",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Health Check
+ */
+export const apiGetHealthHealthCheck7 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck7Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetHealthHealthCheck7Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/nin/health",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetrics7 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics7Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetMetricsMetrics7Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/nin/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Verify Bvn
+ * Verify BVN using Dojah API.
+ */
+export const apiPostApiV1VerifyVerifyBvn2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiPostApiV1VerifyVerifyBvn2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1VerifyVerifyBvn2Responses,
+    ApiPostApiV1VerifyVerifyBvn2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/bvn/api/v1/verify",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Bvn Status
+ * Get BVN verification status.
+ */
+export const apiGetApiV1StatusBvnGetBvnStatus2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiGetApiV1StatusBvnGetBvnStatus2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    ApiGetApiV1StatusBvnGetBvnStatus2Responses,
+    ApiGetApiV1StatusBvnGetBvnStatus2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/bvn/api/v1/status/{bvn}",
+    ...options,
+  });
+};
+
+/**
+ * Lookup Bvn Basic
+ * Basic BVN lookup without full verification.
+ */
+export const apiPostApiV1LookupLookupBvnBasic2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiPostApiV1LookupLookupBvnBasic2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1LookupLookupBvnBasic2Responses,
+    ApiPostApiV1LookupLookupBvnBasic2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/bvn/api/v1/lookup",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Match Bvn
+ * Match BVN against provided identity attributes (placeholder).
+ */
+export const apiPostApiV1MatchMatchBvn2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ApiPostApiV1MatchMatchBvn2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ApiPostApiV1MatchMatchBvn2Responses,
+    ApiPostApiV1MatchMatchBvn2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/bvn/api/v1/match",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Get Supported Banks
+ * Return supported Nigerian banks (placeholder list).
+ */
+export const apiGetApiV1BanksGetSupportedBanks2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<ApiGetApiV1BanksGetSupportedBanks2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetApiV1BanksGetSupportedBanks2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/bvn/api/v1/banks",
+    ...options,
+  });
+};
+
+/**
+ * Health Check
+ */
+export const apiGetHealthHealthCheck8 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck8Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetHealthHealthCheck8Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/bvn/health",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetrics8 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics8Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetMetricsMetrics8Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/bvn/metrics",
     ...options,
   });
 };

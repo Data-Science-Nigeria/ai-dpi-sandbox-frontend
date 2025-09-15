@@ -9,36 +9,44 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction",
   },
   {
-    title: "Ai Service",
+    title: "AI Service",
     href: "/introduction/services/ai",
-  },
-  {
-    title: "Chat",
-    href: "/introduction/services/ai/chat",
-  },
-  {
-    title: "Generate",
-    href: "/introduction/services/ai/generate",
-  },
-  {
-    title: "Analyze",
-    href: "/introduction/services/ai/analyze",
-  },
-  {
-    title: "Translate",
-    href: "/introduction/services/ai/translate",
   },
   {
     title: "Models",
     href: "/introduction/services/ai/models",
   },
   {
-    title: "Conversations",
-    href: "/introduction/services/ai/conversations",
+    title: "Chat",
+    href: "/introduction/services/ai/chat",
   },
   {
-    title: "Usage",
-    href: "/introduction/services/ai/usage",
+    title: "Chat Session",
+    href: "/introduction/services/ai/chat-session",
+  },
+  {
+    title: "Chat Sessions All",
+    href: "/introduction/services/ai/chat-sessions-all",
+  },
+  {
+    title: "Rag Query",
+    href: "/introduction/services/ai/rag-query",
+  },
+  {
+    title: "Rag Upload",
+    href: "/introduction/services/ai/rag-upload",
+  },
+  {
+    title: "Spitch Speech To Text",
+    href: "/introduction/services/ai/spitch-speech-to-text",
+  },
+  {
+    title: "Spitch Text To Speech",
+    href: "/introduction/services/ai/spitch-text-to-speech",
+  },
+  {
+    title: "Spitch Translate",
+    href: "/introduction/services/ai/spitch-translate",
   },
   {
     title: "Bvn Service",
@@ -63,18 +71,6 @@ export const navigationPages: NavigationPage[] = [
   {
     title: "Banks",
     href: "/introduction/services/bvn/banks",
-  },
-  {
-    title: "Ivr Service",
-    href: "/introduction/services/ivr",
-  },
-  {
-    title: "Call",
-    href: "/introduction/services/ivr/call",
-  },
-  {
-    title: "Menu",
-    href: "/introduction/services/ivr/menu",
   },
   {
     title: "Nin Service",
@@ -105,12 +101,8 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/sms/bulk",
   },
   {
-    title: "Otp",
-    href: "/introduction/services/sms/otp",
-  },
-  {
-    title: "Otp",
-    href: "/introduction/services/sms/otp",
+    title: "Send Bulk",
+    href: "/introduction/services/sms/send-bulk",
   },
   {
     title: "Status",
@@ -125,16 +117,12 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/sms/templates",
   },
   {
-    title: "Two-way-sms Service",
-    href: "/introduction/services/two-way-sms",
+    title: "Otp Generate",
+    href: "/introduction/services/sms/otp-generate",
   },
   {
-    title: "Send",
-    href: "/introduction/services/two-way-sms/send",
-  },
-  {
-    title: "Receive",
-    href: "/introduction/services/two-way-sms/receive",
+    title: "Otp Verify",
+    href: "/introduction/services/sms/otp-verify",
   },
 ];
 
