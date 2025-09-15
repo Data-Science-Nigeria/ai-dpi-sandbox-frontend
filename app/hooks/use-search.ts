@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { useSearchStore } from "../store/use-search-store";
 
 export const useSearch = () => {
@@ -13,6 +14,16 @@ export const useSearch = () => {
   } = useSearchStore();
   const [matchCount, setMatchCount] = useState(0);
   const [matches, setMatches] = useState<HTMLElement[]>([]);
+  const pathname = usePathname();
+  const prevPathnameRef = useRef(pathname);
+
+  // Clear search when pathname changes
+  useEffect(() => {
+    if (prevPathnameRef.current !== pathname && query) {
+      clearSearch();
+    }
+    prevPathnameRef.current = pathname;
+  }, [pathname, clearSearch, query]);
 
   useEffect(() => {
     // Prevent running during SSR
