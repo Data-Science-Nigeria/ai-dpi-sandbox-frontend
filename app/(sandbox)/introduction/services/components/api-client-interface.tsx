@@ -8,7 +8,7 @@ interface RequestData {
   method: string;
   url: string;
   headers: { key: string; value: string; enabled: boolean }[];
-  body: string;
+  body: string | FormData;
 }
 
 interface ResponseData {
@@ -18,6 +18,8 @@ interface ResponseData {
   data: unknown;
   duration: number;
   size: number;
+  isDownloadable?: boolean;
+  blob?: Blob;
 }
 
 interface ApiClientInterfaceProps {
@@ -50,6 +52,13 @@ export function ApiClientInterface({
       };
 
       if (request.method !== "GET" && request.body) {
+        // Don't set Content-Type header for FormData - browser will set it with boundary
+        if (
+          typeof request.body === "object" &&
+          request.body instanceof FormData
+        ) {
+          delete headers["Content-Type"];
+        }
         fetchOptions.body = request.body;
       }
 
@@ -64,8 +73,25 @@ export function ApiClientInterface({
       const contentType = response.headers.get("content-type");
       let data;
       let responseText = "";
+      let isDownloadable = false;
+      let blob: Blob | undefined;
 
-      if (contentType?.includes("application/json")) {
+      // Check if response is downloadable (binary content)
+      if (
+        contentType &&
+        (contentType.includes("application/pdf") ||
+          contentType.includes("application/octet-stream") ||
+          contentType.includes("image/") ||
+          contentType.includes("video/") ||
+          contentType.includes("audio/") ||
+          (contentType.startsWith("application/") &&
+            !contentType.includes("json")))
+      ) {
+        blob = await response.blob();
+        data = `Binary content (${blob.size} bytes)`;
+        responseText = data;
+        isDownloadable = true;
+      } else if (contentType?.includes("application/json")) {
         responseText = await response.text();
         try {
           data = JSON.parse(responseText);
@@ -77,7 +103,7 @@ export function ApiClientInterface({
         responseText = data;
       }
 
-      const size = new Blob([responseText]).size;
+      const size = blob ? blob.size : new Blob([responseText]).size;
 
       setResponse({
         status: response.status,
@@ -86,6 +112,8 @@ export function ApiClientInterface({
         data,
         duration,
         size,
+        isDownloadable,
+        blob,
       });
     } catch (error) {
       const duration = Date.now() - startTime;

@@ -22,6 +22,8 @@ interface ResponseData {
   data: unknown;
   duration: number;
   size: number;
+  isDownloadable?: boolean;
+  blob?: Blob;
 }
 
 interface ResponseViewerProps {
@@ -67,13 +69,33 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
   const downloadResponse = () => {
     if (!response) return;
 
-    const blob = new Blob([JSON.stringify(response.data, null, 2)], {
-      type: "application/json",
-    });
+    let blob: Blob;
+    let filename: string;
+
+    if (response.isDownloadable && response.blob) {
+      blob = response.blob;
+      const contentType = response.headers["content-type"] || "";
+      if (contentType.includes("pdf")) filename = "response.pdf";
+      else if (contentType.includes("image/png")) filename = "response.png";
+      else if (contentType.includes("image/jpeg")) filename = "response.jpg";
+      else if (contentType.includes("image/")) filename = "response.png";
+      else if (contentType.includes("audio/mpeg")) filename = "response.mp3";
+      else if (contentType.includes("audio/wav")) filename = "response.wav";
+      else if (contentType.includes("audio/")) filename = "response.mp3";
+      else if (contentType.includes("video/mp4")) filename = "response.mp4";
+      else if (contentType.includes("video/")) filename = "response.mp4";
+      else filename = "response.bin";
+    } else {
+      blob = new Blob([JSON.stringify(response.data, null, 2)], {
+        type: "application/json",
+      });
+      filename = "response.json";
+    }
+
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "response.json";
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -139,17 +161,19 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
           </div>
 
           <div className="flex flex-col xxs:flex-row gap-2">
-            <Button
-              onClick={() =>
-                copyToClipboard(JSON.stringify(response.data, null, 2))
-              }
-              variant="outline"
-              size="sm"
-              className="flex-1 xxs:flex-none"
-            >
-              <Copy className="h-4 w-4 mr-2" />
-              Copy
-            </Button>
+            {!response.isDownloadable && (
+              <Button
+                onClick={() =>
+                  copyToClipboard(JSON.stringify(response.data, null, 2))
+                }
+                variant="outline"
+                size="sm"
+                className="flex-1 xxs:flex-none"
+              >
+                <Copy className="h-4 w-4 mr-2" />
+                Copy
+              </Button>
+            )}
             <Button
               onClick={downloadResponse}
               variant="outline"
@@ -217,7 +241,18 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
         {activeTab === "body" && (
           <ScrollArea className="h-full">
             <div className="p-2 sm:p-4">
-              {viewMode === "pretty" ? (
+              {response.isDownloadable ? (
+                <div className="text-center py-8">
+                  <Download className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Binary content received ({formatBytes(response.size)})
+                  </p>
+                  <Button onClick={downloadResponse} variant="outline">
+                    <Download className="h-4 w-4 mr-2" />
+                    Download File
+                  </Button>
+                </div>
+              ) : viewMode === "pretty" ? (
                 <SyntaxHighlighter
                   language={getLanguageForHighlighter()}
                   style={tomorrow}

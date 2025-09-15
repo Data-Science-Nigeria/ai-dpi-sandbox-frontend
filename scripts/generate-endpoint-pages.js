@@ -41,8 +41,39 @@ function extractEndpointsFromTypes() {
     const category = pathParts[2]; // e.g., 'sms', 'nin', 'bvn'
     const subcategory = pathParts[3]; // e.g., 'send', 'verify'
 
-    // Skip if subcategory is health or metrics
-    if (subcategory === "health" || subcategory === "metrics") {
+    // Handle nested paths like /api/v1/sms/otp/generate
+    let endpointName = subcategory || "endpoint";
+    if (pathParts.length > 4) {
+      // For nested paths, create a unique identifier, removing path parameters
+      const nestedPath = pathParts
+        .slice(4)
+        .map((part) => part.replace(/\{[^}]+\}/g, "")) // Remove {param} patterns
+        .filter((part) => part.length > 0) // Remove empty parts
+        .join("-");
+      endpointName = nestedPath ? `${subcategory}-${nestedPath}` : subcategory;
+    }
+
+    // Remove path parameters from endpoint name
+    if (endpointName) {
+      endpointName = endpointName
+        .replace(/\{[^}]+\}/g, "")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    // Fallback if endpointName becomes empty
+    if (!endpointName) {
+      endpointName = "endpoint";
+    }
+
+    // Skip if subcategory is health or metrics or ready or endpoint
+    if (
+      subcategory === "health" ||
+      subcategory === "metrics" ||
+      subcategory === "ready" ||
+      subcategory === "endpoint" ||
+      endpointName === "endpoint"
+    ) {
       continue;
     }
 
@@ -63,6 +94,7 @@ function extractEndpointsFromTypes() {
       operationId: typeName.replace("Data", ""),
       category,
       subcategory,
+      endpointName, // Unique identifier for the endpoint
       requestType,
     });
   }
@@ -87,7 +119,7 @@ export default function ${endpoint.operationId}Page() {
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
-        <PageNavigation {...getNavigation("/introduction/services/${endpoint.category}${endpoint.subcategory ? `/${endpoint.subcategory}` : ""}")} />
+        <PageNavigation {...getNavigation("/introduction/services/${endpoint.category}/${endpoint.endpointName}")} />
       </div>
     </div>
   );
@@ -115,16 +147,28 @@ function generateNavigationFile(endpoints) {
     });
 
     const categoryEndpoints = endpoints.filter((e) => e.category === category);
+
+    // Group endpoints by unique endpointName to avoid duplicates
+    const uniqueEndpoints = [];
+    const seenEndpoints = new Set();
+
     categoryEndpoints.forEach((endpoint) => {
-      if (endpoint.subcategory) {
-        const title =
-          endpoint.subcategory.charAt(0).toUpperCase() +
-          endpoint.subcategory.slice(1);
-        navigationPages.push({
-          title,
-          href: `/introduction/services/${category}/${endpoint.subcategory}`,
-        });
+      if (
+        endpoint.endpointName &&
+        endpoint.endpointName !== "endpoint" &&
+        !seenEndpoints.has(endpoint.endpointName)
+      ) {
+        seenEndpoints.add(endpoint.endpointName);
+        uniqueEndpoints.push(endpoint);
       }
+    });
+
+    uniqueEndpoints.forEach((endpoint) => {
+      const title = formatEndpointTitle(endpoint.endpointName);
+      navigationPages.push({
+        title,
+        href: `/introduction/services/${category}/${endpoint.endpointName}`,
+      });
     });
   });
 
@@ -151,24 +195,44 @@ export function getNavigation(currentPath: string) {
 `;
 }
 
+function formatEndpointTitle(endpointName) {
+  return endpointName
+    .split("-")
+    .filter((word) => word.length > 0)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 function generateDataFile(endpoints) {
   const categories = [...new Set(endpoints.map((e) => e.category))].sort();
 
   const coreResourcesItems = categories.map((category) => {
     const categoryEndpoints = endpoints.filter((e) => e.category === category);
 
+    // Group endpoints by unique endpointName to avoid duplicates
+    const uniqueEndpoints = [];
+    const seenEndpoints = new Set();
+
+    categoryEndpoints.forEach((endpoint) => {
+      if (
+        endpoint.endpointName &&
+        endpoint.endpointName !== "endpoint" &&
+        !seenEndpoints.has(endpoint.endpointName)
+      ) {
+        seenEndpoints.add(endpoint.endpointName);
+        uniqueEndpoints.push(endpoint);
+      }
+    });
+
     return {
       id: category,
       label: category.toUpperCase(),
       href: `/introduction/services/${category}`,
-      endpoints: categoryEndpoints.map((endpoint) => ({
-        name: endpoint.subcategory
-          ? endpoint.subcategory.charAt(0).toUpperCase() +
-            endpoint.subcategory.slice(1)
-          : "Endpoint",
+      endpoints: uniqueEndpoints.map((endpoint) => ({
+        name: formatEndpointTitle(endpoint.endpointName),
         method: endpoint.method,
         path: endpoint.path,
-        href: `/introduction/services/${category}/${endpoint.subcategory}`,
+        href: `/introduction/services/${category}/${endpoint.endpointName}`,
       })),
     };
   });
@@ -244,15 +308,28 @@ function generatePages() {
       (e) => e.category === category
     );
 
-    for (const endpoint of categoryEndpoints) {
-      if (endpoint.subcategory) {
-        const endpointDir = path.join(categoryDir, endpoint.subcategory);
-        ensureDirectoryExists(endpointDir);
+    // Group endpoints by unique endpointName to avoid conflicts
+    const uniqueEndpoints = [];
+    const seenEndpoints = new Set();
 
-        const pagePath = path.join(endpointDir, "page.tsx");
-        const pageContent = generatePageContent(endpoint);
-        fs.writeFileSync(pagePath, pageContent);
+    categoryEndpoints.forEach((endpoint) => {
+      if (
+        endpoint.endpointName &&
+        endpoint.endpointName !== "endpoint" &&
+        !seenEndpoints.has(endpoint.endpointName)
+      ) {
+        seenEndpoints.add(endpoint.endpointName);
+        uniqueEndpoints.push(endpoint);
       }
+    });
+
+    for (const endpoint of uniqueEndpoints) {
+      const endpointDir = path.join(categoryDir, endpoint.endpointName);
+      ensureDirectoryExists(endpointDir);
+
+      const pagePath = path.join(endpointDir, "page.tsx");
+      const pageContent = generatePageContent(endpoint);
+      fs.writeFileSync(pagePath, pageContent);
     }
   }
 
