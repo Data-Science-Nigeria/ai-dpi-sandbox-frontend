@@ -24,6 +24,11 @@ export const services: Service[] = [
     href: "/introduction/services/ivr",
   },
   {
+    name: "MAPS",
+    description: "Mapping and location-based services",
+    href: "/introduction/services/maps",
+  },
+  {
     name: "NIN",
     description: "National Identification Number verification and validation",
     href: "/introduction/services/nin",
