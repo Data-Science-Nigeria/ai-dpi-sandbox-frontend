@@ -127,6 +127,43 @@ export const menuItems: MenuItem[] = [
         ],
       },
       {
+        id: "maps",
+        label: "MAPS",
+        href: "/introduction/services/maps",
+        endpoints: [
+          {
+            name: "Nearby",
+            method: "GET",
+            path: "/api/v1/maps/nearby/",
+            href: "/introduction/services/maps/nearby",
+          },
+          {
+            name: "Distance",
+            method: "GET",
+            path: "/api/v1/maps/distance/",
+            href: "/introduction/services/maps/distance",
+          },
+          {
+            name: "Directions",
+            method: "GET",
+            path: "/api/v1/maps/directions/",
+            href: "/introduction/services/maps/directions",
+          },
+          {
+            name: "Static",
+            method: "GET",
+            path: "/api/v1/maps/static/",
+            href: "/introduction/services/maps/static",
+          },
+          {
+            name: "Routes Routes",
+            method: "POST",
+            path: "/api/v1/maps/routes/routes/",
+            href: "/introduction/services/maps/routes-routes",
+          },
+        ],
+      },
+      {
         id: "nin",
         label: "NIN",
         href: "/introduction/services/nin",

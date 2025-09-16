@@ -50,7 +50,7 @@ export function CodeBlock({
             </>
           )}
         </button>
-        <div className="w-full">
+        <div className="w-full" style={{ overflow: "hidden" }}>
           <SyntaxHighlighter
             language={language}
             style={oneDark}
@@ -62,9 +62,11 @@ export function CodeBlock({
               lineHeight: "1.4",
               background: "hsl(var(--muted))",
               whiteSpace: "pre-wrap",
-              wordBreak: "break-word",
-              overflowWrap: "break-word",
+              wordBreak: "break-all",
+              overflowWrap: "anywhere",
               maxWidth: "100%",
+              overflow: "hidden",
+              width: "100%",
             }}
             wrapLines={true}
             wrapLongLines={true}

@@ -73,6 +73,30 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/bvn/banks",
   },
   {
+    title: "Maps Service",
+    href: "/introduction/services/maps",
+  },
+  {
+    title: "Nearby",
+    href: "/introduction/services/maps/nearby",
+  },
+  {
+    title: "Distance",
+    href: "/introduction/services/maps/distance",
+  },
+  {
+    title: "Directions",
+    href: "/introduction/services/maps/directions",
+  },
+  {
+    title: "Static",
+    href: "/introduction/services/maps/static",
+  },
+  {
+    title: "Routes Routes",
+    href: "/introduction/services/maps/routes-routes",
+  },
+  {
     title: "Nin Service",
     href: "/introduction/services/nin",
   },

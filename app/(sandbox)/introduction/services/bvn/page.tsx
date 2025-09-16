@@ -16,16 +16,16 @@ const bvnEndpoints = [
   {
     name: "Full BVN Verification",
     method: "POST",
-    path: "/api/v1/verify",
+    path: "/api/v1/bvn/verify",
     description: "Full BVN verification with Dojah API",
     examples: {
-      curl: `curl -X POST ${baseUrl}/api/v1/verify \\
+      curl: `curl -X POST ${baseUrl}/api/v1/bvn/verify \\
   -H "Authorization: Bearer $TOKEN" \\
   -H "Content-Type: application/json" \\
   -d '{
     "bvn": "12345678901"
   }'`,
-      javascript: `const response = await fetch('${baseUrl}/api/v1/verify', {
+      javascript: `const response = await fetch('${baseUrl}/api/v1/bvn/verify', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer ' + token,
@@ -38,7 +38,7 @@ const bvnEndpoints = [
       python: `import requests
 
 response = requests.post(
-    '${baseUrl}/api/v1/verify',
+    '${baseUrl}/api/v1/bvn/verify',
     headers={
         'Authorization': f'Bearer {token}',
         'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ response = requests.post(
 )`,
       php: `<?php
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/verify');
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/bvn/verify');
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Authorization: Bearer ' . $token,
@@ -62,7 +62,7 @@ $response = curl_exec($ch);
 curl_close($ch);`,
       java: `HttpClient client = HttpClient.newHttpClient();
 HttpRequest request = HttpRequest.newBuilder()
-    .uri(URI.create("${baseUrl}/api/v1/verify"))
+    .uri(URI.create("${baseUrl}/api/v1/bvn/verify"))
     .header("Authorization", "Bearer " + token)
     .header("Content-Type", "application/json")
     .POST(HttpRequest.BodyPublishers.ofString(
@@ -95,16 +95,16 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
   {
     name: "Basic BVN Lookup",
     method: "POST",
-    path: "/api/v1/lookup",
+    path: "/api/v1/bvn/lookup",
     description: "Basic BVN lookup",
     examples: {
-      curl: `curl -X POST ${baseUrl}/api/v1/lookup \\
+      curl: `curl -X POST ${baseUrl}/api/v1/bvn/lookup \\
   -H "Authorization: Bearer $TOKEN" \\
   -H "Content-Type: application/json" \\
   -d '{
     "bvn": "12345678901"
   }'`,
-      javascript: `const response = await fetch('${baseUrl}/api/v1/lookup', {
+      javascript: `const response = await fetch('${baseUrl}/api/v1/bvn/lookup', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer ' + token,
@@ -117,7 +117,7 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
       python: `import requests
 
 response = requests.post(
-    '${baseUrl}/api/v1/lookup',
+    '${baseUrl}/api/v1/bvn/lookup',
     headers={
         'Authorization': f'Bearer {token}',
         'Content-Type': 'application/json'
@@ -128,7 +128,7 @@ response = requests.post(
 )`,
       php: `<?php
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/lookup');
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/bvn/lookup');
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Authorization: Bearer ' . $token,
@@ -141,7 +141,7 @@ $response = curl_exec($ch);
 curl_close($ch);`,
       java: `HttpClient client = HttpClient.newHttpClient();
 HttpRequest request = HttpRequest.newBuilder()
-    .uri(URI.create("${baseUrl}/api/v1/lookup"))
+    .uri(URI.create("${baseUrl}/api/v1/bvn/lookup"))
     .header("Authorization", "Bearer " + token)
     .header("Content-Type", "application/json")
     .POST(HttpRequest.BodyPublishers.ofString(
@@ -174,12 +174,12 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
   {
     name: "BVN Status Check",
     method: "GET",
-    path: "/api/v1/status/{bvn}",
+    path: "/api/v1/bvn/status/{bvn}",
     description: "Get BVN verification status",
     examples: {
-      curl: `curl -X GET ${baseUrl}/api/v1/status/12345678901 \\
+      curl: `curl -X GET ${baseUrl}/api/v1/bvn/status/12345678901 \\
   -H "Authorization: Bearer $TOKEN"`,
-      javascript: `const response = await fetch('${baseUrl}/api/v1/status/12345678901', {
+      javascript: `const response = await fetch('${baseUrl}/api/v1/bvn/status/12345678901', {
   method: 'GET',
   headers: {
     'Authorization': 'Bearer ' + token
@@ -188,14 +188,14 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
       python: `import requests
 
 response = requests.get(
-    '${baseUrl}/api/v1/status/12345678901',
+    '${baseUrl}/api/v1/bvn/status/12345678901',
     headers={
         'Authorization': f'Bearer {token}'
     }
 )`,
       php: `<?php
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/status/12345678901');
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/bvn/status/12345678901');
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Authorization: Bearer ' . $token
 ]);
@@ -203,7 +203,7 @@ $response = curl_exec($ch);
 curl_close($ch);`,
       java: `HttpClient client = HttpClient.newHttpClient();
 HttpRequest request = HttpRequest.newBuilder()
-    .uri(URI.create("${baseUrl}/api/v1/status/12345678901"))
+    .uri(URI.create("${baseUrl}/api/v1/bvn/status/12345678901"))
     .header("Authorization", "Bearer " + token)
     .GET()
     .build();

@@ -62,6 +62,12 @@ import {
   apiGetApiV1BanksGetSupportedBanks,
   apiGetHealthHealthCheck4,
   apiGetMetricsMetrics4,
+  getNearbyPlacesApiV1NearbyGet,
+  getDistanceApiV1DistanceGet,
+  getDirectionsApiV1DirectionsGet,
+  getStaticMapApiV1StaticGet,
+  getRouteApiV1RoutesRoutesPost,
+  healthCheckHealthGet,
   apiGetMetricsMetrics5,
   apiGetHealthHealthCheck5,
   apiGetRootRoot3,
@@ -119,6 +125,12 @@ import {
   apiGetApiV1BanksGetSupportedBanks2,
   apiGetHealthHealthCheck8,
   apiGetMetricsMetrics8,
+  getNearbyPlacesApiV1NearbyGet2,
+  getDistanceApiV1DistanceGet2,
+  getDirectionsApiV1DirectionsGet2,
+  getStaticMapApiV1StaticGet2,
+  getRouteApiV1RoutesRoutesPost2,
+  healthCheckHealthGet2,
 } from "../sdk.gen";
 import {
   queryOptions,
@@ -226,6 +238,13 @@ import type {
   ApiGetApiV1BanksGetSupportedBanksData,
   ApiGetHealthHealthCheck4Data,
   ApiGetMetricsMetrics4Data,
+  GetNearbyPlacesApiV1NearbyGetData,
+  GetDistanceApiV1DistanceGetData,
+  GetDirectionsApiV1DirectionsGetData,
+  GetStaticMapApiV1StaticGetData,
+  GetRouteApiV1RoutesRoutesPostData,
+  GetRouteApiV1RoutesRoutesPostError,
+  HealthCheckHealthGetData,
   ApiGetMetricsMetrics5Data,
   ApiGetHealthHealthCheck5Data,
   ApiGetRootRoot3Data,
@@ -323,6 +342,13 @@ import type {
   ApiGetApiV1BanksGetSupportedBanks2Data,
   ApiGetHealthHealthCheck8Data,
   ApiGetMetricsMetrics8Data,
+  GetNearbyPlacesApiV1NearbyGet2Data,
+  GetDistanceApiV1DistanceGet2Data,
+  GetDirectionsApiV1DirectionsGet2Data,
+  GetStaticMapApiV1StaticGet2Data,
+  GetRouteApiV1RoutesRoutesPost2Data,
+  GetRouteApiV1RoutesRoutesPost2Error,
+  HealthCheckHealthGet2Data,
 } from "../types.gen";
 import { client as _heyApiClient } from "../client.gen";
 
@@ -3175,6 +3201,177 @@ export const apiGetMetricsMetrics4Options = (
   });
 };
 
+export const getNearbyPlacesApiV1NearbyGetQueryKey = (
+  options: Options<GetNearbyPlacesApiV1NearbyGetData>
+) => createQueryKey("getNearbyPlacesApiV1NearbyGet", options);
+
+/**
+ * Get Nearby Places
+ */
+export const getNearbyPlacesApiV1NearbyGetOptions = (
+  options: Options<GetNearbyPlacesApiV1NearbyGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getNearbyPlacesApiV1NearbyGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getNearbyPlacesApiV1NearbyGetQueryKey(options),
+  });
+};
+
+export const getDistanceApiV1DistanceGetQueryKey = (
+  options: Options<GetDistanceApiV1DistanceGetData>
+) => createQueryKey("getDistanceApiV1DistanceGet", options);
+
+/**
+ * Get Distance
+ */
+export const getDistanceApiV1DistanceGetOptions = (
+  options: Options<GetDistanceApiV1DistanceGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getDistanceApiV1DistanceGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getDistanceApiV1DistanceGetQueryKey(options),
+  });
+};
+
+export const getDirectionsApiV1DirectionsGetQueryKey = (
+  options: Options<GetDirectionsApiV1DirectionsGetData>
+) => createQueryKey("getDirectionsApiV1DirectionsGet", options);
+
+/**
+ * Get Directions
+ */
+export const getDirectionsApiV1DirectionsGetOptions = (
+  options: Options<GetDirectionsApiV1DirectionsGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getDirectionsApiV1DirectionsGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getDirectionsApiV1DirectionsGetQueryKey(options),
+  });
+};
+
+export const getStaticMapApiV1StaticGetQueryKey = (
+  options: Options<GetStaticMapApiV1StaticGetData>
+) => createQueryKey("getStaticMapApiV1StaticGet", options);
+
+/**
+ * Get Static Map
+ */
+export const getStaticMapApiV1StaticGetOptions = (
+  options: Options<GetStaticMapApiV1StaticGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getStaticMapApiV1StaticGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getStaticMapApiV1StaticGetQueryKey(options),
+  });
+};
+
+export const getRouteApiV1RoutesRoutesPostQueryKey = (
+  options: Options<GetRouteApiV1RoutesRoutesPostData>
+) => createQueryKey("getRouteApiV1RoutesRoutesPost", options);
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPostOptions = (
+  options: Options<GetRouteApiV1RoutesRoutesPostData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getRouteApiV1RoutesRoutesPost({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getRouteApiV1RoutesRoutesPostQueryKey(options),
+  });
+};
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPostMutation = (
+  options?: Partial<Options<GetRouteApiV1RoutesRoutesPostData>>
+): UseMutationOptions<
+  unknown,
+  GetRouteApiV1RoutesRoutesPostError,
+  Options<GetRouteApiV1RoutesRoutesPostData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    GetRouteApiV1RoutesRoutesPostError,
+    Options<GetRouteApiV1RoutesRoutesPostData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await getRouteApiV1RoutesRoutesPost({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const healthCheckHealthGetQueryKey = (
+  options?: Options<HealthCheckHealthGetData>
+) => createQueryKey("healthCheckHealthGet", options);
+
+/**
+ * Health Check
+ */
+export const healthCheckHealthGetOptions = (
+  options?: Options<HealthCheckHealthGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await healthCheckHealthGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: healthCheckHealthGetQueryKey(options),
+  });
+};
+
 export const apiGetMetricsMetrics5QueryKey = (
   options?: Options<ApiGetMetricsMetrics5Data>
 ) => createQueryKey("apiGetMetricsMetrics5", options);
@@ -5918,5 +6115,176 @@ export const apiGetMetricsMetrics8Options = (
       return data;
     },
     queryKey: apiGetMetricsMetrics8QueryKey(options),
+  });
+};
+
+export const getNearbyPlacesApiV1NearbyGet2QueryKey = (
+  options: Options<GetNearbyPlacesApiV1NearbyGet2Data>
+) => createQueryKey("getNearbyPlacesApiV1NearbyGet2", options);
+
+/**
+ * Get Nearby Places
+ */
+export const getNearbyPlacesApiV1NearbyGet2Options = (
+  options: Options<GetNearbyPlacesApiV1NearbyGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getNearbyPlacesApiV1NearbyGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getNearbyPlacesApiV1NearbyGet2QueryKey(options),
+  });
+};
+
+export const getDistanceApiV1DistanceGet2QueryKey = (
+  options: Options<GetDistanceApiV1DistanceGet2Data>
+) => createQueryKey("getDistanceApiV1DistanceGet2", options);
+
+/**
+ * Get Distance
+ */
+export const getDistanceApiV1DistanceGet2Options = (
+  options: Options<GetDistanceApiV1DistanceGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getDistanceApiV1DistanceGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getDistanceApiV1DistanceGet2QueryKey(options),
+  });
+};
+
+export const getDirectionsApiV1DirectionsGet2QueryKey = (
+  options: Options<GetDirectionsApiV1DirectionsGet2Data>
+) => createQueryKey("getDirectionsApiV1DirectionsGet2", options);
+
+/**
+ * Get Directions
+ */
+export const getDirectionsApiV1DirectionsGet2Options = (
+  options: Options<GetDirectionsApiV1DirectionsGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getDirectionsApiV1DirectionsGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getDirectionsApiV1DirectionsGet2QueryKey(options),
+  });
+};
+
+export const getStaticMapApiV1StaticGet2QueryKey = (
+  options: Options<GetStaticMapApiV1StaticGet2Data>
+) => createQueryKey("getStaticMapApiV1StaticGet2", options);
+
+/**
+ * Get Static Map
+ */
+export const getStaticMapApiV1StaticGet2Options = (
+  options: Options<GetStaticMapApiV1StaticGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getStaticMapApiV1StaticGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getStaticMapApiV1StaticGet2QueryKey(options),
+  });
+};
+
+export const getRouteApiV1RoutesRoutesPost2QueryKey = (
+  options: Options<GetRouteApiV1RoutesRoutesPost2Data>
+) => createQueryKey("getRouteApiV1RoutesRoutesPost2", options);
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPost2Options = (
+  options: Options<GetRouteApiV1RoutesRoutesPost2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getRouteApiV1RoutesRoutesPost2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getRouteApiV1RoutesRoutesPost2QueryKey(options),
+  });
+};
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPost2Mutation = (
+  options?: Partial<Options<GetRouteApiV1RoutesRoutesPost2Data>>
+): UseMutationOptions<
+  unknown,
+  GetRouteApiV1RoutesRoutesPost2Error,
+  Options<GetRouteApiV1RoutesRoutesPost2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    GetRouteApiV1RoutesRoutesPost2Error,
+    Options<GetRouteApiV1RoutesRoutesPost2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await getRouteApiV1RoutesRoutesPost2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const healthCheckHealthGet2QueryKey = (
+  options?: Options<HealthCheckHealthGet2Data>
+) => createQueryKey("healthCheckHealthGet2", options);
+
+/**
+ * Health Check
+ */
+export const healthCheckHealthGet2Options = (
+  options?: Options<HealthCheckHealthGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await healthCheckHealthGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: healthCheckHealthGet2QueryKey(options),
   });
 };

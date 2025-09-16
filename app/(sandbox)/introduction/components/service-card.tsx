@@ -32,7 +32,7 @@ export default function ServiceCard({
       <p className="text-xs xs:text-sm text-gray-600 dark:text-gray-400 mb-3 xs:mb-4 break-words">
         {description}
       </p>
-      {name !== "IVR" && name !== "Two-Way SMS" && name !== "MAPS" && (
+      {name !== "IVR" && name !== "Two-Way SMS" && (
         <div className="flex items-center justify-start gap-2 service-buttons">
           <Tooltip>
             <TooltipTrigger asChild>

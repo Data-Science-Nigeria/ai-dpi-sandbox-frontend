@@ -728,6 +728,36 @@ export type Bank = {
   name: string;
 };
 
+/**
+ * Location
+ */
+export type Location = {
+  /**
+   * Lat
+   */
+  lat: number;
+  /**
+   * Lng
+   */
+  lng: number;
+};
+
+/**
+ * RouteRequest
+ */
+export type RouteRequest = {
+  origin: Location;
+  destination: Location;
+  /**
+   * Mode
+   */
+  mode?: string;
+  /**
+   * Routing Pref
+   */
+  routing_pref?: string;
+};
+
 export type DefaultHealthCheckData = {
   body?: never;
   path?: never;
@@ -2087,6 +2117,212 @@ export type ApiGetMetricsMetrics4Responses = {
   200: unknown;
 };
 
+export type GetNearbyPlacesApiV1NearbyGetData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Lat
+     */
+    lat: number;
+    /**
+     * Lng
+     */
+    lng: number;
+    /**
+     * Keyword
+     */
+    keyword?: string;
+    /**
+     * Radius M
+     */
+    radius_m?: number;
+  };
+  url: "/api/v1/maps/nearby/";
+};
+
+export type GetNearbyPlacesApiV1NearbyGetErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetNearbyPlacesApiV1NearbyGetError =
+  GetNearbyPlacesApiV1NearbyGetErrors[keyof GetNearbyPlacesApiV1NearbyGetErrors];
+
+export type GetNearbyPlacesApiV1NearbyGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetDistanceApiV1DistanceGetData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Origin
+     */
+    origin: string;
+    /**
+     * Destination
+     */
+    destination: string;
+    /**
+     * Mode
+     */
+    mode?: string;
+  };
+  url: "/api/v1/maps/distance/";
+};
+
+export type GetDistanceApiV1DistanceGetErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetDistanceApiV1DistanceGetError =
+  GetDistanceApiV1DistanceGetErrors[keyof GetDistanceApiV1DistanceGetErrors];
+
+export type GetDistanceApiV1DistanceGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetDirectionsApiV1DirectionsGetData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Origin
+     * Origin address or lat,lng
+     */
+    origin: string;
+    /**
+     * Destination
+     * Destination address or lat,lng
+     */
+    destination: string;
+    /**
+     * Mode
+     * Mode of travel: driving, walking, bicycling, transit
+     */
+    mode?: string;
+  };
+  url: "/api/v1/maps/directions/";
+};
+
+export type GetDirectionsApiV1DirectionsGetErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetDirectionsApiV1DirectionsGetError =
+  GetDirectionsApiV1DirectionsGetErrors[keyof GetDirectionsApiV1DirectionsGetErrors];
+
+export type GetDirectionsApiV1DirectionsGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetStaticMapApiV1StaticGetData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Center
+     * Center of the map, e.g., '37.421655,-122.085637'
+     */
+    center: string;
+    /**
+     * Markers
+     * List of marker coordinates, e.g., ['37.421655,-122.085637','37.420999,-122.086894']
+     */
+    markers?: string[];
+    /**
+     * Path
+     * List of path coordinates for routes
+     */
+    path?: string[];
+    /**
+     * Zoom
+     * Zoom level
+     */
+    zoom?: number;
+    /**
+     * Size
+     * Image size WxH
+     */
+    size?: string;
+  };
+  url: "/api/v1/maps/static/";
+};
+
+export type GetStaticMapApiV1StaticGetErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetStaticMapApiV1StaticGetError =
+  GetStaticMapApiV1StaticGetErrors[keyof GetStaticMapApiV1StaticGetErrors];
+
+export type GetStaticMapApiV1StaticGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetRouteApiV1RoutesRoutesPostData = {
+  body: RouteRequest;
+  path?: never;
+  query?: never;
+  url: "/api/v1/maps/routes/routes/";
+};
+
+export type GetRouteApiV1RoutesRoutesPostErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetRouteApiV1RoutesRoutesPostError =
+  GetRouteApiV1RoutesRoutesPostErrors[keyof GetRouteApiV1RoutesRoutesPostErrors];
+
+export type GetRouteApiV1RoutesRoutesPostResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type HealthCheckHealthGetData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/maps/health";
+};
+
+export type HealthCheckHealthGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
 export type ApiGetMetricsMetrics5Data = {
   body?: never;
   path?: never;
@@ -3399,6 +3635,212 @@ export type ApiGetMetricsMetrics8Data = {
 };
 
 export type ApiGetMetricsMetrics8Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetNearbyPlacesApiV1NearbyGet2Data = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Lat
+     */
+    lat: number;
+    /**
+     * Lng
+     */
+    lng: number;
+    /**
+     * Keyword
+     */
+    keyword?: string;
+    /**
+     * Radius M
+     */
+    radius_m?: number;
+  };
+  url: "/maps/api/v1/nearby/";
+};
+
+export type GetNearbyPlacesApiV1NearbyGet2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetNearbyPlacesApiV1NearbyGet2Error =
+  GetNearbyPlacesApiV1NearbyGet2Errors[keyof GetNearbyPlacesApiV1NearbyGet2Errors];
+
+export type GetNearbyPlacesApiV1NearbyGet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetDistanceApiV1DistanceGet2Data = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Origin
+     */
+    origin: string;
+    /**
+     * Destination
+     */
+    destination: string;
+    /**
+     * Mode
+     */
+    mode?: string;
+  };
+  url: "/maps/api/v1/distance/";
+};
+
+export type GetDistanceApiV1DistanceGet2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetDistanceApiV1DistanceGet2Error =
+  GetDistanceApiV1DistanceGet2Errors[keyof GetDistanceApiV1DistanceGet2Errors];
+
+export type GetDistanceApiV1DistanceGet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetDirectionsApiV1DirectionsGet2Data = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Origin
+     * Origin address or lat,lng
+     */
+    origin: string;
+    /**
+     * Destination
+     * Destination address or lat,lng
+     */
+    destination: string;
+    /**
+     * Mode
+     * Mode of travel: driving, walking, bicycling, transit
+     */
+    mode?: string;
+  };
+  url: "/maps/api/v1/directions/";
+};
+
+export type GetDirectionsApiV1DirectionsGet2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetDirectionsApiV1DirectionsGet2Error =
+  GetDirectionsApiV1DirectionsGet2Errors[keyof GetDirectionsApiV1DirectionsGet2Errors];
+
+export type GetDirectionsApiV1DirectionsGet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetStaticMapApiV1StaticGet2Data = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Center
+     * Center of the map, e.g., '37.421655,-122.085637'
+     */
+    center: string;
+    /**
+     * Markers
+     * List of marker coordinates, e.g., ['37.421655,-122.085637','37.420999,-122.086894']
+     */
+    markers?: string[];
+    /**
+     * Path
+     * List of path coordinates for routes
+     */
+    path?: string[];
+    /**
+     * Zoom
+     * Zoom level
+     */
+    zoom?: number;
+    /**
+     * Size
+     * Image size WxH
+     */
+    size?: string;
+  };
+  url: "/maps/api/v1/static/";
+};
+
+export type GetStaticMapApiV1StaticGet2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetStaticMapApiV1StaticGet2Error =
+  GetStaticMapApiV1StaticGet2Errors[keyof GetStaticMapApiV1StaticGet2Errors];
+
+export type GetStaticMapApiV1StaticGet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetRouteApiV1RoutesRoutesPost2Data = {
+  body: RouteRequest;
+  path?: never;
+  query?: never;
+  url: "/maps/api/v1/routes/routes/";
+};
+
+export type GetRouteApiV1RoutesRoutesPost2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetRouteApiV1RoutesRoutesPost2Error =
+  GetRouteApiV1RoutesRoutesPost2Errors[keyof GetRouteApiV1RoutesRoutesPost2Errors];
+
+export type GetRouteApiV1RoutesRoutesPost2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type HealthCheckHealthGet2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/maps/health";
+};
+
+export type HealthCheckHealthGet2Responses = {
   /**
    * Successful Response
    */

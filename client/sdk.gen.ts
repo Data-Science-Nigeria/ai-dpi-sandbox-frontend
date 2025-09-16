@@ -162,6 +162,23 @@ import type {
   ApiGetHealthHealthCheck4Responses,
   ApiGetMetricsMetrics4Data,
   ApiGetMetricsMetrics4Responses,
+  GetNearbyPlacesApiV1NearbyGetData,
+  GetNearbyPlacesApiV1NearbyGetResponses,
+  GetNearbyPlacesApiV1NearbyGetErrors,
+  GetDistanceApiV1DistanceGetData,
+  GetDistanceApiV1DistanceGetResponses,
+  GetDistanceApiV1DistanceGetErrors,
+  GetDirectionsApiV1DirectionsGetData,
+  GetDirectionsApiV1DirectionsGetResponses,
+  GetDirectionsApiV1DirectionsGetErrors,
+  GetStaticMapApiV1StaticGetData,
+  GetStaticMapApiV1StaticGetResponses,
+  GetStaticMapApiV1StaticGetErrors,
+  GetRouteApiV1RoutesRoutesPostData,
+  GetRouteApiV1RoutesRoutesPostResponses,
+  GetRouteApiV1RoutesRoutesPostErrors,
+  HealthCheckHealthGetData,
+  HealthCheckHealthGetResponses,
   ApiGetMetricsMetrics5Data,
   ApiGetMetricsMetrics5Responses,
   ApiGetHealthHealthCheck5Data,
@@ -310,6 +327,23 @@ import type {
   ApiGetHealthHealthCheck8Responses,
   ApiGetMetricsMetrics8Data,
   ApiGetMetricsMetrics8Responses,
+  GetNearbyPlacesApiV1NearbyGet2Data,
+  GetNearbyPlacesApiV1NearbyGet2Responses,
+  GetNearbyPlacesApiV1NearbyGet2Errors,
+  GetDistanceApiV1DistanceGet2Data,
+  GetDistanceApiV1DistanceGet2Responses,
+  GetDistanceApiV1DistanceGet2Errors,
+  GetDirectionsApiV1DirectionsGet2Data,
+  GetDirectionsApiV1DirectionsGet2Responses,
+  GetDirectionsApiV1DirectionsGet2Errors,
+  GetStaticMapApiV1StaticGet2Data,
+  GetStaticMapApiV1StaticGet2Responses,
+  GetStaticMapApiV1StaticGet2Errors,
+  GetRouteApiV1RoutesRoutesPost2Data,
+  GetRouteApiV1RoutesRoutesPost2Responses,
+  GetRouteApiV1RoutesRoutesPost2Errors,
+  HealthCheckHealthGet2Data,
+  HealthCheckHealthGet2Responses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -2007,6 +2041,116 @@ export const apiGetMetricsMetrics4 = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     url: "/api/v1/bvn/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Get Nearby Places
+ */
+export const getNearbyPlacesApiV1NearbyGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetNearbyPlacesApiV1NearbyGetData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetNearbyPlacesApiV1NearbyGetResponses,
+    GetNearbyPlacesApiV1NearbyGetErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/nearby/",
+    ...options,
+  });
+};
+
+/**
+ * Get Distance
+ */
+export const getDistanceApiV1DistanceGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetDistanceApiV1DistanceGetData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetDistanceApiV1DistanceGetResponses,
+    GetDistanceApiV1DistanceGetErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/distance/",
+    ...options,
+  });
+};
+
+/**
+ * Get Directions
+ */
+export const getDirectionsApiV1DirectionsGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetDirectionsApiV1DirectionsGetData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetDirectionsApiV1DirectionsGetResponses,
+    GetDirectionsApiV1DirectionsGetErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/directions/",
+    ...options,
+  });
+};
+
+/**
+ * Get Static Map
+ */
+export const getStaticMapApiV1StaticGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetStaticMapApiV1StaticGetData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetStaticMapApiV1StaticGetResponses,
+    GetStaticMapApiV1StaticGetErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/static/",
+    ...options,
+  });
+};
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPost = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetRouteApiV1RoutesRoutesPostData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    GetRouteApiV1RoutesRoutesPostResponses,
+    GetRouteApiV1RoutesRoutesPostErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/routes/routes/",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Health Check
+ */
+export const healthCheckHealthGet = <ThrowOnError extends boolean = false>(
+  options?: Options<HealthCheckHealthGetData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    HealthCheckHealthGetResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/health",
     ...options,
   });
 };
@@ -3788,6 +3932,146 @@ export const apiGetMetricsMetrics8 = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     url: "/bvn/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Get Nearby Places
+ */
+export const getNearbyPlacesApiV1NearbyGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetNearbyPlacesApiV1NearbyGet2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetNearbyPlacesApiV1NearbyGet2Responses,
+    GetNearbyPlacesApiV1NearbyGet2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/nearby/",
+    ...options,
+  });
+};
+
+/**
+ * Get Distance
+ */
+export const getDistanceApiV1DistanceGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetDistanceApiV1DistanceGet2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetDistanceApiV1DistanceGet2Responses,
+    GetDistanceApiV1DistanceGet2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/distance/",
+    ...options,
+  });
+};
+
+/**
+ * Get Directions
+ */
+export const getDirectionsApiV1DirectionsGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetDirectionsApiV1DirectionsGet2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetDirectionsApiV1DirectionsGet2Responses,
+    GetDirectionsApiV1DirectionsGet2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/directions/",
+    ...options,
+  });
+};
+
+/**
+ * Get Static Map
+ */
+export const getStaticMapApiV1StaticGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetStaticMapApiV1StaticGet2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetStaticMapApiV1StaticGet2Responses,
+    GetStaticMapApiV1StaticGet2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/static/",
+    ...options,
+  });
+};
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPost2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetRouteApiV1RoutesRoutesPost2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    GetRouteApiV1RoutesRoutesPost2Responses,
+    GetRouteApiV1RoutesRoutesPost2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/routes/routes/",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Health Check
+ */
+export const healthCheckHealthGet2 = <ThrowOnError extends boolean = false>(
+  options?: Options<HealthCheckHealthGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    HealthCheckHealthGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/maps/health",
     ...options,
   });
 };
