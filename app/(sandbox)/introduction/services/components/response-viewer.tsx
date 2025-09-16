@@ -14,6 +14,8 @@ import { cn } from "@/lib/utils";
 import { Copy, Download, Clock, Zap } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useTheme } from "@/app/hooks/use-theme";
 
 interface ResponseData {
   status: number;
@@ -34,6 +36,7 @@ interface ResponseViewerProps {
 export function ResponseViewer({ response, loading }: ResponseViewerProps) {
   const [activeTab, setActiveTab] = useState<"body" | "headers">("body");
   const [viewMode, setViewMode] = useState<"pretty" | "raw">("pretty");
+  const { effectiveTheme } = useTheme();
 
   const getStatusColor = (status: number) => {
     if (status >= 200 && status < 300)
@@ -253,19 +256,21 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
                   </Button>
                 </div>
               ) : viewMode === "pretty" ? (
-                <SyntaxHighlighter
-                  language={getLanguageForHighlighter()}
-                  style={tomorrow}
-                  customStyle={{
-                    margin: 0,
-                    padding: 0,
-                    background: "transparent",
-                    fontSize: "0.75rem",
-                  }}
-                  wrapLongLines
-                >
-                  {formatResponseData(response.data)}
-                </SyntaxHighlighter>
+                <div className="[&_pre]:!whitespace-pre-wrap [&_code]:!whitespace-pre-wrap [&_pre]:!break-words [&_code]:!break-words [&_pre]:!overflow-wrap-anywhere [&_code]:!overflow-wrap-anywhere">
+                  <SyntaxHighlighter
+                    language={getLanguageForHighlighter()}
+                    style={effectiveTheme === "dark" ? tomorrow : oneLight}
+                    customStyle={{
+                      margin: 0,
+                      padding: 0,
+                      background: "transparent",
+                      fontSize: "0.75rem",
+                    }}
+                    wrapLongLines
+                  >
+                    {formatResponseData(response.data)}
+                  </SyntaxHighlighter>
+                </div>
               ) : (
                 <pre className="text-xs sm:text-sm font-mono whitespace-pre-wrap break-words">
                   {formatResponseData(response.data)}
