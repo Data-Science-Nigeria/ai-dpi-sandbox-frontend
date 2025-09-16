@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { Play, Plus, Trash2, Copy } from "lucide-react";
+import { Play, Plus, Trash2 } from "lucide-react";
 import { BaseUrlIcon } from "./base-url-icon";
 import { ConnectionIcon } from "./connection-icon";
 import { getBaseUrl } from "@/lib/env";
@@ -155,15 +155,6 @@ export function RequestComposer({
       headers: allHeaders.filter((h) => h.enabled && h.key),
       body: requestBody,
     });
-  };
-
-  const formatJson = () => {
-    try {
-      const parsed = JSON.parse(body);
-      setBody(JSON.stringify(parsed, null, 2));
-    } catch {
-      // Invalid JSON, keep as is
-    }
   };
 
   return (
@@ -386,8 +377,8 @@ export function RequestComposer({
 
         {activeTab === "body" && method !== "GET" && (
           <div className="h-full flex flex-col">
-            <div className="p-2 sm:p-4 border-b flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-              <div className="flex items-center gap-2">
+            <div className="p-2 sm:p-4 border-b">
+              <div className="flex items-center gap-4">
                 <span className="text-sm font-medium">Request Body</span>
                 <Select value={contentType} onValueChange={setContentType}>
                   <SelectTrigger className="w-48">
@@ -396,7 +387,7 @@ export function RequestComposer({
                   <SelectContent>
                     <SelectItem value="application/json">JSON</SelectItem>
                     <SelectItem value="application/x-www-form-urlencoded">
-                      Form URL Encoded
+                      Form Encoded
                     </SelectItem>
                     <SelectItem value="multipart/form-data">
                       Form Data
@@ -404,12 +395,6 @@ export function RequestComposer({
                   </SelectContent>
                 </Select>
               </div>
-              {contentType === "application/json" && (
-                <Button onClick={formatJson} variant="outline" size="sm">
-                  <Copy className="h-4 w-4 mr-2" />
-                  Format JSON
-                </Button>
-              )}
             </div>
 
             <div className="flex-1 overflow-hidden">
@@ -418,14 +403,14 @@ export function RequestComposer({
                   <textarea
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
-                    className="w-full h-full p-3 border rounded-md bg-background text-sm font-mono resize-none"
+                    className="w-full h-full p-3 border rounded-md bg-background text-sm font-mono resize-none custom-scrollbar"
                     placeholder="Enter request body (JSON)"
                   />
                 </div>
               ) : (
                 <div className="h-full flex flex-col">
-                  <div className="p-4 border-b">
-                    <div className="flex gap-2">
+                  <div className="p-2 sm:p-4 border-b">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <Button
                         onClick={() =>
                           setFormData([
@@ -435,6 +420,7 @@ export function RequestComposer({
                         }
                         variant="outline"
                         size="sm"
+                        className="flex-1 sm:flex-none"
                       >
                         <Plus className="h-4 w-4 mr-2" />
                         Add Text Field
@@ -448,6 +434,7 @@ export function RequestComposer({
                         }
                         variant="outline"
                         size="sm"
+                        className="flex-1 sm:flex-none"
                       >
                         <Plus className="h-4 w-4 mr-2" />
                         Add File Field
