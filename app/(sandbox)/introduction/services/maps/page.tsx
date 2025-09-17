@@ -377,47 +377,98 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
     description:
       "Finds a route between an origin and a destination, with options for travel mode, routing preferences, and avoiding tolls/highways/ferries. Returns encoded and decoded polylines along with distance and duration.",
     examples: {
-      curl: `curl -X POST "${baseUrl}/api/v1/maps/route?origin_lat=6.601847&origin_lng=3.351486&destination_lat=6.577369&destination_lng=3.321156&mode=DRIVE&routing_pref=TRAFFIC_AWARE&compute_alternative_routes=false&avoid_tolls=false&avoid_highways=false&avoid_ferries=false&language_code=en-US&units=METRIC" \\
-  -H "Authorization: Bearer $TOKEN"`,
-      javascript: `const response = await fetch('${baseUrl}/api/v1/maps/route?origin_lat=6.601847&origin_lng=3.351486&destination_lat=6.577369&destination_lng=3.321156&mode=DRIVE&routing_pref=TRAFFIC_AWARE&compute_alternative_routes=false&avoid_tolls=false&avoid_highways=false&avoid_ferries=false&language_code=en-US&units=METRIC', {
+      curl: `curl -X POST ${baseUrl}/api/v1/maps/route \\
+-H "Authorization: Bearer $TOKEN" \\
+-H "Content-Type: application/json" \\
+-d '{
+  "origin": {"lat": 6.601847, "lng": 3.351486},
+  "destination": {"lat": 6.577369, "lng": 3.321156},
+  "mode": "DRIVE",
+  "routing_pref": "TRAFFIC_AWARE",
+  "compute_alternative_routes": false,
+  "route_modifiers": {
+    "avoid_tolls": false,
+    "avoid_highways": false,
+    "avoid_ferries": false
+  },
+  "language_code": "en-US",
+  "units": "METRIC"
+}'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/maps/route', {
   method: 'POST',
   headers: {
-    'Authorization': 'Bearer ' + token
-  }
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    origin: {lat: 6.601847, lng: 3.351486},
+    destination: {lat: 6.577369, lng: 3.321156},
+    mode: 'DRIVE',
+    routing_pref: 'TRAFFIC_AWARE',
+    compute_alternative_routes: false,
+    route_modifiers: {
+      avoid_tolls: false,
+      avoid_highways: false,
+      avoid_ferries: false
+    },
+    language_code: 'en-US',
+    units: 'METRIC'
+  })
 });`,
       python: `import requests
 
 response = requests.post(
     '${baseUrl}/api/v1/maps/route',
-    headers={'Authorization': f'Bearer {token}'},
-    params={
-        'origin_lat': 6.601847,
-        'origin_lng': 3.351486,
-        'destination_lat': 6.577369,
-        'destination_lng': 3.321156,
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'origin': {'lat': 6.601847, 'lng': 3.351486},
+        'destination': {'lat': 6.577369, 'lng': 3.321156},
         'mode': 'DRIVE',
         'routing_pref': 'TRAFFIC_AWARE',
         'compute_alternative_routes': False,
-        'avoid_tolls': False,
-        'avoid_highways': False,
-        'avoid_ferries': False,
+        'route_modifiers': {
+            'avoid_tolls': False,
+            'avoid_highways': False,
+            'avoid_ferries': False
+        },
         'language_code': 'en-US',
         'units': 'METRIC'
     }
 )`,
       php: `<?php
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/maps/route?origin_lat=6.601847&origin_lng=3.351486&destination_lat=6.577369&destination_lng=3.321156&mode=DRIVE&routing_pref=TRAFFIC_AWARE&compute_alternative_routes=false&avoid_tolls=false&avoid_highways=false&avoid_ferries=false&language_code=en-US&units=METRIC');
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/maps/route');
+curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Authorization: Bearer ' . $token
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
 ]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'origin' => ['lat' => 6.601847, 'lng' => 3.351486],
+    'destination' => ['lat' => 6.577369, 'lng' => 3.321156],
+    'mode' => 'DRIVE',
+    'routing_pref' => 'TRAFFIC_AWARE',
+    'compute_alternative_routes' => false,
+    'route_modifiers' => [
+        'avoid_tolls' => false,
+        'avoid_highways' => false,
+        'avoid_ferries' => false
+    ],
+    'language_code' => 'en-US',
+    'units' => 'METRIC'
+]));
 $response = curl_exec($ch);
 curl_close($ch);`,
       java: `HttpClient client = HttpClient.newHttpClient();
 HttpRequest request = HttpRequest.newBuilder()
-    .uri(URI.create("${baseUrl}/api/v1/maps/route?origin_lat=6.601847&origin_lng=3.351486&destination_lat=6.577369&destination_lng=3.321156&mode=DRIVE&routing_pref=TRAFFIC_AWARE&compute_alternative_routes=false&avoid_tolls=false&avoid_highways=false&avoid_ferries=false&language_code=en-US&units=METRIC"))
+    .uri(URI.create("${baseUrl}/api/v1/maps/route"))
     .header("Authorization", "Bearer " + token)
-    .POST()
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        '{"origin":{"lat":6.601847,"lng":3.351486},"destination":{"lat":6.577369,"lng":3.321156},"mode":"DRIVE","routing_pref":"TRAFFIC_AWARE","compute_alternative_routes":false,"route_modifiers":{"avoid_tolls":false,"avoid_highways":false,"avoid_ferries":false},"language_code":"en-US","units":"METRIC"}'))
     .build();
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
