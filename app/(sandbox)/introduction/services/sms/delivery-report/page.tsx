@@ -4,18 +4,18 @@ import { ApiClientInterface } from "../../components/api-client-interface";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
-export default function SmsGetApiV1TemplatesGetMessageTemplatesPage() {
+export default function WebhookPostApiV1DeliveryReportHandleDeliveryReportPage() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">
         <ApiClientInterface
-          initialMethod="GET"
-          initialPath="/api/v1/sms/templates"
+          initialMethod="POST"
+          initialPath="/api/v1/sms/delivery-report"
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
         <PageNavigation
-          {...getNavigation("/introduction/services/sms/templates")}
+          {...getNavigation("/introduction/services/sms/delivery-report")}
         />
       </div>
     </div>

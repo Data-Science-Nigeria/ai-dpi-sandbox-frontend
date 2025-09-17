@@ -9,7 +9,7 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction",
   },
   {
-    title: "AI Service",
+    title: "Ai Service",
     href: "/introduction/services/ai",
   },
   {
@@ -121,32 +121,20 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/sms/send",
   },
   {
-    title: "Bulk",
-    href: "/introduction/services/sms/bulk",
-  },
-  {
     title: "Send Bulk",
     href: "/introduction/services/sms/send-bulk",
-  },
-  {
-    title: "Status",
-    href: "/introduction/services/sms/status",
   },
   {
     title: "Balance",
     href: "/introduction/services/sms/balance",
   },
   {
-    title: "Templates",
-    href: "/introduction/services/sms/templates",
+    title: "Delivery Report",
+    href: "/introduction/services/sms/delivery-report",
   },
   {
-    title: "Otp Generate",
-    href: "/introduction/services/sms/otp-generate",
-  },
-  {
-    title: "Otp Verify",
-    href: "/introduction/services/sms/otp-verify",
+    title: "Status",
+    href: "/introduction/services/sms/status",
   },
 ];
 

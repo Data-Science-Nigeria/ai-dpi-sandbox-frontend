@@ -372,22 +372,22 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
   },
   {
     name: "Route Planning",
-    method: "GET",
+    method: "POST",
     path: "/api/v1/maps/route",
     description:
       "Finds a route between an origin and a destination, with options for travel mode, routing preferences, and avoiding tolls/highways/ferries. Returns encoded and decoded polylines along with distance and duration.",
     examples: {
-      curl: `curl -X GET "${baseUrl}/api/v1/maps/route?origin_lat=6.601847&origin_lng=3.351486&destination_lat=6.577369&destination_lng=3.321156&mode=DRIVE&routing_pref=TRAFFIC_AWARE&compute_alternative_routes=false&avoid_tolls=false&avoid_highways=false&avoid_ferries=false&language_code=en-US&units=METRIC" \\
+      curl: `curl -X POST "${baseUrl}/api/v1/maps/route?origin_lat=6.601847&origin_lng=3.351486&destination_lat=6.577369&destination_lng=3.321156&mode=DRIVE&routing_pref=TRAFFIC_AWARE&compute_alternative_routes=false&avoid_tolls=false&avoid_highways=false&avoid_ferries=false&language_code=en-US&units=METRIC" \\
   -H "Authorization: Bearer $TOKEN"`,
       javascript: `const response = await fetch('${baseUrl}/api/v1/maps/route?origin_lat=6.601847&origin_lng=3.351486&destination_lat=6.577369&destination_lng=3.321156&mode=DRIVE&routing_pref=TRAFFIC_AWARE&compute_alternative_routes=false&avoid_tolls=false&avoid_highways=false&avoid_ferries=false&language_code=en-US&units=METRIC', {
-  method: 'GET',
+  method: 'POST',
   headers: {
     'Authorization': 'Bearer ' + token
   }
 });`,
       python: `import requests
 
-response = requests.get(
+response = requests.post(
     '${baseUrl}/api/v1/maps/route',
     headers={'Authorization': f'Bearer {token}'},
     params={
@@ -417,7 +417,7 @@ curl_close($ch);`,
 HttpRequest request = HttpRequest.newBuilder()
     .uri(URI.create("${baseUrl}/api/v1/maps/route?origin_lat=6.601847&origin_lng=3.351486&destination_lat=6.577369&destination_lng=3.321156&mode=DRIVE&routing_pref=TRAFFIC_AWARE&compute_alternative_routes=false&avoid_tolls=false&avoid_highways=false&avoid_ferries=false&language_code=en-US&units=METRIC"))
     .header("Authorization", "Bearer " + token)
-    .GET()
+    .POST()
     .build();
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
@@ -824,30 +824,58 @@ function MapsServiceContent() {
                                 <>
                                   <tr>
                                     <td className="border border-gray-300 px-2 py-1">
-                                      origin
+                                      origin_lat
                                     </td>
                                     <td className="border border-gray-300 px-2 py-1">
-                                      string
+                                      float
                                     </td>
                                     <td className="border border-gray-300 px-2 py-1">
                                       ✅
                                     </td>
                                     <td className="border border-gray-300 px-2 py-1">
-                                      Starting point (address or lat,lng)
+                                      Latitude of the starting point
                                     </td>
                                   </tr>
                                   <tr>
                                     <td className="border border-gray-300 px-2 py-1">
-                                      destination
+                                      origin_lng
                                     </td>
                                     <td className="border border-gray-300 px-2 py-1">
-                                      string
+                                      float
                                     </td>
                                     <td className="border border-gray-300 px-2 py-1">
                                       ✅
                                     </td>
                                     <td className="border border-gray-300 px-2 py-1">
-                                      Destination point (address or lat,lng)
+                                      Longitude of the starting point
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      destination_lat
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      float
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      ✅
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      Latitude of the destination point
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      destination_lng
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      float
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      ✅
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      Longitude of the destination point
                                     </td>
                                   </tr>
                                   <tr>
@@ -861,7 +889,111 @@ function MapsServiceContent() {
                                       ❌
                                     </td>
                                     <td className="border border-gray-300 px-2 py-1">
-                                      Travel mode (default: &quot;driving&quot;)
+                                      Travel mode (DRIVE, WALK, BICYCLE,
+                                      TRANSIT) - default: &quot;DRIVE&quot;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      routing_pref
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      string
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      ❌
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      Routing preference (TRAFFIC_AWARE,
+                                      TRAFFIC_AWARE_OPTIMAL, TRAFFIC_UNAWARE) -
+                                      default: &quot;TRAFFIC_AWARE&quot;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      compute_alternative_routes
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      bool
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      ❌
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      Whether to return alternative routes -
+                                      default: false
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      avoid_tolls
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      bool
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      ❌
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      Avoid toll roads - default: false
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      avoid_highways
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      bool
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      ❌
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      Avoid highways - default: false
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      avoid_ferries
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      bool
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      ❌
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      Avoid ferries - default: false
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      language_code
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      string
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      ❌
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      Language for navigation instructions -
+                                      default: &quot;en-US&quot;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      units
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      string
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      ❌
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1">
+                                      Distance units (METRIC, IMPERIAL) -
+                                      default: &quot;METRIC&quot;
                                     </td>
                                   </tr>
                                 </>

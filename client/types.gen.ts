@@ -365,77 +365,45 @@ export type ValidationError = {
 };
 
 /**
- * OTPGenerateRequest
+ * SendBulkSMSRequest
  */
-export type OtpGenerateRequest = {
+export type SendBulkSmsRequest = {
   /**
    * To
+   * A list of phone numbers to send the SMS to. Must be in international format.
    */
-  to: string;
-  /**
-   * Length
-   */
-  length?: number;
-  /**
-   * Expiry Minutes
-   */
-  expiry_minutes?: number;
-};
-
-/**
- * OTPVerifyRequest
- */
-export type OtpVerifyRequest = {
-  /**
-   * To
-   */
-  to: string;
-  /**
-   * Code
-   */
-  code: string;
-};
-
-/**
- * SMSBulkRequest
- */
-export type SmsBulkRequest = {
-  /**
-   * Recipients
-   * List of recipient phone numbers
-   */
-  recipients: string[];
+  to: string[];
   /**
    * Message
-   * SMS message body for bulk send
+   * The content of the SMS message.
    */
   message: string;
   /**
-   * Sender Id
-   * Custom sender ID override
+   * Sender
+   * Required sender ID.
    */
-  sender_id?: string | null;
+  sender: string;
 };
 
 /**
- * SMSSendRequest
+ * SendSMSRequest
  */
-export type SmsSendRequest = {
+export type SendSmsRequest = {
   /**
    * To
-   * Recipient phone number in E.164 or local format
+   * The phone number to send the SMS to. Must be in international format (e.g., +23480xxxxxxxx).
    */
   to: string;
   /**
    * Message
-   * SMS message body
+   * The content of the SMS message.
    */
   message: string;
   /**
-   * Sender Id
-   * Custom sender ID override
+   * Sender
+   * Required  sender ID.
    */
-  sender_id?: string | null;
+  sender: string;
 };
 
 /**
@@ -1338,82 +1306,97 @@ export type AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordResponse
     200: unknown;
   };
 
-export type SmsPostApiV1SendSendSmsData = {
-  body: SmsSendRequest;
+export type ApiGetHealthHealthCheck2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/sms/health";
+};
+
+export type ApiGetHealthHealthCheck2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type SmsPostApiV1SmsSendSendSingleSmsData = {
+  body: SendSmsRequest;
   path?: never;
   query?: never;
   url: "/api/v1/sms/send";
 };
 
-export type SmsPostApiV1SendSendSmsErrors = {
+export type SmsPostApiV1SmsSendSendSingleSmsErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsPostApiV1SendSendSmsError =
-  SmsPostApiV1SendSendSmsErrors[keyof SmsPostApiV1SendSendSmsErrors];
+export type SmsPostApiV1SmsSendSendSingleSmsError =
+  SmsPostApiV1SmsSendSendSingleSmsErrors[keyof SmsPostApiV1SmsSendSendSingleSmsErrors];
 
-export type SmsPostApiV1SendSendSmsResponses = {
+export type SmsPostApiV1SmsSendSendSingleSmsResponses = {
   /**
-   * Response Sms Post Api V1 Send Send Sms
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsPostApiV1BulkSendBulkSmsData = {
-  body: SmsBulkRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/bulk";
-};
-
-export type SmsPostApiV1BulkSendBulkSmsErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1BulkSendBulkSmsError =
-  SmsPostApiV1BulkSendBulkSmsErrors[keyof SmsPostApiV1BulkSendBulkSmsErrors];
-
-export type SmsPostApiV1BulkSendBulkSmsResponses = {
-  /**
-   * Response Sms Post Api V1 Bulk Send Bulk Sms
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1SendBulkSendBulkSmsAliasData = {
-  body: SmsBulkRequest;
+export type SmsPostApiV1SmsSendBulkSendBulkSmsData = {
+  body: SendBulkSmsRequest;
   path?: never;
   query?: never;
   url: "/api/v1/sms/send-bulk";
 };
 
-export type SmsPostApiV1SendBulkSendBulkSmsAliasErrors = {
+export type SmsPostApiV1SmsSendBulkSendBulkSmsErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsPostApiV1SendBulkSendBulkSmsAliasError =
-  SmsPostApiV1SendBulkSendBulkSmsAliasErrors[keyof SmsPostApiV1SendBulkSendBulkSmsAliasErrors];
+export type SmsPostApiV1SmsSendBulkSendBulkSmsError =
+  SmsPostApiV1SmsSendBulkSendBulkSmsErrors[keyof SmsPostApiV1SmsSendBulkSendBulkSmsErrors];
 
-export type SmsPostApiV1SendBulkSendBulkSmsAliasResponses = {
+export type SmsPostApiV1SmsSendBulkSendBulkSmsResponses = {
   /**
-   * Response Sms Post Api V1 Send Bulk Send Bulk Sms Alias
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatusData = {
+export type ApplicationGetApiV1SmsBalanceCheckBalanceData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/sms/balance";
+};
+
+export type ApplicationGetApiV1SmsBalanceCheckBalanceResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type WebhookPostApiV1DeliveryReportHandleDeliveryReportData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/sms/delivery-report";
+};
+
+export type WebhookPostApiV1DeliveryReportHandleDeliveryReportResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatusData = {
   body?: never;
   path: {
     /**
@@ -1425,112 +1408,17 @@ export type SmsGetApiV1StatusMessageIdGetMessageStatusData = {
   url: "/api/v1/sms/status/{message_id}";
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatusErrors = {
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatusError =
-  SmsGetApiV1StatusMessageIdGetMessageStatusErrors[keyof SmsGetApiV1StatusMessageIdGetMessageStatusErrors];
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatusError =
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors[keyof SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors];
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatusResponses = {
-  /**
-   * Response Sms Get Api V1 Status Message Id Get Message Status
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsGetApiV1BalanceGetSmsBalanceData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/balance";
-};
-
-export type SmsGetApiV1BalanceGetSmsBalanceResponses = {
-  /**
-   * Response Sms Get Api V1 Balance Get Sms Balance
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsGetApiV1TemplatesGetMessageTemplatesData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/templates";
-};
-
-export type SmsGetApiV1TemplatesGetMessageTemplatesResponses = {
-  /**
-   * Response Sms Get Api V1 Templates Get Message Templates
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtpData = {
-  body: OtpGenerateRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/otp/generate";
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtpErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtpError =
-  SmsPostApiV1OtpGenerateGenerateOtpErrors[keyof SmsPostApiV1OtpGenerateGenerateOtpErrors];
-
-export type SmsPostApiV1OtpGenerateGenerateOtpResponses = {
-  /**
-   * Response Sms Post Api V1 Otp Generate Generate Otp
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtpData = {
-  body: OtpVerifyRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/otp/verify";
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtpErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtpError =
-  SmsPostApiV1OtpVerifyVerifyOtpErrors[keyof SmsPostApiV1OtpVerifyVerifyOtpErrors];
-
-export type SmsPostApiV1OtpVerifyVerifyOtpResponses = {
-  /**
-   * Response Sms Post Api V1 Otp Verify Verify Otp
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiGetHealthHealthCheck2Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/health";
-};
-
-export type ApiGetHealthHealthCheck2Responses = {
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatusResponses = {
   /**
    * Successful Response
    */
@@ -2862,82 +2750,97 @@ export type AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Respons
     200: unknown;
   };
 
-export type SmsPostApiV1SendSendSms2Data = {
-  body: SmsSendRequest;
+export type HealthGetApiV1HealthHealthCheckData = {
+  body?: never;
   path?: never;
   query?: never;
-  url: "/sms/api/v1/send";
+  url: "/sms/api/v1/health";
 };
 
-export type SmsPostApiV1SendSendSms2Errors = {
+export type HealthGetApiV1HealthHealthCheckResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type SmsPostApiV1SmsSendSendSingleSms2Data = {
+  body: SendSmsRequest;
+  path?: never;
+  query?: never;
+  url: "/sms/send";
+};
+
+export type SmsPostApiV1SmsSendSendSingleSms2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsPostApiV1SendSendSms2Error =
-  SmsPostApiV1SendSendSms2Errors[keyof SmsPostApiV1SendSendSms2Errors];
+export type SmsPostApiV1SmsSendSendSingleSms2Error =
+  SmsPostApiV1SmsSendSendSingleSms2Errors[keyof SmsPostApiV1SmsSendSendSingleSms2Errors];
 
-export type SmsPostApiV1SendSendSms2Responses = {
+export type SmsPostApiV1SmsSendSendSingleSms2Responses = {
   /**
-   * Response Sms Post Api V1 Send Send Sms
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsPostApiV1BulkSendBulkSms2Data = {
-  body: SmsBulkRequest;
+export type SmsPostApiV1SmsSendBulkSendBulkSms2Data = {
+  body: SendBulkSmsRequest;
   path?: never;
   query?: never;
-  url: "/sms/api/v1/bulk";
+  url: "/sms/send-bulk";
 };
 
-export type SmsPostApiV1BulkSendBulkSms2Errors = {
+export type SmsPostApiV1SmsSendBulkSendBulkSms2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsPostApiV1BulkSendBulkSms2Error =
-  SmsPostApiV1BulkSendBulkSms2Errors[keyof SmsPostApiV1BulkSendBulkSms2Errors];
+export type SmsPostApiV1SmsSendBulkSendBulkSms2Error =
+  SmsPostApiV1SmsSendBulkSendBulkSms2Errors[keyof SmsPostApiV1SmsSendBulkSendBulkSms2Errors];
 
-export type SmsPostApiV1BulkSendBulkSms2Responses = {
+export type SmsPostApiV1SmsSendBulkSendBulkSms2Responses = {
   /**
-   * Response Sms Post Api V1 Bulk Send Bulk Sms
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsPostApiV1SendBulkSendBulkSmsAlias2Data = {
-  body: SmsBulkRequest;
+export type ApplicationGetApiV1SmsBalanceCheckBalance2Data = {
+  body?: never;
   path?: never;
   query?: never;
-  url: "/sms/api/v1/send-bulk";
+  url: "/sms/balance";
 };
 
-export type SmsPostApiV1SendBulkSendBulkSmsAlias2Errors = {
+export type ApplicationGetApiV1SmsBalanceCheckBalance2Responses = {
   /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1SendBulkSendBulkSmsAlias2Error =
-  SmsPostApiV1SendBulkSendBulkSmsAlias2Errors[keyof SmsPostApiV1SendBulkSendBulkSmsAlias2Errors];
-
-export type SmsPostApiV1SendBulkSendBulkSmsAlias2Responses = {
-  /**
-   * Response Sms Post Api V1 Send Bulk Send Bulk Sms Alias
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatus2Data = {
+export type WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/sms/api/v1/delivery-report";
+};
+
+export type WebhookPostApiV1DeliveryReportHandleDeliveryReport2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data = {
   body?: never;
   path: {
     /**
@@ -2946,102 +2849,21 @@ export type SmsGetApiV1StatusMessageIdGetMessageStatus2Data = {
     message_id: string;
   };
   query?: never;
-  url: "/sms/api/v1/status/{message_id}";
+  url: "/sms/status/{message_id}";
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatus2Errors = {
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatus2Error =
-  SmsGetApiV1StatusMessageIdGetMessageStatus2Errors[keyof SmsGetApiV1StatusMessageIdGetMessageStatus2Errors];
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Error =
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors[keyof SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors];
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatus2Responses = {
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Responses = {
   /**
-   * Response Sms Get Api V1 Status Message Id Get Message Status
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsGetApiV1BalanceGetSmsBalance2Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/sms/api/v1/balance";
-};
-
-export type SmsGetApiV1BalanceGetSmsBalance2Responses = {
-  /**
-   * Response Sms Get Api V1 Balance Get Sms Balance
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsGetApiV1TemplatesGetMessageTemplates2Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/sms/api/v1/templates";
-};
-
-export type SmsGetApiV1TemplatesGetMessageTemplates2Responses = {
-  /**
-   * Response Sms Get Api V1 Templates Get Message Templates
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtp2Data = {
-  body: OtpGenerateRequest;
-  path?: never;
-  query?: never;
-  url: "/sms/api/v1/otp/generate";
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtp2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtp2Error =
-  SmsPostApiV1OtpGenerateGenerateOtp2Errors[keyof SmsPostApiV1OtpGenerateGenerateOtp2Errors];
-
-export type SmsPostApiV1OtpGenerateGenerateOtp2Responses = {
-  /**
-   * Response Sms Post Api V1 Otp Generate Generate Otp
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtp2Data = {
-  body: OtpVerifyRequest;
-  path?: never;
-  query?: never;
-  url: "/sms/api/v1/otp/verify";
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtp2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtp2Error =
-  SmsPostApiV1OtpVerifyVerifyOtp2Errors[keyof SmsPostApiV1OtpVerifyVerifyOtp2Errors];
-
-export type SmsPostApiV1OtpVerifyVerifyOtp2Responses = {
-  /**
-   * Response Sms Post Api V1 Otp Verify Verify Otp
    * Successful Response
    */
   200: unknown;
