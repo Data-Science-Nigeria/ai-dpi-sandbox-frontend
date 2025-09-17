@@ -66,7 +66,6 @@ export const useSearch = () => {
         });
 
       const searchableElements = document.querySelectorAll("main *");
-      let matches = 0;
 
       searchableElements.forEach((el) => {
         const element = el as HTMLElement;
@@ -75,7 +74,6 @@ export const useSearch = () => {
           const regex = new RegExp(`(${query})`, "gi");
 
           if (text.toLowerCase().includes(query.toLowerCase())) {
-            matches++;
             const highlightedHTML = text.replace(
               regex,
               '<span class="search-highlight bg-yellow-200 dark:bg-yellow-800">$1</span>'
@@ -105,13 +103,12 @@ export const useSearch = () => {
         }
       });
 
-      setMatchCount(matches);
-
-      // Store match elements for navigation
+      // Store match elements for navigation and count them
       const matchElements = Array.from(
         document.querySelectorAll(".search-highlight")
       ) as HTMLElement[];
       setMatches(matchElements);
+      setMatchCount(matchElements.length);
 
       // Highlight first match if there are matches
       if (matchElements.length > 0) {
