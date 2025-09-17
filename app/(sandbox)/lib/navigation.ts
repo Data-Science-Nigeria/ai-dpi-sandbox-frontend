@@ -9,7 +9,7 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction",
   },
   {
-    title: "Ai Service",
+    title: "AI Service",
     href: "/introduction/services/ai",
   },
   {

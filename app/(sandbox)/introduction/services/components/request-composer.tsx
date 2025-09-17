@@ -17,6 +17,7 @@ import { ConnectionIcon } from "./connection-icon";
 import { MapsParams } from "./maps-params";
 import { getBaseUrl } from "@/lib/env";
 import { useAuthStore } from "@/app/store/use-auth-store";
+import { getDefaultBody } from "./default-body-provider";
 
 interface Header {
   key: string;
@@ -51,7 +52,7 @@ export function RequestComposer({
   const [pathValues, setPathValues] = useState<Record<string, string>>({});
   const [contentType, setContentType] = useState("application/json");
   const [headers, setHeaders] = useState<Header[]>([]);
-  const [body, setBody] = useState("{\n  \n}");
+  const [body, setBody] = useState(() => getDefaultBody(initialPath));
   const [formData, setFormData] = useState<
     { key: string; value: string | File; type: "text" | "file" }[]
   >([{ key: "", value: "", type: "text" }]);
@@ -62,8 +63,13 @@ export function RequestComposer({
     "params" | "headers" | "body" | "query"
   >("headers");
 
-  // Check if this is a maps endpoint
-  const isMapsEndpoint = initialPath.includes("/maps/");
+  // Check if this is a maps endpoint that needs query parameters
+  const isMapsEndpoint =
+    initialPath.includes("/maps/") &&
+    (initialPath.includes("/nearby") ||
+      initialPath.includes("/distance") ||
+      initialPath.includes("/directions") ||
+      initialPath.includes("/static"));
 
   // Set initial tab based on path params or maps endpoint
   useEffect(() => {
@@ -73,6 +79,11 @@ export function RequestComposer({
       setActiveTab("query");
     }
   }, [pathParams.length, isMapsEndpoint]);
+
+  // Update body when path changes
+  useEffect(() => {
+    setBody(getDefaultBody(initialPath));
+  }, [initialPath]);
 
   // Update headers when content type changes
   useEffect(() => {
@@ -434,11 +445,11 @@ export function RequestComposer({
 
             <div className="flex-1 overflow-hidden">
               {contentType === "application/json" ? (
-                <div className="h-full p-2 sm:p-4">
+                <div className="h-full p-2 sm:p-4 min-h-[400px] sm:min-h-[500px]">
                   <textarea
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
-                    className="w-full h-full p-3 border rounded-md bg-background text-sm font-mono resize-none custom-scrollbar"
+                    className="w-full h-full p-3 border rounded-md bg-background text-sm font-mono resize-none custom-scrollbar min-h-[350px] sm:min-h-[450px]"
                     placeholder="Enter request body (JSON)"
                   />
                 </div>
