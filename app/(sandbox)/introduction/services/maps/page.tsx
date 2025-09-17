@@ -563,27 +563,10 @@ function MapsServiceContent() {
       <div className="flex-1 overflow-auto custom-scrollbar">
         <div className="p-3 sm:p-4 lg:p-6 w-full max-w-full">
           <div className="grid gap-3 xs:gap-4 sm:gap-6">
-            {/* Base Configuration */}
-            <section>
-              <h2 className="text-base xs:text-lg sm:text-xl md:text-xl font-semibold mb-2 xs:mb-3 sm:mb-4 flex items-center gap-1 xs:gap-2">
-                <Code className="h-3 w-3 xs:h-4 xs:w-4 sm:h-5 sm:w-5" />
-                Base Configuration
-              </h2>
-
-              <div className="space-y-4">
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Base URL</h3>
-                  <code className="text-sm bg-muted px-3 py-2 rounded block">
-                    {baseUrl}
-                  </code>
-                </div>
-              </div>
-            </section>
-
             {/* Available Endpoints */}
             <section>
               <h2 className="text-sm xs:text-base sm:text-lg font-semibold mb-2 xs:mb-3 sm:mb-4 flex items-center gap-1 xs:gap-2">
-                <Navigation className="h-3 w-3 xs:h-4 xs:w-4 sm:h-5 sm:w-5" />
+                <Code className="h-3 w-3 xs:h-4 xs:w-4 sm:h-5 sm:w-5" />
                 Available Endpoints
               </h2>
 
@@ -1176,8 +1159,7 @@ function MapsServiceContent() {
                 <div className="border rounded-lg p-4 bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
                   <h3 className="font-medium mb-2">Binary Images</h3>
                   <p className="text-sm text-muted-foreground">
-                    Static map endpoint returns PNG/JPEG image data for direct
-                    display or download.
+                    Static map endpoint returns URL for direct display.
                   </p>
                 </div>
               </div>

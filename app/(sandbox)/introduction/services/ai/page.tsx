@@ -3,7 +3,6 @@
 import { Badge } from "@/components/ui/badge";
 import {
   Zap,
-  Code,
   Shield,
   MessageSquare,
   Mic,
@@ -14,8 +13,6 @@ import {
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
-
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.dsnsandbox.com";
 
 function AIServiceContent() {
   return (
@@ -28,6 +25,9 @@ function AIServiceContent() {
               AI Services
             </h1>
           </div>
+          <Badge variant="secondary" className="text-xs sm:text-sm">
+            AI Intelligence
+          </Badge>
         </div>
         <p className="text-sm sm:text-base text-muted-foreground">
           Comprehensive AI services including chat, speech processing, RAG, and
@@ -38,21 +38,9 @@ function AIServiceContent() {
       <div className="flex-1 overflow-auto custom-scrollbar">
         <div className="p-3 sm:p-4 lg:p-6 w-full max-w-full">
           <div className="grid gap-3 xs:gap-4 sm:gap-6">
-            {/* Base URL & Authentication */}
+            {/* Authentication */}
             <section>
-              <h2 className="text-base xs:text-lg sm:text-xl md:text-xl font-semibold mb-2 xs:mb-3 sm:mb-4 flex items-center gap-1 xs:gap-2">
-                <Code className="h-3 w-3 xs:h-4 xs:w-4 sm:h-5 sm:w-5" />
-                Base Configuration
-              </h2>
-
-              <div className="space-y-4">
-                <div className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Base URL</h3>
-                  <code className="text-sm bg-muted px-3 py-2 rounded block">
-                    {baseUrl}
-                  </code>
-                </div>
-
+              <div className="space-y-2">
                 <div className="border rounded-lg p-4">
                   <h3 className="font-medium mb-2 flex items-center gap-2">
                     <Shield className="h-4 w-4" />
@@ -70,9 +58,6 @@ function AIServiceContent() {
                     <code className="bg-muted px-3 py-2 rounded block mt-2">
                       Authorization: Bearer &lt;your_jwt_token&gt;
                     </code>
-                    <p className="text-green-600 font-bold">
-                      NOTE: THIS HAS ALREADY BEEN SET
-                    </p>
                   </div>
                 </div>
               </div>
