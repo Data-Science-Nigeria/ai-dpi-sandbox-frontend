@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { Copy, Download, Clock, Zap } from "lucide-react";
+import { Copy, Download, Clock, Zap, Check } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -36,6 +36,7 @@ interface ResponseViewerProps {
 export function ResponseViewer({ response, loading }: ResponseViewerProps) {
   const [activeTab, setActiveTab] = useState<"body" | "headers">("body");
   const [viewMode, setViewMode] = useState<"pretty" | "raw">("pretty");
+  const [isCopied, setIsCopied] = useState(false);
   const { effectiveTheme } = useTheme();
 
   const getStatusColor = (status: number) => {
@@ -59,6 +60,8 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
   };
 
   const formatResponseData = (data: unknown) => {
@@ -173,8 +176,12 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
                 size="sm"
                 className="flex-1 xxs:flex-none"
               >
-                <Copy className="h-4 w-4 mr-2" />
-                Copy
+                {isCopied ? (
+                  <Check className="h-4 w-4 mr-2" />
+                ) : (
+                  <Copy className="h-4 w-4 mr-2" />
+                )}
+                {isCopied ? "Copied" : "Copy"}
               </Button>
             )}
             <Button
@@ -242,7 +249,7 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
 
       <div className="flex-1 overflow-hidden">
         {activeTab === "body" && (
-          <ScrollArea className="h-full">
+          <div className="h-full">
             <div className="p-2 sm:p-4">
               {response.isDownloadable ? (
                 <div className="text-center py-8">
@@ -277,7 +284,7 @@ export function ResponseViewer({ response, loading }: ResponseViewerProps) {
                 </pre>
               )}
             </div>
-          </ScrollArea>
+          </div>
         )}
 
         {activeTab === "headers" && (

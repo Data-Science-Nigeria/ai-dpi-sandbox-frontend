@@ -70,30 +70,21 @@ import type {
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordData,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordResponses,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordErrors,
-  SmsPostApiV1SendSendSmsData,
-  SmsPostApiV1SendSendSmsResponses,
-  SmsPostApiV1SendSendSmsErrors,
-  SmsPostApiV1BulkSendBulkSmsData,
-  SmsPostApiV1BulkSendBulkSmsResponses,
-  SmsPostApiV1BulkSendBulkSmsErrors,
-  SmsPostApiV1SendBulkSendBulkSmsAliasData,
-  SmsPostApiV1SendBulkSendBulkSmsAliasResponses,
-  SmsPostApiV1SendBulkSendBulkSmsAliasErrors,
-  SmsGetApiV1StatusMessageIdGetMessageStatusData,
-  SmsGetApiV1StatusMessageIdGetMessageStatusResponses,
-  SmsGetApiV1StatusMessageIdGetMessageStatusErrors,
-  SmsGetApiV1BalanceGetSmsBalanceData,
-  SmsGetApiV1BalanceGetSmsBalanceResponses,
-  SmsGetApiV1TemplatesGetMessageTemplatesData,
-  SmsGetApiV1TemplatesGetMessageTemplatesResponses,
-  SmsPostApiV1OtpGenerateGenerateOtpData,
-  SmsPostApiV1OtpGenerateGenerateOtpResponses,
-  SmsPostApiV1OtpGenerateGenerateOtpErrors,
-  SmsPostApiV1OtpVerifyVerifyOtpData,
-  SmsPostApiV1OtpVerifyVerifyOtpResponses,
-  SmsPostApiV1OtpVerifyVerifyOtpErrors,
   ApiGetHealthHealthCheck2Data,
   ApiGetHealthHealthCheck2Responses,
+  SmsPostApiV1SmsSendSendSingleSmsData,
+  SmsPostApiV1SmsSendSendSingleSmsResponses,
+  SmsPostApiV1SmsSendSendSingleSmsErrors,
+  SmsPostApiV1SmsSendBulkSendBulkSmsData,
+  SmsPostApiV1SmsSendBulkSendBulkSmsResponses,
+  SmsPostApiV1SmsSendBulkSendBulkSmsErrors,
+  ApplicationGetApiV1SmsBalanceCheckBalanceData,
+  ApplicationGetApiV1SmsBalanceCheckBalanceResponses,
+  WebhookPostApiV1DeliveryReportHandleDeliveryReportData,
+  WebhookPostApiV1DeliveryReportHandleDeliveryReportResponses,
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatusData,
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatusResponses,
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors,
   ApiGetRootRoot2Data,
   ApiGetRootRoot2Responses,
   ApiGetMetricsMetrics2Data,
@@ -162,6 +153,23 @@ import type {
   ApiGetHealthHealthCheck4Responses,
   ApiGetMetricsMetrics4Data,
   ApiGetMetricsMetrics4Responses,
+  GetNearbyPlacesApiV1NearbyGetData,
+  GetNearbyPlacesApiV1NearbyGetResponses,
+  GetNearbyPlacesApiV1NearbyGetErrors,
+  GetDistanceApiV1DistanceGetData,
+  GetDistanceApiV1DistanceGetResponses,
+  GetDistanceApiV1DistanceGetErrors,
+  GetDirectionsApiV1DirectionsGetData,
+  GetDirectionsApiV1DirectionsGetResponses,
+  GetDirectionsApiV1DirectionsGetErrors,
+  GetStaticMapApiV1StaticGetData,
+  GetStaticMapApiV1StaticGetResponses,
+  GetStaticMapApiV1StaticGetErrors,
+  GetRouteApiV1RoutesRoutesPostData,
+  GetRouteApiV1RoutesRoutesPostResponses,
+  GetRouteApiV1RoutesRoutesPostErrors,
+  HealthCheckHealthGetData,
+  HealthCheckHealthGetResponses,
   ApiGetMetricsMetrics5Data,
   ApiGetMetricsMetrics5Responses,
   ApiGetHealthHealthCheck5Data,
@@ -218,28 +226,21 @@ import type {
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Data,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Responses,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Errors,
-  SmsPostApiV1SendSendSms2Data,
-  SmsPostApiV1SendSendSms2Responses,
-  SmsPostApiV1SendSendSms2Errors,
-  SmsPostApiV1BulkSendBulkSms2Data,
-  SmsPostApiV1BulkSendBulkSms2Responses,
-  SmsPostApiV1BulkSendBulkSms2Errors,
-  SmsPostApiV1SendBulkSendBulkSmsAlias2Data,
-  SmsPostApiV1SendBulkSendBulkSmsAlias2Responses,
-  SmsPostApiV1SendBulkSendBulkSmsAlias2Errors,
-  SmsGetApiV1StatusMessageIdGetMessageStatus2Data,
-  SmsGetApiV1StatusMessageIdGetMessageStatus2Responses,
-  SmsGetApiV1StatusMessageIdGetMessageStatus2Errors,
-  SmsGetApiV1BalanceGetSmsBalance2Data,
-  SmsGetApiV1BalanceGetSmsBalance2Responses,
-  SmsGetApiV1TemplatesGetMessageTemplates2Data,
-  SmsGetApiV1TemplatesGetMessageTemplates2Responses,
-  SmsPostApiV1OtpGenerateGenerateOtp2Data,
-  SmsPostApiV1OtpGenerateGenerateOtp2Responses,
-  SmsPostApiV1OtpGenerateGenerateOtp2Errors,
-  SmsPostApiV1OtpVerifyVerifyOtp2Data,
-  SmsPostApiV1OtpVerifyVerifyOtp2Responses,
-  SmsPostApiV1OtpVerifyVerifyOtp2Errors,
+  HealthGetApiV1HealthHealthCheckData,
+  HealthGetApiV1HealthHealthCheckResponses,
+  SmsPostApiV1SmsSendSendSingleSms2Data,
+  SmsPostApiV1SmsSendSendSingleSms2Responses,
+  SmsPostApiV1SmsSendSendSingleSms2Errors,
+  SmsPostApiV1SmsSendBulkSendBulkSms2Data,
+  SmsPostApiV1SmsSendBulkSendBulkSms2Responses,
+  SmsPostApiV1SmsSendBulkSendBulkSms2Errors,
+  ApplicationGetApiV1SmsBalanceCheckBalance2Data,
+  ApplicationGetApiV1SmsBalanceCheckBalance2Responses,
+  WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data,
+  WebhookPostApiV1DeliveryReportHandleDeliveryReport2Responses,
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data,
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Responses,
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors,
   ApiGetHealthHealthCheck6Data,
   ApiGetHealthHealthCheck6Responses,
   ApiGetRootRoot4Data,
@@ -310,6 +311,23 @@ import type {
   ApiGetHealthHealthCheck8Responses,
   ApiGetMetricsMetrics8Data,
   ApiGetMetricsMetrics8Responses,
+  GetNearbyPlacesApiV1NearbyGet2Data,
+  GetNearbyPlacesApiV1NearbyGet2Responses,
+  GetNearbyPlacesApiV1NearbyGet2Errors,
+  GetDistanceApiV1DistanceGet2Data,
+  GetDistanceApiV1DistanceGet2Responses,
+  GetDistanceApiV1DistanceGet2Errors,
+  GetDirectionsApiV1DirectionsGet2Data,
+  GetDirectionsApiV1DirectionsGet2Responses,
+  GetDirectionsApiV1DirectionsGet2Errors,
+  GetStaticMapApiV1StaticGet2Data,
+  GetStaticMapApiV1StaticGet2Responses,
+  GetStaticMapApiV1StaticGet2Errors,
+  GetRouteApiV1RoutesRoutesPost2Data,
+  GetRouteApiV1RoutesRoutesPost2Responses,
+  GetRouteApiV1RoutesRoutesPost2Errors,
+  HealthCheckHealthGet2Data,
+  HealthCheckHealthGet2Responses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -1115,14 +1133,32 @@ export const adminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword = <
 };
 
 /**
- * Send Sms
+ * Health Check
  */
-export const smsPostApiV1SendSendSms = <ThrowOnError extends boolean = false>(
-  options: Options<SmsPostApiV1SendSendSmsData, ThrowOnError>
+export const apiGetHealthHealthCheck2 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetHealthHealthCheck2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/sms/health",
+    ...options,
+  });
+};
+
+/**
+ * Send Single Sms
+ */
+export const smsPostApiV1SmsSendSendSingleSms = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SmsPostApiV1SmsSendSendSingleSmsData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1SendSendSmsResponses,
-    SmsPostApiV1SendSendSmsErrors,
+    SmsPostApiV1SmsSendSendSingleSmsResponses,
+    SmsPostApiV1SmsSendSendSingleSmsErrors,
     ThrowOnError
   >({
     url: "/api/v1/sms/send",
@@ -1137,36 +1173,14 @@ export const smsPostApiV1SendSendSms = <ThrowOnError extends boolean = false>(
 /**
  * Send Bulk Sms
  */
-export const smsPostApiV1BulkSendBulkSms = <
+export const smsPostApiV1SmsSendBulkSendBulkSms = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<SmsPostApiV1BulkSendBulkSmsData, ThrowOnError>
+  options: Options<SmsPostApiV1SmsSendBulkSendBulkSmsData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1BulkSendBulkSmsResponses,
-    SmsPostApiV1BulkSendBulkSmsErrors,
-    ThrowOnError
-  >({
-    url: "/api/v1/sms/bulk",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Send Bulk Sms Alias
- */
-export const smsPostApiV1SendBulkSendBulkSmsAlias = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<SmsPostApiV1SendBulkSendBulkSmsAliasData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1SendBulkSendBulkSmsAliasResponses,
-    SmsPostApiV1SendBulkSendBulkSmsAliasErrors,
+    SmsPostApiV1SmsSendBulkSendBulkSmsResponses,
+    SmsPostApiV1SmsSendBulkSendBulkSmsErrors,
     ThrowOnError
   >({
     url: "/api/v1/sms/send-bulk",
@@ -1179,33 +1193,15 @@ export const smsPostApiV1SendBulkSendBulkSmsAlias = <
 };
 
 /**
- * Get Message Status
+ * Check Balance
  */
-export const smsGetApiV1StatusMessageIdGetMessageStatus = <
+export const applicationGetApiV1SmsBalanceCheckBalance = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<SmsGetApiV1StatusMessageIdGetMessageStatusData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).get<
-    SmsGetApiV1StatusMessageIdGetMessageStatusResponses,
-    SmsGetApiV1StatusMessageIdGetMessageStatusErrors,
-    ThrowOnError
-  >({
-    url: "/api/v1/sms/status/{message_id}",
-    ...options,
-  });
-};
-
-/**
- * Get Sms Balance
- */
-export const smsGetApiV1BalanceGetSmsBalance = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<SmsGetApiV1BalanceGetSmsBalanceData, ThrowOnError>
+  options?: Options<ApplicationGetApiV1SmsBalanceCheckBalanceData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    SmsGetApiV1BalanceGetSmsBalanceResponses,
+    ApplicationGetApiV1SmsBalanceCheckBalanceResponses,
     unknown,
     ThrowOnError
   >({
@@ -1215,79 +1211,43 @@ export const smsGetApiV1BalanceGetSmsBalance = <
 };
 
 /**
- * Get Message Templates
+ * Handle Delivery Report
  */
-export const smsGetApiV1TemplatesGetMessageTemplates = <
+export const webhookPostApiV1DeliveryReportHandleDeliveryReport = <
   ThrowOnError extends boolean = false,
 >(
-  options?: Options<SmsGetApiV1TemplatesGetMessageTemplatesData, ThrowOnError>
+  options?: Options<
+    WebhookPostApiV1DeliveryReportHandleDeliveryReportData,
+    ThrowOnError
+  >
 ) => {
-  return (options?.client ?? _heyApiClient).get<
-    SmsGetApiV1TemplatesGetMessageTemplatesResponses,
+  return (options?.client ?? _heyApiClient).post<
+    WebhookPostApiV1DeliveryReportHandleDeliveryReportResponses,
     unknown,
     ThrowOnError
   >({
-    url: "/api/v1/sms/templates",
+    url: "/api/v1/sms/delivery-report",
     ...options,
   });
 };
 
 /**
- * Generate Otp
+ * Get Message Status
  */
-export const smsPostApiV1OtpGenerateGenerateOtp = <
+export const smsGetApiV1SmsStatusMessageIdGetMessageStatus = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<SmsPostApiV1OtpGenerateGenerateOtpData, ThrowOnError>
+  options: Options<
+    SmsGetApiV1SmsStatusMessageIdGetMessageStatusData,
+    ThrowOnError
+  >
 ) => {
-  return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1OtpGenerateGenerateOtpResponses,
-    SmsPostApiV1OtpGenerateGenerateOtpErrors,
+  return (options.client ?? _heyApiClient).get<
+    SmsGetApiV1SmsStatusMessageIdGetMessageStatusResponses,
+    SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors,
     ThrowOnError
   >({
-    url: "/api/v1/sms/otp/generate",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Verify Otp
- */
-export const smsPostApiV1OtpVerifyVerifyOtp = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<SmsPostApiV1OtpVerifyVerifyOtpData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1OtpVerifyVerifyOtpResponses,
-    SmsPostApiV1OtpVerifyVerifyOtpErrors,
-    ThrowOnError
-  >({
-    url: "/api/v1/sms/otp/verify",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck2 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck2Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck2Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/sms/health",
+    url: "/api/v1/sms/status/{message_id}",
     ...options,
   });
 };
@@ -2007,6 +1967,116 @@ export const apiGetMetricsMetrics4 = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     url: "/api/v1/bvn/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Get Nearby Places
+ */
+export const getNearbyPlacesApiV1NearbyGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetNearbyPlacesApiV1NearbyGetData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetNearbyPlacesApiV1NearbyGetResponses,
+    GetNearbyPlacesApiV1NearbyGetErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/nearby/",
+    ...options,
+  });
+};
+
+/**
+ * Get Distance
+ */
+export const getDistanceApiV1DistanceGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetDistanceApiV1DistanceGetData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetDistanceApiV1DistanceGetResponses,
+    GetDistanceApiV1DistanceGetErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/distance/",
+    ...options,
+  });
+};
+
+/**
+ * Get Directions
+ */
+export const getDirectionsApiV1DirectionsGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetDirectionsApiV1DirectionsGetData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetDirectionsApiV1DirectionsGetResponses,
+    GetDirectionsApiV1DirectionsGetErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/directions/",
+    ...options,
+  });
+};
+
+/**
+ * Get Static Map
+ */
+export const getStaticMapApiV1StaticGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetStaticMapApiV1StaticGetData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetStaticMapApiV1StaticGetResponses,
+    GetStaticMapApiV1StaticGetErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/static/",
+    ...options,
+  });
+};
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPost = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetRouteApiV1RoutesRoutesPostData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    GetRouteApiV1RoutesRoutesPostResponses,
+    GetRouteApiV1RoutesRoutesPostErrors,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/routes/routes/",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Health Check
+ */
+export const healthCheckHealthGet = <ThrowOnError extends boolean = false>(
+  options?: Options<HealthCheckHealthGetData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    HealthCheckHealthGetResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/maps/health",
     ...options,
   });
 };
@@ -2766,14 +2836,34 @@ export const adminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2 = <
 };
 
 /**
- * Send Sms
+ * Health Check
  */
-export const smsPostApiV1SendSendSms2 = <ThrowOnError extends boolean = false>(
-  options: Options<SmsPostApiV1SendSendSms2Data, ThrowOnError>
+export const healthGetApiV1HealthHealthCheck = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<HealthGetApiV1HealthHealthCheckData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    HealthGetApiV1HealthHealthCheckResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/sms/api/v1/health",
+    ...options,
+  });
+};
+
+/**
+ * Send Single Sms
+ */
+export const smsPostApiV1SmsSendSendSingleSms2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<SmsPostApiV1SmsSendSendSingleSms2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1SendSendSms2Responses,
-    SmsPostApiV1SendSendSms2Errors,
+    SmsPostApiV1SmsSendSendSingleSms2Responses,
+    SmsPostApiV1SmsSendSendSingleSms2Errors,
     ThrowOnError
   >({
     security: [
@@ -2782,7 +2872,7 @@ export const smsPostApiV1SendSendSms2 = <ThrowOnError extends boolean = false>(
         type: "http",
       },
     ],
-    url: "/sms/api/v1/send",
+    url: "/sms/send",
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -2794,14 +2884,14 @@ export const smsPostApiV1SendSendSms2 = <ThrowOnError extends boolean = false>(
 /**
  * Send Bulk Sms
  */
-export const smsPostApiV1BulkSendBulkSms2 = <
+export const smsPostApiV1SmsSendBulkSendBulkSms2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<SmsPostApiV1BulkSendBulkSms2Data, ThrowOnError>
+  options: Options<SmsPostApiV1SmsSendBulkSendBulkSms2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1BulkSendBulkSms2Responses,
-    SmsPostApiV1BulkSendBulkSms2Errors,
+    SmsPostApiV1SmsSendBulkSendBulkSms2Responses,
+    SmsPostApiV1SmsSendBulkSendBulkSms2Errors,
     ThrowOnError
   >({
     security: [
@@ -2810,7 +2900,7 @@ export const smsPostApiV1BulkSendBulkSms2 = <
         type: "http",
       },
     ],
-    url: "/sms/api/v1/bulk",
+    url: "/sms/send-bulk",
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -2820,16 +2910,19 @@ export const smsPostApiV1BulkSendBulkSms2 = <
 };
 
 /**
- * Send Bulk Sms Alias
+ * Check Balance
  */
-export const smsPostApiV1SendBulkSendBulkSmsAlias2 = <
+export const applicationGetApiV1SmsBalanceCheckBalance2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<SmsPostApiV1SendBulkSendBulkSmsAlias2Data, ThrowOnError>
+  options?: Options<
+    ApplicationGetApiV1SmsBalanceCheckBalance2Data,
+    ThrowOnError
+  >
 ) => {
-  return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1SendBulkSendBulkSmsAlias2Responses,
-    SmsPostApiV1SendBulkSendBulkSmsAlias2Errors,
+  return (options?.client ?? _heyApiClient).get<
+    ApplicationGetApiV1SmsBalanceCheckBalance2Responses,
+    unknown,
     ThrowOnError
   >({
     security: [
@@ -2838,29 +2931,52 @@ export const smsPostApiV1SendBulkSendBulkSmsAlias2 = <
         type: "http",
       },
     ],
-    url: "/sms/api/v1/send-bulk",
+    url: "/sms/balance",
     ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
+  });
+};
+
+/**
+ * Handle Delivery Report
+ */
+export const webhookPostApiV1DeliveryReportHandleDeliveryReport2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<
+    WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    WebhookPostApiV1DeliveryReportHandleDeliveryReport2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/sms/api/v1/delivery-report",
+    ...options,
   });
 };
 
 /**
  * Get Message Status
  */
-export const smsGetApiV1StatusMessageIdGetMessageStatus2 = <
+export const smsGetApiV1SmsStatusMessageIdGetMessageStatus2 = <
   ThrowOnError extends boolean = false,
 >(
   options: Options<
-    SmsGetApiV1StatusMessageIdGetMessageStatus2Data,
+    SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data,
     ThrowOnError
   >
 ) => {
   return (options.client ?? _heyApiClient).get<
-    SmsGetApiV1StatusMessageIdGetMessageStatus2Responses,
-    SmsGetApiV1StatusMessageIdGetMessageStatus2Errors,
+    SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Responses,
+    SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors,
     ThrowOnError
   >({
     security: [
@@ -2869,112 +2985,8 @@ export const smsGetApiV1StatusMessageIdGetMessageStatus2 = <
         type: "http",
       },
     ],
-    url: "/sms/api/v1/status/{message_id}",
+    url: "/sms/status/{message_id}",
     ...options,
-  });
-};
-
-/**
- * Get Sms Balance
- */
-export const smsGetApiV1BalanceGetSmsBalance2 = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<SmsGetApiV1BalanceGetSmsBalance2Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    SmsGetApiV1BalanceGetSmsBalance2Responses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/sms/api/v1/balance",
-    ...options,
-  });
-};
-
-/**
- * Get Message Templates
- */
-export const smsGetApiV1TemplatesGetMessageTemplates2 = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<SmsGetApiV1TemplatesGetMessageTemplates2Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    SmsGetApiV1TemplatesGetMessageTemplates2Responses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/sms/api/v1/templates",
-    ...options,
-  });
-};
-
-/**
- * Generate Otp
- */
-export const smsPostApiV1OtpGenerateGenerateOtp2 = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<SmsPostApiV1OtpGenerateGenerateOtp2Data, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1OtpGenerateGenerateOtp2Responses,
-    SmsPostApiV1OtpGenerateGenerateOtp2Errors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/sms/api/v1/otp/generate",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Verify Otp
- */
-export const smsPostApiV1OtpVerifyVerifyOtp2 = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<SmsPostApiV1OtpVerifyVerifyOtp2Data, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    SmsPostApiV1OtpVerifyVerifyOtp2Responses,
-    SmsPostApiV1OtpVerifyVerifyOtp2Errors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/sms/api/v1/otp/verify",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
   });
 };
 
@@ -3788,6 +3800,146 @@ export const apiGetMetricsMetrics8 = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     url: "/bvn/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Get Nearby Places
+ */
+export const getNearbyPlacesApiV1NearbyGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetNearbyPlacesApiV1NearbyGet2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetNearbyPlacesApiV1NearbyGet2Responses,
+    GetNearbyPlacesApiV1NearbyGet2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/nearby/",
+    ...options,
+  });
+};
+
+/**
+ * Get Distance
+ */
+export const getDistanceApiV1DistanceGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetDistanceApiV1DistanceGet2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetDistanceApiV1DistanceGet2Responses,
+    GetDistanceApiV1DistanceGet2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/distance/",
+    ...options,
+  });
+};
+
+/**
+ * Get Directions
+ */
+export const getDirectionsApiV1DirectionsGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetDirectionsApiV1DirectionsGet2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetDirectionsApiV1DirectionsGet2Responses,
+    GetDirectionsApiV1DirectionsGet2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/directions/",
+    ...options,
+  });
+};
+
+/**
+ * Get Static Map
+ */
+export const getStaticMapApiV1StaticGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetStaticMapApiV1StaticGet2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetStaticMapApiV1StaticGet2Responses,
+    GetStaticMapApiV1StaticGet2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/static/",
+    ...options,
+  });
+};
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPost2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetRouteApiV1RoutesRoutesPost2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    GetRouteApiV1RoutesRoutesPost2Responses,
+    GetRouteApiV1RoutesRoutesPost2Errors,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/maps/api/v1/routes/routes/",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Health Check
+ */
+export const healthCheckHealthGet2 = <ThrowOnError extends boolean = false>(
+  options?: Options<HealthCheckHealthGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    HealthCheckHealthGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/maps/health",
     ...options,
   });
 };

@@ -4,18 +4,18 @@ import { ApiClientInterface } from "../../components/api-client-interface";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
-export default function SmsPostApiV1SmsSendBulkSendBulkSmsPage() {
+export default function GetDirectionsApiV1DirectionsGetPage() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">
         <ApiClientInterface
-          initialMethod="POST"
-          initialPath="/api/v1/sms/send-bulk"
+          initialMethod="GET"
+          initialPath="/api/v1/maps/directions/"
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
         <PageNavigation
-          {...getNavigation("/introduction/services/sms/send-bulk")}
+          {...getNavigation("/introduction/services/maps/directions")}
         />
       </div>
     </div>

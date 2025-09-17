@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { Play, Plus, Trash2 } from "lucide-react";
 import { BaseUrlIcon } from "./base-url-icon";
 import { ConnectionIcon } from "./connection-icon";
+import { MapsParams } from "./maps-params";
 import { getBaseUrl } from "@/lib/env";
 import { useAuthStore } from "@/app/store/use-auth-store";
 
@@ -54,16 +55,24 @@ export function RequestComposer({
   const [formData, setFormData] = useState<
     { key: string; value: string | File; type: "text" | "file" }[]
   >([{ key: "", value: "", type: "text" }]);
-  const [activeTab, setActiveTab] = useState<"params" | "headers" | "body">(
-    "headers"
+  const [queryParams, setQueryParams] = useState<URLSearchParams>(
+    new URLSearchParams()
   );
+  const [activeTab, setActiveTab] = useState<
+    "params" | "headers" | "body" | "query"
+  >("headers");
 
-  // Set initial tab based on path params
+  // Check if this is a maps endpoint
+  const isMapsEndpoint = initialPath.includes("/maps/");
+
+  // Set initial tab based on path params or maps endpoint
   useEffect(() => {
     if (pathParams.length > 0) {
       setActiveTab("params");
+    } else if (isMapsEndpoint) {
+      setActiveTab("query");
     }
-  }, [pathParams.length]);
+  }, [pathParams.length, isMapsEndpoint]);
 
   // Update headers when content type changes
   useEffect(() => {
@@ -119,7 +128,11 @@ export function RequestComposer({
       }
     });
 
-    const fullUrl = `${baseUrl.replace(/\/$/, "")}${processedPath}`;
+    // Add query parameters for maps endpoints
+    let fullUrl = `${baseUrl.replace(/\/$/, "")}${processedPath}`;
+    if (isMapsEndpoint && queryParams.toString()) {
+      fullUrl += `?${queryParams.toString()}`;
+    }
     const allHeaders = getAllHeaders();
 
     let requestBody = "";
@@ -216,6 +229,19 @@ export function RequestComposer({
               Params ({pathParams.length})
             </button>
           )}
+          {isMapsEndpoint && (
+            <button
+              onClick={() => setActiveTab("query")}
+              className={cn(
+                "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
+                activeTab === "query"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Query
+            </button>
+          )}
           <button
             onClick={() => setActiveTab("headers")}
             className={cn(
@@ -273,6 +299,15 @@ export function RequestComposer({
                 ))}
               </div>
             </ScrollArea>
+          </div>
+        )}
+
+        {activeTab === "query" && isMapsEndpoint && (
+          <div className="h-full">
+            <MapsParams
+              endpoint={initialPath}
+              onParamsChange={setQueryParams}
+            />
           </div>
         )}
 

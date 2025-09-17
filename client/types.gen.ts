@@ -365,77 +365,45 @@ export type ValidationError = {
 };
 
 /**
- * OTPGenerateRequest
+ * SendBulkSMSRequest
  */
-export type OtpGenerateRequest = {
+export type SendBulkSmsRequest = {
   /**
    * To
+   * A list of phone numbers to send the SMS to. Must be in international format.
    */
-  to: string;
-  /**
-   * Length
-   */
-  length?: number;
-  /**
-   * Expiry Minutes
-   */
-  expiry_minutes?: number;
-};
-
-/**
- * OTPVerifyRequest
- */
-export type OtpVerifyRequest = {
-  /**
-   * To
-   */
-  to: string;
-  /**
-   * Code
-   */
-  code: string;
-};
-
-/**
- * SMSBulkRequest
- */
-export type SmsBulkRequest = {
-  /**
-   * Recipients
-   * List of recipient phone numbers
-   */
-  recipients: string[];
+  to: string[];
   /**
    * Message
-   * SMS message body for bulk send
+   * The content of the SMS message.
    */
   message: string;
   /**
-   * Sender Id
-   * Custom sender ID override
+   * Sender
+   * Required sender ID.
    */
-  sender_id?: string | null;
+  sender: string;
 };
 
 /**
- * SMSSendRequest
+ * SendSMSRequest
  */
-export type SmsSendRequest = {
+export type SendSmsRequest = {
   /**
    * To
-   * Recipient phone number in E.164 or local format
+   * The phone number to send the SMS to. Must be in international format (e.g., +23480xxxxxxxx).
    */
   to: string;
   /**
    * Message
-   * SMS message body
+   * The content of the SMS message.
    */
   message: string;
   /**
-   * Sender Id
-   * Custom sender ID override
+   * Sender
+   * Required  sender ID.
    */
-  sender_id?: string | null;
+  sender: string;
 };
 
 /**
@@ -726,6 +694,36 @@ export type Bank = {
    * Name
    */
   name: string;
+};
+
+/**
+ * Location
+ */
+export type Location = {
+  /**
+   * Lat
+   */
+  lat: number;
+  /**
+   * Lng
+   */
+  lng: number;
+};
+
+/**
+ * RouteRequest
+ */
+export type RouteRequest = {
+  origin: Location;
+  destination: Location;
+  /**
+   * Mode
+   */
+  mode?: string;
+  /**
+   * Routing Pref
+   */
+  routing_pref?: string;
 };
 
 export type DefaultHealthCheckData = {
@@ -1308,82 +1306,97 @@ export type AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordResponse
     200: unknown;
   };
 
-export type SmsPostApiV1SendSendSmsData = {
-  body: SmsSendRequest;
+export type ApiGetHealthHealthCheck2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/sms/health";
+};
+
+export type ApiGetHealthHealthCheck2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type SmsPostApiV1SmsSendSendSingleSmsData = {
+  body: SendSmsRequest;
   path?: never;
   query?: never;
   url: "/api/v1/sms/send";
 };
 
-export type SmsPostApiV1SendSendSmsErrors = {
+export type SmsPostApiV1SmsSendSendSingleSmsErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsPostApiV1SendSendSmsError =
-  SmsPostApiV1SendSendSmsErrors[keyof SmsPostApiV1SendSendSmsErrors];
+export type SmsPostApiV1SmsSendSendSingleSmsError =
+  SmsPostApiV1SmsSendSendSingleSmsErrors[keyof SmsPostApiV1SmsSendSendSingleSmsErrors];
 
-export type SmsPostApiV1SendSendSmsResponses = {
+export type SmsPostApiV1SmsSendSendSingleSmsResponses = {
   /**
-   * Response Sms Post Api V1 Send Send Sms
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsPostApiV1BulkSendBulkSmsData = {
-  body: SmsBulkRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/bulk";
-};
-
-export type SmsPostApiV1BulkSendBulkSmsErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1BulkSendBulkSmsError =
-  SmsPostApiV1BulkSendBulkSmsErrors[keyof SmsPostApiV1BulkSendBulkSmsErrors];
-
-export type SmsPostApiV1BulkSendBulkSmsResponses = {
-  /**
-   * Response Sms Post Api V1 Bulk Send Bulk Sms
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1SendBulkSendBulkSmsAliasData = {
-  body: SmsBulkRequest;
+export type SmsPostApiV1SmsSendBulkSendBulkSmsData = {
+  body: SendBulkSmsRequest;
   path?: never;
   query?: never;
   url: "/api/v1/sms/send-bulk";
 };
 
-export type SmsPostApiV1SendBulkSendBulkSmsAliasErrors = {
+export type SmsPostApiV1SmsSendBulkSendBulkSmsErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsPostApiV1SendBulkSendBulkSmsAliasError =
-  SmsPostApiV1SendBulkSendBulkSmsAliasErrors[keyof SmsPostApiV1SendBulkSendBulkSmsAliasErrors];
+export type SmsPostApiV1SmsSendBulkSendBulkSmsError =
+  SmsPostApiV1SmsSendBulkSendBulkSmsErrors[keyof SmsPostApiV1SmsSendBulkSendBulkSmsErrors];
 
-export type SmsPostApiV1SendBulkSendBulkSmsAliasResponses = {
+export type SmsPostApiV1SmsSendBulkSendBulkSmsResponses = {
   /**
-   * Response Sms Post Api V1 Send Bulk Send Bulk Sms Alias
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatusData = {
+export type ApplicationGetApiV1SmsBalanceCheckBalanceData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/sms/balance";
+};
+
+export type ApplicationGetApiV1SmsBalanceCheckBalanceResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type WebhookPostApiV1DeliveryReportHandleDeliveryReportData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/sms/delivery-report";
+};
+
+export type WebhookPostApiV1DeliveryReportHandleDeliveryReportResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatusData = {
   body?: never;
   path: {
     /**
@@ -1395,112 +1408,17 @@ export type SmsGetApiV1StatusMessageIdGetMessageStatusData = {
   url: "/api/v1/sms/status/{message_id}";
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatusErrors = {
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatusError =
-  SmsGetApiV1StatusMessageIdGetMessageStatusErrors[keyof SmsGetApiV1StatusMessageIdGetMessageStatusErrors];
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatusError =
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors[keyof SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors];
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatusResponses = {
-  /**
-   * Response Sms Get Api V1 Status Message Id Get Message Status
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsGetApiV1BalanceGetSmsBalanceData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/balance";
-};
-
-export type SmsGetApiV1BalanceGetSmsBalanceResponses = {
-  /**
-   * Response Sms Get Api V1 Balance Get Sms Balance
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsGetApiV1TemplatesGetMessageTemplatesData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/templates";
-};
-
-export type SmsGetApiV1TemplatesGetMessageTemplatesResponses = {
-  /**
-   * Response Sms Get Api V1 Templates Get Message Templates
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtpData = {
-  body: OtpGenerateRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/otp/generate";
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtpErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtpError =
-  SmsPostApiV1OtpGenerateGenerateOtpErrors[keyof SmsPostApiV1OtpGenerateGenerateOtpErrors];
-
-export type SmsPostApiV1OtpGenerateGenerateOtpResponses = {
-  /**
-   * Response Sms Post Api V1 Otp Generate Generate Otp
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtpData = {
-  body: OtpVerifyRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/otp/verify";
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtpErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtpError =
-  SmsPostApiV1OtpVerifyVerifyOtpErrors[keyof SmsPostApiV1OtpVerifyVerifyOtpErrors];
-
-export type SmsPostApiV1OtpVerifyVerifyOtpResponses = {
-  /**
-   * Response Sms Post Api V1 Otp Verify Verify Otp
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiGetHealthHealthCheck2Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/health";
-};
-
-export type ApiGetHealthHealthCheck2Responses = {
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatusResponses = {
   /**
    * Successful Response
    */
@@ -2087,6 +2005,212 @@ export type ApiGetMetricsMetrics4Responses = {
   200: unknown;
 };
 
+export type GetNearbyPlacesApiV1NearbyGetData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Lat
+     */
+    lat: number;
+    /**
+     * Lng
+     */
+    lng: number;
+    /**
+     * Keyword
+     */
+    keyword?: string;
+    /**
+     * Radius M
+     */
+    radius_m?: number;
+  };
+  url: "/api/v1/maps/nearby/";
+};
+
+export type GetNearbyPlacesApiV1NearbyGetErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetNearbyPlacesApiV1NearbyGetError =
+  GetNearbyPlacesApiV1NearbyGetErrors[keyof GetNearbyPlacesApiV1NearbyGetErrors];
+
+export type GetNearbyPlacesApiV1NearbyGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetDistanceApiV1DistanceGetData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Origin
+     */
+    origin: string;
+    /**
+     * Destination
+     */
+    destination: string;
+    /**
+     * Mode
+     */
+    mode?: string;
+  };
+  url: "/api/v1/maps/distance/";
+};
+
+export type GetDistanceApiV1DistanceGetErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetDistanceApiV1DistanceGetError =
+  GetDistanceApiV1DistanceGetErrors[keyof GetDistanceApiV1DistanceGetErrors];
+
+export type GetDistanceApiV1DistanceGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetDirectionsApiV1DirectionsGetData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Origin
+     * Origin address or lat,lng
+     */
+    origin: string;
+    /**
+     * Destination
+     * Destination address or lat,lng
+     */
+    destination: string;
+    /**
+     * Mode
+     * Mode of travel: driving, walking, bicycling, transit
+     */
+    mode?: string;
+  };
+  url: "/api/v1/maps/directions/";
+};
+
+export type GetDirectionsApiV1DirectionsGetErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetDirectionsApiV1DirectionsGetError =
+  GetDirectionsApiV1DirectionsGetErrors[keyof GetDirectionsApiV1DirectionsGetErrors];
+
+export type GetDirectionsApiV1DirectionsGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetStaticMapApiV1StaticGetData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Center
+     * Center of the map, e.g., '37.421655,-122.085637'
+     */
+    center: string;
+    /**
+     * Markers
+     * List of marker coordinates, e.g., ['37.421655,-122.085637','37.420999,-122.086894']
+     */
+    markers?: string[];
+    /**
+     * Path
+     * List of path coordinates for routes
+     */
+    path?: string[];
+    /**
+     * Zoom
+     * Zoom level
+     */
+    zoom?: number;
+    /**
+     * Size
+     * Image size WxH
+     */
+    size?: string;
+  };
+  url: "/api/v1/maps/static/";
+};
+
+export type GetStaticMapApiV1StaticGetErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetStaticMapApiV1StaticGetError =
+  GetStaticMapApiV1StaticGetErrors[keyof GetStaticMapApiV1StaticGetErrors];
+
+export type GetStaticMapApiV1StaticGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetRouteApiV1RoutesRoutesPostData = {
+  body: RouteRequest;
+  path?: never;
+  query?: never;
+  url: "/api/v1/maps/routes/routes/";
+};
+
+export type GetRouteApiV1RoutesRoutesPostErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetRouteApiV1RoutesRoutesPostError =
+  GetRouteApiV1RoutesRoutesPostErrors[keyof GetRouteApiV1RoutesRoutesPostErrors];
+
+export type GetRouteApiV1RoutesRoutesPostResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type HealthCheckHealthGetData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/maps/health";
+};
+
+export type HealthCheckHealthGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
 export type ApiGetMetricsMetrics5Data = {
   body?: never;
   path?: never;
@@ -2626,82 +2750,97 @@ export type AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Respons
     200: unknown;
   };
 
-export type SmsPostApiV1SendSendSms2Data = {
-  body: SmsSendRequest;
+export type HealthGetApiV1HealthHealthCheckData = {
+  body?: never;
   path?: never;
   query?: never;
-  url: "/sms/api/v1/send";
+  url: "/sms/api/v1/health";
 };
 
-export type SmsPostApiV1SendSendSms2Errors = {
+export type HealthGetApiV1HealthHealthCheckResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type SmsPostApiV1SmsSendSendSingleSms2Data = {
+  body: SendSmsRequest;
+  path?: never;
+  query?: never;
+  url: "/sms/send";
+};
+
+export type SmsPostApiV1SmsSendSendSingleSms2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsPostApiV1SendSendSms2Error =
-  SmsPostApiV1SendSendSms2Errors[keyof SmsPostApiV1SendSendSms2Errors];
+export type SmsPostApiV1SmsSendSendSingleSms2Error =
+  SmsPostApiV1SmsSendSendSingleSms2Errors[keyof SmsPostApiV1SmsSendSendSingleSms2Errors];
 
-export type SmsPostApiV1SendSendSms2Responses = {
+export type SmsPostApiV1SmsSendSendSingleSms2Responses = {
   /**
-   * Response Sms Post Api V1 Send Send Sms
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsPostApiV1BulkSendBulkSms2Data = {
-  body: SmsBulkRequest;
+export type SmsPostApiV1SmsSendBulkSendBulkSms2Data = {
+  body: SendBulkSmsRequest;
   path?: never;
   query?: never;
-  url: "/sms/api/v1/bulk";
+  url: "/sms/send-bulk";
 };
 
-export type SmsPostApiV1BulkSendBulkSms2Errors = {
+export type SmsPostApiV1SmsSendBulkSendBulkSms2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsPostApiV1BulkSendBulkSms2Error =
-  SmsPostApiV1BulkSendBulkSms2Errors[keyof SmsPostApiV1BulkSendBulkSms2Errors];
+export type SmsPostApiV1SmsSendBulkSendBulkSms2Error =
+  SmsPostApiV1SmsSendBulkSendBulkSms2Errors[keyof SmsPostApiV1SmsSendBulkSendBulkSms2Errors];
 
-export type SmsPostApiV1BulkSendBulkSms2Responses = {
+export type SmsPostApiV1SmsSendBulkSendBulkSms2Responses = {
   /**
-   * Response Sms Post Api V1 Bulk Send Bulk Sms
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsPostApiV1SendBulkSendBulkSmsAlias2Data = {
-  body: SmsBulkRequest;
+export type ApplicationGetApiV1SmsBalanceCheckBalance2Data = {
+  body?: never;
   path?: never;
   query?: never;
-  url: "/sms/api/v1/send-bulk";
+  url: "/sms/balance";
 };
 
-export type SmsPostApiV1SendBulkSendBulkSmsAlias2Errors = {
+export type ApplicationGetApiV1SmsBalanceCheckBalance2Responses = {
   /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1SendBulkSendBulkSmsAlias2Error =
-  SmsPostApiV1SendBulkSendBulkSmsAlias2Errors[keyof SmsPostApiV1SendBulkSendBulkSmsAlias2Errors];
-
-export type SmsPostApiV1SendBulkSendBulkSmsAlias2Responses = {
-  /**
-   * Response Sms Post Api V1 Send Bulk Send Bulk Sms Alias
    * Successful Response
    */
   200: unknown;
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatus2Data = {
+export type WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/sms/api/v1/delivery-report";
+};
+
+export type WebhookPostApiV1DeliveryReportHandleDeliveryReport2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data = {
   body?: never;
   path: {
     /**
@@ -2710,102 +2849,21 @@ export type SmsGetApiV1StatusMessageIdGetMessageStatus2Data = {
     message_id: string;
   };
   query?: never;
-  url: "/sms/api/v1/status/{message_id}";
+  url: "/sms/status/{message_id}";
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatus2Errors = {
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatus2Error =
-  SmsGetApiV1StatusMessageIdGetMessageStatus2Errors[keyof SmsGetApiV1StatusMessageIdGetMessageStatus2Errors];
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Error =
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors[keyof SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors];
 
-export type SmsGetApiV1StatusMessageIdGetMessageStatus2Responses = {
+export type SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Responses = {
   /**
-   * Response Sms Get Api V1 Status Message Id Get Message Status
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsGetApiV1BalanceGetSmsBalance2Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/sms/api/v1/balance";
-};
-
-export type SmsGetApiV1BalanceGetSmsBalance2Responses = {
-  /**
-   * Response Sms Get Api V1 Balance Get Sms Balance
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsGetApiV1TemplatesGetMessageTemplates2Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/sms/api/v1/templates";
-};
-
-export type SmsGetApiV1TemplatesGetMessageTemplates2Responses = {
-  /**
-   * Response Sms Get Api V1 Templates Get Message Templates
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtp2Data = {
-  body: OtpGenerateRequest;
-  path?: never;
-  query?: never;
-  url: "/sms/api/v1/otp/generate";
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtp2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1OtpGenerateGenerateOtp2Error =
-  SmsPostApiV1OtpGenerateGenerateOtp2Errors[keyof SmsPostApiV1OtpGenerateGenerateOtp2Errors];
-
-export type SmsPostApiV1OtpGenerateGenerateOtp2Responses = {
-  /**
-   * Response Sms Post Api V1 Otp Generate Generate Otp
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtp2Data = {
-  body: OtpVerifyRequest;
-  path?: never;
-  query?: never;
-  url: "/sms/api/v1/otp/verify";
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtp2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type SmsPostApiV1OtpVerifyVerifyOtp2Error =
-  SmsPostApiV1OtpVerifyVerifyOtp2Errors[keyof SmsPostApiV1OtpVerifyVerifyOtp2Errors];
-
-export type SmsPostApiV1OtpVerifyVerifyOtp2Responses = {
-  /**
-   * Response Sms Post Api V1 Otp Verify Verify Otp
    * Successful Response
    */
   200: unknown;
@@ -3399,6 +3457,212 @@ export type ApiGetMetricsMetrics8Data = {
 };
 
 export type ApiGetMetricsMetrics8Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetNearbyPlacesApiV1NearbyGet2Data = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Lat
+     */
+    lat: number;
+    /**
+     * Lng
+     */
+    lng: number;
+    /**
+     * Keyword
+     */
+    keyword?: string;
+    /**
+     * Radius M
+     */
+    radius_m?: number;
+  };
+  url: "/maps/api/v1/nearby/";
+};
+
+export type GetNearbyPlacesApiV1NearbyGet2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetNearbyPlacesApiV1NearbyGet2Error =
+  GetNearbyPlacesApiV1NearbyGet2Errors[keyof GetNearbyPlacesApiV1NearbyGet2Errors];
+
+export type GetNearbyPlacesApiV1NearbyGet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetDistanceApiV1DistanceGet2Data = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Origin
+     */
+    origin: string;
+    /**
+     * Destination
+     */
+    destination: string;
+    /**
+     * Mode
+     */
+    mode?: string;
+  };
+  url: "/maps/api/v1/distance/";
+};
+
+export type GetDistanceApiV1DistanceGet2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetDistanceApiV1DistanceGet2Error =
+  GetDistanceApiV1DistanceGet2Errors[keyof GetDistanceApiV1DistanceGet2Errors];
+
+export type GetDistanceApiV1DistanceGet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetDirectionsApiV1DirectionsGet2Data = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Origin
+     * Origin address or lat,lng
+     */
+    origin: string;
+    /**
+     * Destination
+     * Destination address or lat,lng
+     */
+    destination: string;
+    /**
+     * Mode
+     * Mode of travel: driving, walking, bicycling, transit
+     */
+    mode?: string;
+  };
+  url: "/maps/api/v1/directions/";
+};
+
+export type GetDirectionsApiV1DirectionsGet2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetDirectionsApiV1DirectionsGet2Error =
+  GetDirectionsApiV1DirectionsGet2Errors[keyof GetDirectionsApiV1DirectionsGet2Errors];
+
+export type GetDirectionsApiV1DirectionsGet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetStaticMapApiV1StaticGet2Data = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Center
+     * Center of the map, e.g., '37.421655,-122.085637'
+     */
+    center: string;
+    /**
+     * Markers
+     * List of marker coordinates, e.g., ['37.421655,-122.085637','37.420999,-122.086894']
+     */
+    markers?: string[];
+    /**
+     * Path
+     * List of path coordinates for routes
+     */
+    path?: string[];
+    /**
+     * Zoom
+     * Zoom level
+     */
+    zoom?: number;
+    /**
+     * Size
+     * Image size WxH
+     */
+    size?: string;
+  };
+  url: "/maps/api/v1/static/";
+};
+
+export type GetStaticMapApiV1StaticGet2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetStaticMapApiV1StaticGet2Error =
+  GetStaticMapApiV1StaticGet2Errors[keyof GetStaticMapApiV1StaticGet2Errors];
+
+export type GetStaticMapApiV1StaticGet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type GetRouteApiV1RoutesRoutesPost2Data = {
+  body: RouteRequest;
+  path?: never;
+  query?: never;
+  url: "/maps/api/v1/routes/routes/";
+};
+
+export type GetRouteApiV1RoutesRoutesPost2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetRouteApiV1RoutesRoutesPost2Error =
+  GetRouteApiV1RoutesRoutesPost2Errors[keyof GetRouteApiV1RoutesRoutesPost2Errors];
+
+export type GetRouteApiV1RoutesRoutesPost2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type HealthCheckHealthGet2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/maps/health";
+};
+
+export type HealthCheckHealthGet2Responses = {
   /**
    * Successful Response
    */

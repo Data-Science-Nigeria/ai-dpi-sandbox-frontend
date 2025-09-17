@@ -26,15 +26,12 @@ import {
   adminPostApiV1AdminUsersUserIdActivateActivateUser,
   adminPostApiV1AdminUsersUserIdDeactivateDeactivateUser,
   adminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword,
-  smsPostApiV1SendSendSms,
-  smsPostApiV1BulkSendBulkSms,
-  smsPostApiV1SendBulkSendBulkSmsAlias,
-  smsGetApiV1StatusMessageIdGetMessageStatus,
-  smsGetApiV1BalanceGetSmsBalance,
-  smsGetApiV1TemplatesGetMessageTemplates,
-  smsPostApiV1OtpGenerateGenerateOtp,
-  smsPostApiV1OtpVerifyVerifyOtp,
   apiGetHealthHealthCheck2,
+  smsPostApiV1SmsSendSendSingleSms,
+  smsPostApiV1SmsSendBulkSendBulkSms,
+  applicationGetApiV1SmsBalanceCheckBalance,
+  webhookPostApiV1DeliveryReportHandleDeliveryReport,
+  smsGetApiV1SmsStatusMessageIdGetMessageStatus,
   apiGetRootRoot2,
   apiGetMetricsMetrics2,
   healthHealthGet,
@@ -62,6 +59,12 @@ import {
   apiGetApiV1BanksGetSupportedBanks,
   apiGetHealthHealthCheck4,
   apiGetMetricsMetrics4,
+  getNearbyPlacesApiV1NearbyGet,
+  getDistanceApiV1DistanceGet,
+  getDirectionsApiV1DirectionsGet,
+  getStaticMapApiV1StaticGet,
+  getRouteApiV1RoutesRoutesPost,
+  healthCheckHealthGet,
   apiGetMetricsMetrics5,
   apiGetHealthHealthCheck5,
   apiGetRootRoot3,
@@ -83,14 +86,12 @@ import {
   adminPostApiV1AdminUsersUserIdActivateActivateUser2,
   adminPostApiV1AdminUsersUserIdDeactivateDeactivateUser2,
   adminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2,
-  smsPostApiV1SendSendSms2,
-  smsPostApiV1BulkSendBulkSms2,
-  smsPostApiV1SendBulkSendBulkSmsAlias2,
-  smsGetApiV1StatusMessageIdGetMessageStatus2,
-  smsGetApiV1BalanceGetSmsBalance2,
-  smsGetApiV1TemplatesGetMessageTemplates2,
-  smsPostApiV1OtpGenerateGenerateOtp2,
-  smsPostApiV1OtpVerifyVerifyOtp2,
+  healthGetApiV1HealthHealthCheck,
+  smsPostApiV1SmsSendSendSingleSms2,
+  smsPostApiV1SmsSendBulkSendBulkSms2,
+  applicationGetApiV1SmsBalanceCheckBalance2,
+  webhookPostApiV1DeliveryReportHandleDeliveryReport2,
+  smsGetApiV1SmsStatusMessageIdGetMessageStatus2,
   apiGetHealthHealthCheck6,
   apiGetRootRoot4,
   apiGetMetricsMetrics6,
@@ -119,6 +120,12 @@ import {
   apiGetApiV1BanksGetSupportedBanks2,
   apiGetHealthHealthCheck8,
   apiGetMetricsMetrics8,
+  getNearbyPlacesApiV1NearbyGet2,
+  getDistanceApiV1DistanceGet2,
+  getDirectionsApiV1DirectionsGet2,
+  getStaticMapApiV1StaticGet2,
+  getRouteApiV1RoutesRoutesPost2,
+  healthCheckHealthGet2,
 } from "../sdk.gen";
 import {
   queryOptions,
@@ -166,20 +173,14 @@ import type {
   AdminPostApiV1AdminUsersUserIdDeactivateDeactivateUserError,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordData,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordError,
-  SmsPostApiV1SendSendSmsData,
-  SmsPostApiV1SendSendSmsError,
-  SmsPostApiV1BulkSendBulkSmsData,
-  SmsPostApiV1BulkSendBulkSmsError,
-  SmsPostApiV1SendBulkSendBulkSmsAliasData,
-  SmsPostApiV1SendBulkSendBulkSmsAliasError,
-  SmsGetApiV1StatusMessageIdGetMessageStatusData,
-  SmsGetApiV1BalanceGetSmsBalanceData,
-  SmsGetApiV1TemplatesGetMessageTemplatesData,
-  SmsPostApiV1OtpGenerateGenerateOtpData,
-  SmsPostApiV1OtpGenerateGenerateOtpError,
-  SmsPostApiV1OtpVerifyVerifyOtpData,
-  SmsPostApiV1OtpVerifyVerifyOtpError,
   ApiGetHealthHealthCheck2Data,
+  SmsPostApiV1SmsSendSendSingleSmsData,
+  SmsPostApiV1SmsSendSendSingleSmsError,
+  SmsPostApiV1SmsSendBulkSendBulkSmsData,
+  SmsPostApiV1SmsSendBulkSendBulkSmsError,
+  ApplicationGetApiV1SmsBalanceCheckBalanceData,
+  WebhookPostApiV1DeliveryReportHandleDeliveryReportData,
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatusData,
   ApiGetRootRoot2Data,
   ApiGetMetricsMetrics2Data,
   HealthHealthGetData,
@@ -226,6 +227,13 @@ import type {
   ApiGetApiV1BanksGetSupportedBanksData,
   ApiGetHealthHealthCheck4Data,
   ApiGetMetricsMetrics4Data,
+  GetNearbyPlacesApiV1NearbyGetData,
+  GetDistanceApiV1DistanceGetData,
+  GetDirectionsApiV1DirectionsGetData,
+  GetStaticMapApiV1StaticGetData,
+  GetRouteApiV1RoutesRoutesPostData,
+  GetRouteApiV1RoutesRoutesPostError,
+  HealthCheckHealthGetData,
   ApiGetMetricsMetrics5Data,
   ApiGetHealthHealthCheck5Data,
   ApiGetRootRoot3Data,
@@ -263,19 +271,14 @@ import type {
   AdminPostApiV1AdminUsersUserIdDeactivateDeactivateUser2Error,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Data,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Error,
-  SmsPostApiV1SendSendSms2Data,
-  SmsPostApiV1SendSendSms2Error,
-  SmsPostApiV1BulkSendBulkSms2Data,
-  SmsPostApiV1BulkSendBulkSms2Error,
-  SmsPostApiV1SendBulkSendBulkSmsAlias2Data,
-  SmsPostApiV1SendBulkSendBulkSmsAlias2Error,
-  SmsGetApiV1StatusMessageIdGetMessageStatus2Data,
-  SmsGetApiV1BalanceGetSmsBalance2Data,
-  SmsGetApiV1TemplatesGetMessageTemplates2Data,
-  SmsPostApiV1OtpGenerateGenerateOtp2Data,
-  SmsPostApiV1OtpGenerateGenerateOtp2Error,
-  SmsPostApiV1OtpVerifyVerifyOtp2Data,
-  SmsPostApiV1OtpVerifyVerifyOtp2Error,
+  HealthGetApiV1HealthHealthCheckData,
+  SmsPostApiV1SmsSendSendSingleSms2Data,
+  SmsPostApiV1SmsSendSendSingleSms2Error,
+  SmsPostApiV1SmsSendBulkSendBulkSms2Data,
+  SmsPostApiV1SmsSendBulkSendBulkSms2Error,
+  ApplicationGetApiV1SmsBalanceCheckBalance2Data,
+  WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data,
+  SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data,
   ApiGetHealthHealthCheck6Data,
   ApiGetRootRoot4Data,
   ApiGetMetricsMetrics6Data,
@@ -323,6 +326,13 @@ import type {
   ApiGetApiV1BanksGetSupportedBanks2Data,
   ApiGetHealthHealthCheck8Data,
   ApiGetMetricsMetrics8Data,
+  GetNearbyPlacesApiV1NearbyGet2Data,
+  GetDistanceApiV1DistanceGet2Data,
+  GetDirectionsApiV1DirectionsGet2Data,
+  GetStaticMapApiV1StaticGet2Data,
+  GetRouteApiV1RoutesRoutesPost2Data,
+  GetRouteApiV1RoutesRoutesPost2Error,
+  HealthCheckHealthGet2Data,
 } from "../types.gen";
 import { client as _heyApiClient } from "../client.gen";
 
@@ -1611,333 +1621,6 @@ export const adminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordMutatio
     return mutationOptions;
   };
 
-export const smsPostApiV1SendSendSmsQueryKey = (
-  options: Options<SmsPostApiV1SendSendSmsData>
-) => createQueryKey("smsPostApiV1SendSendSms", options);
-
-/**
- * Send Sms
- */
-export const smsPostApiV1SendSendSmsOptions = (
-  options: Options<SmsPostApiV1SendSendSmsData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1SendSendSms({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsPostApiV1SendSendSmsQueryKey(options),
-  });
-};
-
-/**
- * Send Sms
- */
-export const smsPostApiV1SendSendSmsMutation = (
-  options?: Partial<Options<SmsPostApiV1SendSendSmsData>>
-): UseMutationOptions<
-  unknown,
-  SmsPostApiV1SendSendSmsError,
-  Options<SmsPostApiV1SendSendSmsData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    SmsPostApiV1SendSendSmsError,
-    Options<SmsPostApiV1SendSendSmsData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1SendSendSms({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const smsPostApiV1BulkSendBulkSmsQueryKey = (
-  options: Options<SmsPostApiV1BulkSendBulkSmsData>
-) => createQueryKey("smsPostApiV1BulkSendBulkSms", options);
-
-/**
- * Send Bulk Sms
- */
-export const smsPostApiV1BulkSendBulkSmsOptions = (
-  options: Options<SmsPostApiV1BulkSendBulkSmsData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1BulkSendBulkSms({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsPostApiV1BulkSendBulkSmsQueryKey(options),
-  });
-};
-
-/**
- * Send Bulk Sms
- */
-export const smsPostApiV1BulkSendBulkSmsMutation = (
-  options?: Partial<Options<SmsPostApiV1BulkSendBulkSmsData>>
-): UseMutationOptions<
-  unknown,
-  SmsPostApiV1BulkSendBulkSmsError,
-  Options<SmsPostApiV1BulkSendBulkSmsData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    SmsPostApiV1BulkSendBulkSmsError,
-    Options<SmsPostApiV1BulkSendBulkSmsData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1BulkSendBulkSms({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const smsPostApiV1SendBulkSendBulkSmsAliasQueryKey = (
-  options: Options<SmsPostApiV1SendBulkSendBulkSmsAliasData>
-) => createQueryKey("smsPostApiV1SendBulkSendBulkSmsAlias", options);
-
-/**
- * Send Bulk Sms Alias
- */
-export const smsPostApiV1SendBulkSendBulkSmsAliasOptions = (
-  options: Options<SmsPostApiV1SendBulkSendBulkSmsAliasData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1SendBulkSendBulkSmsAlias({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsPostApiV1SendBulkSendBulkSmsAliasQueryKey(options),
-  });
-};
-
-/**
- * Send Bulk Sms Alias
- */
-export const smsPostApiV1SendBulkSendBulkSmsAliasMutation = (
-  options?: Partial<Options<SmsPostApiV1SendBulkSendBulkSmsAliasData>>
-): UseMutationOptions<
-  unknown,
-  SmsPostApiV1SendBulkSendBulkSmsAliasError,
-  Options<SmsPostApiV1SendBulkSendBulkSmsAliasData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    SmsPostApiV1SendBulkSendBulkSmsAliasError,
-    Options<SmsPostApiV1SendBulkSendBulkSmsAliasData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1SendBulkSendBulkSmsAlias({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const smsGetApiV1StatusMessageIdGetMessageStatusQueryKey = (
-  options: Options<SmsGetApiV1StatusMessageIdGetMessageStatusData>
-) => createQueryKey("smsGetApiV1StatusMessageIdGetMessageStatus", options);
-
-/**
- * Get Message Status
- */
-export const smsGetApiV1StatusMessageIdGetMessageStatusOptions = (
-  options: Options<SmsGetApiV1StatusMessageIdGetMessageStatusData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsGetApiV1StatusMessageIdGetMessageStatus({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsGetApiV1StatusMessageIdGetMessageStatusQueryKey(options),
-  });
-};
-
-export const smsGetApiV1BalanceGetSmsBalanceQueryKey = (
-  options?: Options<SmsGetApiV1BalanceGetSmsBalanceData>
-) => createQueryKey("smsGetApiV1BalanceGetSmsBalance", options);
-
-/**
- * Get Sms Balance
- */
-export const smsGetApiV1BalanceGetSmsBalanceOptions = (
-  options?: Options<SmsGetApiV1BalanceGetSmsBalanceData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsGetApiV1BalanceGetSmsBalance({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsGetApiV1BalanceGetSmsBalanceQueryKey(options),
-  });
-};
-
-export const smsGetApiV1TemplatesGetMessageTemplatesQueryKey = (
-  options?: Options<SmsGetApiV1TemplatesGetMessageTemplatesData>
-) => createQueryKey("smsGetApiV1TemplatesGetMessageTemplates", options);
-
-/**
- * Get Message Templates
- */
-export const smsGetApiV1TemplatesGetMessageTemplatesOptions = (
-  options?: Options<SmsGetApiV1TemplatesGetMessageTemplatesData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsGetApiV1TemplatesGetMessageTemplates({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsGetApiV1TemplatesGetMessageTemplatesQueryKey(options),
-  });
-};
-
-export const smsPostApiV1OtpGenerateGenerateOtpQueryKey = (
-  options: Options<SmsPostApiV1OtpGenerateGenerateOtpData>
-) => createQueryKey("smsPostApiV1OtpGenerateGenerateOtp", options);
-
-/**
- * Generate Otp
- */
-export const smsPostApiV1OtpGenerateGenerateOtpOptions = (
-  options: Options<SmsPostApiV1OtpGenerateGenerateOtpData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1OtpGenerateGenerateOtp({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsPostApiV1OtpGenerateGenerateOtpQueryKey(options),
-  });
-};
-
-/**
- * Generate Otp
- */
-export const smsPostApiV1OtpGenerateGenerateOtpMutation = (
-  options?: Partial<Options<SmsPostApiV1OtpGenerateGenerateOtpData>>
-): UseMutationOptions<
-  unknown,
-  SmsPostApiV1OtpGenerateGenerateOtpError,
-  Options<SmsPostApiV1OtpGenerateGenerateOtpData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    SmsPostApiV1OtpGenerateGenerateOtpError,
-    Options<SmsPostApiV1OtpGenerateGenerateOtpData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1OtpGenerateGenerateOtp({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const smsPostApiV1OtpVerifyVerifyOtpQueryKey = (
-  options: Options<SmsPostApiV1OtpVerifyVerifyOtpData>
-) => createQueryKey("smsPostApiV1OtpVerifyVerifyOtp", options);
-
-/**
- * Verify Otp
- */
-export const smsPostApiV1OtpVerifyVerifyOtpOptions = (
-  options: Options<SmsPostApiV1OtpVerifyVerifyOtpData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1OtpVerifyVerifyOtp({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsPostApiV1OtpVerifyVerifyOtpQueryKey(options),
-  });
-};
-
-/**
- * Verify Otp
- */
-export const smsPostApiV1OtpVerifyVerifyOtpMutation = (
-  options?: Partial<Options<SmsPostApiV1OtpVerifyVerifyOtpData>>
-): UseMutationOptions<
-  unknown,
-  SmsPostApiV1OtpVerifyVerifyOtpError,
-  Options<SmsPostApiV1OtpVerifyVerifyOtpData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    SmsPostApiV1OtpVerifyVerifyOtpError,
-    Options<SmsPostApiV1OtpVerifyVerifyOtpData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1OtpVerifyVerifyOtp({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
 export const apiGetHealthHealthCheck2QueryKey = (
   options?: Options<ApiGetHealthHealthCheck2Data>
 ) => createQueryKey("apiGetHealthHealthCheck2", options);
@@ -1959,6 +1642,215 @@ export const apiGetHealthHealthCheck2Options = (
       return data;
     },
     queryKey: apiGetHealthHealthCheck2QueryKey(options),
+  });
+};
+
+export const smsPostApiV1SmsSendSendSingleSmsQueryKey = (
+  options: Options<SmsPostApiV1SmsSendSendSingleSmsData>
+) => createQueryKey("smsPostApiV1SmsSendSendSingleSms", options);
+
+/**
+ * Send Single Sms
+ */
+export const smsPostApiV1SmsSendSendSingleSmsOptions = (
+  options: Options<SmsPostApiV1SmsSendSendSingleSmsData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsPostApiV1SmsSendSendSingleSms({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsPostApiV1SmsSendSendSingleSmsQueryKey(options),
+  });
+};
+
+/**
+ * Send Single Sms
+ */
+export const smsPostApiV1SmsSendSendSingleSmsMutation = (
+  options?: Partial<Options<SmsPostApiV1SmsSendSendSingleSmsData>>
+): UseMutationOptions<
+  unknown,
+  SmsPostApiV1SmsSendSendSingleSmsError,
+  Options<SmsPostApiV1SmsSendSendSingleSmsData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    SmsPostApiV1SmsSendSendSingleSmsError,
+    Options<SmsPostApiV1SmsSendSendSingleSmsData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await smsPostApiV1SmsSendSendSingleSms({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const smsPostApiV1SmsSendBulkSendBulkSmsQueryKey = (
+  options: Options<SmsPostApiV1SmsSendBulkSendBulkSmsData>
+) => createQueryKey("smsPostApiV1SmsSendBulkSendBulkSms", options);
+
+/**
+ * Send Bulk Sms
+ */
+export const smsPostApiV1SmsSendBulkSendBulkSmsOptions = (
+  options: Options<SmsPostApiV1SmsSendBulkSendBulkSmsData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsPostApiV1SmsSendBulkSendBulkSms({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsPostApiV1SmsSendBulkSendBulkSmsQueryKey(options),
+  });
+};
+
+/**
+ * Send Bulk Sms
+ */
+export const smsPostApiV1SmsSendBulkSendBulkSmsMutation = (
+  options?: Partial<Options<SmsPostApiV1SmsSendBulkSendBulkSmsData>>
+): UseMutationOptions<
+  unknown,
+  SmsPostApiV1SmsSendBulkSendBulkSmsError,
+  Options<SmsPostApiV1SmsSendBulkSendBulkSmsData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    SmsPostApiV1SmsSendBulkSendBulkSmsError,
+    Options<SmsPostApiV1SmsSendBulkSendBulkSmsData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await smsPostApiV1SmsSendBulkSendBulkSms({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const applicationGetApiV1SmsBalanceCheckBalanceQueryKey = (
+  options?: Options<ApplicationGetApiV1SmsBalanceCheckBalanceData>
+) => createQueryKey("applicationGetApiV1SmsBalanceCheckBalance", options);
+
+/**
+ * Check Balance
+ */
+export const applicationGetApiV1SmsBalanceCheckBalanceOptions = (
+  options?: Options<ApplicationGetApiV1SmsBalanceCheckBalanceData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await applicationGetApiV1SmsBalanceCheckBalance({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: applicationGetApiV1SmsBalanceCheckBalanceQueryKey(options),
+  });
+};
+
+export const webhookPostApiV1DeliveryReportHandleDeliveryReportQueryKey = (
+  options?: Options<WebhookPostApiV1DeliveryReportHandleDeliveryReportData>
+) =>
+  createQueryKey("webhookPostApiV1DeliveryReportHandleDeliveryReport", options);
+
+/**
+ * Handle Delivery Report
+ */
+export const webhookPostApiV1DeliveryReportHandleDeliveryReportOptions = (
+  options?: Options<WebhookPostApiV1DeliveryReportHandleDeliveryReportData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await webhookPostApiV1DeliveryReportHandleDeliveryReport(
+        {
+          ...options,
+          ...queryKey[0],
+          signal,
+          throwOnError: true,
+        }
+      );
+      return data;
+    },
+    queryKey:
+      webhookPostApiV1DeliveryReportHandleDeliveryReportQueryKey(options),
+  });
+};
+
+/**
+ * Handle Delivery Report
+ */
+export const webhookPostApiV1DeliveryReportHandleDeliveryReportMutation = (
+  options?: Partial<
+    Options<WebhookPostApiV1DeliveryReportHandleDeliveryReportData>
+  >
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<WebhookPostApiV1DeliveryReportHandleDeliveryReportData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<WebhookPostApiV1DeliveryReportHandleDeliveryReportData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await webhookPostApiV1DeliveryReportHandleDeliveryReport(
+        {
+          ...options,
+          ...localOptions,
+          throwOnError: true,
+        }
+      );
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const smsGetApiV1SmsStatusMessageIdGetMessageStatusQueryKey = (
+  options: Options<SmsGetApiV1SmsStatusMessageIdGetMessageStatusData>
+) => createQueryKey("smsGetApiV1SmsStatusMessageIdGetMessageStatus", options);
+
+/**
+ * Get Message Status
+ */
+export const smsGetApiV1SmsStatusMessageIdGetMessageStatusOptions = (
+  options: Options<SmsGetApiV1SmsStatusMessageIdGetMessageStatusData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsGetApiV1SmsStatusMessageIdGetMessageStatus({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsGetApiV1SmsStatusMessageIdGetMessageStatusQueryKey(options),
   });
 };
 
@@ -3175,6 +3067,177 @@ export const apiGetMetricsMetrics4Options = (
   });
 };
 
+export const getNearbyPlacesApiV1NearbyGetQueryKey = (
+  options: Options<GetNearbyPlacesApiV1NearbyGetData>
+) => createQueryKey("getNearbyPlacesApiV1NearbyGet", options);
+
+/**
+ * Get Nearby Places
+ */
+export const getNearbyPlacesApiV1NearbyGetOptions = (
+  options: Options<GetNearbyPlacesApiV1NearbyGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getNearbyPlacesApiV1NearbyGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getNearbyPlacesApiV1NearbyGetQueryKey(options),
+  });
+};
+
+export const getDistanceApiV1DistanceGetQueryKey = (
+  options: Options<GetDistanceApiV1DistanceGetData>
+) => createQueryKey("getDistanceApiV1DistanceGet", options);
+
+/**
+ * Get Distance
+ */
+export const getDistanceApiV1DistanceGetOptions = (
+  options: Options<GetDistanceApiV1DistanceGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getDistanceApiV1DistanceGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getDistanceApiV1DistanceGetQueryKey(options),
+  });
+};
+
+export const getDirectionsApiV1DirectionsGetQueryKey = (
+  options: Options<GetDirectionsApiV1DirectionsGetData>
+) => createQueryKey("getDirectionsApiV1DirectionsGet", options);
+
+/**
+ * Get Directions
+ */
+export const getDirectionsApiV1DirectionsGetOptions = (
+  options: Options<GetDirectionsApiV1DirectionsGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getDirectionsApiV1DirectionsGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getDirectionsApiV1DirectionsGetQueryKey(options),
+  });
+};
+
+export const getStaticMapApiV1StaticGetQueryKey = (
+  options: Options<GetStaticMapApiV1StaticGetData>
+) => createQueryKey("getStaticMapApiV1StaticGet", options);
+
+/**
+ * Get Static Map
+ */
+export const getStaticMapApiV1StaticGetOptions = (
+  options: Options<GetStaticMapApiV1StaticGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getStaticMapApiV1StaticGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getStaticMapApiV1StaticGetQueryKey(options),
+  });
+};
+
+export const getRouteApiV1RoutesRoutesPostQueryKey = (
+  options: Options<GetRouteApiV1RoutesRoutesPostData>
+) => createQueryKey("getRouteApiV1RoutesRoutesPost", options);
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPostOptions = (
+  options: Options<GetRouteApiV1RoutesRoutesPostData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getRouteApiV1RoutesRoutesPost({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getRouteApiV1RoutesRoutesPostQueryKey(options),
+  });
+};
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPostMutation = (
+  options?: Partial<Options<GetRouteApiV1RoutesRoutesPostData>>
+): UseMutationOptions<
+  unknown,
+  GetRouteApiV1RoutesRoutesPostError,
+  Options<GetRouteApiV1RoutesRoutesPostData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    GetRouteApiV1RoutesRoutesPostError,
+    Options<GetRouteApiV1RoutesRoutesPostData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await getRouteApiV1RoutesRoutesPost({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const healthCheckHealthGetQueryKey = (
+  options?: Options<HealthCheckHealthGetData>
+) => createQueryKey("healthCheckHealthGet", options);
+
+/**
+ * Health Check
+ */
+export const healthCheckHealthGetOptions = (
+  options?: Options<HealthCheckHealthGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await healthCheckHealthGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: healthCheckHealthGetQueryKey(options),
+  });
+};
+
 export const apiGetMetricsMetrics5QueryKey = (
   options?: Options<ApiGetMetricsMetrics5Data>
 ) => createQueryKey("apiGetMetricsMetrics5", options);
@@ -4355,19 +4418,19 @@ export const adminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword2Mutati
     return mutationOptions;
   };
 
-export const smsPostApiV1SendSendSms2QueryKey = (
-  options: Options<SmsPostApiV1SendSendSms2Data>
-) => createQueryKey("smsPostApiV1SendSendSms2", options);
+export const healthGetApiV1HealthHealthCheckQueryKey = (
+  options?: Options<HealthGetApiV1HealthHealthCheckData>
+) => createQueryKey("healthGetApiV1HealthHealthCheck", options);
 
 /**
- * Send Sms
+ * Health Check
  */
-export const smsPostApiV1SendSendSms2Options = (
-  options: Options<SmsPostApiV1SendSendSms2Data>
+export const healthGetApiV1HealthHealthCheckOptions = (
+  options?: Options<HealthGetApiV1HealthHealthCheckData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1SendSendSms2({
+      const { data } = await healthGetApiV1HealthHealthCheck({
         ...options,
         ...queryKey[0],
         signal,
@@ -4375,27 +4438,51 @@ export const smsPostApiV1SendSendSms2Options = (
       });
       return data;
     },
-    queryKey: smsPostApiV1SendSendSms2QueryKey(options),
+    queryKey: healthGetApiV1HealthHealthCheckQueryKey(options),
+  });
+};
+
+export const smsPostApiV1SmsSendSendSingleSms2QueryKey = (
+  options: Options<SmsPostApiV1SmsSendSendSingleSms2Data>
+) => createQueryKey("smsPostApiV1SmsSendSendSingleSms2", options);
+
+/**
+ * Send Single Sms
+ */
+export const smsPostApiV1SmsSendSendSingleSms2Options = (
+  options: Options<SmsPostApiV1SmsSendSendSingleSms2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await smsPostApiV1SmsSendSendSingleSms2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: smsPostApiV1SmsSendSendSingleSms2QueryKey(options),
   });
 };
 
 /**
- * Send Sms
+ * Send Single Sms
  */
-export const smsPostApiV1SendSendSms2Mutation = (
-  options?: Partial<Options<SmsPostApiV1SendSendSms2Data>>
+export const smsPostApiV1SmsSendSendSingleSms2Mutation = (
+  options?: Partial<Options<SmsPostApiV1SmsSendSendSingleSms2Data>>
 ): UseMutationOptions<
   unknown,
-  SmsPostApiV1SendSendSms2Error,
-  Options<SmsPostApiV1SendSendSms2Data>
+  SmsPostApiV1SmsSendSendSingleSms2Error,
+  Options<SmsPostApiV1SmsSendSendSingleSms2Data>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    SmsPostApiV1SendSendSms2Error,
-    Options<SmsPostApiV1SendSendSms2Data>
+    SmsPostApiV1SmsSendSendSingleSms2Error,
+    Options<SmsPostApiV1SmsSendSendSingleSms2Data>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1SendSendSms2({
+      const { data } = await smsPostApiV1SmsSendSendSingleSms2({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -4406,19 +4493,19 @@ export const smsPostApiV1SendSendSms2Mutation = (
   return mutationOptions;
 };
 
-export const smsPostApiV1BulkSendBulkSms2QueryKey = (
-  options: Options<SmsPostApiV1BulkSendBulkSms2Data>
-) => createQueryKey("smsPostApiV1BulkSendBulkSms2", options);
+export const smsPostApiV1SmsSendBulkSendBulkSms2QueryKey = (
+  options: Options<SmsPostApiV1SmsSendBulkSendBulkSms2Data>
+) => createQueryKey("smsPostApiV1SmsSendBulkSendBulkSms2", options);
 
 /**
  * Send Bulk Sms
  */
-export const smsPostApiV1BulkSendBulkSms2Options = (
-  options: Options<SmsPostApiV1BulkSendBulkSms2Data>
+export const smsPostApiV1SmsSendBulkSendBulkSms2Options = (
+  options: Options<SmsPostApiV1SmsSendBulkSendBulkSms2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1BulkSendBulkSms2({
+      const { data } = await smsPostApiV1SmsSendBulkSendBulkSms2({
         ...options,
         ...queryKey[0],
         signal,
@@ -4426,27 +4513,27 @@ export const smsPostApiV1BulkSendBulkSms2Options = (
       });
       return data;
     },
-    queryKey: smsPostApiV1BulkSendBulkSms2QueryKey(options),
+    queryKey: smsPostApiV1SmsSendBulkSendBulkSms2QueryKey(options),
   });
 };
 
 /**
  * Send Bulk Sms
  */
-export const smsPostApiV1BulkSendBulkSms2Mutation = (
-  options?: Partial<Options<SmsPostApiV1BulkSendBulkSms2Data>>
+export const smsPostApiV1SmsSendBulkSendBulkSms2Mutation = (
+  options?: Partial<Options<SmsPostApiV1SmsSendBulkSendBulkSms2Data>>
 ): UseMutationOptions<
   unknown,
-  SmsPostApiV1BulkSendBulkSms2Error,
-  Options<SmsPostApiV1BulkSendBulkSms2Data>
+  SmsPostApiV1SmsSendBulkSendBulkSms2Error,
+  Options<SmsPostApiV1SmsSendBulkSendBulkSms2Data>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    SmsPostApiV1BulkSendBulkSms2Error,
-    Options<SmsPostApiV1BulkSendBulkSms2Data>
+    SmsPostApiV1SmsSendBulkSendBulkSms2Error,
+    Options<SmsPostApiV1SmsSendBulkSendBulkSms2Data>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1BulkSendBulkSms2({
+      const { data } = await smsPostApiV1SmsSendBulkSendBulkSms2({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -4457,19 +4544,19 @@ export const smsPostApiV1BulkSendBulkSms2Mutation = (
   return mutationOptions;
 };
 
-export const smsPostApiV1SendBulkSendBulkSmsAlias2QueryKey = (
-  options: Options<SmsPostApiV1SendBulkSendBulkSmsAlias2Data>
-) => createQueryKey("smsPostApiV1SendBulkSendBulkSmsAlias2", options);
+export const applicationGetApiV1SmsBalanceCheckBalance2QueryKey = (
+  options?: Options<ApplicationGetApiV1SmsBalanceCheckBalance2Data>
+) => createQueryKey("applicationGetApiV1SmsBalanceCheckBalance2", options);
 
 /**
- * Send Bulk Sms Alias
+ * Check Balance
  */
-export const smsPostApiV1SendBulkSendBulkSmsAlias2Options = (
-  options: Options<SmsPostApiV1SendBulkSendBulkSmsAlias2Data>
+export const applicationGetApiV1SmsBalanceCheckBalance2Options = (
+  options?: Options<ApplicationGetApiV1SmsBalanceCheckBalance2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1SendBulkSendBulkSmsAlias2({
+      const { data } = await applicationGetApiV1SmsBalanceCheckBalance2({
         ...options,
         ...queryKey[0],
         signal,
@@ -4477,50 +4564,83 @@ export const smsPostApiV1SendBulkSendBulkSmsAlias2Options = (
       });
       return data;
     },
-    queryKey: smsPostApiV1SendBulkSendBulkSmsAlias2QueryKey(options),
+    queryKey: applicationGetApiV1SmsBalanceCheckBalance2QueryKey(options),
+  });
+};
+
+export const webhookPostApiV1DeliveryReportHandleDeliveryReport2QueryKey = (
+  options?: Options<WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data>
+) =>
+  createQueryKey(
+    "webhookPostApiV1DeliveryReportHandleDeliveryReport2",
+    options
+  );
+
+/**
+ * Handle Delivery Report
+ */
+export const webhookPostApiV1DeliveryReportHandleDeliveryReport2Options = (
+  options?: Options<WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } =
+        await webhookPostApiV1DeliveryReportHandleDeliveryReport2({
+          ...options,
+          ...queryKey[0],
+          signal,
+          throwOnError: true,
+        });
+      return data;
+    },
+    queryKey:
+      webhookPostApiV1DeliveryReportHandleDeliveryReport2QueryKey(options),
   });
 };
 
 /**
- * Send Bulk Sms Alias
+ * Handle Delivery Report
  */
-export const smsPostApiV1SendBulkSendBulkSmsAlias2Mutation = (
-  options?: Partial<Options<SmsPostApiV1SendBulkSendBulkSmsAlias2Data>>
+export const webhookPostApiV1DeliveryReportHandleDeliveryReport2Mutation = (
+  options?: Partial<
+    Options<WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data>
+  >
 ): UseMutationOptions<
   unknown,
-  SmsPostApiV1SendBulkSendBulkSmsAlias2Error,
-  Options<SmsPostApiV1SendBulkSendBulkSmsAlias2Data>
+  DefaultError,
+  Options<WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    SmsPostApiV1SendBulkSendBulkSmsAlias2Error,
-    Options<SmsPostApiV1SendBulkSendBulkSmsAlias2Data>
+    DefaultError,
+    Options<WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1SendBulkSendBulkSmsAlias2({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
+      const { data } =
+        await webhookPostApiV1DeliveryReportHandleDeliveryReport2({
+          ...options,
+          ...localOptions,
+          throwOnError: true,
+        });
       return data;
     },
   };
   return mutationOptions;
 };
 
-export const smsGetApiV1StatusMessageIdGetMessageStatus2QueryKey = (
-  options: Options<SmsGetApiV1StatusMessageIdGetMessageStatus2Data>
-) => createQueryKey("smsGetApiV1StatusMessageIdGetMessageStatus2", options);
+export const smsGetApiV1SmsStatusMessageIdGetMessageStatus2QueryKey = (
+  options: Options<SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data>
+) => createQueryKey("smsGetApiV1SmsStatusMessageIdGetMessageStatus2", options);
 
 /**
  * Get Message Status
  */
-export const smsGetApiV1StatusMessageIdGetMessageStatus2Options = (
-  options: Options<SmsGetApiV1StatusMessageIdGetMessageStatus2Data>
+export const smsGetApiV1SmsStatusMessageIdGetMessageStatus2Options = (
+  options: Options<SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsGetApiV1StatusMessageIdGetMessageStatus2({
+      const { data } = await smsGetApiV1SmsStatusMessageIdGetMessageStatus2({
         ...options,
         ...queryKey[0],
         signal,
@@ -4528,158 +4648,8 @@ export const smsGetApiV1StatusMessageIdGetMessageStatus2Options = (
       });
       return data;
     },
-    queryKey: smsGetApiV1StatusMessageIdGetMessageStatus2QueryKey(options),
+    queryKey: smsGetApiV1SmsStatusMessageIdGetMessageStatus2QueryKey(options),
   });
-};
-
-export const smsGetApiV1BalanceGetSmsBalance2QueryKey = (
-  options?: Options<SmsGetApiV1BalanceGetSmsBalance2Data>
-) => createQueryKey("smsGetApiV1BalanceGetSmsBalance2", options);
-
-/**
- * Get Sms Balance
- */
-export const smsGetApiV1BalanceGetSmsBalance2Options = (
-  options?: Options<SmsGetApiV1BalanceGetSmsBalance2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsGetApiV1BalanceGetSmsBalance2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsGetApiV1BalanceGetSmsBalance2QueryKey(options),
-  });
-};
-
-export const smsGetApiV1TemplatesGetMessageTemplates2QueryKey = (
-  options?: Options<SmsGetApiV1TemplatesGetMessageTemplates2Data>
-) => createQueryKey("smsGetApiV1TemplatesGetMessageTemplates2", options);
-
-/**
- * Get Message Templates
- */
-export const smsGetApiV1TemplatesGetMessageTemplates2Options = (
-  options?: Options<SmsGetApiV1TemplatesGetMessageTemplates2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsGetApiV1TemplatesGetMessageTemplates2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsGetApiV1TemplatesGetMessageTemplates2QueryKey(options),
-  });
-};
-
-export const smsPostApiV1OtpGenerateGenerateOtp2QueryKey = (
-  options: Options<SmsPostApiV1OtpGenerateGenerateOtp2Data>
-) => createQueryKey("smsPostApiV1OtpGenerateGenerateOtp2", options);
-
-/**
- * Generate Otp
- */
-export const smsPostApiV1OtpGenerateGenerateOtp2Options = (
-  options: Options<SmsPostApiV1OtpGenerateGenerateOtp2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1OtpGenerateGenerateOtp2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsPostApiV1OtpGenerateGenerateOtp2QueryKey(options),
-  });
-};
-
-/**
- * Generate Otp
- */
-export const smsPostApiV1OtpGenerateGenerateOtp2Mutation = (
-  options?: Partial<Options<SmsPostApiV1OtpGenerateGenerateOtp2Data>>
-): UseMutationOptions<
-  unknown,
-  SmsPostApiV1OtpGenerateGenerateOtp2Error,
-  Options<SmsPostApiV1OtpGenerateGenerateOtp2Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    SmsPostApiV1OtpGenerateGenerateOtp2Error,
-    Options<SmsPostApiV1OtpGenerateGenerateOtp2Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1OtpGenerateGenerateOtp2({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const smsPostApiV1OtpVerifyVerifyOtp2QueryKey = (
-  options: Options<SmsPostApiV1OtpVerifyVerifyOtp2Data>
-) => createQueryKey("smsPostApiV1OtpVerifyVerifyOtp2", options);
-
-/**
- * Verify Otp
- */
-export const smsPostApiV1OtpVerifyVerifyOtp2Options = (
-  options: Options<SmsPostApiV1OtpVerifyVerifyOtp2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await smsPostApiV1OtpVerifyVerifyOtp2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: smsPostApiV1OtpVerifyVerifyOtp2QueryKey(options),
-  });
-};
-
-/**
- * Verify Otp
- */
-export const smsPostApiV1OtpVerifyVerifyOtp2Mutation = (
-  options?: Partial<Options<SmsPostApiV1OtpVerifyVerifyOtp2Data>>
-): UseMutationOptions<
-  unknown,
-  SmsPostApiV1OtpVerifyVerifyOtp2Error,
-  Options<SmsPostApiV1OtpVerifyVerifyOtp2Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    unknown,
-    SmsPostApiV1OtpVerifyVerifyOtp2Error,
-    Options<SmsPostApiV1OtpVerifyVerifyOtp2Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await smsPostApiV1OtpVerifyVerifyOtp2({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
 };
 
 export const apiGetHealthHealthCheck6QueryKey = (
@@ -5918,5 +5888,176 @@ export const apiGetMetricsMetrics8Options = (
       return data;
     },
     queryKey: apiGetMetricsMetrics8QueryKey(options),
+  });
+};
+
+export const getNearbyPlacesApiV1NearbyGet2QueryKey = (
+  options: Options<GetNearbyPlacesApiV1NearbyGet2Data>
+) => createQueryKey("getNearbyPlacesApiV1NearbyGet2", options);
+
+/**
+ * Get Nearby Places
+ */
+export const getNearbyPlacesApiV1NearbyGet2Options = (
+  options: Options<GetNearbyPlacesApiV1NearbyGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getNearbyPlacesApiV1NearbyGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getNearbyPlacesApiV1NearbyGet2QueryKey(options),
+  });
+};
+
+export const getDistanceApiV1DistanceGet2QueryKey = (
+  options: Options<GetDistanceApiV1DistanceGet2Data>
+) => createQueryKey("getDistanceApiV1DistanceGet2", options);
+
+/**
+ * Get Distance
+ */
+export const getDistanceApiV1DistanceGet2Options = (
+  options: Options<GetDistanceApiV1DistanceGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getDistanceApiV1DistanceGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getDistanceApiV1DistanceGet2QueryKey(options),
+  });
+};
+
+export const getDirectionsApiV1DirectionsGet2QueryKey = (
+  options: Options<GetDirectionsApiV1DirectionsGet2Data>
+) => createQueryKey("getDirectionsApiV1DirectionsGet2", options);
+
+/**
+ * Get Directions
+ */
+export const getDirectionsApiV1DirectionsGet2Options = (
+  options: Options<GetDirectionsApiV1DirectionsGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getDirectionsApiV1DirectionsGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getDirectionsApiV1DirectionsGet2QueryKey(options),
+  });
+};
+
+export const getStaticMapApiV1StaticGet2QueryKey = (
+  options: Options<GetStaticMapApiV1StaticGet2Data>
+) => createQueryKey("getStaticMapApiV1StaticGet2", options);
+
+/**
+ * Get Static Map
+ */
+export const getStaticMapApiV1StaticGet2Options = (
+  options: Options<GetStaticMapApiV1StaticGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getStaticMapApiV1StaticGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getStaticMapApiV1StaticGet2QueryKey(options),
+  });
+};
+
+export const getRouteApiV1RoutesRoutesPost2QueryKey = (
+  options: Options<GetRouteApiV1RoutesRoutesPost2Data>
+) => createQueryKey("getRouteApiV1RoutesRoutesPost2", options);
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPost2Options = (
+  options: Options<GetRouteApiV1RoutesRoutesPost2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getRouteApiV1RoutesRoutesPost2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getRouteApiV1RoutesRoutesPost2QueryKey(options),
+  });
+};
+
+/**
+ * Get Route
+ */
+export const getRouteApiV1RoutesRoutesPost2Mutation = (
+  options?: Partial<Options<GetRouteApiV1RoutesRoutesPost2Data>>
+): UseMutationOptions<
+  unknown,
+  GetRouteApiV1RoutesRoutesPost2Error,
+  Options<GetRouteApiV1RoutesRoutesPost2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    GetRouteApiV1RoutesRoutesPost2Error,
+    Options<GetRouteApiV1RoutesRoutesPost2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await getRouteApiV1RoutesRoutesPost2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const healthCheckHealthGet2QueryKey = (
+  options?: Options<HealthCheckHealthGet2Data>
+) => createQueryKey("healthCheckHealthGet2", options);
+
+/**
+ * Health Check
+ */
+export const healthCheckHealthGet2Options = (
+  options?: Options<HealthCheckHealthGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await healthCheckHealthGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: healthCheckHealthGet2QueryKey(options),
   });
 };

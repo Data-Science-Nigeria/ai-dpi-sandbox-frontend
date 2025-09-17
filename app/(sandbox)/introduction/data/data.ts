@@ -127,6 +127,43 @@ export const menuItems: MenuItem[] = [
         ],
       },
       {
+        id: "maps",
+        label: "MAPS",
+        href: "/introduction/services/maps",
+        endpoints: [
+          {
+            name: "Nearby",
+            method: "GET",
+            path: "/api/v1/maps/nearby/",
+            href: "/introduction/services/maps/nearby",
+          },
+          {
+            name: "Distance",
+            method: "GET",
+            path: "/api/v1/maps/distance/",
+            href: "/introduction/services/maps/distance",
+          },
+          {
+            name: "Directions",
+            method: "GET",
+            path: "/api/v1/maps/directions/",
+            href: "/introduction/services/maps/directions",
+          },
+          {
+            name: "Static",
+            method: "GET",
+            path: "/api/v1/maps/static/",
+            href: "/introduction/services/maps/static",
+          },
+          {
+            name: "Routes Routes",
+            method: "POST",
+            path: "/api/v1/maps/routes/routes/",
+            href: "/introduction/services/maps/routes-routes",
+          },
+        ],
+      },
+      {
         id: "nin",
         label: "NIN",
         href: "/introduction/services/nin",
@@ -163,22 +200,10 @@ export const menuItems: MenuItem[] = [
             href: "/introduction/services/sms/send",
           },
           {
-            name: "Bulk",
-            method: "POST",
-            path: "/api/v1/sms/bulk",
-            href: "/introduction/services/sms/bulk",
-          },
-          {
             name: "Send Bulk",
             method: "POST",
             path: "/api/v1/sms/send-bulk",
             href: "/introduction/services/sms/send-bulk",
-          },
-          {
-            name: "Status",
-            method: "GET",
-            path: "/api/v1/sms/status/{message_id}",
-            href: "/introduction/services/sms/status",
           },
           {
             name: "Balance",
@@ -187,22 +212,16 @@ export const menuItems: MenuItem[] = [
             href: "/introduction/services/sms/balance",
           },
           {
-            name: "Templates",
+            name: "Delivery Report",
+            method: "POST",
+            path: "/api/v1/sms/delivery-report",
+            href: "/introduction/services/sms/delivery-report",
+          },
+          {
+            name: "Status",
             method: "GET",
-            path: "/api/v1/sms/templates",
-            href: "/introduction/services/sms/templates",
-          },
-          {
-            name: "Otp Generate",
-            method: "POST",
-            path: "/api/v1/sms/otp/generate",
-            href: "/introduction/services/sms/otp-generate",
-          },
-          {
-            name: "Otp Verify",
-            method: "POST",
-            path: "/api/v1/sms/otp/verify",
-            href: "/introduction/services/sms/otp-verify",
+            path: "/api/v1/sms/status/{message_id}",
+            href: "/introduction/services/sms/status",
           },
         ],
       },

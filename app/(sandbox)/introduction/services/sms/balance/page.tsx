@@ -4,7 +4,7 @@ import { ApiClientInterface } from "../../components/api-client-interface";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { getNavigation } from "@/app/(sandbox)/lib/navigation";
 
-export default function SmsGetApiV1BalanceGetSmsBalancePage() {
+export default function ApplicationGetApiV1SmsBalanceCheckBalancePage() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">

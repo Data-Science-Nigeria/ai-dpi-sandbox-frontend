@@ -9,7 +9,7 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction",
   },
   {
-    title: "AI Service",
+    title: "Ai Service",
     href: "/introduction/services/ai",
   },
   {
@@ -73,6 +73,30 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/bvn/banks",
   },
   {
+    title: "Maps Service",
+    href: "/introduction/services/maps",
+  },
+  {
+    title: "Nearby",
+    href: "/introduction/services/maps/nearby",
+  },
+  {
+    title: "Distance",
+    href: "/introduction/services/maps/distance",
+  },
+  {
+    title: "Directions",
+    href: "/introduction/services/maps/directions",
+  },
+  {
+    title: "Static",
+    href: "/introduction/services/maps/static",
+  },
+  {
+    title: "Routes Routes",
+    href: "/introduction/services/maps/routes-routes",
+  },
+  {
     title: "Nin Service",
     href: "/introduction/services/nin",
   },
@@ -97,32 +121,20 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/sms/send",
   },
   {
-    title: "Bulk",
-    href: "/introduction/services/sms/bulk",
-  },
-  {
     title: "Send Bulk",
     href: "/introduction/services/sms/send-bulk",
-  },
-  {
-    title: "Status",
-    href: "/introduction/services/sms/status",
   },
   {
     title: "Balance",
     href: "/introduction/services/sms/balance",
   },
   {
-    title: "Templates",
-    href: "/introduction/services/sms/templates",
+    title: "Delivery Report",
+    href: "/introduction/services/sms/delivery-report",
   },
   {
-    title: "Otp Generate",
-    href: "/introduction/services/sms/otp-generate",
-  },
-  {
-    title: "Otp Verify",
-    href: "/introduction/services/sms/otp-verify",
+    title: "Status",
+    href: "/introduction/services/sms/status",
   },
 ];
 
