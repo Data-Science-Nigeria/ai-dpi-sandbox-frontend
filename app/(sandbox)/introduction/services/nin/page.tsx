@@ -4,8 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { ApiClientInterface } from "../components/api-client-interface";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Code, AlertTriangle, BarChart3 } from "lucide-react";
-import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
 import { LanguageSelector } from "../components/language-selector";
@@ -435,7 +434,7 @@ function NINServiceContent() {
       </div>
 
       <div className="p-3 sm:p-4 lg:p-6 border-t">
-        <PageNavigation {...getNavigation("/introduction/services/nin")} />
+        <AccessAwarePageNavigation currentPath="/introduction/services/nin" />
       </div>
     </div>
   );

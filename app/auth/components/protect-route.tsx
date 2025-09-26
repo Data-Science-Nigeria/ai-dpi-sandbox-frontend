@@ -33,7 +33,7 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
       if (isCheckingAuth.current) return;
 
       // If we have both token and user, check if user is on correct route
-      if (checkAuth() && auth.user) {
+      if (checkAuth() && auth.user?.id) {
         const userRole = auth.user.role;
         const isAdminRoute = pathname.startsWith("/admin");
 

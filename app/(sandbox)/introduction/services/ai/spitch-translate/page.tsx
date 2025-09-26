@@ -1,8 +1,7 @@
 "use client";
 
 import { ApiClientInterface } from "../../components/api-client-interface";
-import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 
 export default function TranslateApiV1SpitchTranslatePostPage() {
   return (
@@ -14,9 +13,7 @@ export default function TranslateApiV1SpitchTranslatePostPage() {
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
-        <PageNavigation
-          {...getNavigation("/introduction/services/ai/spitch-translate")}
-        />
+        <AccessAwarePageNavigation currentPath="/introduction/services/ai/spitch-translate" />
       </div>
     </div>
   );

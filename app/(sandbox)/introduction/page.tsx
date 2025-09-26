@@ -1,7 +1,6 @@
 import ServiceCard from "./components/service-card";
 import { services } from "./data/services";
-import { PageNavigation } from "../components/page-navigation";
-import { getNavigation } from "../lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 
 export default function Introduction() {
   return (
@@ -22,7 +21,7 @@ export default function Introduction() {
       </div>
 
       <div className="mt-6 sm:mt-8">
-        <PageNavigation {...getNavigation("/introduction")} />
+        <AccessAwarePageNavigation currentPath="/introduction" />
       </div>
     </div>
   );

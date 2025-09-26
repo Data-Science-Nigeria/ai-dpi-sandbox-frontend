@@ -6,6 +6,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import { useAccessControl } from "@/app/hooks/use-access-control";
 
 interface ServiceCardProps {
   name: string;
@@ -19,10 +20,15 @@ export default function ServiceCard({
   href,
 }: ServiceCardProps) {
   const router = useRouter();
+  const { canAccessService, loading } = useAccessControl();
 
   const handleDocs = () => {
     router.push(href);
   };
+
+  // Hide card if user doesn't have access
+  if (loading) return null;
+  if (!canAccessService(name)) return null;
 
   return (
     <div className="bg-white dark:bg-[#1C1E22] rounded-lg border border-gray-200 dark:border-gray-700 p-3 xs:p-4 sm:p-6 hover:shadow-lg transition-all duration-300 ease-in-out">

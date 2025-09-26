@@ -14,16 +14,16 @@ import type {
   DefaultRootResponses,
   DefaultGatewayHealthData,
   DefaultGatewayHealthResponses,
-  ApiGetMetricsMetricsData,
-  ApiGetMetricsMetricsResponses,
-  ApiGetHealthHealthCheckData,
-  ApiGetHealthHealthCheckResponses,
+  DefaultTestMetricsData,
+  DefaultTestMetricsResponses,
+  DefaultMetricsEndpointData,
+  DefaultMetricsEndpointResponses,
   ApiGetRootRootData,
   ApiGetRootRootResponses,
-  ApiGetWellKnownOpenidConfigurationOpenidConfigurationData,
-  ApiGetWellKnownOpenidConfigurationOpenidConfigurationResponses,
-  ApiGetWellKnownJwksJsonJwksData,
-  ApiGetWellKnownJwksJsonJwksResponses,
+  AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationData,
+  AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationResponses,
+  AuthenticationGetApiV1AuthWellKnownJwksJsonJwksData,
+  AuthenticationGetApiV1AuthWellKnownJwksJsonJwksResponses,
   AuthenticationPostApiV1AuthLoginLoginUserData,
   AuthenticationPostApiV1AuthLoginLoginUserResponses,
   AuthenticationPostApiV1AuthLoginLoginUserErrors,
@@ -70,8 +70,6 @@ import type {
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordData,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordResponses,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordErrors,
-  ApiGetHealthHealthCheck2Data,
-  ApiGetHealthHealthCheck2Responses,
   SmsPostApiV1SmsSendSendSingleSmsData,
   SmsPostApiV1SmsSendSendSingleSmsResponses,
   SmsPostApiV1SmsSendSendSingleSmsErrors,
@@ -87,14 +85,12 @@ import type {
   SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors,
   ApiGetRootRoot2Data,
   ApiGetRootRoot2Responses,
-  ApiGetMetricsMetrics2Data,
-  ApiGetMetricsMetrics2Responses,
-  HealthHealthGetData,
-  HealthHealthGetResponses,
   ReadyReadyGetData,
   ReadyReadyGetResponses,
-  GetModelsApiV1ModelsGetData,
-  GetModelsApiV1ModelsGetResponses,
+  GetModelsApiV1ModelsGroqGetData,
+  GetModelsApiV1ModelsGroqGetResponses,
+  GetOpenaiModelsApiV1ModelsOpenaiGetData,
+  GetOpenaiModelsApiV1ModelsOpenaiGetResponses,
   ChatApiV1ChatPostData,
   ChatApiV1ChatPostResponses,
   ChatApiV1ChatPostErrors,
@@ -120,8 +116,6 @@ import type {
   TranslateApiV1SpitchTranslatePostErrors,
   RootGetData,
   RootGetResponses,
-  MetricsMetricsGetData,
-  MetricsMetricsGetResponses,
   ApiPostApiV1VerifyVerifyNinData,
   ApiPostApiV1VerifyVerifyNinResponses,
   ApiPostApiV1VerifyVerifyNinErrors,
@@ -131,10 +125,6 @@ import type {
   ApiPostApiV1LookupLookupNinBasicData,
   ApiPostApiV1LookupLookupNinBasicResponses,
   ApiPostApiV1LookupLookupNinBasicErrors,
-  ApiGetHealthHealthCheck3Data,
-  ApiGetHealthHealthCheck3Responses,
-  ApiGetMetricsMetrics3Data,
-  ApiGetMetricsMetrics3Responses,
   ApiPostApiV1VerifyVerifyBvnData,
   ApiPostApiV1VerifyVerifyBvnResponses,
   ApiPostApiV1VerifyVerifyBvnErrors,
@@ -149,37 +139,84 @@ import type {
   ApiPostApiV1MatchMatchBvnErrors,
   ApiGetApiV1BanksGetSupportedBanksData,
   ApiGetApiV1BanksGetSupportedBanksResponses,
-  ApiGetHealthHealthCheck4Data,
-  ApiGetHealthHealthCheck4Responses,
-  ApiGetMetricsMetrics4Data,
-  ApiGetMetricsMetrics4Responses,
-  GetNearbyPlacesApiV1NearbyGetData,
-  GetNearbyPlacesApiV1NearbyGetResponses,
-  GetNearbyPlacesApiV1NearbyGetErrors,
-  GetDistanceApiV1DistanceGetData,
-  GetDistanceApiV1DistanceGetResponses,
-  GetDistanceApiV1DistanceGetErrors,
-  GetDirectionsApiV1DirectionsGetData,
-  GetDirectionsApiV1DirectionsGetResponses,
-  GetDirectionsApiV1DirectionsGetErrors,
-  GetStaticMapApiV1StaticGetData,
-  GetStaticMapApiV1StaticGetResponses,
-  GetStaticMapApiV1StaticGetErrors,
-  GetRouteApiV1RoutesRoutesPostData,
-  GetRouteApiV1RoutesRoutesPostResponses,
-  GetRouteApiV1RoutesRoutesPostErrors,
-  HealthCheckHealthGetData,
-  HealthCheckHealthGetResponses,
-  ApiGetMetricsMetrics5Data,
-  ApiGetMetricsMetrics5Responses,
-  ApiGetHealthHealthCheck5Data,
-  ApiGetHealthHealthCheck5Responses,
+  GetNearbyPlacesApiV1MapsNearbyGetData,
+  GetNearbyPlacesApiV1MapsNearbyGetResponses,
+  GetNearbyPlacesApiV1MapsNearbyGetErrors,
+  GetDistanceApiV1MapsDistanceGetData,
+  GetDistanceApiV1MapsDistanceGetResponses,
+  GetDistanceApiV1MapsDistanceGetErrors,
+  GetDirectionsApiV1MapsDirectionsGetData,
+  GetDirectionsApiV1MapsDirectionsGetResponses,
+  GetDirectionsApiV1MapsDirectionsGetErrors,
+  GetStaticMapApiV1MapsStaticGetData,
+  GetStaticMapApiV1MapsStaticGetResponses,
+  GetStaticMapApiV1MapsStaticGetErrors,
+  GetRouteApiV1MapsRoutesPostData,
+  GetRouteApiV1MapsRoutesPostResponses,
+  GetRouteApiV1MapsRoutesPostErrors,
   ApiGetRootRoot3Data,
   ApiGetRootRoot3Responses,
-  ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Data,
-  ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Responses,
-  ApiGetWellKnownJwksJsonJwks2Data,
-  ApiGetWellKnownJwksJsonJwks2Responses,
+  ApiPostUssdUssdProxyData,
+  ApiPostUssdUssdProxyResponses,
+  ApiPostUssdUssdProxyErrors,
+  ApiPostUssdNotificationUssdNotificationData,
+  ApiPostUssdNotificationUssdNotificationResponses,
+  ApiPostUssdNotificationUssdNotificationErrors,
+  UssdPostApiV18MedicalUssdCallback8MedicalData,
+  UssdPostApiV18MedicalUssdCallback8MedicalResponses,
+  UssdPostApiV1AlajoUssdCallbackAlajoData,
+  UssdPostApiV1AlajoUssdCallbackAlajoResponses,
+  UssdPostApiV1ClafiyaUssdCallbackClafiyaData,
+  UssdPostApiV1ClafiyaUssdCallbackClafiyaResponses,
+  UssdPostApiV1EvetUssdCallbackEvetData,
+  UssdPostApiV1EvetUssdCallbackEvetResponses,
+  UssdPostApiV1FertitudeUssdCallbackFertitudeData,
+  UssdPostApiV1FertitudeUssdCallbackFertitudeResponses,
+  UssdPostApiV1FologUssdCallbackFologData,
+  UssdPostApiV1FologUssdCallbackFologResponses,
+  UssdPostApiV1MylturaUssdCallbackMylturaData,
+  UssdPostApiV1MylturaUssdCallbackMylturaResponses,
+  UssdPostApiV1UhcTechUssdCallbackUhcTechData,
+  UssdPostApiV1UhcTechUssdCallbackUhcTechResponses,
+  UssdPostApiV1XboxUssdCallbackXboxData,
+  UssdPostApiV1XboxUssdCallbackXboxResponses,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssdData,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssdResponses,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssdErrors,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssdData,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssdResponses,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssdErrors,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssdData,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssdResponses,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssdErrors,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssdData,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssdResponses,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssdErrors,
+  UssdPostApiV1TestEvetUssdTestEvetUssdData,
+  UssdPostApiV1TestEvetUssdTestEvetUssdResponses,
+  UssdPostApiV1TestEvetUssdTestEvetUssdErrors,
+  UssdPostApiV1TestFologUssdTestFologUssdData,
+  UssdPostApiV1TestFologUssdTestFologUssdResponses,
+  UssdPostApiV1TestFologUssdTestFologUssdErrors,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssdData,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssdResponses,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssdErrors,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssdData,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssdResponses,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssdErrors,
+  UssdPostApiV1TestXboxUssdTestXboxUssdData,
+  UssdPostApiV1TestXboxUssdTestXboxUssdResponses,
+  UssdPostApiV1TestXboxUssdTestXboxUssdErrors,
+  ApiGetMetricsMetricsData,
+  ApiGetMetricsMetricsResponses,
+  ApiGetHealthHealthCheckData,
+  ApiGetHealthHealthCheckResponses,
+  ApiGetRootRoot4Data,
+  ApiGetRootRoot4Responses,
+  AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Data,
+  AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Responses,
+  AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Data,
+  AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Responses,
   AuthenticationPostApiV1AuthLoginLoginUser2Data,
   AuthenticationPostApiV1AuthLoginLoginUser2Responses,
   AuthenticationPostApiV1AuthLoginLoginUser2Errors,
@@ -241,18 +278,20 @@ import type {
   SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data,
   SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Responses,
   SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors,
-  ApiGetHealthHealthCheck6Data,
-  ApiGetHealthHealthCheck6Responses,
-  ApiGetRootRoot4Data,
-  ApiGetRootRoot4Responses,
-  ApiGetMetricsMetrics6Data,
-  ApiGetMetricsMetrics6Responses,
-  HealthHealthGet2Data,
-  HealthHealthGet2Responses,
+  ApiGetHealthHealthCheck2Data,
+  ApiGetHealthHealthCheck2Responses,
+  ApiGetRootRoot5Data,
+  ApiGetRootRoot5Responses,
+  ApiGetMetricsMetrics2Data,
+  ApiGetMetricsMetrics2Responses,
+  HealthHealthGetData,
+  HealthHealthGetResponses,
   ReadyReadyGet2Data,
   ReadyReadyGet2Responses,
-  GetModelsApiV1ModelsGet2Data,
-  GetModelsApiV1ModelsGet2Responses,
+  GetModelsApiV1ModelsGroqGet2Data,
+  GetModelsApiV1ModelsGroqGet2Responses,
+  GetOpenaiModelsApiV1ModelsOpenaiGet2Data,
+  GetOpenaiModelsApiV1ModelsOpenaiGet2Responses,
   ChatApiV1ChatPost2Data,
   ChatApiV1ChatPost2Responses,
   ChatApiV1ChatPost2Errors,
@@ -278,8 +317,8 @@ import type {
   TranslateApiV1SpitchTranslatePost2Errors,
   RootGet2Data,
   RootGet2Responses,
-  MetricsMetricsGet2Data,
-  MetricsMetricsGet2Responses,
+  MetricsMetricsGetData,
+  MetricsMetricsGetResponses,
   ApiPostApiV1VerifyVerifyNin2Data,
   ApiPostApiV1VerifyVerifyNin2Responses,
   ApiPostApiV1VerifyVerifyNin2Errors,
@@ -289,10 +328,10 @@ import type {
   ApiPostApiV1LookupLookupNinBasic2Data,
   ApiPostApiV1LookupLookupNinBasic2Responses,
   ApiPostApiV1LookupLookupNinBasic2Errors,
-  ApiGetHealthHealthCheck7Data,
-  ApiGetHealthHealthCheck7Responses,
-  ApiGetMetricsMetrics7Data,
-  ApiGetMetricsMetrics7Responses,
+  ApiGetHealthHealthCheck3Data,
+  ApiGetHealthHealthCheck3Responses,
+  ApiGetMetricsMetrics3Data,
+  ApiGetMetricsMetrics3Responses,
   ApiPostApiV1VerifyVerifyBvn2Data,
   ApiPostApiV1VerifyVerifyBvn2Responses,
   ApiPostApiV1VerifyVerifyBvn2Errors,
@@ -307,27 +346,84 @@ import type {
   ApiPostApiV1MatchMatchBvn2Errors,
   ApiGetApiV1BanksGetSupportedBanks2Data,
   ApiGetApiV1BanksGetSupportedBanks2Responses,
-  ApiGetHealthHealthCheck8Data,
-  ApiGetHealthHealthCheck8Responses,
-  ApiGetMetricsMetrics8Data,
-  ApiGetMetricsMetrics8Responses,
-  GetNearbyPlacesApiV1NearbyGet2Data,
-  GetNearbyPlacesApiV1NearbyGet2Responses,
-  GetNearbyPlacesApiV1NearbyGet2Errors,
-  GetDistanceApiV1DistanceGet2Data,
-  GetDistanceApiV1DistanceGet2Responses,
-  GetDistanceApiV1DistanceGet2Errors,
-  GetDirectionsApiV1DirectionsGet2Data,
-  GetDirectionsApiV1DirectionsGet2Responses,
-  GetDirectionsApiV1DirectionsGet2Errors,
-  GetStaticMapApiV1StaticGet2Data,
-  GetStaticMapApiV1StaticGet2Responses,
-  GetStaticMapApiV1StaticGet2Errors,
-  GetRouteApiV1RoutesRoutesPost2Data,
-  GetRouteApiV1RoutesRoutesPost2Responses,
-  GetRouteApiV1RoutesRoutesPost2Errors,
-  HealthCheckHealthGet2Data,
-  HealthCheckHealthGet2Responses,
+  ApiGetHealthHealthCheck4Data,
+  ApiGetHealthHealthCheck4Responses,
+  ApiGetMetricsMetrics4Data,
+  ApiGetMetricsMetrics4Responses,
+  GetNearbyPlacesApiV1MapsNearbyGet2Data,
+  GetNearbyPlacesApiV1MapsNearbyGet2Responses,
+  GetNearbyPlacesApiV1MapsNearbyGet2Errors,
+  GetDistanceApiV1MapsDistanceGet2Data,
+  GetDistanceApiV1MapsDistanceGet2Responses,
+  GetDistanceApiV1MapsDistanceGet2Errors,
+  GetDirectionsApiV1MapsDirectionsGet2Data,
+  GetDirectionsApiV1MapsDirectionsGet2Responses,
+  GetDirectionsApiV1MapsDirectionsGet2Errors,
+  GetStaticMapApiV1MapsStaticGet2Data,
+  GetStaticMapApiV1MapsStaticGet2Responses,
+  GetStaticMapApiV1MapsStaticGet2Errors,
+  GetRouteApiV1MapsRoutesPost2Data,
+  GetRouteApiV1MapsRoutesPost2Responses,
+  GetRouteApiV1MapsRoutesPost2Errors,
+  HealthCheckHealthGetData,
+  HealthCheckHealthGetResponses,
+  MetricsMetricsGet2Data,
+  MetricsMetricsGet2Responses,
+  ApiGetHealthHealthCheck5Data,
+  ApiGetHealthHealthCheck5Responses,
+  ApiPostUssdUssdProxy2Data,
+  ApiPostUssdUssdProxy2Responses,
+  ApiPostUssdUssdProxy2Errors,
+  ApiPostUssdNotificationUssdNotification2Data,
+  ApiPostUssdNotificationUssdNotification2Responses,
+  ApiPostUssdNotificationUssdNotification2Errors,
+  UssdPostApiV18MedicalUssdCallback8Medical2Data,
+  UssdPostApiV18MedicalUssdCallback8Medical2Responses,
+  UssdPostApiV1AlajoUssdCallbackAlajo2Data,
+  UssdPostApiV1AlajoUssdCallbackAlajo2Responses,
+  UssdPostApiV1ClafiyaUssdCallbackClafiya2Data,
+  UssdPostApiV1ClafiyaUssdCallbackClafiya2Responses,
+  UssdPostApiV1EvetUssdCallbackEvet2Data,
+  UssdPostApiV1EvetUssdCallbackEvet2Responses,
+  UssdPostApiV1FertitudeUssdCallbackFertitude2Data,
+  UssdPostApiV1FertitudeUssdCallbackFertitude2Responses,
+  UssdPostApiV1FologUssdCallbackFolog2Data,
+  UssdPostApiV1FologUssdCallbackFolog2Responses,
+  UssdPostApiV1MylturaUssdCallbackMyltura2Data,
+  UssdPostApiV1MylturaUssdCallbackMyltura2Responses,
+  UssdPostApiV1UhcTechUssdCallbackUhcTech2Data,
+  UssdPostApiV1UhcTechUssdCallbackUhcTech2Responses,
+  UssdPostApiV1XboxUssdCallbackXbox2Data,
+  UssdPostApiV1XboxUssdCallbackXbox2Responses,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Data,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Responses,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Errors,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Data,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Responses,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Errors,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssd2Data,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssd2Responses,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssd2Errors,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Data,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Responses,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Errors,
+  UssdPostApiV1TestEvetUssdTestEvetUssd2Data,
+  UssdPostApiV1TestEvetUssdTestEvetUssd2Responses,
+  UssdPostApiV1TestEvetUssdTestEvetUssd2Errors,
+  UssdPostApiV1TestFologUssdTestFologUssd2Data,
+  UssdPostApiV1TestFologUssdTestFologUssd2Responses,
+  UssdPostApiV1TestFologUssdTestFologUssd2Errors,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssd2Data,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssd2Responses,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssd2Errors,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Data,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Responses,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Errors,
+  UssdPostApiV1TestXboxUssdTestXboxUssd2Data,
+  UssdPostApiV1TestXboxUssdTestXboxUssd2Responses,
+  UssdPostApiV1TestXboxUssdTestXboxUssd2Errors,
+  ApiGetMetricsMetrics5Data,
+  ApiGetMetricsMetrics5Responses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -400,35 +496,35 @@ export const defaultGatewayHealth = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Metrics
- * Endpoint that serves Prometheus metrics.
+ * Test Metrics
+ * Test endpoint to verify prometheus client is working
  */
-export const apiGetMetricsMetrics = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetricsData, ThrowOnError>
+export const defaultTestMetrics = <ThrowOnError extends boolean = false>(
+  options?: Options<DefaultTestMetricsData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetricsResponses,
+    DefaultTestMetricsResponses,
     unknown,
     ThrowOnError
   >({
-    url: "/api/v1/auth/metrics",
+    url: "/test-metrics",
     ...options,
   });
 };
 
 /**
- * Health Check
- * Health check endpoint.
+ * Metrics Endpoint
+ * Prometheus metrics endpoint with comprehensive API Gateway metrics
  */
-export const apiGetHealthHealthCheck = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheckData, ThrowOnError>
+export const defaultMetricsEndpoint = <ThrowOnError extends boolean = false>(
+  options?: Options<DefaultMetricsEndpointData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheckResponses,
+    DefaultMetricsEndpointResponses,
     unknown,
     ThrowOnError
   >({
-    url: "/api/v1/auth/health",
+    url: "/metrics",
     ...options,
   });
 };
@@ -452,37 +548,63 @@ export const apiGetRootRoot = <ThrowOnError extends boolean = false>(
 
 /**
  * Openid Configuration
- * OpenID Connect Discovery endpoint.
+ * 🔍 OpenID Connect Configuration
+ *
+ * Standard OpenID Connect discovery endpoint providing
+ * metadata about the authorization server.
+ *
+ * **Returns:**
+ * - Issuer information
+ * - Supported endpoints
+ * - Token types and algorithms
+ * - Grant types supported
+ *
+ * **Compliance:**
+ * - OpenID Connect Discovery 1.0
+ * - OAuth 2.0 Authorization Server Metadata
  */
-export const apiGetWellKnownOpenidConfigurationOpenidConfiguration = <
+export const authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration =
+  <ThrowOnError extends boolean = false>(
+    options?: Options<
+      AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationData,
+      ThrowOnError
+    >
+  ) => {
+    return (options?.client ?? _heyApiClient).get<
+      AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationResponses,
+      unknown,
+      ThrowOnError
+    >({
+      url: "/api/v1/auth/.well-known/openid_configuration",
+      ...options,
+    });
+  };
+
+/**
+ * Jwks
+ * 🔑 JSON Web Key Set
+ *
+ * Provides public keys for JWT token verification.
+ * Used by clients to validate JWT signatures.
+ *
+ * **Returns:**
+ * - JSON Web Key Set (JWKS)
+ * - Public key information
+ * - Key usage and algorithms
+ *
+ * **Note:** Currently using HMAC (symmetric key)
+ * For production, consider RSA/ECDSA asymmetric keys
+ */
+export const authenticationGetApiV1AuthWellKnownJwksJsonJwks = <
   ThrowOnError extends boolean = false,
 >(
   options?: Options<
-    ApiGetWellKnownOpenidConfigurationOpenidConfigurationData,
+    AuthenticationGetApiV1AuthWellKnownJwksJsonJwksData,
     ThrowOnError
   >
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetWellKnownOpenidConfigurationOpenidConfigurationResponses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/auth/.well-known/openid_configuration",
-    ...options,
-  });
-};
-
-/**
- * Jwks
- * JSON Web Key Set endpoint.
- */
-export const apiGetWellKnownJwksJsonJwks = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<ApiGetWellKnownJwksJsonJwksData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetWellKnownJwksJsonJwksResponses,
+    AuthenticationGetApiV1AuthWellKnownJwksJsonJwksResponses,
     unknown,
     ThrowOnError
   >({
@@ -1133,22 +1255,6 @@ export const adminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword = <
 };
 
 /**
- * Health Check
- */
-export const apiGetHealthHealthCheck2 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck2Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck2Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/sms/health",
-    ...options,
-  });
-};
-
-/**
  * Send Single Sms
  */
 export const smsPostApiV1SmsSendSendSingleSms = <
@@ -1161,6 +1267,12 @@ export const smsPostApiV1SmsSendSendSingleSms = <
     SmsPostApiV1SmsSendSendSingleSmsErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/sms/send",
     ...options,
     headers: {
@@ -1183,6 +1295,12 @@ export const smsPostApiV1SmsSendBulkSendBulkSms = <
     SmsPostApiV1SmsSendBulkSendBulkSmsErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/sms/send-bulk",
     ...options,
     headers: {
@@ -1205,6 +1323,12 @@ export const applicationGetApiV1SmsBalanceCheckBalance = <
     unknown,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/sms/balance",
     ...options,
   });
@@ -1247,6 +1371,12 @@ export const smsGetApiV1SmsStatusMessageIdGetMessageStatus = <
     SmsGetApiV1SmsStatusMessageIdGetMessageStatusErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/sms/status/{message_id}",
     ...options,
   });
@@ -1264,39 +1394,6 @@ export const apiGetRootRoot2 = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     url: "/api/v1/sms/",
-    ...options,
-  });
-};
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics2 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics2Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics2Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/sms/metrics",
-    ...options,
-  });
-};
-
-/**
- * Health
- */
-export const healthHealthGet = <ThrowOnError extends boolean = false>(
-  options?: Options<HealthHealthGetData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    HealthHealthGetResponses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/ai/health",
     ...options,
   });
 };
@@ -1344,15 +1441,71 @@ export const readyReadyGet = <ThrowOnError extends boolean = false>(
  * - This list is dynamic and may change as new models are added or deprecated.
  * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
  */
-export const getModelsApiV1ModelsGet = <ThrowOnError extends boolean = false>(
-  options?: Options<GetModelsApiV1ModelsGetData, ThrowOnError>
+export const getModelsApiV1ModelsGroqGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetModelsApiV1ModelsGroqGetData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    GetModelsApiV1ModelsGetResponses,
+    GetModelsApiV1ModelsGroqGetResponses,
     unknown,
     ThrowOnError
   >({
-    url: "/api/v1/ai/models/",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/models/groq",
+    ...options,
+  });
+};
+
+/**
+ * Retrieve available OpenAI models
+ * This endpoint returns a list of all available OpenAI models that can be used for generating responses.
+ *
+ * **Behavior**:
+ * - Fetches all currently supported models from the OpenAI platform.
+ * - Returns the models as a simple list of strings (model names or IDs).
+ * - No authentication is required for anonymous access (optional to add auth later).
+ *
+ * **Response**:
+ * - `200 OK`: A JSON list of model names/IDs, for example:
+ * ```json
+ * [
+ * {
+ * "id": "gpt-4",
+ * "owned_by": "openai",
+ * "active": true,
+ * "context_window": 8192,
+ * "max_completion_tokens": 4096
+ * }
+ * ]
+ * ```
+ *
+ * **Notes**:
+ * - This list is dynamic and may change as new models are added or deprecated.
+ * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
+ */
+export const getOpenaiModelsApiV1ModelsOpenaiGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetOpenaiModelsApiV1ModelsOpenaiGetData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetOpenaiModelsApiV1ModelsOpenaiGetResponses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/ai/models/openai",
     ...options,
   });
 };
@@ -1380,9 +1533,10 @@ export const getModelsApiV1ModelsGet = <ThrowOnError extends boolean = false>(
  * - `system_prompt` (optional, string): Custom system prompt to guide AI behavior.
  *
  * **Response**:
- * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps.
+ * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps and token usage.
  * - `session_id` (string): The session ID for the conversation.
  * - `is_openai` (boolean): Indicates which AI engine generated the response.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  */
 export const chatApiV1ChatPost = <ThrowOnError extends boolean = false>(
   options: Options<ChatApiV1ChatPostData, ThrowOnError>
@@ -1422,6 +1576,7 @@ export const chatApiV1ChatPost = <ThrowOnError extends boolean = false>(
  * - `chat_messages` (list of messages): Messages in chronological order.
  * - `session_id` (string): The session ID.
  * - `is_openai` (boolean): Always `False` for retrieved messages.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  *
  * **Errors**:
  * - `404 Not Found`: If the session does not exist.
@@ -1450,7 +1605,7 @@ export const getChatHistoryApiV1ChatSessionIdSessionGet = <
 
 /**
  * Get all chat sessions
- * Returns a list of all chat sessions for the anonymous user.
+ * Returns a list of all chat sessions for the authenticated user.
  *
  * **Authentication**:
  * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
@@ -1719,23 +1874,6 @@ export const rootGet = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const metricsMetricsGet = <ThrowOnError extends boolean = false>(
-  options?: Options<MetricsMetricsGetData, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    MetricsMetricsGetResponses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/ai/metrics",
-    ...options,
-  });
-};
-
-/**
  * Verify Nin
  * Verify NIN using Dojah API.
  */
@@ -1749,6 +1887,12 @@ export const apiPostApiV1VerifyVerifyNin = <
     ApiPostApiV1VerifyVerifyNinErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/nin/verify",
     ...options,
     headers: {
@@ -1772,6 +1916,12 @@ export const apiGetApiV1StatusNinGetNinStatus = <
     ApiGetApiV1StatusNinGetNinStatusErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/nin/status/{nin}",
     ...options,
   });
@@ -1791,45 +1941,18 @@ export const apiPostApiV1LookupLookupNinBasic = <
     ApiPostApiV1LookupLookupNinBasicErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/nin/lookup",
     ...options,
     headers: {
       "Content-Type": "application/json",
       ...options.headers,
     },
-  });
-};
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck3 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck3Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck3Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/nin/health",
-    ...options,
-  });
-};
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics3 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics3Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics3Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/nin/metrics",
-    ...options,
   });
 };
 
@@ -1847,6 +1970,12 @@ export const apiPostApiV1VerifyVerifyBvn = <
     ApiPostApiV1VerifyVerifyBvnErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/bvn/verify",
     ...options,
     headers: {
@@ -1870,6 +1999,12 @@ export const apiGetApiV1StatusBvnGetBvnStatus = <
     ApiGetApiV1StatusBvnGetBvnStatusErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/bvn/status/{bvn}",
     ...options,
   });
@@ -1889,6 +2024,12 @@ export const apiPostApiV1LookupLookupBvnBasic = <
     ApiPostApiV1LookupLookupBvnBasicErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/bvn/lookup",
     ...options,
     headers: {
@@ -1910,6 +2051,12 @@ export const apiPostApiV1MatchMatchBvn = <ThrowOnError extends boolean = false>(
     ApiPostApiV1MatchMatchBvnErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/bvn/match",
     ...options,
     headers: {
@@ -1933,57 +2080,47 @@ export const apiGetApiV1BanksGetSupportedBanks = <
     unknown,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/bvn/banks",
     ...options,
   });
 };
 
 /**
- * Health Check
- */
-export const apiGetHealthHealthCheck4 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck4Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck4Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/bvn/health",
-    ...options,
-  });
-};
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics4 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics4Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics4Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/api/v1/bvn/metrics",
-    ...options,
-  });
-};
-
-/**
  * Get Nearby Places
+ * Search for nearby places around a given location. Returns distance in meters.
+ *
+ * Args:
+ * lat (float): Latitude of the location.
+ * lng (float): Longitude of the location.
+ * keyword (str, optional): Search keyword (e.g., "hospital", "pharmacy").
+ * Default is "hospital".
+ * radius_m (int, optional): Search radius in meters. Default is 2000.
+ *
+ * Returns:
+ * list: Places with details from Google Maps, including a direct Maps URL.
  */
-export const getNearbyPlacesApiV1NearbyGet = <
+export const getNearbyPlacesApiV1MapsNearbyGet = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetNearbyPlacesApiV1NearbyGetData, ThrowOnError>
+  options: Options<GetNearbyPlacesApiV1MapsNearbyGetData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    GetNearbyPlacesApiV1NearbyGetResponses,
-    GetNearbyPlacesApiV1NearbyGetErrors,
+    GetNearbyPlacesApiV1MapsNearbyGetResponses,
+    GetNearbyPlacesApiV1MapsNearbyGetErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/maps/nearby/",
     ...options,
   });
@@ -1991,17 +2128,33 @@ export const getNearbyPlacesApiV1NearbyGet = <
 
 /**
  * Get Distance
+ * Get travel distance and duration between two locations. Returns distance in meters and duration in seconds.
+ *
+ * Args:
+ * origin (str): Starting point (address or "lat,lng").
+ * destination (str): End point (address or "lat,lng").
+ * mode (str, optional): Travel mode ("driving", "walking", "bicycling", "transit").
+ * Default is "driving".
+ *
+ * Returns:
+ * dict: Distance matrix response with distance and duration details.
  */
-export const getDistanceApiV1DistanceGet = <
+export const getDistanceApiV1MapsDistanceGet = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetDistanceApiV1DistanceGetData, ThrowOnError>
+  options: Options<GetDistanceApiV1MapsDistanceGetData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    GetDistanceApiV1DistanceGetResponses,
-    GetDistanceApiV1DistanceGetErrors,
+    GetDistanceApiV1MapsDistanceGetResponses,
+    GetDistanceApiV1MapsDistanceGetErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/maps/distance/",
     ...options,
   });
@@ -2009,17 +2162,33 @@ export const getDistanceApiV1DistanceGet = <
 
 /**
  * Get Directions
+ * Get directions between two locations. Returned distance in meters and duration in seconds.
+ *
+ * Args:
+ * origin (str): Starting point (address or "lat,lng").
+ * destination (str): End point (address or "lat,lng").
+ * mode (str, optional): Travel mode ("driving", "walking", "bicycling", "transit").
+ * Default is "driving".
+ *
+ * Returns:
+ * list: Routes with legs, steps, distance, duration, and polyline.
  */
-export const getDirectionsApiV1DirectionsGet = <
+export const getDirectionsApiV1MapsDirectionsGet = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetDirectionsApiV1DirectionsGetData, ThrowOnError>
+  options: Options<GetDirectionsApiV1MapsDirectionsGetData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    GetDirectionsApiV1DirectionsGetResponses,
-    GetDirectionsApiV1DirectionsGetErrors,
+    GetDirectionsApiV1MapsDirectionsGetResponses,
+    GetDirectionsApiV1MapsDirectionsGetErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/maps/directions/",
     ...options,
   });
@@ -2027,17 +2196,36 @@ export const getDirectionsApiV1DirectionsGet = <
 
 /**
  * Get Static Map
+ * Generate and stream a Google Static Map image with optional markers and path.
+ * The API key is not exposed to the client.
+ *
+ * Args:
+ * center (str): Map center (e.g., "New York,NY" or "lat,lng").
+ * markers (list[str], optional): Marker coordinates/labels.
+ * Example: `&markers=color:blue|label:S|37.421655,-122.085637`
+ * path (list[str], optional): Coordinates for a polyline path.
+ * Example: `&path=color:0xff0000ff|weight:5|37.421655,-122.085637|37.420999,-122.086894`
+ * zoom (int, optional): Zoom level (default 14).
+ *
+ * Returns:
+ * StreamingResponse: The map image as a PNG stream.
  */
-export const getStaticMapApiV1StaticGet = <
+export const getStaticMapApiV1MapsStaticGet = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetStaticMapApiV1StaticGetData, ThrowOnError>
+  options: Options<GetStaticMapApiV1MapsStaticGetData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    GetStaticMapApiV1StaticGetResponses,
-    GetStaticMapApiV1StaticGetErrors,
+    GetStaticMapApiV1MapsStaticGetResponses,
+    GetStaticMapApiV1MapsStaticGetErrors,
     ThrowOnError
   >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
     url: "/api/v1/maps/static/",
     ...options,
   });
@@ -2045,18 +2233,34 @@ export const getStaticMapApiV1StaticGet = <
 
 /**
  * Get Route
+ * Compute a driving route between an origin and a destination.
+ *
+ * Args:
+ * request (RouteRequest): Request object containing origin, destination,
+ * travel mode, routing preferences, and modifiers.
+ *
+ * Returns:
+ * dict: Route details including duration, distance (meters), encoded polyline,
+ * decoded coordinates (if polyline lib installed), and route legs.
+ * Returns error info if the request fails or no route is found.
  */
-export const getRouteApiV1RoutesRoutesPost = <
+export const getRouteApiV1MapsRoutesPost = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetRouteApiV1RoutesRoutesPostData, ThrowOnError>
+  options: Options<GetRouteApiV1MapsRoutesPostData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    GetRouteApiV1RoutesRoutesPostResponses,
-    GetRouteApiV1RoutesRoutesPostErrors,
+    GetRouteApiV1MapsRoutesPostResponses,
+    GetRouteApiV1MapsRoutesPostErrors,
     ThrowOnError
   >({
-    url: "/api/v1/maps/routes/routes/",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/api/v1/maps/routes/",
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -2066,18 +2270,481 @@ export const getRouteApiV1RoutesRoutesPost = <
 };
 
 /**
- * Health Check
+ * Root
  */
-export const healthCheckHealthGet = <ThrowOnError extends boolean = false>(
-  options?: Options<HealthCheckHealthGetData, ThrowOnError>
+export const apiGetRootRoot3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot3Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    HealthCheckHealthGetResponses,
+    ApiGetRootRoot3Responses,
     unknown,
     ThrowOnError
   >({
-    url: "/api/v1/maps/health",
+    url: "/api/v1/ussd/",
     ...options,
+  });
+};
+
+/**
+ * Ussd Proxy
+ * This is the USSD gateway proxy endpoint. It receives the request from Africa's Talking
+ * and forwards it to the correct client's callback URL based on the serviceCode.
+ */
+export const apiPostUssdUssdProxy = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiPostUssdUssdProxyData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    ApiPostUssdUssdProxyResponses,
+    ApiPostUssdUssdProxyErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * Ussd Notification
+ * Handles end-of-session USSD notifications.
+ * This endpoint is for receiving the final summary of a session.
+ */
+export const apiPostUssdNotificationUssdNotification = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<ApiPostUssdNotificationUssdNotificationData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    ApiPostUssdNotificationUssdNotificationResponses,
+    ApiPostUssdNotificationUssdNotificationErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/_notification",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * Callback 8Medical
+ * This endpoint simulates 8Medical_USSD's application server without signature verification.
+ */
+export const ussdPostApiV18MedicalUssdCallback8Medical = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV18MedicalUssdCallback8MedicalData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV18MedicalUssdCallback8MedicalResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ussd/8medical_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Alajo
+ * This endpoint simulates Alajo_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1AlajoUssdCallbackAlajo = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1AlajoUssdCallbackAlajoData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1AlajoUssdCallbackAlajoResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ussd/alajo_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Clafiya
+ * This endpoint simulates Clafiya_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1ClafiyaUssdCallbackClafiya = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1ClafiyaUssdCallbackClafiyaData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1ClafiyaUssdCallbackClafiyaResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ussd/clafiya_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Evet
+ * This endpoint simulates Evet_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1EvetUssdCallbackEvet = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1EvetUssdCallbackEvetData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1EvetUssdCallbackEvetResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ussd/evet_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Fertitude
+ * This endpoint simulates Fertitude_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FertitudeUssdCallbackFertitude = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<
+    UssdPostApiV1FertitudeUssdCallbackFertitudeData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1FertitudeUssdCallbackFertitudeResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ussd/fertitude_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Folog
+ * This endpoint simulates Folog_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FologUssdCallbackFolog = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1FologUssdCallbackFologData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1FologUssdCallbackFologResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ussd/folog_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Myltura
+ * This endpoint simulates Myltura_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1MylturaUssdCallbackMyltura = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1MylturaUssdCallbackMylturaData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1MylturaUssdCallbackMylturaResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ussd/myltura_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Uhc Tech
+ * This endpoint simulates UHC_Tech_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1UhcTechUssdCallbackUhcTech = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1UhcTechUssdCallbackUhcTechData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1UhcTechUssdCallbackUhcTechResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ussd/uhc_tech_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Xbox
+ * This endpoint simulates XBOX_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1XboxUssdCallbackXbox = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1XboxUssdCallbackXboxData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1XboxUssdCallbackXboxResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/api/v1/ussd/xbox_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Test Fertitude Ussd
+ * Test endpoint for Fertitude USSD logic.
+ * Accepts POST form data and returns the same response as /fertitude_ussd.
+ *
+ *
+ * Requires:
+ *
+ * sessionId e.g., lirwf23455
+ *
+ * phoneNumber e.g., +2348103317200
+ *
+ * text (location of interest in the pipeline) e.g., "" (empty for first interaction), "1", "1*1", etc. like you would interact with USSD codes
+ */
+export const ussdPostApiV1TestFertitudeUssdTestFertitudeUssd = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1TestFertitudeUssdTestFertitudeUssdData,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestFertitudeUssdTestFertitudeUssdResponses,
+    UssdPostApiV1TestFertitudeUssdTestFertitudeUssdErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/test_fertitude_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test 8Medical Ussd
+ * Test endpoint for 8Medical_USSD logic.
+ */
+export const ussdPostApiV1Test8MedicalUssdTest8MedicalUssd = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1Test8MedicalUssdTest8MedicalUssdData,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1Test8MedicalUssdTest8MedicalUssdResponses,
+    UssdPostApiV1Test8MedicalUssdTest8MedicalUssdErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/test_8medical_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Alajo Ussd
+ * Test endpoint for Alajo_USSD logic.
+ */
+export const ussdPostApiV1TestAlajoUssdTestAlajoUssd = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UssdPostApiV1TestAlajoUssdTestAlajoUssdData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestAlajoUssdTestAlajoUssdResponses,
+    UssdPostApiV1TestAlajoUssdTestAlajoUssdErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/test_alajo_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Clafiya Ussd
+ * Test endpoint for Clafiya_USSD logic.
+ */
+export const ussdPostApiV1TestClafiyaUssdTestClafiyaUssd = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1TestClafiyaUssdTestClafiyaUssdData,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestClafiyaUssdTestClafiyaUssdResponses,
+    UssdPostApiV1TestClafiyaUssdTestClafiyaUssdErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/test_clafiya_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Evet Ussd
+ * Test endpoint for Evet_USSD logic.
+ */
+export const ussdPostApiV1TestEvetUssdTestEvetUssd = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UssdPostApiV1TestEvetUssdTestEvetUssdData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestEvetUssdTestEvetUssdResponses,
+    UssdPostApiV1TestEvetUssdTestEvetUssdErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/test_evet_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Folog Ussd
+ * Test endpoint for Folog_USSD logic.
+ */
+export const ussdPostApiV1TestFologUssdTestFologUssd = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UssdPostApiV1TestFologUssdTestFologUssdData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestFologUssdTestFologUssdResponses,
+    UssdPostApiV1TestFologUssdTestFologUssdErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/test_folog_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Myltura Ussd
+ * Test endpoint for Myltura_USSD logic.
+ */
+export const ussdPostApiV1TestMylturaUssdTestMylturaUssd = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1TestMylturaUssdTestMylturaUssdData,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestMylturaUssdTestMylturaUssdResponses,
+    UssdPostApiV1TestMylturaUssdTestMylturaUssdErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/test_myltura_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Uhc Tech Ussd
+ * Test endpoint for UHC_Tech_USSD logic.
+ */
+export const ussdPostApiV1TestUhcTechUssdTestUhcTechUssd = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1TestUhcTechUssdTestUhcTechUssdData,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestUhcTechUssdTestUhcTechUssdResponses,
+    UssdPostApiV1TestUhcTechUssdTestUhcTechUssdErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/test_uhc_tech_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Xbox Ussd
+ * Test endpoint for XBOX_USSD logic.
+ */
+export const ussdPostApiV1TestXboxUssdTestXboxUssd = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UssdPostApiV1TestXboxUssdTestXboxUssdData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestXboxUssdTestXboxUssdResponses,
+    UssdPostApiV1TestXboxUssdTestXboxUssdErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/ussd/test_xbox_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
   });
 };
 
@@ -2085,11 +2752,11 @@ export const healthCheckHealthGet = <ThrowOnError extends boolean = false>(
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const apiGetMetricsMetrics5 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics5Data, ThrowOnError>
+export const apiGetMetricsMetrics = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetricsData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics5Responses,
+    ApiGetMetricsMetricsResponses,
     unknown,
     ThrowOnError
   >({
@@ -2102,11 +2769,11 @@ export const apiGetMetricsMetrics5 = <ThrowOnError extends boolean = false>(
  * Health Check
  * Health check endpoint.
  */
-export const apiGetHealthHealthCheck5 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck5Data, ThrowOnError>
+export const apiGetHealthHealthCheck = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheckData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck5Responses,
+    ApiGetHealthHealthCheckResponses,
     unknown,
     ThrowOnError
   >({
@@ -2119,11 +2786,11 @@ export const apiGetHealthHealthCheck5 = <ThrowOnError extends boolean = false>(
  * Root
  * Root endpoint.
  */
-export const apiGetRootRoot3 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetRootRoot3Data, ThrowOnError>
+export const apiGetRootRoot4 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot4Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetRootRoot3Responses,
+    ApiGetRootRoot4Responses,
     unknown,
     ThrowOnError
   >({
@@ -2140,37 +2807,63 @@ export const apiGetRootRoot3 = <ThrowOnError extends boolean = false>(
 
 /**
  * Openid Configuration
- * OpenID Connect Discovery endpoint.
+ * 🔍 OpenID Connect Configuration
+ *
+ * Standard OpenID Connect discovery endpoint providing
+ * metadata about the authorization server.
+ *
+ * **Returns:**
+ * - Issuer information
+ * - Supported endpoints
+ * - Token types and algorithms
+ * - Grant types supported
+ *
+ * **Compliance:**
+ * - OpenID Connect Discovery 1.0
+ * - OAuth 2.0 Authorization Server Metadata
  */
-export const apiGetWellKnownOpenidConfigurationOpenidConfiguration2 = <
+export const authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2 =
+  <ThrowOnError extends boolean = false>(
+    options?: Options<
+      AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Data,
+      ThrowOnError
+    >
+  ) => {
+    return (options?.client ?? _heyApiClient).get<
+      AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Responses,
+      unknown,
+      ThrowOnError
+    >({
+      url: "/auth/.well-known/openid_configuration",
+      ...options,
+    });
+  };
+
+/**
+ * Jwks
+ * 🔑 JSON Web Key Set
+ *
+ * Provides public keys for JWT token verification.
+ * Used by clients to validate JWT signatures.
+ *
+ * **Returns:**
+ * - JSON Web Key Set (JWKS)
+ * - Public key information
+ * - Key usage and algorithms
+ *
+ * **Note:** Currently using HMAC (symmetric key)
+ * For production, consider RSA/ECDSA asymmetric keys
+ */
+export const authenticationGetApiV1AuthWellKnownJwksJsonJwks2 = <
   ThrowOnError extends boolean = false,
 >(
   options?: Options<
-    ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Data,
+    AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Data,
     ThrowOnError
   >
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/auth/.well-known/openid_configuration",
-    ...options,
-  });
-};
-
-/**
- * Jwks
- * JSON Web Key Set endpoint.
- */
-export const apiGetWellKnownJwksJsonJwks2 = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<ApiGetWellKnownJwksJsonJwks2Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetWellKnownJwksJsonJwks2Responses,
+    AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Responses,
     unknown,
     ThrowOnError
   >({
@@ -2993,11 +3686,11 @@ export const smsGetApiV1SmsStatusMessageIdGetMessageStatus2 = <
 /**
  * Health Check
  */
-export const apiGetHealthHealthCheck6 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck6Data, ThrowOnError>
+export const apiGetHealthHealthCheck2 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck2Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck6Responses,
+    ApiGetHealthHealthCheck2Responses,
     unknown,
     ThrowOnError
   >({
@@ -3009,11 +3702,11 @@ export const apiGetHealthHealthCheck6 = <ThrowOnError extends boolean = false>(
 /**
  * Root
  */
-export const apiGetRootRoot4 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetRootRoot4Data, ThrowOnError>
+export const apiGetRootRoot5 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot5Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetRootRoot4Responses,
+    ApiGetRootRoot5Responses,
     unknown,
     ThrowOnError
   >({
@@ -3032,11 +3725,11 @@ export const apiGetRootRoot4 = <ThrowOnError extends boolean = false>(
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const apiGetMetricsMetrics6 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics6Data, ThrowOnError>
+export const apiGetMetricsMetrics2 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics2Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics6Responses,
+    ApiGetMetricsMetrics2Responses,
     unknown,
     ThrowOnError
   >({
@@ -3048,11 +3741,11 @@ export const apiGetMetricsMetrics6 = <ThrowOnError extends boolean = false>(
 /**
  * Health
  */
-export const healthHealthGet2 = <ThrowOnError extends boolean = false>(
-  options?: Options<HealthHealthGet2Data, ThrowOnError>
+export const healthHealthGet = <ThrowOnError extends boolean = false>(
+  options?: Options<HealthHealthGetData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    HealthHealthGet2Responses,
+    HealthHealthGetResponses,
     unknown,
     ThrowOnError
   >({
@@ -3110,11 +3803,13 @@ export const readyReadyGet2 = <ThrowOnError extends boolean = false>(
  * - This list is dynamic and may change as new models are added or deprecated.
  * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
  */
-export const getModelsApiV1ModelsGet2 = <ThrowOnError extends boolean = false>(
-  options?: Options<GetModelsApiV1ModelsGet2Data, ThrowOnError>
+export const getModelsApiV1ModelsGroqGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetModelsApiV1ModelsGroqGet2Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    GetModelsApiV1ModelsGet2Responses,
+    GetModelsApiV1ModelsGroqGet2Responses,
     unknown,
     ThrowOnError
   >({
@@ -3124,7 +3819,55 @@ export const getModelsApiV1ModelsGet2 = <ThrowOnError extends boolean = false>(
         type: "http",
       },
     ],
-    url: "/ai/api/v1/models/",
+    url: "/ai/api/v1/models/groq",
+    ...options,
+  });
+};
+
+/**
+ * Retrieve available OpenAI models
+ * This endpoint returns a list of all available OpenAI models that can be used for generating responses.
+ *
+ * **Behavior**:
+ * - Fetches all currently supported models from the OpenAI platform.
+ * - Returns the models as a simple list of strings (model names or IDs).
+ * - No authentication is required for anonymous access (optional to add auth later).
+ *
+ * **Response**:
+ * - `200 OK`: A JSON list of model names/IDs, for example:
+ * ```json
+ * [
+ * {
+ * "id": "gpt-4",
+ * "owned_by": "openai",
+ * "active": true,
+ * "context_window": 8192,
+ * "max_completion_tokens": 4096
+ * }
+ * ]
+ * ```
+ *
+ * **Notes**:
+ * - This list is dynamic and may change as new models are added or deprecated.
+ * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
+ */
+export const getOpenaiModelsApiV1ModelsOpenaiGet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetOpenaiModelsApiV1ModelsOpenaiGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetOpenaiModelsApiV1ModelsOpenaiGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ai/api/v1/models/openai",
     ...options,
   });
 };
@@ -3152,9 +3895,10 @@ export const getModelsApiV1ModelsGet2 = <ThrowOnError extends boolean = false>(
  * - `system_prompt` (optional, string): Custom system prompt to guide AI behavior.
  *
  * **Response**:
- * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps.
+ * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps and token usage.
  * - `session_id` (string): The session ID for the conversation.
  * - `is_openai` (boolean): Indicates which AI engine generated the response.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  */
 export const chatApiV1ChatPost2 = <ThrowOnError extends boolean = false>(
   options: Options<ChatApiV1ChatPost2Data, ThrowOnError>
@@ -3194,6 +3938,7 @@ export const chatApiV1ChatPost2 = <ThrowOnError extends boolean = false>(
  * - `chat_messages` (list of messages): Messages in chronological order.
  * - `session_id` (string): The session ID.
  * - `is_openai` (boolean): Always `False` for retrieved messages.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  *
  * **Errors**:
  * - `404 Not Found`: If the session does not exist.
@@ -3225,7 +3970,7 @@ export const getChatHistoryApiV1ChatSessionIdSessionGet2 = <
 
 /**
  * Get all chat sessions
- * Returns a list of all chat sessions for the anonymous user.
+ * Returns a list of all chat sessions for the authenticated user.
  *
  * **Authentication**:
  * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
@@ -3505,11 +4250,11 @@ export const rootGet2 = <ThrowOnError extends boolean = false>(
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const metricsMetricsGet2 = <ThrowOnError extends boolean = false>(
-  options?: Options<MetricsMetricsGet2Data, ThrowOnError>
+export const metricsMetricsGet = <ThrowOnError extends boolean = false>(
+  options?: Options<MetricsMetricsGetData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    MetricsMetricsGet2Responses,
+    MetricsMetricsGetResponses,
     unknown,
     ThrowOnError
   >({
@@ -3604,11 +4349,11 @@ export const apiPostApiV1LookupLookupNinBasic2 = <
 /**
  * Health Check
  */
-export const apiGetHealthHealthCheck7 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck7Data, ThrowOnError>
+export const apiGetHealthHealthCheck3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck3Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck7Responses,
+    ApiGetHealthHealthCheck3Responses,
     unknown,
     ThrowOnError
   >({
@@ -3621,11 +4366,11 @@ export const apiGetHealthHealthCheck7 = <ThrowOnError extends boolean = false>(
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const apiGetMetricsMetrics7 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics7Data, ThrowOnError>
+export const apiGetMetricsMetrics3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics3Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics7Responses,
+    ApiGetMetricsMetrics3Responses,
     unknown,
     ThrowOnError
   >({
@@ -3774,11 +4519,11 @@ export const apiGetApiV1BanksGetSupportedBanks2 = <
 /**
  * Health Check
  */
-export const apiGetHealthHealthCheck8 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck8Data, ThrowOnError>
+export const apiGetHealthHealthCheck4 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck4Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck8Responses,
+    ApiGetHealthHealthCheck4Responses,
     unknown,
     ThrowOnError
   >({
@@ -3791,11 +4536,11 @@ export const apiGetHealthHealthCheck8 = <ThrowOnError extends boolean = false>(
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const apiGetMetricsMetrics8 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics8Data, ThrowOnError>
+export const apiGetMetricsMetrics4 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics4Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics8Responses,
+    ApiGetMetricsMetrics4Responses,
     unknown,
     ThrowOnError
   >({
@@ -3806,15 +4551,26 @@ export const apiGetMetricsMetrics8 = <ThrowOnError extends boolean = false>(
 
 /**
  * Get Nearby Places
+ * Search for nearby places around a given location. Returns distance in meters.
+ *
+ * Args:
+ * lat (float): Latitude of the location.
+ * lng (float): Longitude of the location.
+ * keyword (str, optional): Search keyword (e.g., "hospital", "pharmacy").
+ * Default is "hospital".
+ * radius_m (int, optional): Search radius in meters. Default is 2000.
+ *
+ * Returns:
+ * list: Places with details from Google Maps, including a direct Maps URL.
  */
-export const getNearbyPlacesApiV1NearbyGet2 = <
+export const getNearbyPlacesApiV1MapsNearbyGet2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetNearbyPlacesApiV1NearbyGet2Data, ThrowOnError>
+  options: Options<GetNearbyPlacesApiV1MapsNearbyGet2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    GetNearbyPlacesApiV1NearbyGet2Responses,
-    GetNearbyPlacesApiV1NearbyGet2Errors,
+    GetNearbyPlacesApiV1MapsNearbyGet2Responses,
+    GetNearbyPlacesApiV1MapsNearbyGet2Errors,
     ThrowOnError
   >({
     security: [
@@ -3823,22 +4579,32 @@ export const getNearbyPlacesApiV1NearbyGet2 = <
         type: "http",
       },
     ],
-    url: "/maps/api/v1/nearby/",
+    url: "/maps/nearby/",
     ...options,
   });
 };
 
 /**
  * Get Distance
+ * Get travel distance and duration between two locations. Returns distance in meters and duration in seconds.
+ *
+ * Args:
+ * origin (str): Starting point (address or "lat,lng").
+ * destination (str): End point (address or "lat,lng").
+ * mode (str, optional): Travel mode ("driving", "walking", "bicycling", "transit").
+ * Default is "driving".
+ *
+ * Returns:
+ * dict: Distance matrix response with distance and duration details.
  */
-export const getDistanceApiV1DistanceGet2 = <
+export const getDistanceApiV1MapsDistanceGet2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetDistanceApiV1DistanceGet2Data, ThrowOnError>
+  options: Options<GetDistanceApiV1MapsDistanceGet2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    GetDistanceApiV1DistanceGet2Responses,
-    GetDistanceApiV1DistanceGet2Errors,
+    GetDistanceApiV1MapsDistanceGet2Responses,
+    GetDistanceApiV1MapsDistanceGet2Errors,
     ThrowOnError
   >({
     security: [
@@ -3847,22 +4613,32 @@ export const getDistanceApiV1DistanceGet2 = <
         type: "http",
       },
     ],
-    url: "/maps/api/v1/distance/",
+    url: "/maps/distance/",
     ...options,
   });
 };
 
 /**
  * Get Directions
+ * Get directions between two locations. Returned distance in meters and duration in seconds.
+ *
+ * Args:
+ * origin (str): Starting point (address or "lat,lng").
+ * destination (str): End point (address or "lat,lng").
+ * mode (str, optional): Travel mode ("driving", "walking", "bicycling", "transit").
+ * Default is "driving".
+ *
+ * Returns:
+ * list: Routes with legs, steps, distance, duration, and polyline.
  */
-export const getDirectionsApiV1DirectionsGet2 = <
+export const getDirectionsApiV1MapsDirectionsGet2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetDirectionsApiV1DirectionsGet2Data, ThrowOnError>
+  options: Options<GetDirectionsApiV1MapsDirectionsGet2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    GetDirectionsApiV1DirectionsGet2Responses,
-    GetDirectionsApiV1DirectionsGet2Errors,
+    GetDirectionsApiV1MapsDirectionsGet2Responses,
+    GetDirectionsApiV1MapsDirectionsGet2Errors,
     ThrowOnError
   >({
     security: [
@@ -3871,22 +4647,35 @@ export const getDirectionsApiV1DirectionsGet2 = <
         type: "http",
       },
     ],
-    url: "/maps/api/v1/directions/",
+    url: "/maps/directions/",
     ...options,
   });
 };
 
 /**
  * Get Static Map
+ * Generate and stream a Google Static Map image with optional markers and path.
+ * The API key is not exposed to the client.
+ *
+ * Args:
+ * center (str): Map center (e.g., "New York,NY" or "lat,lng").
+ * markers (list[str], optional): Marker coordinates/labels.
+ * Example: `&markers=color:blue|label:S|37.421655,-122.085637`
+ * path (list[str], optional): Coordinates for a polyline path.
+ * Example: `&path=color:0xff0000ff|weight:5|37.421655,-122.085637|37.420999,-122.086894`
+ * zoom (int, optional): Zoom level (default 14).
+ *
+ * Returns:
+ * StreamingResponse: The map image as a PNG stream.
  */
-export const getStaticMapApiV1StaticGet2 = <
+export const getStaticMapApiV1MapsStaticGet2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetStaticMapApiV1StaticGet2Data, ThrowOnError>
+  options: Options<GetStaticMapApiV1MapsStaticGet2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).get<
-    GetStaticMapApiV1StaticGet2Responses,
-    GetStaticMapApiV1StaticGet2Errors,
+    GetStaticMapApiV1MapsStaticGet2Responses,
+    GetStaticMapApiV1MapsStaticGet2Errors,
     ThrowOnError
   >({
     security: [
@@ -3895,22 +4684,32 @@ export const getStaticMapApiV1StaticGet2 = <
         type: "http",
       },
     ],
-    url: "/maps/api/v1/static/",
+    url: "/maps/static/",
     ...options,
   });
 };
 
 /**
  * Get Route
+ * Compute a driving route between an origin and a destination.
+ *
+ * Args:
+ * request (RouteRequest): Request object containing origin, destination,
+ * travel mode, routing preferences, and modifiers.
+ *
+ * Returns:
+ * dict: Route details including duration, distance (meters), encoded polyline,
+ * decoded coordinates (if polyline lib installed), and route legs.
+ * Returns error info if the request fails or no route is found.
  */
-export const getRouteApiV1RoutesRoutesPost2 = <
+export const getRouteApiV1MapsRoutesPost2 = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<GetRouteApiV1RoutesRoutesPost2Data, ThrowOnError>
+  options: Options<GetRouteApiV1MapsRoutesPost2Data, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    GetRouteApiV1RoutesRoutesPost2Responses,
-    GetRouteApiV1RoutesRoutesPost2Errors,
+    GetRouteApiV1MapsRoutesPost2Responses,
+    GetRouteApiV1MapsRoutesPost2Errors,
     ThrowOnError
   >({
     security: [
@@ -3919,7 +4718,7 @@ export const getRouteApiV1RoutesRoutesPost2 = <
         type: "http",
       },
     ],
-    url: "/maps/api/v1/routes/routes/",
+    url: "/maps/routes/",
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -3930,16 +4729,652 @@ export const getRouteApiV1RoutesRoutesPost2 = <
 
 /**
  * Health Check
+ * Health check endpoint.
  */
-export const healthCheckHealthGet2 = <ThrowOnError extends boolean = false>(
-  options?: Options<HealthCheckHealthGet2Data, ThrowOnError>
+export const healthCheckHealthGet = <ThrowOnError extends boolean = false>(
+  options?: Options<HealthCheckHealthGetData, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    HealthCheckHealthGet2Responses,
+    HealthCheckHealthGetResponses,
     unknown,
     ThrowOnError
   >({
     url: "/maps/health",
+    ...options,
+  });
+};
+
+/**
+ * Metrics
+ */
+export const metricsMetricsGet2 = <ThrowOnError extends boolean = false>(
+  options?: Options<MetricsMetricsGet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    MetricsMetricsGet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/maps/metrics",
+    ...options,
+  });
+};
+
+/**
+ * Health Check
+ */
+export const apiGetHealthHealthCheck5 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck5Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetHealthHealthCheck5Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/ussd/health",
+    ...options,
+  });
+};
+
+/**
+ * Ussd Proxy
+ * This is the USSD gateway proxy endpoint. It receives the request from Africa's Talking
+ * and forwards it to the correct client's callback URL based on the serviceCode.
+ */
+export const apiPostUssdUssdProxy2 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiPostUssdUssdProxy2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    ApiPostUssdUssdProxy2Responses,
+    ApiPostUssdUssdProxy2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * Ussd Notification
+ * Handles end-of-session USSD notifications.
+ * This endpoint is for receiving the final summary of a session.
+ */
+export const apiPostUssdNotificationUssdNotification2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<ApiPostUssdNotificationUssdNotification2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    ApiPostUssdNotificationUssdNotification2Responses,
+    ApiPostUssdNotificationUssdNotification2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd_notification",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * Callback 8Medical
+ * This endpoint simulates 8Medical_USSD's application server without signature verification.
+ */
+export const ussdPostApiV18MedicalUssdCallback8Medical2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<
+    UssdPostApiV18MedicalUssdCallback8Medical2Data,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV18MedicalUssdCallback8Medical2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/8medical_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Alajo
+ * This endpoint simulates Alajo_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1AlajoUssdCallbackAlajo2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1AlajoUssdCallbackAlajo2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1AlajoUssdCallbackAlajo2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/alajo_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Clafiya
+ * This endpoint simulates Clafiya_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1ClafiyaUssdCallbackClafiya2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1ClafiyaUssdCallbackClafiya2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1ClafiyaUssdCallbackClafiya2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/clafiya_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Evet
+ * This endpoint simulates Evet_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1EvetUssdCallbackEvet2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1EvetUssdCallbackEvet2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1EvetUssdCallbackEvet2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/evet_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Fertitude
+ * This endpoint simulates Fertitude_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FertitudeUssdCallbackFertitude2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<
+    UssdPostApiV1FertitudeUssdCallbackFertitude2Data,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1FertitudeUssdCallbackFertitude2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/fertitude_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Folog
+ * This endpoint simulates Folog_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FologUssdCallbackFolog2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1FologUssdCallbackFolog2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1FologUssdCallbackFolog2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/folog_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Myltura
+ * This endpoint simulates Myltura_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1MylturaUssdCallbackMyltura2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1MylturaUssdCallbackMyltura2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1MylturaUssdCallbackMyltura2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/myltura_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Uhc Tech
+ * This endpoint simulates UHC_Tech_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1UhcTechUssdCallbackUhcTech2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1UhcTechUssdCallbackUhcTech2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1UhcTechUssdCallbackUhcTech2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/uhc_tech_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Callback Xbox
+ * This endpoint simulates XBOX_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1XboxUssdCallbackXbox2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<UssdPostApiV1XboxUssdCallbackXbox2Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    UssdPostApiV1XboxUssdCallbackXbox2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/xbox_ussd",
+    ...options,
+  });
+};
+
+/**
+ * Test Fertitude Ussd
+ * Test endpoint for Fertitude USSD logic.
+ * Accepts POST form data and returns the same response as /fertitude_ussd.
+ *
+ *
+ * Requires:
+ *
+ * sessionId e.g., lirwf23455
+ *
+ * phoneNumber e.g., +2348103317200
+ *
+ * text (location of interest in the pipeline) e.g., "" (empty for first interaction), "1", "1*1", etc. like you would interact with USSD codes
+ */
+export const ussdPostApiV1TestFertitudeUssdTestFertitudeUssd2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Responses,
+    UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/test_fertitude_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test 8Medical Ussd
+ * Test endpoint for 8Medical_USSD logic.
+ */
+export const ussdPostApiV1Test8MedicalUssdTest8MedicalUssd2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Responses,
+    UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/test_8medical_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Alajo Ussd
+ * Test endpoint for Alajo_USSD logic.
+ */
+export const ussdPostApiV1TestAlajoUssdTestAlajoUssd2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UssdPostApiV1TestAlajoUssdTestAlajoUssd2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestAlajoUssdTestAlajoUssd2Responses,
+    UssdPostApiV1TestAlajoUssdTestAlajoUssd2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/test_alajo_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Clafiya Ussd
+ * Test endpoint for Clafiya_USSD logic.
+ */
+export const ussdPostApiV1TestClafiyaUssdTestClafiyaUssd2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Responses,
+    UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/test_clafiya_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Evet Ussd
+ * Test endpoint for Evet_USSD logic.
+ */
+export const ussdPostApiV1TestEvetUssdTestEvetUssd2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UssdPostApiV1TestEvetUssdTestEvetUssd2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestEvetUssdTestEvetUssd2Responses,
+    UssdPostApiV1TestEvetUssdTestEvetUssd2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/test_evet_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Folog Ussd
+ * Test endpoint for Folog_USSD logic.
+ */
+export const ussdPostApiV1TestFologUssdTestFologUssd2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UssdPostApiV1TestFologUssdTestFologUssd2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestFologUssdTestFologUssd2Responses,
+    UssdPostApiV1TestFologUssdTestFologUssd2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/test_folog_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Myltura Ussd
+ * Test endpoint for Myltura_USSD logic.
+ */
+export const ussdPostApiV1TestMylturaUssdTestMylturaUssd2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1TestMylturaUssdTestMylturaUssd2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestMylturaUssdTestMylturaUssd2Responses,
+    UssdPostApiV1TestMylturaUssdTestMylturaUssd2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/test_myltura_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Uhc Tech Ussd
+ * Test endpoint for UHC_Tech_USSD logic.
+ */
+export const ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Data,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Responses,
+    UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/test_uhc_tech_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Test Xbox Ussd
+ * Test endpoint for XBOX_USSD logic.
+ */
+export const ussdPostApiV1TestXboxUssdTestXboxUssd2 = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UssdPostApiV1TestXboxUssdTestXboxUssd2Data, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).post<
+    UssdPostApiV1TestXboxUssdTestXboxUssd2Responses,
+    UssdPostApiV1TestXboxUssdTestXboxUssd2Errors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/ussd/api/v1/test_xbox_ussd",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetrics5 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics5Data, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ApiGetMetricsMetrics5Responses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/ussd/metrics",
     ...options,
   });
 };

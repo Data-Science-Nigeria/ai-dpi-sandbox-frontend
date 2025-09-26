@@ -46,26 +46,7 @@ export function getDefaultBody(path: string): string {
       2
     ),
 
-    "/api/v1/maps/route": JSON.stringify(
-      {
-        origin: { lat: 0, lng: 0 },
-        destination: { lat: 0, lng: 0 },
-        mode: "DRIVE",
-        routing_pref: "TRAFFIC_AWARE",
-        compute_alternative_routes: false,
-        route_modifiers: {
-          avoid_tolls: false,
-          avoid_highways: true,
-          avoid_ferries: false,
-        },
-        language_code: "en-US",
-        units: "METRIC",
-      },
-      null,
-      2
-    ),
-
-    "/api/v1/maps/routes/routes": JSON.stringify(
+    "/api/v1/maps/routes": JSON.stringify(
       {
         origin: { lat: 0, lng: 0 },
         destination: { lat: 0, lng: 0 },

@@ -8,7 +8,10 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
 import { PanelLeft, PanelRight, Code } from "lucide-react";
-import { menuItems } from "../introduction/data/data";
+import { useAccessControl } from "@/app/hooks/use-access-control";
+import { getUserSpecificMenuItems } from "../introduction/lib/user-specific-data";
+import { authenticationGetApiV1AuthMeReadUserMe } from "@/client";
+import { type MenuItem } from "../introduction/data/data";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -18,13 +21,52 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const { canAccessService, loading } = useAccessControl();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const [expandedEndpoints, setExpandedEndpoints] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<string>("");
+  const [userMenuItems, setUserMenuItems] = useState<MenuItem[]>([]);
 
   useEffect(() => {
+    const fetchUserMenuItems = async () => {
+      try {
+        const { data } = await authenticationGetApiV1AuthMeReadUserMe();
+        const menuItems = getUserSpecificMenuItems(
+          data?.id,
+          data?.email,
+          data?.username || undefined
+        );
+        setUserMenuItems(menuItems);
+      } catch {
+        const menuItems = getUserSpecificMenuItems();
+        setUserMenuItems(menuItems);
+      }
+    };
+
+    fetchUserMenuItems();
+  }, []);
+
+  // Filter menu items based on access control
+  const filteredMenuItems = userMenuItems
+    .map((item) => {
+      if (item.id === "core-resources" && item.items) {
+        const filteredSubItems = item.items.filter((subItem) =>
+          canAccessService(subItem.label.replace(" Service", ""))
+        );
+        return { ...item, items: filteredSubItems };
+      }
+      return item;
+    })
+    .filter(
+      (item) =>
+        item.id === "get-started" || !item.items || item.items.length > 0
+    );
+
+  useEffect(() => {
+    if (filteredMenuItems.length === 0) return;
+
     // Find the active menu item based on current pathname
-    for (const item of menuItems) {
+    for (const item of filteredMenuItems) {
       if (item.items) {
         for (const subItem of item.items) {
           // Check if current path matches service overview
@@ -56,7 +98,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
         }
       }
     }
-  }, [pathname]);
+  }, [pathname, filteredMenuItems]);
 
   const toggleExpanded = (itemId: string) => {
     setExpandedItems((prev) =>
@@ -141,63 +183,65 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
         <nav
           className={`flex-1 p-2 xs:p-4 mt-2 space-y-2 ${!isOpen ? "flex flex-col items-center" : ""}`}
         >
-          {menuItems.map((item) => (
-            <div key={item.id}>
-              <button
-                onClick={() => {
-                  if (item.hasDropdown) {
-                    toggleExpanded(item.id);
-                  } else {
-                    handleItemSelect(item.id);
-                  }
-                }}
-                className={`
+          {loading
+            ? null
+            : filteredMenuItems.map((item) => (
+                <div key={item.id}>
+                  <button
+                    onClick={() => {
+                      if (item.hasDropdown) {
+                        toggleExpanded(item.id);
+                      } else {
+                        handleItemSelect(item.id);
+                      }
+                    }}
+                    className={`
                   w-full flex items-center justify-between p-2 rounded-md
                   text-gray-700 dark:text-[#AFBDD1] hover:bg-gray-100 dark:hover:bg-gray-700
                   transition-colors duration-200
                   ${selectedItem === item.id ? "bg-[#00A859] text-white" : ""}
                 `}
-              >
-                <div
-                  className={`flex items-center ${isOpen ? "space-x-3" : "justify-center"}`}
-                >
-                  <item.icon className="w-5 h-5 flex-shrink-0" />
-                  {isOpen && (
-                    <span className="text-xs xs:text-sm font-medium truncate">
-                      {item.label}
-                    </span>
-                  )}
-                </div>
-                {isOpen &&
-                  item.hasDropdown &&
-                  (expandedItems.includes(item.id) ? (
-                    <ChevronDownIcon className="w-4 h-4" />
-                  ) : (
-                    <ChevronRightIcon className="w-4 h-4" />
-                  ))}
-              </button>
+                  >
+                    <div
+                      className={`flex items-center ${isOpen ? "space-x-3" : "justify-center"}`}
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {isOpen && (
+                        <span className="text-xs xs:text-sm font-medium truncate">
+                          {item.label}
+                        </span>
+                      )}
+                    </div>
+                    {isOpen &&
+                      item.hasDropdown &&
+                      (expandedItems.includes(item.id) ? (
+                        <ChevronDownIcon className="w-4 h-4" />
+                      ) : (
+                        <ChevronRightIcon className="w-4 h-4" />
+                      ))}
+                  </button>
 
-              {/* Dropdown Items */}
-              {isOpen &&
-                item.hasDropdown &&
-                expandedItems.includes(item.id) && (
-                  <div className="ml-4 xs:ml-8 mt-2 space-y-1">
-                    {item.items?.map((subItem) => {
-                      return (
-                        <div key={subItem.id}>
-                          <button
-                            onClick={() => {
-                              if (
-                                subItem.endpoints &&
-                                subItem.endpoints.length > 0
-                              ) {
-                                toggleEndpoints(subItem.id);
-                              } else {
-                                handleItemSelect(subItem.id);
-                                router.push(subItem.href);
-                              }
-                            }}
-                            className={`
+                  {/* Dropdown Items */}
+                  {isOpen &&
+                    item.hasDropdown &&
+                    expandedItems.includes(item.id) && (
+                      <div className="ml-4 xs:ml-8 mt-2 space-y-1">
+                        {item.items?.map((subItem) => {
+                          return (
+                            <div key={subItem.id}>
+                              <button
+                                onClick={() => {
+                                  if (
+                                    subItem.endpoints &&
+                                    subItem.endpoints.length > 0
+                                  ) {
+                                    toggleEndpoints(subItem.id);
+                                  } else {
+                                    handleItemSelect(subItem.id);
+                                    router.push(subItem.href);
+                                  }
+                                }}
+                                className={`
                             w-full text-left p-2 rounded-md text-xs xs:text-sm flex items-center justify-between
                             transition-colors duration-200
                             ${
@@ -206,32 +250,32 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                 : "text-gray-600 dark:text-[#AFBDD1] hover:bg-gray-100 dark:hover:bg-gray-700"
                             }
                           `}
-                          >
-                            <span className="truncate pr-2">
-                              {subItem.label}
-                            </span>
-                            <div className="flex items-center gap-1">
+                              >
+                                <span className="truncate pr-2">
+                                  {subItem.label}
+                                </span>
+                                <div className="flex items-center gap-1">
+                                  {subItem.endpoints &&
+                                    subItem.endpoints.length > 0 &&
+                                    (expandedEndpoints.includes(subItem.id) ? (
+                                      <ChevronDownIcon className="w-3 h-3" />
+                                    ) : (
+                                      <ChevronRightIcon className="w-3 h-3" />
+                                    ))}
+                                </div>
+                              </button>
+
+                              {/* Endpoints dropdown */}
                               {subItem.endpoints &&
                                 subItem.endpoints.length > 0 &&
-                                (expandedEndpoints.includes(subItem.id) ? (
-                                  <ChevronDownIcon className="w-3 h-3" />
-                                ) : (
-                                  <ChevronRightIcon className="w-3 h-3" />
-                                ))}
-                            </div>
-                          </button>
-
-                          {/* Endpoints dropdown */}
-                          {subItem.endpoints &&
-                            subItem.endpoints.length > 0 &&
-                            expandedEndpoints.includes(subItem.id) && (
-                              <div className="ml-4 mt-1 space-y-1">
-                                <button
-                                  onClick={() => {
-                                    handleItemSelect(subItem.id);
-                                    router.push(subItem.href);
-                                  }}
-                                  className={`
+                                expandedEndpoints.includes(subItem.id) && (
+                                  <div className="ml-4 mt-1 space-y-1">
+                                    <button
+                                      onClick={() => {
+                                        handleItemSelect(subItem.id);
+                                        router.push(subItem.href);
+                                      }}
+                                      className={`
                                   w-full text-left p-1.5 rounded-md text-xs flex items-center
                                   transition-colors duration-200
                                   ${
@@ -240,21 +284,22 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                       : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                                   }
                                 `}
-                                >
-                                  <BookOpenIcon className="w-3 h-3 mr-2" />
-                                  API Documentation
-                                </button>
+                                    >
+                                      <BookOpenIcon className="w-3 h-3 mr-2" />
+                                      API Documentation
+                                    </button>
 
-                                {subItem.endpoints.map((endpoint, idx) => {
-                                  const endpointId = `${subItem.id}-${endpoint.name.toLowerCase().replace(/\s+/g, "-")}`;
-                                  return (
-                                    <button
-                                      key={idx}
-                                      onClick={() => {
-                                        handleItemSelect(endpointId);
-                                        router.push(endpoint.href);
-                                      }}
-                                      className={`
+                                    {subItem.endpoints.map(
+                                      (endpoint, idx: number) => {
+                                        const endpointId = `${subItem.id}-${endpoint.name.toLowerCase().replace(/\s+/g, "-")}`;
+                                        return (
+                                          <button
+                                            key={idx}
+                                            onClick={() => {
+                                              handleItemSelect(endpointId);
+                                              router.push(endpoint.href);
+                                            }}
+                                            className={`
                                         w-full text-left p-1.5 rounded-md text-xs flex items-center transition-colors duration-200
                                         ${
                                           selectedItem === endpointId
@@ -262,38 +307,41 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                             : "hover:bg-gray-100 dark:hover:bg-gray-700"
                                         }
                                       `}
-                                    >
-                                      <Code className="w-3 h-3 mr-2" />
-                                      <span
-                                        className={`font-mono mr-2 ${
-                                          selectedItem === endpointId
-                                            ? "text-white"
-                                            : getMethodColor(endpoint.method)
-                                        }`}
-                                      >
-                                        {endpoint.method}
-                                      </span>
-                                      <span
-                                        className={`truncate ${
-                                          selectedItem === endpointId
-                                            ? "text-white"
-                                            : "text-gray-600 dark:text-gray-300"
-                                        }`}
-                                      >
-                                        {endpoint.name}
-                                      </span>
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-            </div>
-          ))}
+                                          >
+                                            <Code className="w-3 h-3 mr-2" />
+                                            <span
+                                              className={`font-mono mr-2 ${
+                                                selectedItem === endpointId
+                                                  ? "text-white"
+                                                  : getMethodColor(
+                                                      endpoint.method
+                                                    )
+                                              }`}
+                                            >
+                                              {endpoint.method}
+                                            </span>
+                                            <span
+                                              className={`truncate ${
+                                                selectedItem === endpointId
+                                                  ? "text-white"
+                                                  : "text-gray-600 dark:text-gray-300"
+                                              }`}
+                                            >
+                                              {endpoint.name}
+                                            </span>
+                                          </button>
+                                        );
+                                      }
+                                    )}
+                                  </div>
+                                )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                </div>
+              ))}
         </nav>
       </div>
     </>

@@ -1,8 +1,7 @@
 "use client";
 
 import { ApiClientInterface } from "../../components/api-client-interface";
-import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 
 export default function SpeechToTextApiV1SpitchSpeechToTextPostPage() {
   return (
@@ -14,9 +13,7 @@ export default function SpeechToTextApiV1SpitchSpeechToTextPostPage() {
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
-        <PageNavigation
-          {...getNavigation("/introduction/services/ai/spitch-speech-to-text")}
-        />
+        <AccessAwarePageNavigation currentPath="/introduction/services/ai/spitch-speech-to-text" />
       </div>
     </div>
   );

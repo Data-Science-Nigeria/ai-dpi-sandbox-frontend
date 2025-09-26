@@ -70,11 +70,13 @@ export const useAuthStore = create<AuthState>()(
           localStorage.removeItem("auth_expiry");
           set({ auth: initialAuth });
           // Clear client config
-          import("@/client/client.gen").then(({ client }) => {
-            client.setConfig({
-              headers: {},
-            });
-          });
+          import("@/client/client.gen")
+            .then(({ client }) => {
+              client.setConfig({
+                headers: {},
+              });
+            })
+            .catch(() => {});
         },
       }),
       {
@@ -91,13 +93,15 @@ export const useAuthStore = create<AuthState>()(
             state.clearAuth();
           } else if (state.auth.access_token) {
             // Set client config on rehydration if token exists
-            import("@/client/client.gen").then(({ client }) => {
-              client.setConfig({
-                headers: {
-                  Authorization: `Bearer ${state.auth.access_token}`,
-                },
-              });
-            });
+            import("@/client/client.gen")
+              .then(({ client }) => {
+                client.setConfig({
+                  headers: {
+                    Authorization: `Bearer ${state.auth.access_token}`,
+                  },
+                });
+              })
+              .catch(() => {});
           }
         },
       }
