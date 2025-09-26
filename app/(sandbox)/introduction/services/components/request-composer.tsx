@@ -18,6 +18,8 @@ import { MapsParams } from "./maps-params";
 import { getBaseUrl } from "@/lib/env";
 import { useAuthStore } from "@/app/store/use-auth-store";
 import { getDefaultBody } from "./default-body-provider";
+import { authenticationGetApiV1AuthMeReadUserMe } from "@/client";
+import { getStartupByUser, type Startup } from "../../types/startup-config";
 
 interface Header {
   key: string;
@@ -62,6 +64,7 @@ export function RequestComposer({
   const [activeTab, setActiveTab] = useState<
     "params" | "headers" | "body" | "query"
   >("headers");
+  const [startup, setStartup] = useState<Startup | null>(null);
 
   // Check if this is a maps endpoint that needs query parameters
   const isMapsEndpoint =
@@ -71,19 +74,60 @@ export function RequestComposer({
       initialPath.includes("/directions") ||
       initialPath.includes("/static"));
 
-  // Set initial tab based on path params or maps endpoint
+  // Check if this is a USSD endpoint
+  const isUssdEndpoint = initialPath.includes("_ussd");
+  const isTestUssdEndpoint =
+    initialPath.includes("/test_") && initialPath.includes("_ussd");
+
+  // Set initial tab based on path params, maps endpoint, or USSD endpoint
   useEffect(() => {
     if (pathParams.length > 0) {
       setActiveTab("params");
     } else if (isMapsEndpoint) {
       setActiveTab("query");
+    } else if (isTestUssdEndpoint) {
+      setActiveTab("body");
+      setContentType("application/x-www-form-urlencoded");
     }
-  }, [pathParams.length, isMapsEndpoint]);
+  }, [pathParams.length, isMapsEndpoint, isTestUssdEndpoint]);
+
+  // Fetch startup data for USSD endpoints
+  useEffect(() => {
+    if (isTestUssdEndpoint) {
+      const fetchStartup = async () => {
+        try {
+          const { data } = await authenticationGetApiV1AuthMeReadUserMe();
+          if (data) {
+            const matchedStartup = getStartupByUser(
+              data.id,
+              data.email,
+              data.username || undefined
+            );
+            setStartup(matchedStartup);
+          }
+        } catch {
+          const defaultStartup = getStartupByUser();
+          setStartup(defaultStartup);
+        }
+      };
+      fetchStartup();
+    }
+  }, [isTestUssdEndpoint]);
 
   // Update body when path changes
   useEffect(() => {
     setBody(getDefaultBody(initialPath));
-  }, [initialPath]);
+
+    // Initialize form data for USSD test endpoints
+    if (isTestUssdEndpoint) {
+      setFormData([
+        { key: "sessionId", value: "", type: "text" },
+        { key: "serviceCode", value: "", type: "text" },
+        { key: "phoneNumber", value: "", type: "text" },
+        { key: "text", value: "", type: "text" },
+      ]);
+    }
+  }, [initialPath, isTestUssdEndpoint]);
 
   // Update headers when content type changes
   useEffect(() => {
@@ -130,6 +174,23 @@ export function RequestComposer({
     setHeaders(headers.filter((_, i) => i !== index));
   };
 
+  const getFieldPlaceholder = (fieldKey: string): string => {
+    if (!isTestUssdEndpoint) return "Field value";
+
+    switch (fieldKey) {
+      case "sessionId":
+        return "lirwf23455";
+      case "serviceCode":
+        return startup?.serviceCode || "*347*123#";
+      case "phoneNumber":
+        return "+2348103317200";
+      case "text":
+        return "User input (empty for first interaction)";
+      default:
+        return "Field value";
+    }
+  };
+
   const handleSend = () => {
     // Replace path parameters
     let processedPath = initialPath;
@@ -139,7 +200,7 @@ export function RequestComposer({
       }
     });
 
-    // Add query parameters for maps endpoints
+    // Add query parameters for maps endpoints only
     let fullUrl = `${baseUrl.replace(/\/$/, "")}${processedPath}`;
     if (isMapsEndpoint && queryParams.toString()) {
       fullUrl += `?${queryParams.toString()}`;
@@ -264,7 +325,7 @@ export function RequestComposer({
           >
             Headers ({getAllHeaders().filter((h) => h.enabled && h.key).length})
           </button>
-          {method !== "GET" && (
+          {method !== "GET" && (!isUssdEndpoint || isTestUssdEndpoint) && (
             <button
               onClick={() => setActiveTab("body")}
               className={cn(
@@ -421,136 +482,138 @@ export function RequestComposer({
           </div>
         )}
 
-        {activeTab === "body" && method !== "GET" && (
-          <div className="h-full flex flex-col">
-            <div className="p-2 sm:p-4 border-b">
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-medium">Request Body</span>
-                <Select value={contentType} onValueChange={setContentType}>
-                  <SelectTrigger className="w-48">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="application/json">JSON</SelectItem>
-                    <SelectItem value="application/x-www-form-urlencoded">
-                      Form Encoded
-                    </SelectItem>
-                    <SelectItem value="multipart/form-data">
-                      Form Data
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="flex-1 overflow-hidden">
-              {contentType === "application/json" ? (
-                <div className="h-full p-2 sm:p-4 min-h-[400px] sm:min-h-[500px]">
-                  <textarea
-                    value={body}
-                    onChange={(e) => setBody(e.target.value)}
-                    className="w-full h-full p-3 border rounded-md bg-background text-sm font-mono resize-none custom-scrollbar min-h-[350px] sm:min-h-[450px]"
-                    placeholder="Enter request body (JSON)"
-                  />
+        {activeTab === "body" &&
+          method !== "GET" &&
+          (!isUssdEndpoint || isTestUssdEndpoint) && (
+            <div className="h-full flex flex-col">
+              <div className="p-2 sm:p-4 border-b">
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-medium">Request Body</span>
+                  <Select value={contentType} onValueChange={setContentType}>
+                    <SelectTrigger className="w-48">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="application/json">JSON</SelectItem>
+                      <SelectItem value="application/x-www-form-urlencoded">
+                        Form Encoded
+                      </SelectItem>
+                      <SelectItem value="multipart/form-data">
+                        Form Data
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
-              ) : (
-                <div className="h-full flex flex-col">
-                  <div className="p-2 sm:p-4 border-b">
-                    <div className="flex flex-col sm:flex-row gap-2">
-                      <Button
-                        onClick={() =>
-                          setFormData([
-                            ...formData,
-                            { key: "", value: "", type: "text" },
-                          ])
-                        }
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 sm:flex-none"
-                      >
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add Text Field
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          setFormData([
-                            ...formData,
-                            { key: "", value: "", type: "file" },
-                          ])
-                        }
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 sm:flex-none"
-                      >
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add File Field
-                      </Button>
-                    </div>
+              </div>
+
+              <div className="flex-1 overflow-hidden">
+                {contentType === "application/json" ? (
+                  <div className="h-full p-2 sm:p-4 min-h-[400px] sm:min-h-[500px]">
+                    <textarea
+                      value={body}
+                      onChange={(e) => setBody(e.target.value)}
+                      className="w-full h-full p-3 border rounded-md bg-background text-sm font-mono resize-none custom-scrollbar min-h-[350px] sm:min-h-[450px]"
+                      placeholder="Enter request body (JSON)"
+                    />
                   </div>
-                  <ScrollArea className="flex-1">
-                    <div className="p-4 space-y-2">
-                      {formData.map((field, index) => (
-                        <div
-                          key={index}
-                          className="grid grid-cols-1 xs:grid-cols-[1fr_1fr_auto] gap-2 items-center"
+                ) : (
+                  <div className="h-full flex flex-col">
+                    <div className="p-2 sm:p-4 border-b">
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <Button
+                          onClick={() =>
+                            setFormData([
+                              ...formData,
+                              { key: "", value: "", type: "text" },
+                            ])
+                          }
+                          variant="outline"
+                          size="sm"
+                          className="flex-1 sm:flex-none"
                         >
-                          <input
-                            type="text"
-                            value={field.key}
-                            onChange={(e) => {
-                              const newFormData = [...formData];
-                              newFormData[index].key = e.target.value;
-                              setFormData(newFormData);
-                            }}
-                            placeholder="Field name"
-                            className="px-3 py-2 border rounded-md text-sm"
-                          />
-                          {field.type === "file" ? (
-                            <input
-                              type="file"
-                              onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) {
-                                  const newFormData = [...formData];
-                                  newFormData[index].value = file;
-                                  setFormData(newFormData);
-                                }
-                              }}
-                              className="px-3 py-2 border rounded-md text-sm"
-                            />
-                          ) : (
+                          <Plus className="h-4 w-4 mr-2" />
+                          Add Text Field
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            setFormData([
+                              ...formData,
+                              { key: "", value: "", type: "file" },
+                            ])
+                          }
+                          variant="outline"
+                          size="sm"
+                          className="flex-1 sm:flex-none"
+                        >
+                          <Plus className="h-4 w-4 mr-2" />
+                          Add File Field
+                        </Button>
+                      </div>
+                    </div>
+                    <ScrollArea className="flex-1">
+                      <div className="p-4 space-y-2">
+                        {formData.map((field, index) => (
+                          <div
+                            key={index}
+                            className="grid grid-cols-1 xs:grid-cols-[1fr_1fr_auto] gap-2 items-center"
+                          >
                             <input
                               type="text"
-                              value={(field.value as string) || ""}
+                              value={field.key}
                               onChange={(e) => {
                                 const newFormData = [...formData];
-                                newFormData[index].value = e.target.value;
+                                newFormData[index].key = e.target.value;
                                 setFormData(newFormData);
                               }}
-                              placeholder="Field value"
+                              placeholder="Field name"
                               className="px-3 py-2 border rounded-md text-sm"
                             />
-                          )}
-                          <Button
-                            onClick={() =>
-                              setFormData(
-                                formData.filter((_, i) => i !== index)
-                              )
-                            }
-                            variant="ghost"
-                            size="sm"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </div>
-              )}
+                            {field.type === "file" ? (
+                              <input
+                                type="file"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    const newFormData = [...formData];
+                                    newFormData[index].value = file;
+                                    setFormData(newFormData);
+                                  }
+                                }}
+                                className="px-3 py-2 border rounded-md text-sm"
+                              />
+                            ) : (
+                              <input
+                                type="text"
+                                value={(field.value as string) || ""}
+                                onChange={(e) => {
+                                  const newFormData = [...formData];
+                                  newFormData[index].value = e.target.value;
+                                  setFormData(newFormData);
+                                }}
+                                placeholder={getFieldPlaceholder(field.key)}
+                                className="px-3 py-2 border rounded-md text-sm"
+                              />
+                            )}
+                            <Button
+                              onClick={() =>
+                                setFormData(
+                                  formData.filter((_, i) => i !== index)
+                                )
+                              }
+                              variant="ghost"
+                              size="sm"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    </ScrollArea>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     </div>
   );

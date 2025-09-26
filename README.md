@@ -101,7 +101,7 @@ The scripts are written in **plain JavaScript** (.js files) instead of TypeScrip
 
 - Runs `generate-endpoint-pages.js` once
 - Scans `client/types.gen.ts` for endpoint definitions
-- Creates pages for ai, bvn, ivr, nin, sms, two-way-sms only
+- Creates pages for ai, bvn, ivr, maps, nin, sms, two-way-sms, ussd only
 - Removes unwanted category folders
 
 **`yarn endpoints:watch`**

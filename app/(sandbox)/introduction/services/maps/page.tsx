@@ -2,8 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Map, Code, Navigation, MapPin, Route, Camera } from "lucide-react";
-import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
 import { LanguageSelector } from "../components/language-selector";
@@ -1159,7 +1158,7 @@ function MapsServiceContent() {
                 <div className="border rounded-lg p-4 bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
                   <h3 className="font-medium mb-2">Binary Images</h3>
                   <p className="text-sm text-muted-foreground">
-                    Static map endpoint returns URL for direct display.
+                    Static map endpoint returns image for direct display.
                   </p>
                 </div>
               </div>
@@ -1169,7 +1168,7 @@ function MapsServiceContent() {
       </div>
 
       <div className="p-3 sm:p-4 lg:p-6 border-t">
-        <PageNavigation {...getNavigation("/introduction/services/maps")} />
+        <AccessAwarePageNavigation currentPath="/introduction/services/maps" />
       </div>
     </div>
   );

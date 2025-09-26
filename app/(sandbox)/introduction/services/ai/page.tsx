@@ -10,8 +10,7 @@ import {
   Bot,
   Settings,
 } from "lucide-react";
-import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 
 function AIServiceContent() {
@@ -86,7 +85,7 @@ function AIServiceContent() {
                     <h4 className="font-medium mb-2">Request Body (JSON):</h4>
                     <pre className="bg-muted p-3 rounded text-sm overflow-x-auto">
                       {`{
-  "username": "user@example.com",
+  "identifier": "user@example.com",
   "password": "your_password"
 }`}
                     </pre>
@@ -238,6 +237,341 @@ function AIServiceContent() {
                         &apos;en&apos;, &apos;ha&apos;, &apos;ig&apos;,
                         &apos;am&apos;
                       </p>
+                    </div>
+
+                    {/* Available Voices */}
+                    <div>
+                      <h4 className="font-medium mb-2">Available Voices:</h4>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm border-collapse border border-gray-300">
+                          <thead>
+                            <tr className="bg-muted">
+                              <th className="border border-gray-300 px-2 py-1 text-left">
+                                Voice
+                              </th>
+                              <th className="border border-gray-300 px-2 py-1 text-left">
+                                Language
+                              </th>
+                              <th className="border border-gray-300 px-2 py-1 text-left">
+                                Voice Type
+                              </th>
+                              <th className="border border-gray-300 px-2 py-1 text-left">
+                                Description
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Sade
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Yoruba
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Energetic, but breezy
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Funmi
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Yoruba
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Calm, can sometimes be fun
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Segun
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Yoruba
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Vibrant, yet cool
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Femi
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Yoruba
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Really fun guy to interact with
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Hasan
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Hausa
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Loud and clear voice
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Amina
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Hausa
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                A bit quiet and soft
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Zainab
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Hausa
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Clear, loud voice
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Aliyu
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Hausa
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Soft voice, cool tone
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Obinna
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Igbo
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Loud and clear voice
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Ngozi
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Igbo
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                A bit quiet and soft
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Amara
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Igbo
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Clear, loud voice
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Ebuka
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Igbo
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Soft voice, cool tone
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                John
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                English
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Loud and clear voice
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Lucy
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                English
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Very clear voice
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Lina
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                English
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Clear, loud voice
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Jude
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                English
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Deep voice, smooth
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Henry
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                English
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Soft voice, cool tone
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Kani
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                English
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Soft voice, cool tone
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Hana
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Amharic
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                -
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Selam
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Amharic
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                -
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Tesfaye
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Amharic
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Masculine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                -
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Tena
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Amharic
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                Feminine
+                              </td>
+                              <td className="border border-gray-300 px-2 py-1">
+                                -
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
 
                     <div>
@@ -954,7 +1288,7 @@ function AIServiceContent() {
       </div>
 
       <div className="p-3 sm:p-4 lg:p-6 border-t">
-        <PageNavigation {...getNavigation("/introduction/services/ai")} />
+        <AccessAwarePageNavigation currentPath="/introduction/services/ai" />
       </div>
     </div>
   );

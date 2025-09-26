@@ -407,6 +407,25 @@ export type SendSmsRequest = {
 };
 
 /**
+ * AIChatMessage
+ */
+export type AiChatMessage = {
+  /**
+   * Role
+   */
+  role: string;
+  /**
+   * Content
+   */
+  content: string;
+  metadata?: Metadata | null;
+  /**
+   * Created At
+   */
+  created_at?: string;
+};
+
+/**
  * Body_speech_to_text_api_v1_spitch_speech_to_text_post
  */
 export type BodySpeechToTextApiV1SpitchSpeechToTextPost = {
@@ -471,24 +490,6 @@ export type BodyUploadForRagApiV1RagUploadPost = {
 };
 
 /**
- * ChatMessage
- */
-export type ChatMessage = {
-  /**
-   * Role
-   */
-  role: string;
-  /**
-   * Content
-   */
-  content: string;
-  /**
-   * Created At
-   */
-  created_at?: string;
-};
-
-/**
  * ChatRequest
  */
 export type ChatRequest = {
@@ -531,7 +532,15 @@ export type ChatResponse = {
   /**
    * Chat Messages
    */
-  chat_messages: ChatMessage[];
+  chat_messages: (HumanChatMessage | AiChatMessage)[];
+  /**
+   * User Id
+   */
+  user_id?: string | null;
+  /**
+   * Session Total Tokens
+   */
+  session_total_tokens?: number | null;
   /**
    * Session Id
    */
@@ -558,6 +567,54 @@ export type ChatSession = {
    * User Id
    */
   user_id: string;
+  /**
+   * Total Tokens
+   */
+  total_tokens?: number;
+};
+
+/**
+ * HumanChatMessage
+ */
+export type HumanChatMessage = {
+  /**
+   * Role
+   */
+  role: string;
+  /**
+   * Content
+   */
+  content: string;
+  /**
+   * Created At
+   */
+  created_at?: string;
+};
+
+/**
+ * Metadata
+ */
+export type Metadata = {
+  /**
+   * Prompt Tokens
+   */
+  prompt_tokens?: number | null;
+  /**
+   * Completion Tokens
+   */
+  completion_tokens?: number | null;
+  /**
+   * Total Tokens
+   */
+  total_tokens?: number | null;
+  /**
+   * Model Name
+   */
+  model_name?: string | null;
+  /**
+   * Completion Time
+   */
+  completion_time?: string | null;
 };
 
 /**
@@ -711,6 +768,24 @@ export type Location = {
 };
 
 /**
+ * RouteModifiers
+ */
+export type RouteModifiers = {
+  /**
+   * Avoid Tolls
+   */
+  avoid_tolls?: boolean;
+  /**
+   * Avoid Highways
+   */
+  avoid_highways?: boolean;
+  /**
+   * Avoid Ferries
+   */
+  avoid_ferries?: boolean;
+};
+
+/**
  * RouteRequest
  */
 export type RouteRequest = {
@@ -724,6 +799,301 @@ export type RouteRequest = {
    * Routing Pref
    */
   routing_pref?: string;
+  /**
+   * Compute Alternative Routes
+   */
+  compute_alternative_routes?: boolean;
+  route_modifiers?: RouteModifiers;
+  /**
+   * Language Code
+   */
+  language_code?: string;
+  /**
+   * Units
+   */
+  units?: string;
+};
+
+/**
+ * Body_api_post_ussd_notification_ussd_notification
+ */
+export type BodyApiPostUssdNotificationUssdNotification = {
+  /**
+   * Date
+   */
+  date?: string;
+  /**
+   * Sessionid
+   */
+  sessionId?: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Networkcode
+   */
+  networkCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber?: string;
+  /**
+   * Status
+   */
+  status?: string;
+  /**
+   * Cost
+   */
+  cost?: string;
+  /**
+   * Durationinmillis
+   */
+  durationInMillis?: number;
+  /**
+   * Hopscount
+   */
+  hopsCount?: number;
+  /**
+   * Input
+   */
+  input?: string;
+  /**
+   * Lastappresponse
+   */
+  lastAppResponse?: string;
+  /**
+   * Errormessage
+   */
+  errorMessage?: string | null;
+  /**
+   * Startup Id
+   */
+  startup_id?: string;
+};
+
+/**
+ * Body_api_post_ussd_ussd_proxy
+ */
+export type BodyApiPostUssdUssdProxy = {
+  /**
+   * Sessionid
+   */
+  sessionId?: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber?: string;
+  /**
+   * Text
+   */
+  text?: string;
+  /**
+   * Startup Id
+   */
+  startup_id?: string;
+};
+
+/**
+ * Body_ussd_post_api_v1_test_8medical_ussd_test_8medical_ussd
+ */
+export type BodyUssdPostApiV1Test8MedicalUssdTest8MedicalUssd = {
+  /**
+   * Sessionid
+   */
+  sessionId: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber: string;
+  /**
+   * Text
+   */
+  text?: string;
+};
+
+/**
+ * Body_ussd_post_api_v1_test_alajo_ussd_test_alajo_ussd
+ */
+export type BodyUssdPostApiV1TestAlajoUssdTestAlajoUssd = {
+  /**
+   * Sessionid
+   */
+  sessionId: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber: string;
+  /**
+   * Text
+   */
+  text?: string;
+};
+
+/**
+ * Body_ussd_post_api_v1_test_clafiya_ussd_test_clafiya_ussd
+ */
+export type BodyUssdPostApiV1TestClafiyaUssdTestClafiyaUssd = {
+  /**
+   * Sessionid
+   */
+  sessionId: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber: string;
+  /**
+   * Text
+   */
+  text?: string;
+};
+
+/**
+ * Body_ussd_post_api_v1_test_evet_ussd_test_evet_ussd
+ */
+export type BodyUssdPostApiV1TestEvetUssdTestEvetUssd = {
+  /**
+   * Sessionid
+   */
+  sessionId: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber: string;
+  /**
+   * Text
+   */
+  text?: string;
+};
+
+/**
+ * Body_ussd_post_api_v1_test_fertitude_ussd_test_fertitude_ussd
+ */
+export type BodyUssdPostApiV1TestFertitudeUssdTestFertitudeUssd = {
+  /**
+   * Sessionid
+   */
+  sessionId: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber: string;
+  /**
+   * Text
+   */
+  text?: string;
+};
+
+/**
+ * Body_ussd_post_api_v1_test_folog_ussd_test_folog_ussd
+ */
+export type BodyUssdPostApiV1TestFologUssdTestFologUssd = {
+  /**
+   * Sessionid
+   */
+  sessionId: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber: string;
+  /**
+   * Text
+   */
+  text?: string;
+};
+
+/**
+ * Body_ussd_post_api_v1_test_myltura_ussd_test_myltura_ussd
+ */
+export type BodyUssdPostApiV1TestMylturaUssdTestMylturaUssd = {
+  /**
+   * Sessionid
+   */
+  sessionId: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber: string;
+  /**
+   * Text
+   */
+  text?: string;
+};
+
+/**
+ * Body_ussd_post_api_v1_test_uhc_tech_ussd_test_uhc_tech_ussd
+ */
+export type BodyUssdPostApiV1TestUhcTechUssdTestUhcTechUssd = {
+  /**
+   * Sessionid
+   */
+  sessionId: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber: string;
+  /**
+   * Text
+   */
+  text?: string;
+};
+
+/**
+ * Body_ussd_post_api_v1_test_xbox_ussd_test_xbox_ussd
+ */
+export type BodyUssdPostApiV1TestXboxUssdTestXboxUssd = {
+  /**
+   * Sessionid
+   */
+  sessionId: string;
+  /**
+   * Servicecode
+   */
+  serviceCode?: string;
+  /**
+   * Phonenumber
+   */
+  phoneNumber: string;
+  /**
+   * Text
+   */
+  text?: string;
 };
 
 export type DefaultHealthCheckData = {
@@ -768,28 +1138,28 @@ export type DefaultGatewayHealthResponses = {
   200: unknown;
 };
 
-export type ApiGetMetricsMetricsData = {
+export type DefaultTestMetricsData = {
   body?: never;
   path?: never;
   query?: never;
-  url: "/api/v1/auth/metrics";
+  url: "/test-metrics";
 };
 
-export type ApiGetMetricsMetricsResponses = {
+export type DefaultTestMetricsResponses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ApiGetHealthHealthCheckData = {
+export type DefaultMetricsEndpointData = {
   body?: never;
   path?: never;
   query?: never;
-  url: "/api/v1/auth/health";
+  url: "/metrics";
 };
 
-export type ApiGetHealthHealthCheckResponses = {
+export type DefaultMetricsEndpointResponses = {
   /**
    * Successful Response
    */
@@ -810,29 +1180,33 @@ export type ApiGetRootRootResponses = {
   200: unknown;
 };
 
-export type ApiGetWellKnownOpenidConfigurationOpenidConfigurationData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/auth/.well-known/openid_configuration";
-};
+export type AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationData =
+  {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: "/api/v1/auth/.well-known/openid_configuration";
+  };
 
-export type ApiGetWellKnownOpenidConfigurationOpenidConfigurationResponses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
+export type AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationResponses =
+  {
+    /**
+     * Response Authentication Get Api V1 Auth .Well Known Openid Configuration Openid Configuration
+     * Successful Response
+     */
+    200: unknown;
+  };
 
-export type ApiGetWellKnownJwksJsonJwksData = {
+export type AuthenticationGetApiV1AuthWellKnownJwksJsonJwksData = {
   body?: never;
   path?: never;
   query?: never;
   url: "/api/v1/auth/.well-known/jwks.json";
 };
 
-export type ApiGetWellKnownJwksJsonJwksResponses = {
+export type AuthenticationGetApiV1AuthWellKnownJwksJsonJwksResponses = {
   /**
+   * Response Authentication Get Api V1 Auth .Well Known Jwks.Json Jwks
    * Successful Response
    */
   200: unknown;
@@ -1306,20 +1680,6 @@ export type AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordResponse
     200: unknown;
   };
 
-export type ApiGetHealthHealthCheck2Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/health";
-};
-
-export type ApiGetHealthHealthCheck2Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
 export type SmsPostApiV1SmsSendSendSingleSmsData = {
   body: SendSmsRequest;
   path?: never;
@@ -1439,34 +1799,6 @@ export type ApiGetRootRoot2Responses = {
   200: unknown;
 };
 
-export type ApiGetMetricsMetrics2Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/sms/metrics";
-};
-
-export type ApiGetMetricsMetrics2Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type HealthHealthGetData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/ai/health";
-};
-
-export type HealthHealthGetResponses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
 export type ReadyReadyGetData = {
   body?: never;
   path?: never;
@@ -1481,16 +1813,16 @@ export type ReadyReadyGetResponses = {
   200: unknown;
 };
 
-export type GetModelsApiV1ModelsGetData = {
+export type GetModelsApiV1ModelsGroqGetData = {
   body?: never;
   path?: never;
   query?: never;
-  url: "/api/v1/ai/models/";
+  url: "/api/v1/ai/models/groq";
 };
 
-export type GetModelsApiV1ModelsGetResponses = {
+export type GetModelsApiV1ModelsGroqGetResponses = {
   /**
-   * Response Get Models Api V1 Models  Get
+   * Response Get Models Api V1 Models Groq Get
    * Successful Response
    */
   200: {
@@ -1498,8 +1830,28 @@ export type GetModelsApiV1ModelsGetResponses = {
   }[];
 };
 
-export type GetModelsApiV1ModelsGetResponse =
-  GetModelsApiV1ModelsGetResponses[keyof GetModelsApiV1ModelsGetResponses];
+export type GetModelsApiV1ModelsGroqGetResponse =
+  GetModelsApiV1ModelsGroqGetResponses[keyof GetModelsApiV1ModelsGroqGetResponses];
+
+export type GetOpenaiModelsApiV1ModelsOpenaiGetData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ai/models/openai";
+};
+
+export type GetOpenaiModelsApiV1ModelsOpenaiGetResponses = {
+  /**
+   * Response Get Openai Models Api V1 Models Openai Get
+   * Successful Response
+   */
+  200: {
+    [key: string]: unknown;
+  }[];
+};
+
+export type GetOpenaiModelsApiV1ModelsOpenaiGetResponse =
+  GetOpenaiModelsApiV1ModelsOpenaiGetResponses[keyof GetOpenaiModelsApiV1ModelsOpenaiGetResponses];
 
 export type ChatApiV1ChatPostData = {
   body: ChatRequest;
@@ -1724,20 +2076,6 @@ export type RootGetResponses = {
   200: unknown;
 };
 
-export type MetricsMetricsGetData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/ai/metrics";
-};
-
-export type MetricsMetricsGetResponses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
 export type ApiPostApiV1VerifyVerifyNinData = {
   body: NinVerificationRequest;
   path?: never;
@@ -1820,34 +2158,6 @@ export type ApiPostApiV1LookupLookupNinBasicResponses = {
 
 export type ApiPostApiV1LookupLookupNinBasicResponse =
   ApiPostApiV1LookupLookupNinBasicResponses[keyof ApiPostApiV1LookupLookupNinBasicResponses];
-
-export type ApiGetHealthHealthCheck3Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/nin/health";
-};
-
-export type ApiGetHealthHealthCheck3Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiGetMetricsMetrics3Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/nin/metrics";
-};
-
-export type ApiGetMetricsMetrics3Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
 
 export type ApiPostApiV1VerifyVerifyBvnData = {
   body: BvnVerificationRequest;
@@ -1977,35 +2287,7 @@ export type ApiGetApiV1BanksGetSupportedBanksResponses = {
 export type ApiGetApiV1BanksGetSupportedBanksResponse =
   ApiGetApiV1BanksGetSupportedBanksResponses[keyof ApiGetApiV1BanksGetSupportedBanksResponses];
 
-export type ApiGetHealthHealthCheck4Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/bvn/health";
-};
-
-export type ApiGetHealthHealthCheck4Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiGetMetricsMetrics4Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/bvn/metrics";
-};
-
-export type ApiGetMetricsMetrics4Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type GetNearbyPlacesApiV1NearbyGetData = {
+export type GetNearbyPlacesApiV1MapsNearbyGetData = {
   body?: never;
   path?: never;
   query: {
@@ -2029,24 +2311,24 @@ export type GetNearbyPlacesApiV1NearbyGetData = {
   url: "/api/v1/maps/nearby/";
 };
 
-export type GetNearbyPlacesApiV1NearbyGetErrors = {
+export type GetNearbyPlacesApiV1MapsNearbyGetErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetNearbyPlacesApiV1NearbyGetError =
-  GetNearbyPlacesApiV1NearbyGetErrors[keyof GetNearbyPlacesApiV1NearbyGetErrors];
+export type GetNearbyPlacesApiV1MapsNearbyGetError =
+  GetNearbyPlacesApiV1MapsNearbyGetErrors[keyof GetNearbyPlacesApiV1MapsNearbyGetErrors];
 
-export type GetNearbyPlacesApiV1NearbyGetResponses = {
+export type GetNearbyPlacesApiV1MapsNearbyGetResponses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type GetDistanceApiV1DistanceGetData = {
+export type GetDistanceApiV1MapsDistanceGetData = {
   body?: never;
   path?: never;
   query: {
@@ -2066,24 +2348,24 @@ export type GetDistanceApiV1DistanceGetData = {
   url: "/api/v1/maps/distance/";
 };
 
-export type GetDistanceApiV1DistanceGetErrors = {
+export type GetDistanceApiV1MapsDistanceGetErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetDistanceApiV1DistanceGetError =
-  GetDistanceApiV1DistanceGetErrors[keyof GetDistanceApiV1DistanceGetErrors];
+export type GetDistanceApiV1MapsDistanceGetError =
+  GetDistanceApiV1MapsDistanceGetErrors[keyof GetDistanceApiV1MapsDistanceGetErrors];
 
-export type GetDistanceApiV1DistanceGetResponses = {
+export type GetDistanceApiV1MapsDistanceGetResponses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type GetDirectionsApiV1DirectionsGetData = {
+export type GetDirectionsApiV1MapsDirectionsGetData = {
   body?: never;
   path?: never;
   query: {
@@ -2106,24 +2388,24 @@ export type GetDirectionsApiV1DirectionsGetData = {
   url: "/api/v1/maps/directions/";
 };
 
-export type GetDirectionsApiV1DirectionsGetErrors = {
+export type GetDirectionsApiV1MapsDirectionsGetErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetDirectionsApiV1DirectionsGetError =
-  GetDirectionsApiV1DirectionsGetErrors[keyof GetDirectionsApiV1DirectionsGetErrors];
+export type GetDirectionsApiV1MapsDirectionsGetError =
+  GetDirectionsApiV1MapsDirectionsGetErrors[keyof GetDirectionsApiV1MapsDirectionsGetErrors];
 
-export type GetDirectionsApiV1DirectionsGetResponses = {
+export type GetDirectionsApiV1MapsDirectionsGetResponses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type GetStaticMapApiV1StaticGetData = {
+export type GetStaticMapApiV1MapsStaticGetData = {
   body?: never;
   path?: never;
   query: {
@@ -2156,83 +2438,41 @@ export type GetStaticMapApiV1StaticGetData = {
   url: "/api/v1/maps/static/";
 };
 
-export type GetStaticMapApiV1StaticGetErrors = {
+export type GetStaticMapApiV1MapsStaticGetErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetStaticMapApiV1StaticGetError =
-  GetStaticMapApiV1StaticGetErrors[keyof GetStaticMapApiV1StaticGetErrors];
+export type GetStaticMapApiV1MapsStaticGetError =
+  GetStaticMapApiV1MapsStaticGetErrors[keyof GetStaticMapApiV1MapsStaticGetErrors];
 
-export type GetStaticMapApiV1StaticGetResponses = {
+export type GetStaticMapApiV1MapsStaticGetResponses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type GetRouteApiV1RoutesRoutesPostData = {
+export type GetRouteApiV1MapsRoutesPostData = {
   body: RouteRequest;
   path?: never;
   query?: never;
-  url: "/api/v1/maps/routes/routes/";
+  url: "/api/v1/maps/routes/";
 };
 
-export type GetRouteApiV1RoutesRoutesPostErrors = {
+export type GetRouteApiV1MapsRoutesPostErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetRouteApiV1RoutesRoutesPostError =
-  GetRouteApiV1RoutesRoutesPostErrors[keyof GetRouteApiV1RoutesRoutesPostErrors];
+export type GetRouteApiV1MapsRoutesPostError =
+  GetRouteApiV1MapsRoutesPostErrors[keyof GetRouteApiV1MapsRoutesPostErrors];
 
-export type GetRouteApiV1RoutesRoutesPostResponses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type HealthCheckHealthGetData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/maps/health";
-};
-
-export type HealthCheckHealthGetResponses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiGetMetricsMetrics5Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/auth/metrics";
-};
-
-export type ApiGetMetricsMetrics5Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiGetHealthHealthCheck5Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/auth/health";
-};
-
-export type ApiGetHealthHealthCheck5Responses = {
+export type GetRouteApiV1MapsRoutesPostResponses = {
   /**
    * Successful Response
    */
@@ -2243,7 +2483,7 @@ export type ApiGetRootRoot3Data = {
   body?: never;
   path?: never;
   query?: never;
-  url: "/auth/";
+  url: "/api/v1/ussd/";
 };
 
 export type ApiGetRootRoot3Responses = {
@@ -2253,29 +2493,471 @@ export type ApiGetRootRoot3Responses = {
   200: unknown;
 };
 
-export type ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Data = {
-  body?: never;
+export type ApiPostUssdUssdProxyData = {
+  /**
+   * Body
+   */
+  body?: BodyApiPostUssdUssdProxy;
   path?: never;
   query?: never;
-  url: "/auth/.well-known/openid_configuration";
+  url: "/api/v1/ussd/";
 };
 
-export type ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Responses = {
+export type ApiPostUssdUssdProxyErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ApiPostUssdUssdProxyError =
+  ApiPostUssdUssdProxyErrors[keyof ApiPostUssdUssdProxyErrors];
+
+export type ApiPostUssdUssdProxyResponses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ApiGetWellKnownJwksJsonJwks2Data = {
+export type ApiPostUssdNotificationUssdNotificationData = {
+  /**
+   * Body
+   */
+  body?: BodyApiPostUssdNotificationUssdNotification;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/_notification";
+};
+
+export type ApiPostUssdNotificationUssdNotificationErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ApiPostUssdNotificationUssdNotificationError =
+  ApiPostUssdNotificationUssdNotificationErrors[keyof ApiPostUssdNotificationUssdNotificationErrors];
+
+export type ApiPostUssdNotificationUssdNotificationResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV18MedicalUssdCallback8MedicalData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/8medical_ussd";
+};
+
+export type UssdPostApiV18MedicalUssdCallback8MedicalResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1AlajoUssdCallbackAlajoData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/alajo_ussd";
+};
+
+export type UssdPostApiV1AlajoUssdCallbackAlajoResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1ClafiyaUssdCallbackClafiyaData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/clafiya_ussd";
+};
+
+export type UssdPostApiV1ClafiyaUssdCallbackClafiyaResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1EvetUssdCallbackEvetData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/evet_ussd";
+};
+
+export type UssdPostApiV1EvetUssdCallbackEvetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1FertitudeUssdCallbackFertitudeData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/fertitude_ussd";
+};
+
+export type UssdPostApiV1FertitudeUssdCallbackFertitudeResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1FologUssdCallbackFologData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/folog_ussd";
+};
+
+export type UssdPostApiV1FologUssdCallbackFologResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1MylturaUssdCallbackMylturaData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/myltura_ussd";
+};
+
+export type UssdPostApiV1MylturaUssdCallbackMylturaResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1UhcTechUssdCallbackUhcTechData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/uhc_tech_ussd";
+};
+
+export type UssdPostApiV1UhcTechUssdCallbackUhcTechResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1XboxUssdCallbackXboxData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/xbox_ussd";
+};
+
+export type UssdPostApiV1XboxUssdCallbackXboxResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestFertitudeUssdTestFertitudeUssdData = {
+  body: BodyUssdPostApiV1TestFertitudeUssdTestFertitudeUssd;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/test_fertitude_ussd";
+};
+
+export type UssdPostApiV1TestFertitudeUssdTestFertitudeUssdErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestFertitudeUssdTestFertitudeUssdError =
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssdErrors[keyof UssdPostApiV1TestFertitudeUssdTestFertitudeUssdErrors];
+
+export type UssdPostApiV1TestFertitudeUssdTestFertitudeUssdResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1Test8MedicalUssdTest8MedicalUssdData = {
+  body: BodyUssdPostApiV1Test8MedicalUssdTest8MedicalUssd;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/test_8medical_ussd";
+};
+
+export type UssdPostApiV1Test8MedicalUssdTest8MedicalUssdErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1Test8MedicalUssdTest8MedicalUssdError =
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssdErrors[keyof UssdPostApiV1Test8MedicalUssdTest8MedicalUssdErrors];
+
+export type UssdPostApiV1Test8MedicalUssdTest8MedicalUssdResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestAlajoUssdTestAlajoUssdData = {
+  body: BodyUssdPostApiV1TestAlajoUssdTestAlajoUssd;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/test_alajo_ussd";
+};
+
+export type UssdPostApiV1TestAlajoUssdTestAlajoUssdErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestAlajoUssdTestAlajoUssdError =
+  UssdPostApiV1TestAlajoUssdTestAlajoUssdErrors[keyof UssdPostApiV1TestAlajoUssdTestAlajoUssdErrors];
+
+export type UssdPostApiV1TestAlajoUssdTestAlajoUssdResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestClafiyaUssdTestClafiyaUssdData = {
+  body: BodyUssdPostApiV1TestClafiyaUssdTestClafiyaUssd;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/test_clafiya_ussd";
+};
+
+export type UssdPostApiV1TestClafiyaUssdTestClafiyaUssdErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestClafiyaUssdTestClafiyaUssdError =
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssdErrors[keyof UssdPostApiV1TestClafiyaUssdTestClafiyaUssdErrors];
+
+export type UssdPostApiV1TestClafiyaUssdTestClafiyaUssdResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestEvetUssdTestEvetUssdData = {
+  body: BodyUssdPostApiV1TestEvetUssdTestEvetUssd;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/test_evet_ussd";
+};
+
+export type UssdPostApiV1TestEvetUssdTestEvetUssdErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestEvetUssdTestEvetUssdError =
+  UssdPostApiV1TestEvetUssdTestEvetUssdErrors[keyof UssdPostApiV1TestEvetUssdTestEvetUssdErrors];
+
+export type UssdPostApiV1TestEvetUssdTestEvetUssdResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestFologUssdTestFologUssdData = {
+  body: BodyUssdPostApiV1TestFologUssdTestFologUssd;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/test_folog_ussd";
+};
+
+export type UssdPostApiV1TestFologUssdTestFologUssdErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestFologUssdTestFologUssdError =
+  UssdPostApiV1TestFologUssdTestFologUssdErrors[keyof UssdPostApiV1TestFologUssdTestFologUssdErrors];
+
+export type UssdPostApiV1TestFologUssdTestFologUssdResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestMylturaUssdTestMylturaUssdData = {
+  body: BodyUssdPostApiV1TestMylturaUssdTestMylturaUssd;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/test_myltura_ussd";
+};
+
+export type UssdPostApiV1TestMylturaUssdTestMylturaUssdErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestMylturaUssdTestMylturaUssdError =
+  UssdPostApiV1TestMylturaUssdTestMylturaUssdErrors[keyof UssdPostApiV1TestMylturaUssdTestMylturaUssdErrors];
+
+export type UssdPostApiV1TestMylturaUssdTestMylturaUssdResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestUhcTechUssdTestUhcTechUssdData = {
+  body: BodyUssdPostApiV1TestUhcTechUssdTestUhcTechUssd;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/test_uhc_tech_ussd";
+};
+
+export type UssdPostApiV1TestUhcTechUssdTestUhcTechUssdErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestUhcTechUssdTestUhcTechUssdError =
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssdErrors[keyof UssdPostApiV1TestUhcTechUssdTestUhcTechUssdErrors];
+
+export type UssdPostApiV1TestUhcTechUssdTestUhcTechUssdResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestXboxUssdTestXboxUssdData = {
+  body: BodyUssdPostApiV1TestXboxUssdTestXboxUssd;
+  path?: never;
+  query?: never;
+  url: "/api/v1/ussd/test_xbox_ussd";
+};
+
+export type UssdPostApiV1TestXboxUssdTestXboxUssdErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestXboxUssdTestXboxUssdError =
+  UssdPostApiV1TestXboxUssdTestXboxUssdErrors[keyof UssdPostApiV1TestXboxUssdTestXboxUssdErrors];
+
+export type UssdPostApiV1TestXboxUssdTestXboxUssdResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ApiGetMetricsMetricsData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/auth/metrics";
+};
+
+export type ApiGetMetricsMetricsResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ApiGetHealthHealthCheckData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/auth/health";
+};
+
+export type ApiGetHealthHealthCheckResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ApiGetRootRoot4Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/auth/";
+};
+
+export type ApiGetRootRoot4Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Data =
+  {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: "/auth/.well-known/openid_configuration";
+  };
+
+export type AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Responses =
+  {
+    /**
+     * Response Authentication Get Api V1 Auth .Well Known Openid Configuration Openid Configuration
+     * Successful Response
+     */
+    200: unknown;
+  };
+
+export type AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/auth/.well-known/jwks.json";
 };
 
-export type ApiGetWellKnownJwksJsonJwks2Responses = {
+export type AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Responses = {
   /**
+   * Response Authentication Get Api V1 Auth .Well Known Jwks.Json Jwks
    * Successful Response
    */
   200: unknown;
@@ -2869,56 +3551,56 @@ export type SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Responses = {
   200: unknown;
 };
 
-export type ApiGetHealthHealthCheck6Data = {
+export type ApiGetHealthHealthCheck2Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/sms/health";
 };
 
-export type ApiGetHealthHealthCheck6Responses = {
+export type ApiGetHealthHealthCheck2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ApiGetRootRoot4Data = {
+export type ApiGetRootRoot5Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/sms/";
 };
 
-export type ApiGetRootRoot4Responses = {
+export type ApiGetRootRoot5Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ApiGetMetricsMetrics6Data = {
+export type ApiGetMetricsMetrics2Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/sms/metrics";
 };
 
-export type ApiGetMetricsMetrics6Responses = {
+export type ApiGetMetricsMetrics2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type HealthHealthGet2Data = {
+export type HealthHealthGetData = {
   body?: never;
   path?: never;
   query?: never;
   url: "/ai/health";
 };
 
-export type HealthHealthGet2Responses = {
+export type HealthHealthGetResponses = {
   /**
    * Successful Response
    */
@@ -2939,16 +3621,16 @@ export type ReadyReadyGet2Responses = {
   200: unknown;
 };
 
-export type GetModelsApiV1ModelsGet2Data = {
+export type GetModelsApiV1ModelsGroqGet2Data = {
   body?: never;
   path?: never;
   query?: never;
-  url: "/ai/api/v1/models/";
+  url: "/ai/api/v1/models/groq";
 };
 
-export type GetModelsApiV1ModelsGet2Responses = {
+export type GetModelsApiV1ModelsGroqGet2Responses = {
   /**
-   * Response Get Models Api V1 Models  Get
+   * Response Get Models Api V1 Models Groq Get
    * Successful Response
    */
   200: {
@@ -2956,8 +3638,28 @@ export type GetModelsApiV1ModelsGet2Responses = {
   }[];
 };
 
-export type GetModelsApiV1ModelsGet2Response =
-  GetModelsApiV1ModelsGet2Responses[keyof GetModelsApiV1ModelsGet2Responses];
+export type GetModelsApiV1ModelsGroqGet2Response =
+  GetModelsApiV1ModelsGroqGet2Responses[keyof GetModelsApiV1ModelsGroqGet2Responses];
+
+export type GetOpenaiModelsApiV1ModelsOpenaiGet2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ai/api/v1/models/openai";
+};
+
+export type GetOpenaiModelsApiV1ModelsOpenaiGet2Responses = {
+  /**
+   * Response Get Openai Models Api V1 Models Openai Get
+   * Successful Response
+   */
+  200: {
+    [key: string]: unknown;
+  }[];
+};
+
+export type GetOpenaiModelsApiV1ModelsOpenaiGet2Response =
+  GetOpenaiModelsApiV1ModelsOpenaiGet2Responses[keyof GetOpenaiModelsApiV1ModelsOpenaiGet2Responses];
 
 export type ChatApiV1ChatPost2Data = {
   body: ChatRequest;
@@ -3182,14 +3884,14 @@ export type RootGet2Responses = {
   200: unknown;
 };
 
-export type MetricsMetricsGet2Data = {
+export type MetricsMetricsGetData = {
   body?: never;
   path?: never;
   query?: never;
   url: "/ai/metrics";
 };
 
-export type MetricsMetricsGet2Responses = {
+export type MetricsMetricsGetResponses = {
   /**
    * Successful Response
    */
@@ -3279,28 +3981,28 @@ export type ApiPostApiV1LookupLookupNinBasic2Responses = {
 export type ApiPostApiV1LookupLookupNinBasic2Response =
   ApiPostApiV1LookupLookupNinBasic2Responses[keyof ApiPostApiV1LookupLookupNinBasic2Responses];
 
-export type ApiGetHealthHealthCheck7Data = {
+export type ApiGetHealthHealthCheck3Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/nin/health";
 };
 
-export type ApiGetHealthHealthCheck7Responses = {
+export type ApiGetHealthHealthCheck3Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ApiGetMetricsMetrics7Data = {
+export type ApiGetMetricsMetrics3Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/nin/metrics";
 };
 
-export type ApiGetMetricsMetrics7Responses = {
+export type ApiGetMetricsMetrics3Responses = {
   /**
    * Successful Response
    */
@@ -3435,35 +4137,35 @@ export type ApiGetApiV1BanksGetSupportedBanks2Responses = {
 export type ApiGetApiV1BanksGetSupportedBanks2Response =
   ApiGetApiV1BanksGetSupportedBanks2Responses[keyof ApiGetApiV1BanksGetSupportedBanks2Responses];
 
-export type ApiGetHealthHealthCheck8Data = {
+export type ApiGetHealthHealthCheck4Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/bvn/health";
 };
 
-export type ApiGetHealthHealthCheck8Responses = {
+export type ApiGetHealthHealthCheck4Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type ApiGetMetricsMetrics8Data = {
+export type ApiGetMetricsMetrics4Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/bvn/metrics";
 };
 
-export type ApiGetMetricsMetrics8Responses = {
+export type ApiGetMetricsMetrics4Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type GetNearbyPlacesApiV1NearbyGet2Data = {
+export type GetNearbyPlacesApiV1MapsNearbyGet2Data = {
   body?: never;
   path?: never;
   query: {
@@ -3484,27 +4186,27 @@ export type GetNearbyPlacesApiV1NearbyGet2Data = {
      */
     radius_m?: number;
   };
-  url: "/maps/api/v1/nearby/";
+  url: "/maps/nearby/";
 };
 
-export type GetNearbyPlacesApiV1NearbyGet2Errors = {
+export type GetNearbyPlacesApiV1MapsNearbyGet2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetNearbyPlacesApiV1NearbyGet2Error =
-  GetNearbyPlacesApiV1NearbyGet2Errors[keyof GetNearbyPlacesApiV1NearbyGet2Errors];
+export type GetNearbyPlacesApiV1MapsNearbyGet2Error =
+  GetNearbyPlacesApiV1MapsNearbyGet2Errors[keyof GetNearbyPlacesApiV1MapsNearbyGet2Errors];
 
-export type GetNearbyPlacesApiV1NearbyGet2Responses = {
+export type GetNearbyPlacesApiV1MapsNearbyGet2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type GetDistanceApiV1DistanceGet2Data = {
+export type GetDistanceApiV1MapsDistanceGet2Data = {
   body?: never;
   path?: never;
   query: {
@@ -3521,27 +4223,27 @@ export type GetDistanceApiV1DistanceGet2Data = {
      */
     mode?: string;
   };
-  url: "/maps/api/v1/distance/";
+  url: "/maps/distance/";
 };
 
-export type GetDistanceApiV1DistanceGet2Errors = {
+export type GetDistanceApiV1MapsDistanceGet2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetDistanceApiV1DistanceGet2Error =
-  GetDistanceApiV1DistanceGet2Errors[keyof GetDistanceApiV1DistanceGet2Errors];
+export type GetDistanceApiV1MapsDistanceGet2Error =
+  GetDistanceApiV1MapsDistanceGet2Errors[keyof GetDistanceApiV1MapsDistanceGet2Errors];
 
-export type GetDistanceApiV1DistanceGet2Responses = {
+export type GetDistanceApiV1MapsDistanceGet2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type GetDirectionsApiV1DirectionsGet2Data = {
+export type GetDirectionsApiV1MapsDirectionsGet2Data = {
   body?: never;
   path?: never;
   query: {
@@ -3561,27 +4263,27 @@ export type GetDirectionsApiV1DirectionsGet2Data = {
      */
     mode?: string;
   };
-  url: "/maps/api/v1/directions/";
+  url: "/maps/directions/";
 };
 
-export type GetDirectionsApiV1DirectionsGet2Errors = {
+export type GetDirectionsApiV1MapsDirectionsGet2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetDirectionsApiV1DirectionsGet2Error =
-  GetDirectionsApiV1DirectionsGet2Errors[keyof GetDirectionsApiV1DirectionsGet2Errors];
+export type GetDirectionsApiV1MapsDirectionsGet2Error =
+  GetDirectionsApiV1MapsDirectionsGet2Errors[keyof GetDirectionsApiV1MapsDirectionsGet2Errors];
 
-export type GetDirectionsApiV1DirectionsGet2Responses = {
+export type GetDirectionsApiV1MapsDirectionsGet2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type GetStaticMapApiV1StaticGet2Data = {
+export type GetStaticMapApiV1MapsStaticGet2Data = {
   body?: never;
   path?: never;
   query: {
@@ -3611,58 +4313,496 @@ export type GetStaticMapApiV1StaticGet2Data = {
      */
     size?: string;
   };
-  url: "/maps/api/v1/static/";
+  url: "/maps/static/";
 };
 
-export type GetStaticMapApiV1StaticGet2Errors = {
+export type GetStaticMapApiV1MapsStaticGet2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetStaticMapApiV1StaticGet2Error =
-  GetStaticMapApiV1StaticGet2Errors[keyof GetStaticMapApiV1StaticGet2Errors];
+export type GetStaticMapApiV1MapsStaticGet2Error =
+  GetStaticMapApiV1MapsStaticGet2Errors[keyof GetStaticMapApiV1MapsStaticGet2Errors];
 
-export type GetStaticMapApiV1StaticGet2Responses = {
+export type GetStaticMapApiV1MapsStaticGet2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type GetRouteApiV1RoutesRoutesPost2Data = {
+export type GetRouteApiV1MapsRoutesPost2Data = {
   body: RouteRequest;
   path?: never;
   query?: never;
-  url: "/maps/api/v1/routes/routes/";
+  url: "/maps/routes/";
 };
 
-export type GetRouteApiV1RoutesRoutesPost2Errors = {
+export type GetRouteApiV1MapsRoutesPost2Errors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type GetRouteApiV1RoutesRoutesPost2Error =
-  GetRouteApiV1RoutesRoutesPost2Errors[keyof GetRouteApiV1RoutesRoutesPost2Errors];
+export type GetRouteApiV1MapsRoutesPost2Error =
+  GetRouteApiV1MapsRoutesPost2Errors[keyof GetRouteApiV1MapsRoutesPost2Errors];
 
-export type GetRouteApiV1RoutesRoutesPost2Responses = {
+export type GetRouteApiV1MapsRoutesPost2Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
 
-export type HealthCheckHealthGet2Data = {
+export type HealthCheckHealthGetData = {
   body?: never;
   path?: never;
   query?: never;
   url: "/maps/health";
 };
 
-export type HealthCheckHealthGet2Responses = {
+export type HealthCheckHealthGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type MetricsMetricsGet2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/maps/metrics";
+};
+
+export type MetricsMetricsGet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ApiGetHealthHealthCheck5Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/health";
+};
+
+export type ApiGetHealthHealthCheck5Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ApiPostUssdUssdProxy2Data = {
+  /**
+   * Body
+   */
+  body?: BodyApiPostUssdUssdProxy;
+  path?: never;
+  query?: never;
+  url: "/ussd/";
+};
+
+export type ApiPostUssdUssdProxy2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ApiPostUssdUssdProxy2Error =
+  ApiPostUssdUssdProxy2Errors[keyof ApiPostUssdUssdProxy2Errors];
+
+export type ApiPostUssdUssdProxy2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ApiPostUssdNotificationUssdNotification2Data = {
+  /**
+   * Body
+   */
+  body?: BodyApiPostUssdNotificationUssdNotification;
+  path?: never;
+  query?: never;
+  url: "/ussd_notification";
+};
+
+export type ApiPostUssdNotificationUssdNotification2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ApiPostUssdNotificationUssdNotification2Error =
+  ApiPostUssdNotificationUssdNotification2Errors[keyof ApiPostUssdNotificationUssdNotification2Errors];
+
+export type ApiPostUssdNotificationUssdNotification2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV18MedicalUssdCallback8Medical2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/8medical_ussd";
+};
+
+export type UssdPostApiV18MedicalUssdCallback8Medical2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1AlajoUssdCallbackAlajo2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/alajo_ussd";
+};
+
+export type UssdPostApiV1AlajoUssdCallbackAlajo2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1ClafiyaUssdCallbackClafiya2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/clafiya_ussd";
+};
+
+export type UssdPostApiV1ClafiyaUssdCallbackClafiya2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1EvetUssdCallbackEvet2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/evet_ussd";
+};
+
+export type UssdPostApiV1EvetUssdCallbackEvet2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1FertitudeUssdCallbackFertitude2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/fertitude_ussd";
+};
+
+export type UssdPostApiV1FertitudeUssdCallbackFertitude2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1FologUssdCallbackFolog2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/folog_ussd";
+};
+
+export type UssdPostApiV1FologUssdCallbackFolog2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1MylturaUssdCallbackMyltura2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/myltura_ussd";
+};
+
+export type UssdPostApiV1MylturaUssdCallbackMyltura2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1UhcTechUssdCallbackUhcTech2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/uhc_tech_ussd";
+};
+
+export type UssdPostApiV1UhcTechUssdCallbackUhcTech2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1XboxUssdCallbackXbox2Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/xbox_ussd";
+};
+
+export type UssdPostApiV1XboxUssdCallbackXbox2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Data = {
+  body: BodyUssdPostApiV1TestFertitudeUssdTestFertitudeUssd;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/test_fertitude_ussd";
+};
+
+export type UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Error =
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Errors[keyof UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Errors];
+
+export type UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Data = {
+  body: BodyUssdPostApiV1Test8MedicalUssdTest8MedicalUssd;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/test_8medical_ussd";
+};
+
+export type UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Error =
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Errors[keyof UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Errors];
+
+export type UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestAlajoUssdTestAlajoUssd2Data = {
+  body: BodyUssdPostApiV1TestAlajoUssdTestAlajoUssd;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/test_alajo_ussd";
+};
+
+export type UssdPostApiV1TestAlajoUssdTestAlajoUssd2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestAlajoUssdTestAlajoUssd2Error =
+  UssdPostApiV1TestAlajoUssdTestAlajoUssd2Errors[keyof UssdPostApiV1TestAlajoUssdTestAlajoUssd2Errors];
+
+export type UssdPostApiV1TestAlajoUssdTestAlajoUssd2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Data = {
+  body: BodyUssdPostApiV1TestClafiyaUssdTestClafiyaUssd;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/test_clafiya_ussd";
+};
+
+export type UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Error =
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Errors[keyof UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Errors];
+
+export type UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestEvetUssdTestEvetUssd2Data = {
+  body: BodyUssdPostApiV1TestEvetUssdTestEvetUssd;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/test_evet_ussd";
+};
+
+export type UssdPostApiV1TestEvetUssdTestEvetUssd2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestEvetUssdTestEvetUssd2Error =
+  UssdPostApiV1TestEvetUssdTestEvetUssd2Errors[keyof UssdPostApiV1TestEvetUssdTestEvetUssd2Errors];
+
+export type UssdPostApiV1TestEvetUssdTestEvetUssd2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestFologUssdTestFologUssd2Data = {
+  body: BodyUssdPostApiV1TestFologUssdTestFologUssd;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/test_folog_ussd";
+};
+
+export type UssdPostApiV1TestFologUssdTestFologUssd2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestFologUssdTestFologUssd2Error =
+  UssdPostApiV1TestFologUssdTestFologUssd2Errors[keyof UssdPostApiV1TestFologUssdTestFologUssd2Errors];
+
+export type UssdPostApiV1TestFologUssdTestFologUssd2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestMylturaUssdTestMylturaUssd2Data = {
+  body: BodyUssdPostApiV1TestMylturaUssdTestMylturaUssd;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/test_myltura_ussd";
+};
+
+export type UssdPostApiV1TestMylturaUssdTestMylturaUssd2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestMylturaUssdTestMylturaUssd2Error =
+  UssdPostApiV1TestMylturaUssdTestMylturaUssd2Errors[keyof UssdPostApiV1TestMylturaUssdTestMylturaUssd2Errors];
+
+export type UssdPostApiV1TestMylturaUssdTestMylturaUssd2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Data = {
+  body: BodyUssdPostApiV1TestUhcTechUssdTestUhcTechUssd;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/test_uhc_tech_ussd";
+};
+
+export type UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Error =
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Errors[keyof UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Errors];
+
+export type UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type UssdPostApiV1TestXboxUssdTestXboxUssd2Data = {
+  body: BodyUssdPostApiV1TestXboxUssdTestXboxUssd;
+  path?: never;
+  query?: never;
+  url: "/ussd/api/v1/test_xbox_ussd";
+};
+
+export type UssdPostApiV1TestXboxUssdTestXboxUssd2Errors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UssdPostApiV1TestXboxUssdTestXboxUssd2Error =
+  UssdPostApiV1TestXboxUssdTestXboxUssd2Errors[keyof UssdPostApiV1TestXboxUssdTestXboxUssd2Errors];
+
+export type UssdPostApiV1TestXboxUssdTestXboxUssd2Responses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ApiGetMetricsMetrics5Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/ussd/metrics";
+};
+
+export type ApiGetMetricsMetrics5Responses = {
   /**
    * Successful Response
    */

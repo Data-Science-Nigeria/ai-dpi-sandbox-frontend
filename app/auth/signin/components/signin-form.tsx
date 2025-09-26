@@ -19,7 +19,7 @@ import { Logo } from "@/app/components/logo";
 import { authenticationGetApiV1AuthMeReadUserMe } from "@/client/sdk.gen";
 
 const signInSchema = z.object({
-  email: z.string().min(1, "Username or email is required"),
+  email: z.string().min(1, "Identifier is required"),
   password: z.string().min(1, "Password is required"),
 });
 
@@ -181,7 +181,7 @@ export function SignInForm() {
 
           <div>
             <label className="block text-sm font-medium text-gray-600 dark:text-white">
-              Username or Email address
+              Identifier
             </label>
             <input
               type="text"

@@ -13,8 +13,12 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/ai",
   },
   {
-    title: "Models",
-    href: "/introduction/services/ai/models",
+    title: "Models Groq",
+    href: "/introduction/services/ai/models-groq",
+  },
+  {
+    title: "Models Openai",
+    href: "/introduction/services/ai/models-openai",
   },
   {
     title: "Chat",
@@ -93,8 +97,8 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/maps/static",
   },
   {
-    title: "Routes Routes",
-    href: "/introduction/services/maps/routes-routes",
+    title: "Routes",
+    href: "/introduction/services/maps/routes",
   },
   {
     title: "Nin Service",
@@ -136,18 +140,39 @@ export const navigationPages: NavigationPage[] = [
     title: "Status",
     href: "/introduction/services/sms/status",
   },
+  {
+    title: "Ussd Service",
+    href: "/introduction/services/ussd",
+  },
 ];
 
-export function getNavigation(currentPath: string) {
-  const currentIndex = navigationPages.findIndex(
+export function getNavigation(
+  currentPath: string,
+  userAccessFilter?: (service: string) => boolean
+) {
+  let filteredPages = navigationPages;
+
+  if (userAccessFilter) {
+    filteredPages = navigationPages.filter((page) => {
+      // Extract service from path
+      const pathParts = page.href.split("/");
+      if (pathParts.length >= 4 && pathParts[2] === "services") {
+        const service = pathParts[3];
+        return userAccessFilter(service);
+      }
+      return true; // Keep non-service pages
+    });
+  }
+
+  const currentIndex = filteredPages.findIndex(
     (page) => page.href === currentPath
   );
 
   return {
-    previous: currentIndex > 0 ? navigationPages[currentIndex - 1] : undefined,
+    previous: currentIndex > 0 ? filteredPages[currentIndex - 1] : undefined,
     next:
-      currentIndex < navigationPages.length - 1
-        ? navigationPages[currentIndex + 1]
+      currentIndex < filteredPages.length - 1
+        ? filteredPages[currentIndex + 1]
         : undefined,
   };
 }

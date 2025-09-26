@@ -1,8 +1,7 @@
 "use client";
 
 import { ApiClientInterface } from "../../components/api-client-interface";
-import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 
 export default function GetChatSessionsApiV1ChatSessionsAllGetPage() {
   return (
@@ -14,9 +13,7 @@ export default function GetChatSessionsApiV1ChatSessionsAllGetPage() {
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
-        <PageNavigation
-          {...getNavigation("/introduction/services/ai/chat-sessions-all")}
-        />
+        <AccessAwarePageNavigation currentPath="/introduction/services/ai/chat-sessions-all" />
       </div>
     </div>
   );

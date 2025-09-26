@@ -1,10 +1,9 @@
 "use client";
 
 import { ApiClientInterface } from "../../components/api-client-interface";
-import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 
-export default function GetDistanceApiV1DistanceGetPage() {
+export default function GetDistanceApiV1MapsDistanceGetPage() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">
@@ -14,9 +13,7 @@ export default function GetDistanceApiV1DistanceGetPage() {
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
-        <PageNavigation
-          {...getNavigation("/introduction/services/maps/distance")}
-        />
+        <AccessAwarePageNavigation currentPath="/introduction/services/maps/distance" />
       </div>
     </div>
   );

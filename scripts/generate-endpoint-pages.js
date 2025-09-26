@@ -66,13 +66,15 @@ function extractEndpointsFromTypes() {
       endpointName = "endpoint";
     }
 
-    // Skip if subcategory is health or metrics or ready or endpoint
+    // Skip if subcategory is health or metrics or ready or endpoint or _notification
     if (
       subcategory === "health" ||
       subcategory === "metrics" ||
       subcategory === "ready" ||
       subcategory === "endpoint" ||
-      endpointName === "endpoint"
+      subcategory === "_notification" ||
+      endpointName === "endpoint" ||
+      endpointName === "_notification"
     ) {
       continue;
     }
@@ -106,8 +108,7 @@ function generatePageContent(endpoint) {
   return `"use client";
 
 import { ApiClientInterface } from "../../components/api-client-interface";
-import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 
 export default function ${endpoint.operationId}Page() {
   return (
@@ -119,7 +120,7 @@ export default function ${endpoint.operationId}Page() {
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
-        <PageNavigation {...getNavigation("/introduction/services/${endpoint.category}/${endpoint.endpointName}")} />
+        <AccessAwarePageNavigation currentPath="/introduction/services/${endpoint.category}/${endpoint.endpointName}" />
       </div>
     </div>
   );
@@ -163,13 +164,16 @@ function generateNavigationFile(endpoints) {
       }
     });
 
-    uniqueEndpoints.forEach((endpoint) => {
-      const title = formatEndpointTitle(endpoint.endpointName);
-      navigationPages.push({
-        title,
-        href: `/introduction/services/${category}/${endpoint.endpointName}`,
+    // Skip adding USSD endpoints to navigation - they will be handled by dynamic routing
+    if (category !== "ussd") {
+      uniqueEndpoints.forEach((endpoint) => {
+        const title = formatEndpointTitle(endpoint.endpointName);
+        navigationPages.push({
+          title,
+          href: `/introduction/services/${category}/${endpoint.endpointName}`,
+        });
       });
-    });
+    }
   });
 
   return `interface NavigationPage {
@@ -179,16 +183,30 @@ function generateNavigationFile(endpoints) {
 
 export const navigationPages: NavigationPage[] = ${JSON.stringify(navigationPages, null, 2)};
 
-export function getNavigation(currentPath: string) {
-  const currentIndex = navigationPages.findIndex(
+export function getNavigation(currentPath: string, userAccessFilter?: (service: string) => boolean) {
+  let filteredPages = navigationPages;
+  
+  if (userAccessFilter) {
+    filteredPages = navigationPages.filter(page => {
+      // Extract service from path
+      const pathParts = page.href.split('/');
+      if (pathParts.length >= 4 && pathParts[2] === 'services') {
+        const service = pathParts[3];
+        return userAccessFilter(service);
+      }
+      return true; // Keep non-service pages
+    });
+  }
+  
+  const currentIndex = filteredPages.findIndex(
     (page) => page.href === currentPath
   );
 
   return {
-    previous: currentIndex > 0 ? navigationPages[currentIndex - 1] : undefined,
+    previous: currentIndex > 0 ? filteredPages[currentIndex - 1] : undefined,
     next:
-      currentIndex < navigationPages.length - 1
-        ? navigationPages[currentIndex + 1]
+      currentIndex < filteredPages.length - 1
+        ? filteredPages[currentIndex + 1]
         : undefined,
   };
 }
@@ -228,12 +246,15 @@ function generateDataFile(endpoints) {
       id: category,
       label: category.toUpperCase(),
       href: `/introduction/services/${category}`,
-      endpoints: uniqueEndpoints.map((endpoint) => ({
-        name: formatEndpointTitle(endpoint.endpointName),
-        method: endpoint.method,
-        path: endpoint.path,
-        href: `/introduction/services/${category}/${endpoint.endpointName}`,
-      })),
+      endpoints:
+        category === "ussd"
+          ? []
+          : uniqueEndpoints.map((endpoint) => ({
+              name: formatEndpointTitle(endpoint.endpointName),
+              method: endpoint.method,
+              path: endpoint.path,
+              href: `/introduction/services/${category}/${endpoint.endpointName}`,
+            })),
     };
   });
 
@@ -291,6 +312,7 @@ function generatePages() {
     "nin",
     "sms",
     "two-way-sms",
+    "ussd",
   ];
   const filteredEndpoints = endpoints.filter((e) =>
     allowedCategories.includes(e.category)
@@ -324,6 +346,11 @@ function generatePages() {
     });
 
     for (const endpoint of uniqueEndpoints) {
+      // Skip generating individual USSD endpoint pages - they will be handled by user-specific routing
+      if (category === "ussd") {
+        continue;
+      }
+
       const endpointDir = path.join(categoryDir, endpoint.endpointName);
       ensureDirectoryExists(endpointDir);
 

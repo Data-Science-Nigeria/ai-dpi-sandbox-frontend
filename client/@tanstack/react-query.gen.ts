@@ -5,11 +5,11 @@ import {
   defaultHealthCheck,
   defaultRoot,
   defaultGatewayHealth,
-  apiGetMetricsMetrics,
-  apiGetHealthHealthCheck,
+  defaultTestMetrics,
+  defaultMetricsEndpoint,
   apiGetRootRoot,
-  apiGetWellKnownOpenidConfigurationOpenidConfiguration,
-  apiGetWellKnownJwksJsonJwks,
+  authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration,
+  authenticationGetApiV1AuthWellKnownJwksJsonJwks,
   authenticationPostApiV1AuthLoginLoginUser,
   authenticationPostApiV1AuthLoginJsonLoginUserJson,
   authenticationGetApiV1AuthMeReadUserMe,
@@ -26,17 +26,15 @@ import {
   adminPostApiV1AdminUsersUserIdActivateActivateUser,
   adminPostApiV1AdminUsersUserIdDeactivateDeactivateUser,
   adminPostApiV1AdminUsersUserIdResetPasswordResetUserPassword,
-  apiGetHealthHealthCheck2,
   smsPostApiV1SmsSendSendSingleSms,
   smsPostApiV1SmsSendBulkSendBulkSms,
   applicationGetApiV1SmsBalanceCheckBalance,
   webhookPostApiV1DeliveryReportHandleDeliveryReport,
   smsGetApiV1SmsStatusMessageIdGetMessageStatus,
   apiGetRootRoot2,
-  apiGetMetricsMetrics2,
-  healthHealthGet,
   readyReadyGet,
-  getModelsApiV1ModelsGet,
+  getModelsApiV1ModelsGroqGet,
+  getOpenaiModelsApiV1ModelsOpenaiGet,
   chatApiV1ChatPost,
   getChatHistoryApiV1ChatSessionIdSessionGet,
   getChatSessionsApiV1ChatSessionsAllGet,
@@ -46,30 +44,45 @@ import {
   textToSpeechApiV1SpitchTextToSpeechPost,
   translateApiV1SpitchTranslatePost,
   rootGet,
-  metricsMetricsGet,
   apiPostApiV1VerifyVerifyNin,
   apiGetApiV1StatusNinGetNinStatus,
   apiPostApiV1LookupLookupNinBasic,
-  apiGetHealthHealthCheck3,
-  apiGetMetricsMetrics3,
   apiPostApiV1VerifyVerifyBvn,
   apiGetApiV1StatusBvnGetBvnStatus,
   apiPostApiV1LookupLookupBvnBasic,
   apiPostApiV1MatchMatchBvn,
   apiGetApiV1BanksGetSupportedBanks,
-  apiGetHealthHealthCheck4,
-  apiGetMetricsMetrics4,
-  getNearbyPlacesApiV1NearbyGet,
-  getDistanceApiV1DistanceGet,
-  getDirectionsApiV1DirectionsGet,
-  getStaticMapApiV1StaticGet,
-  getRouteApiV1RoutesRoutesPost,
-  healthCheckHealthGet,
-  apiGetMetricsMetrics5,
-  apiGetHealthHealthCheck5,
+  getNearbyPlacesApiV1MapsNearbyGet,
+  getDistanceApiV1MapsDistanceGet,
+  getDirectionsApiV1MapsDirectionsGet,
+  getStaticMapApiV1MapsStaticGet,
+  getRouteApiV1MapsRoutesPost,
   apiGetRootRoot3,
-  apiGetWellKnownOpenidConfigurationOpenidConfiguration2,
-  apiGetWellKnownJwksJsonJwks2,
+  apiPostUssdUssdProxy,
+  apiPostUssdNotificationUssdNotification,
+  ussdPostApiV18MedicalUssdCallback8Medical,
+  ussdPostApiV1AlajoUssdCallbackAlajo,
+  ussdPostApiV1ClafiyaUssdCallbackClafiya,
+  ussdPostApiV1EvetUssdCallbackEvet,
+  ussdPostApiV1FertitudeUssdCallbackFertitude,
+  ussdPostApiV1FologUssdCallbackFolog,
+  ussdPostApiV1MylturaUssdCallbackMyltura,
+  ussdPostApiV1UhcTechUssdCallbackUhcTech,
+  ussdPostApiV1XboxUssdCallbackXbox,
+  ussdPostApiV1TestFertitudeUssdTestFertitudeUssd,
+  ussdPostApiV1Test8MedicalUssdTest8MedicalUssd,
+  ussdPostApiV1TestAlajoUssdTestAlajoUssd,
+  ussdPostApiV1TestClafiyaUssdTestClafiyaUssd,
+  ussdPostApiV1TestEvetUssdTestEvetUssd,
+  ussdPostApiV1TestFologUssdTestFologUssd,
+  ussdPostApiV1TestMylturaUssdTestMylturaUssd,
+  ussdPostApiV1TestUhcTechUssdTestUhcTechUssd,
+  ussdPostApiV1TestXboxUssdTestXboxUssd,
+  apiGetMetricsMetrics,
+  apiGetHealthHealthCheck,
+  apiGetRootRoot4,
+  authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2,
+  authenticationGetApiV1AuthWellKnownJwksJsonJwks2,
   authenticationPostApiV1AuthLoginLoginUser2,
   authenticationPostApiV1AuthLoginJsonLoginUserJson2,
   authenticationGetApiV1AuthMeReadUserMe2,
@@ -92,12 +105,13 @@ import {
   applicationGetApiV1SmsBalanceCheckBalance2,
   webhookPostApiV1DeliveryReportHandleDeliveryReport2,
   smsGetApiV1SmsStatusMessageIdGetMessageStatus2,
-  apiGetHealthHealthCheck6,
-  apiGetRootRoot4,
-  apiGetMetricsMetrics6,
-  healthHealthGet2,
+  apiGetHealthHealthCheck2,
+  apiGetRootRoot5,
+  apiGetMetricsMetrics2,
+  healthHealthGet,
   readyReadyGet2,
-  getModelsApiV1ModelsGet2,
+  getModelsApiV1ModelsGroqGet2,
+  getOpenaiModelsApiV1ModelsOpenaiGet2,
   chatApiV1ChatPost2,
   getChatHistoryApiV1ChatSessionIdSessionGet2,
   getChatSessionsApiV1ChatSessionsAllGet2,
@@ -107,25 +121,48 @@ import {
   textToSpeechApiV1SpitchTextToSpeechPost2,
   translateApiV1SpitchTranslatePost2,
   rootGet2,
-  metricsMetricsGet2,
+  metricsMetricsGet,
   apiPostApiV1VerifyVerifyNin2,
   apiGetApiV1StatusNinGetNinStatus2,
   apiPostApiV1LookupLookupNinBasic2,
-  apiGetHealthHealthCheck7,
-  apiGetMetricsMetrics7,
+  apiGetHealthHealthCheck3,
+  apiGetMetricsMetrics3,
   apiPostApiV1VerifyVerifyBvn2,
   apiGetApiV1StatusBvnGetBvnStatus2,
   apiPostApiV1LookupLookupBvnBasic2,
   apiPostApiV1MatchMatchBvn2,
   apiGetApiV1BanksGetSupportedBanks2,
-  apiGetHealthHealthCheck8,
-  apiGetMetricsMetrics8,
-  getNearbyPlacesApiV1NearbyGet2,
-  getDistanceApiV1DistanceGet2,
-  getDirectionsApiV1DirectionsGet2,
-  getStaticMapApiV1StaticGet2,
-  getRouteApiV1RoutesRoutesPost2,
-  healthCheckHealthGet2,
+  apiGetHealthHealthCheck4,
+  apiGetMetricsMetrics4,
+  getNearbyPlacesApiV1MapsNearbyGet2,
+  getDistanceApiV1MapsDistanceGet2,
+  getDirectionsApiV1MapsDirectionsGet2,
+  getStaticMapApiV1MapsStaticGet2,
+  getRouteApiV1MapsRoutesPost2,
+  healthCheckHealthGet,
+  metricsMetricsGet2,
+  apiGetHealthHealthCheck5,
+  apiPostUssdUssdProxy2,
+  apiPostUssdNotificationUssdNotification2,
+  ussdPostApiV18MedicalUssdCallback8Medical2,
+  ussdPostApiV1AlajoUssdCallbackAlajo2,
+  ussdPostApiV1ClafiyaUssdCallbackClafiya2,
+  ussdPostApiV1EvetUssdCallbackEvet2,
+  ussdPostApiV1FertitudeUssdCallbackFertitude2,
+  ussdPostApiV1FologUssdCallbackFolog2,
+  ussdPostApiV1MylturaUssdCallbackMyltura2,
+  ussdPostApiV1UhcTechUssdCallbackUhcTech2,
+  ussdPostApiV1XboxUssdCallbackXbox2,
+  ussdPostApiV1TestFertitudeUssdTestFertitudeUssd2,
+  ussdPostApiV1Test8MedicalUssdTest8MedicalUssd2,
+  ussdPostApiV1TestAlajoUssdTestAlajoUssd2,
+  ussdPostApiV1TestClafiyaUssdTestClafiyaUssd2,
+  ussdPostApiV1TestEvetUssdTestEvetUssd2,
+  ussdPostApiV1TestFologUssdTestFologUssd2,
+  ussdPostApiV1TestMylturaUssdTestMylturaUssd2,
+  ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2,
+  ussdPostApiV1TestXboxUssdTestXboxUssd2,
+  apiGetMetricsMetrics5,
 } from "../sdk.gen";
 import {
   queryOptions,
@@ -136,11 +173,11 @@ import type {
   DefaultHealthCheckData,
   DefaultRootData,
   DefaultGatewayHealthData,
-  ApiGetMetricsMetricsData,
-  ApiGetHealthHealthCheckData,
+  DefaultTestMetricsData,
+  DefaultMetricsEndpointData,
   ApiGetRootRootData,
-  ApiGetWellKnownOpenidConfigurationOpenidConfigurationData,
-  ApiGetWellKnownJwksJsonJwksData,
+  AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationData,
+  AuthenticationGetApiV1AuthWellKnownJwksJsonJwksData,
   AuthenticationPostApiV1AuthLoginLoginUserData,
   AuthenticationPostApiV1AuthLoginLoginUserError,
   AuthenticationPostApiV1AuthLoginLoginUserResponse,
@@ -173,7 +210,6 @@ import type {
   AdminPostApiV1AdminUsersUserIdDeactivateDeactivateUserError,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordData,
   AdminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordError,
-  ApiGetHealthHealthCheck2Data,
   SmsPostApiV1SmsSendSendSingleSmsData,
   SmsPostApiV1SmsSendSendSingleSmsError,
   SmsPostApiV1SmsSendBulkSendBulkSmsData,
@@ -182,10 +218,9 @@ import type {
   WebhookPostApiV1DeliveryReportHandleDeliveryReportData,
   SmsGetApiV1SmsStatusMessageIdGetMessageStatusData,
   ApiGetRootRoot2Data,
-  ApiGetMetricsMetrics2Data,
-  HealthHealthGetData,
   ReadyReadyGetData,
-  GetModelsApiV1ModelsGetData,
+  GetModelsApiV1ModelsGroqGetData,
+  GetOpenaiModelsApiV1ModelsOpenaiGetData,
   ChatApiV1ChatPostData,
   ChatApiV1ChatPostError,
   ChatApiV1ChatPostResponse,
@@ -204,7 +239,6 @@ import type {
   TranslateApiV1SpitchTranslatePostData,
   TranslateApiV1SpitchTranslatePostError,
   RootGetData,
-  MetricsMetricsGetData,
   ApiPostApiV1VerifyVerifyNinData,
   ApiPostApiV1VerifyVerifyNinError,
   ApiPostApiV1VerifyVerifyNinResponse,
@@ -212,8 +246,6 @@ import type {
   ApiPostApiV1LookupLookupNinBasicData,
   ApiPostApiV1LookupLookupNinBasicError,
   ApiPostApiV1LookupLookupNinBasicResponse,
-  ApiGetHealthHealthCheck3Data,
-  ApiGetMetricsMetrics3Data,
   ApiPostApiV1VerifyVerifyBvnData,
   ApiPostApiV1VerifyVerifyBvnError,
   ApiPostApiV1VerifyVerifyBvnResponse,
@@ -225,20 +257,49 @@ import type {
   ApiPostApiV1MatchMatchBvnError,
   ApiPostApiV1MatchMatchBvnResponse,
   ApiGetApiV1BanksGetSupportedBanksData,
-  ApiGetHealthHealthCheck4Data,
-  ApiGetMetricsMetrics4Data,
-  GetNearbyPlacesApiV1NearbyGetData,
-  GetDistanceApiV1DistanceGetData,
-  GetDirectionsApiV1DirectionsGetData,
-  GetStaticMapApiV1StaticGetData,
-  GetRouteApiV1RoutesRoutesPostData,
-  GetRouteApiV1RoutesRoutesPostError,
-  HealthCheckHealthGetData,
-  ApiGetMetricsMetrics5Data,
-  ApiGetHealthHealthCheck5Data,
+  GetNearbyPlacesApiV1MapsNearbyGetData,
+  GetDistanceApiV1MapsDistanceGetData,
+  GetDirectionsApiV1MapsDirectionsGetData,
+  GetStaticMapApiV1MapsStaticGetData,
+  GetRouteApiV1MapsRoutesPostData,
+  GetRouteApiV1MapsRoutesPostError,
   ApiGetRootRoot3Data,
-  ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Data,
-  ApiGetWellKnownJwksJsonJwks2Data,
+  ApiPostUssdUssdProxyData,
+  ApiPostUssdUssdProxyError,
+  ApiPostUssdNotificationUssdNotificationData,
+  ApiPostUssdNotificationUssdNotificationError,
+  UssdPostApiV18MedicalUssdCallback8MedicalData,
+  UssdPostApiV1AlajoUssdCallbackAlajoData,
+  UssdPostApiV1ClafiyaUssdCallbackClafiyaData,
+  UssdPostApiV1EvetUssdCallbackEvetData,
+  UssdPostApiV1FertitudeUssdCallbackFertitudeData,
+  UssdPostApiV1FologUssdCallbackFologData,
+  UssdPostApiV1MylturaUssdCallbackMylturaData,
+  UssdPostApiV1UhcTechUssdCallbackUhcTechData,
+  UssdPostApiV1XboxUssdCallbackXboxData,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssdData,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssdError,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssdData,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssdError,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssdData,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssdError,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssdData,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssdError,
+  UssdPostApiV1TestEvetUssdTestEvetUssdData,
+  UssdPostApiV1TestEvetUssdTestEvetUssdError,
+  UssdPostApiV1TestFologUssdTestFologUssdData,
+  UssdPostApiV1TestFologUssdTestFologUssdError,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssdData,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssdError,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssdData,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssdError,
+  UssdPostApiV1TestXboxUssdTestXboxUssdData,
+  UssdPostApiV1TestXboxUssdTestXboxUssdError,
+  ApiGetMetricsMetricsData,
+  ApiGetHealthHealthCheckData,
+  ApiGetRootRoot4Data,
+  AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Data,
+  AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Data,
   AuthenticationPostApiV1AuthLoginLoginUser2Data,
   AuthenticationPostApiV1AuthLoginLoginUser2Error,
   AuthenticationPostApiV1AuthLoginLoginUser2Response,
@@ -279,12 +340,13 @@ import type {
   ApplicationGetApiV1SmsBalanceCheckBalance2Data,
   WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data,
   SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data,
-  ApiGetHealthHealthCheck6Data,
-  ApiGetRootRoot4Data,
-  ApiGetMetricsMetrics6Data,
-  HealthHealthGet2Data,
+  ApiGetHealthHealthCheck2Data,
+  ApiGetRootRoot5Data,
+  ApiGetMetricsMetrics2Data,
+  HealthHealthGetData,
   ReadyReadyGet2Data,
-  GetModelsApiV1ModelsGet2Data,
+  GetModelsApiV1ModelsGroqGet2Data,
+  GetOpenaiModelsApiV1ModelsOpenaiGet2Data,
   ChatApiV1ChatPost2Data,
   ChatApiV1ChatPost2Error,
   ChatApiV1ChatPost2Response,
@@ -303,7 +365,7 @@ import type {
   TranslateApiV1SpitchTranslatePost2Data,
   TranslateApiV1SpitchTranslatePost2Error,
   RootGet2Data,
-  MetricsMetricsGet2Data,
+  MetricsMetricsGetData,
   ApiPostApiV1VerifyVerifyNin2Data,
   ApiPostApiV1VerifyVerifyNin2Error,
   ApiPostApiV1VerifyVerifyNin2Response,
@@ -311,8 +373,8 @@ import type {
   ApiPostApiV1LookupLookupNinBasic2Data,
   ApiPostApiV1LookupLookupNinBasic2Error,
   ApiPostApiV1LookupLookupNinBasic2Response,
-  ApiGetHealthHealthCheck7Data,
-  ApiGetMetricsMetrics7Data,
+  ApiGetHealthHealthCheck3Data,
+  ApiGetMetricsMetrics3Data,
   ApiPostApiV1VerifyVerifyBvn2Data,
   ApiPostApiV1VerifyVerifyBvn2Error,
   ApiPostApiV1VerifyVerifyBvn2Response,
@@ -324,15 +386,49 @@ import type {
   ApiPostApiV1MatchMatchBvn2Error,
   ApiPostApiV1MatchMatchBvn2Response,
   ApiGetApiV1BanksGetSupportedBanks2Data,
-  ApiGetHealthHealthCheck8Data,
-  ApiGetMetricsMetrics8Data,
-  GetNearbyPlacesApiV1NearbyGet2Data,
-  GetDistanceApiV1DistanceGet2Data,
-  GetDirectionsApiV1DirectionsGet2Data,
-  GetStaticMapApiV1StaticGet2Data,
-  GetRouteApiV1RoutesRoutesPost2Data,
-  GetRouteApiV1RoutesRoutesPost2Error,
-  HealthCheckHealthGet2Data,
+  ApiGetHealthHealthCheck4Data,
+  ApiGetMetricsMetrics4Data,
+  GetNearbyPlacesApiV1MapsNearbyGet2Data,
+  GetDistanceApiV1MapsDistanceGet2Data,
+  GetDirectionsApiV1MapsDirectionsGet2Data,
+  GetStaticMapApiV1MapsStaticGet2Data,
+  GetRouteApiV1MapsRoutesPost2Data,
+  GetRouteApiV1MapsRoutesPost2Error,
+  HealthCheckHealthGetData,
+  MetricsMetricsGet2Data,
+  ApiGetHealthHealthCheck5Data,
+  ApiPostUssdUssdProxy2Data,
+  ApiPostUssdUssdProxy2Error,
+  ApiPostUssdNotificationUssdNotification2Data,
+  ApiPostUssdNotificationUssdNotification2Error,
+  UssdPostApiV18MedicalUssdCallback8Medical2Data,
+  UssdPostApiV1AlajoUssdCallbackAlajo2Data,
+  UssdPostApiV1ClafiyaUssdCallbackClafiya2Data,
+  UssdPostApiV1EvetUssdCallbackEvet2Data,
+  UssdPostApiV1FertitudeUssdCallbackFertitude2Data,
+  UssdPostApiV1FologUssdCallbackFolog2Data,
+  UssdPostApiV1MylturaUssdCallbackMyltura2Data,
+  UssdPostApiV1UhcTechUssdCallbackUhcTech2Data,
+  UssdPostApiV1XboxUssdCallbackXbox2Data,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Data,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Error,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Data,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Error,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssd2Data,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssd2Error,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Data,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Error,
+  UssdPostApiV1TestEvetUssdTestEvetUssd2Data,
+  UssdPostApiV1TestEvetUssdTestEvetUssd2Error,
+  UssdPostApiV1TestFologUssdTestFologUssd2Data,
+  UssdPostApiV1TestFologUssdTestFologUssd2Error,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssd2Data,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssd2Error,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Data,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Error,
+  UssdPostApiV1TestXboxUssdTestXboxUssd2Data,
+  UssdPostApiV1TestXboxUssdTestXboxUssd2Error,
+  ApiGetMetricsMetrics5Data,
 } from "../types.gen";
 import { client as _heyApiClient } from "../client.gen";
 
@@ -449,20 +545,20 @@ export const defaultGatewayHealthOptions = (
   });
 };
 
-export const apiGetMetricsMetricsQueryKey = (
-  options?: Options<ApiGetMetricsMetricsData>
-) => createQueryKey("apiGetMetricsMetrics", options);
+export const defaultTestMetricsQueryKey = (
+  options?: Options<DefaultTestMetricsData>
+) => createQueryKey("defaultTestMetrics", options);
 
 /**
- * Metrics
- * Endpoint that serves Prometheus metrics.
+ * Test Metrics
+ * Test endpoint to verify prometheus client is working
  */
-export const apiGetMetricsMetricsOptions = (
-  options?: Options<ApiGetMetricsMetricsData>
+export const defaultTestMetricsOptions = (
+  options?: Options<DefaultTestMetricsData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics({
+      const { data } = await defaultTestMetrics({
         ...options,
         ...queryKey[0],
         signal,
@@ -470,24 +566,24 @@ export const apiGetMetricsMetricsOptions = (
       });
       return data;
     },
-    queryKey: apiGetMetricsMetricsQueryKey(options),
+    queryKey: defaultTestMetricsQueryKey(options),
   });
 };
 
-export const apiGetHealthHealthCheckQueryKey = (
-  options?: Options<ApiGetHealthHealthCheckData>
-) => createQueryKey("apiGetHealthHealthCheck", options);
+export const defaultMetricsEndpointQueryKey = (
+  options?: Options<DefaultMetricsEndpointData>
+) => createQueryKey("defaultMetricsEndpoint", options);
 
 /**
- * Health Check
- * Health check endpoint.
+ * Metrics Endpoint
+ * Prometheus metrics endpoint with comprehensive API Gateway metrics
  */
-export const apiGetHealthHealthCheckOptions = (
-  options?: Options<ApiGetHealthHealthCheckData>
+export const defaultMetricsEndpointOptions = (
+  options?: Options<DefaultMetricsEndpointData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck({
+      const { data } = await defaultMetricsEndpoint({
         ...options,
         ...queryKey[0],
         signal,
@@ -495,7 +591,7 @@ export const apiGetHealthHealthCheckOptions = (
       });
       return data;
     },
-    queryKey: apiGetHealthHealthCheckQueryKey(options),
+    queryKey: defaultMetricsEndpointQueryKey(options),
   });
 };
 
@@ -523,51 +619,81 @@ export const apiGetRootRootOptions = (
   });
 };
 
-export const apiGetWellKnownOpenidConfigurationOpenidConfigurationQueryKey = (
-  options?: Options<ApiGetWellKnownOpenidConfigurationOpenidConfigurationData>
-) =>
-  createQueryKey(
-    "apiGetWellKnownOpenidConfigurationOpenidConfiguration",
-    options
-  );
+export const authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationQueryKey =
+  (
+    options?: Options<AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationData>
+  ) =>
+    createQueryKey(
+      "authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration",
+      options
+    );
 
 /**
  * Openid Configuration
- * OpenID Connect Discovery endpoint.
+ * 🔍 OpenID Connect Configuration
+ *
+ * Standard OpenID Connect discovery endpoint providing
+ * metadata about the authorization server.
+ *
+ * **Returns:**
+ * - Issuer information
+ * - Supported endpoints
+ * - Token types and algorithms
+ * - Grant types supported
+ *
+ * **Compliance:**
+ * - OpenID Connect Discovery 1.0
+ * - OAuth 2.0 Authorization Server Metadata
  */
-export const apiGetWellKnownOpenidConfigurationOpenidConfigurationOptions = (
-  options?: Options<ApiGetWellKnownOpenidConfigurationOpenidConfigurationData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } =
-        await apiGetWellKnownOpenidConfigurationOpenidConfiguration({
-          ...options,
-          ...queryKey[0],
-          signal,
-          throwOnError: true,
-        });
-      return data;
-    },
-    queryKey:
-      apiGetWellKnownOpenidConfigurationOpenidConfigurationQueryKey(options),
-  });
-};
+export const authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationOptions =
+  (
+    options?: Options<AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationData>
+  ) => {
+    return queryOptions({
+      queryFn: async ({ queryKey, signal }) => {
+        const { data } =
+          await authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration(
+            {
+              ...options,
+              ...queryKey[0],
+              signal,
+              throwOnError: true,
+            }
+          );
+        return data;
+      },
+      queryKey:
+        authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfigurationQueryKey(
+          options
+        ),
+    });
+  };
 
-export const apiGetWellKnownJwksJsonJwksQueryKey = (
-  options?: Options<ApiGetWellKnownJwksJsonJwksData>
-) => createQueryKey("apiGetWellKnownJwksJsonJwks", options);
+export const authenticationGetApiV1AuthWellKnownJwksJsonJwksQueryKey = (
+  options?: Options<AuthenticationGetApiV1AuthWellKnownJwksJsonJwksData>
+) => createQueryKey("authenticationGetApiV1AuthWellKnownJwksJsonJwks", options);
 
 /**
  * Jwks
- * JSON Web Key Set endpoint.
+ * 🔑 JSON Web Key Set
+ *
+ * Provides public keys for JWT token verification.
+ * Used by clients to validate JWT signatures.
+ *
+ * **Returns:**
+ * - JSON Web Key Set (JWKS)
+ * - Public key information
+ * - Key usage and algorithms
+ *
+ * **Note:** Currently using HMAC (symmetric key)
+ * For production, consider RSA/ECDSA asymmetric keys
  */
-export const apiGetWellKnownJwksJsonJwksOptions = (
-  options?: Options<ApiGetWellKnownJwksJsonJwksData>
+export const authenticationGetApiV1AuthWellKnownJwksJsonJwksOptions = (
+  options?: Options<AuthenticationGetApiV1AuthWellKnownJwksJsonJwksData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetWellKnownJwksJsonJwks({
+      const { data } = await authenticationGetApiV1AuthWellKnownJwksJsonJwks({
         ...options,
         ...queryKey[0],
         signal,
@@ -575,7 +701,7 @@ export const apiGetWellKnownJwksJsonJwksOptions = (
       });
       return data;
     },
-    queryKey: apiGetWellKnownJwksJsonJwksQueryKey(options),
+    queryKey: authenticationGetApiV1AuthWellKnownJwksJsonJwksQueryKey(options),
   });
 };
 
@@ -1621,30 +1747,6 @@ export const adminPostApiV1AdminUsersUserIdResetPasswordResetUserPasswordMutatio
     return mutationOptions;
   };
 
-export const apiGetHealthHealthCheck2QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck2Data>
-) => createQueryKey("apiGetHealthHealthCheck2", options);
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck2Options = (
-  options?: Options<ApiGetHealthHealthCheck2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetHealthHealthCheck2QueryKey(options),
-  });
-};
-
 export const smsPostApiV1SmsSendSendSingleSmsQueryKey = (
   options: Options<SmsPostApiV1SmsSendSendSingleSmsData>
 ) => createQueryKey("smsPostApiV1SmsSendSendSingleSms", options);
@@ -1878,55 +1980,6 @@ export const apiGetRootRoot2Options = (
   });
 };
 
-export const apiGetMetricsMetrics2QueryKey = (
-  options?: Options<ApiGetMetricsMetrics2Data>
-) => createQueryKey("apiGetMetricsMetrics2", options);
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics2Options = (
-  options?: Options<ApiGetMetricsMetrics2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetMetricsMetrics2QueryKey(options),
-  });
-};
-
-export const healthHealthGetQueryKey = (
-  options?: Options<HealthHealthGetData>
-) => createQueryKey("healthHealthGet", options);
-
-/**
- * Health
- */
-export const healthHealthGetOptions = (
-  options?: Options<HealthHealthGetData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await healthHealthGet({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: healthHealthGetQueryKey(options),
-  });
-};
-
 export const readyReadyGetQueryKey = (options?: Options<ReadyReadyGetData>) =>
   createQueryKey("readyReadyGet", options);
 
@@ -1948,9 +2001,9 @@ export const readyReadyGetOptions = (options?: Options<ReadyReadyGetData>) => {
   });
 };
 
-export const getModelsApiV1ModelsGetQueryKey = (
-  options?: Options<GetModelsApiV1ModelsGetData>
-) => createQueryKey("getModelsApiV1ModelsGet", options);
+export const getModelsApiV1ModelsGroqGetQueryKey = (
+  options?: Options<GetModelsApiV1ModelsGroqGetData>
+) => createQueryKey("getModelsApiV1ModelsGroqGet", options);
 
 /**
  * Retrieve available AI models
@@ -1979,12 +2032,12 @@ export const getModelsApiV1ModelsGetQueryKey = (
  * - This list is dynamic and may change as new models are added or deprecated.
  * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
  */
-export const getModelsApiV1ModelsGetOptions = (
-  options?: Options<GetModelsApiV1ModelsGetData>
+export const getModelsApiV1ModelsGroqGetOptions = (
+  options?: Options<GetModelsApiV1ModelsGroqGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getModelsApiV1ModelsGet({
+      const { data } = await getModelsApiV1ModelsGroqGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -1992,7 +2045,55 @@ export const getModelsApiV1ModelsGetOptions = (
       });
       return data;
     },
-    queryKey: getModelsApiV1ModelsGetQueryKey(options),
+    queryKey: getModelsApiV1ModelsGroqGetQueryKey(options),
+  });
+};
+
+export const getOpenaiModelsApiV1ModelsOpenaiGetQueryKey = (
+  options?: Options<GetOpenaiModelsApiV1ModelsOpenaiGetData>
+) => createQueryKey("getOpenaiModelsApiV1ModelsOpenaiGet", options);
+
+/**
+ * Retrieve available OpenAI models
+ * This endpoint returns a list of all available OpenAI models that can be used for generating responses.
+ *
+ * **Behavior**:
+ * - Fetches all currently supported models from the OpenAI platform.
+ * - Returns the models as a simple list of strings (model names or IDs).
+ * - No authentication is required for anonymous access (optional to add auth later).
+ *
+ * **Response**:
+ * - `200 OK`: A JSON list of model names/IDs, for example:
+ * ```json
+ * [
+ * {
+ * "id": "gpt-4",
+ * "owned_by": "openai",
+ * "active": true,
+ * "context_window": 8192,
+ * "max_completion_tokens": 4096
+ * }
+ * ]
+ * ```
+ *
+ * **Notes**:
+ * - This list is dynamic and may change as new models are added or deprecated.
+ * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
+ */
+export const getOpenaiModelsApiV1ModelsOpenaiGetOptions = (
+  options?: Options<GetOpenaiModelsApiV1ModelsOpenaiGetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getOpenaiModelsApiV1ModelsOpenaiGet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getOpenaiModelsApiV1ModelsOpenaiGetQueryKey(options),
   });
 };
 
@@ -2023,9 +2124,10 @@ export const chatApiV1ChatPostQueryKey = (
  * - `system_prompt` (optional, string): Custom system prompt to guide AI behavior.
  *
  * **Response**:
- * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps.
+ * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps and token usage.
  * - `session_id` (string): The session ID for the conversation.
  * - `is_openai` (boolean): Indicates which AI engine generated the response.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  */
 export const chatApiV1ChatPostOptions = (
   options: Options<ChatApiV1ChatPostData>
@@ -2067,9 +2169,10 @@ export const chatApiV1ChatPostOptions = (
  * - `system_prompt` (optional, string): Custom system prompt to guide AI behavior.
  *
  * **Response**:
- * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps.
+ * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps and token usage.
  * - `session_id` (string): The session ID for the conversation.
  * - `is_openai` (boolean): Indicates which AI engine generated the response.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  */
 export const chatApiV1ChatPostMutation = (
   options?: Partial<Options<ChatApiV1ChatPostData>>
@@ -2114,6 +2217,7 @@ export const getChatHistoryApiV1ChatSessionIdSessionGetQueryKey = (
  * - `chat_messages` (list of messages): Messages in chronological order.
  * - `session_id` (string): The session ID.
  * - `is_openai` (boolean): Always `False` for retrieved messages.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  *
  * **Errors**:
  * - `404 Not Found`: If the session does not exist.
@@ -2142,7 +2246,7 @@ export const getChatSessionsApiV1ChatSessionsAllGetQueryKey = (
 
 /**
  * Get all chat sessions
- * Returns a list of all chat sessions for the anonymous user.
+ * Returns a list of all chat sessions for the authenticated user.
  *
  * **Authentication**:
  * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
@@ -2604,31 +2708,6 @@ export const rootGetOptions = (options?: Options<RootGetData>) => {
   });
 };
 
-export const metricsMetricsGetQueryKey = (
-  options?: Options<MetricsMetricsGetData>
-) => createQueryKey("metricsMetricsGet", options);
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const metricsMetricsGetOptions = (
-  options?: Options<MetricsMetricsGetData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await metricsMetricsGet({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: metricsMetricsGetQueryKey(options),
-  });
-};
-
 export const apiPostApiV1VerifyVerifyNinQueryKey = (
   options: Options<ApiPostApiV1VerifyVerifyNinData>
 ) => createQueryKey("apiPostApiV1VerifyVerifyNin", options);
@@ -2758,55 +2837,6 @@ export const apiPostApiV1LookupLookupNinBasicMutation = (
     },
   };
   return mutationOptions;
-};
-
-export const apiGetHealthHealthCheck3QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck3Data>
-) => createQueryKey("apiGetHealthHealthCheck3", options);
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck3Options = (
-  options?: Options<ApiGetHealthHealthCheck3Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck3({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetHealthHealthCheck3QueryKey(options),
-  });
-};
-
-export const apiGetMetricsMetrics3QueryKey = (
-  options?: Options<ApiGetMetricsMetrics3Data>
-) => createQueryKey("apiGetMetricsMetrics3", options);
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics3Options = (
-  options?: Options<ApiGetMetricsMetrics3Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics3({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetMetricsMetrics3QueryKey(options),
-  });
 };
 
 export const apiPostApiV1VerifyVerifyBvnQueryKey = (
@@ -3018,68 +3048,30 @@ export const apiGetApiV1BanksGetSupportedBanksOptions = (
   });
 };
 
-export const apiGetHealthHealthCheck4QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck4Data>
-) => createQueryKey("apiGetHealthHealthCheck4", options);
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck4Options = (
-  options?: Options<ApiGetHealthHealthCheck4Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck4({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetHealthHealthCheck4QueryKey(options),
-  });
-};
-
-export const apiGetMetricsMetrics4QueryKey = (
-  options?: Options<ApiGetMetricsMetrics4Data>
-) => createQueryKey("apiGetMetricsMetrics4", options);
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics4Options = (
-  options?: Options<ApiGetMetricsMetrics4Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics4({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetMetricsMetrics4QueryKey(options),
-  });
-};
-
-export const getNearbyPlacesApiV1NearbyGetQueryKey = (
-  options: Options<GetNearbyPlacesApiV1NearbyGetData>
-) => createQueryKey("getNearbyPlacesApiV1NearbyGet", options);
+export const getNearbyPlacesApiV1MapsNearbyGetQueryKey = (
+  options: Options<GetNearbyPlacesApiV1MapsNearbyGetData>
+) => createQueryKey("getNearbyPlacesApiV1MapsNearbyGet", options);
 
 /**
  * Get Nearby Places
+ * Search for nearby places around a given location. Returns distance in meters.
+ *
+ * Args:
+ * lat (float): Latitude of the location.
+ * lng (float): Longitude of the location.
+ * keyword (str, optional): Search keyword (e.g., "hospital", "pharmacy").
+ * Default is "hospital".
+ * radius_m (int, optional): Search radius in meters. Default is 2000.
+ *
+ * Returns:
+ * list: Places with details from Google Maps, including a direct Maps URL.
  */
-export const getNearbyPlacesApiV1NearbyGetOptions = (
-  options: Options<GetNearbyPlacesApiV1NearbyGetData>
+export const getNearbyPlacesApiV1MapsNearbyGetOptions = (
+  options: Options<GetNearbyPlacesApiV1MapsNearbyGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getNearbyPlacesApiV1NearbyGet({
+      const { data } = await getNearbyPlacesApiV1MapsNearbyGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -3087,23 +3079,33 @@ export const getNearbyPlacesApiV1NearbyGetOptions = (
       });
       return data;
     },
-    queryKey: getNearbyPlacesApiV1NearbyGetQueryKey(options),
+    queryKey: getNearbyPlacesApiV1MapsNearbyGetQueryKey(options),
   });
 };
 
-export const getDistanceApiV1DistanceGetQueryKey = (
-  options: Options<GetDistanceApiV1DistanceGetData>
-) => createQueryKey("getDistanceApiV1DistanceGet", options);
+export const getDistanceApiV1MapsDistanceGetQueryKey = (
+  options: Options<GetDistanceApiV1MapsDistanceGetData>
+) => createQueryKey("getDistanceApiV1MapsDistanceGet", options);
 
 /**
  * Get Distance
+ * Get travel distance and duration between two locations. Returns distance in meters and duration in seconds.
+ *
+ * Args:
+ * origin (str): Starting point (address or "lat,lng").
+ * destination (str): End point (address or "lat,lng").
+ * mode (str, optional): Travel mode ("driving", "walking", "bicycling", "transit").
+ * Default is "driving".
+ *
+ * Returns:
+ * dict: Distance matrix response with distance and duration details.
  */
-export const getDistanceApiV1DistanceGetOptions = (
-  options: Options<GetDistanceApiV1DistanceGetData>
+export const getDistanceApiV1MapsDistanceGetOptions = (
+  options: Options<GetDistanceApiV1MapsDistanceGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getDistanceApiV1DistanceGet({
+      const { data } = await getDistanceApiV1MapsDistanceGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -3111,23 +3113,33 @@ export const getDistanceApiV1DistanceGetOptions = (
       });
       return data;
     },
-    queryKey: getDistanceApiV1DistanceGetQueryKey(options),
+    queryKey: getDistanceApiV1MapsDistanceGetQueryKey(options),
   });
 };
 
-export const getDirectionsApiV1DirectionsGetQueryKey = (
-  options: Options<GetDirectionsApiV1DirectionsGetData>
-) => createQueryKey("getDirectionsApiV1DirectionsGet", options);
+export const getDirectionsApiV1MapsDirectionsGetQueryKey = (
+  options: Options<GetDirectionsApiV1MapsDirectionsGetData>
+) => createQueryKey("getDirectionsApiV1MapsDirectionsGet", options);
 
 /**
  * Get Directions
+ * Get directions between two locations. Returned distance in meters and duration in seconds.
+ *
+ * Args:
+ * origin (str): Starting point (address or "lat,lng").
+ * destination (str): End point (address or "lat,lng").
+ * mode (str, optional): Travel mode ("driving", "walking", "bicycling", "transit").
+ * Default is "driving".
+ *
+ * Returns:
+ * list: Routes with legs, steps, distance, duration, and polyline.
  */
-export const getDirectionsApiV1DirectionsGetOptions = (
-  options: Options<GetDirectionsApiV1DirectionsGetData>
+export const getDirectionsApiV1MapsDirectionsGetOptions = (
+  options: Options<GetDirectionsApiV1MapsDirectionsGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getDirectionsApiV1DirectionsGet({
+      const { data } = await getDirectionsApiV1MapsDirectionsGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -3135,23 +3147,36 @@ export const getDirectionsApiV1DirectionsGetOptions = (
       });
       return data;
     },
-    queryKey: getDirectionsApiV1DirectionsGetQueryKey(options),
+    queryKey: getDirectionsApiV1MapsDirectionsGetQueryKey(options),
   });
 };
 
-export const getStaticMapApiV1StaticGetQueryKey = (
-  options: Options<GetStaticMapApiV1StaticGetData>
-) => createQueryKey("getStaticMapApiV1StaticGet", options);
+export const getStaticMapApiV1MapsStaticGetQueryKey = (
+  options: Options<GetStaticMapApiV1MapsStaticGetData>
+) => createQueryKey("getStaticMapApiV1MapsStaticGet", options);
 
 /**
  * Get Static Map
+ * Generate and stream a Google Static Map image with optional markers and path.
+ * The API key is not exposed to the client.
+ *
+ * Args:
+ * center (str): Map center (e.g., "New York,NY" or "lat,lng").
+ * markers (list[str], optional): Marker coordinates/labels.
+ * Example: `&markers=color:blue|label:S|37.421655,-122.085637`
+ * path (list[str], optional): Coordinates for a polyline path.
+ * Example: `&path=color:0xff0000ff|weight:5|37.421655,-122.085637|37.420999,-122.086894`
+ * zoom (int, optional): Zoom level (default 14).
+ *
+ * Returns:
+ * StreamingResponse: The map image as a PNG stream.
  */
-export const getStaticMapApiV1StaticGetOptions = (
-  options: Options<GetStaticMapApiV1StaticGetData>
+export const getStaticMapApiV1MapsStaticGetOptions = (
+  options: Options<GetStaticMapApiV1MapsStaticGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getStaticMapApiV1StaticGet({
+      const { data } = await getStaticMapApiV1MapsStaticGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -3159,23 +3184,33 @@ export const getStaticMapApiV1StaticGetOptions = (
       });
       return data;
     },
-    queryKey: getStaticMapApiV1StaticGetQueryKey(options),
+    queryKey: getStaticMapApiV1MapsStaticGetQueryKey(options),
   });
 };
 
-export const getRouteApiV1RoutesRoutesPostQueryKey = (
-  options: Options<GetRouteApiV1RoutesRoutesPostData>
-) => createQueryKey("getRouteApiV1RoutesRoutesPost", options);
+export const getRouteApiV1MapsRoutesPostQueryKey = (
+  options: Options<GetRouteApiV1MapsRoutesPostData>
+) => createQueryKey("getRouteApiV1MapsRoutesPost", options);
 
 /**
  * Get Route
+ * Compute a driving route between an origin and a destination.
+ *
+ * Args:
+ * request (RouteRequest): Request object containing origin, destination,
+ * travel mode, routing preferences, and modifiers.
+ *
+ * Returns:
+ * dict: Route details including duration, distance (meters), encoded polyline,
+ * decoded coordinates (if polyline lib installed), and route legs.
+ * Returns error info if the request fails or no route is found.
  */
-export const getRouteApiV1RoutesRoutesPostOptions = (
-  options: Options<GetRouteApiV1RoutesRoutesPostData>
+export const getRouteApiV1MapsRoutesPostOptions = (
+  options: Options<GetRouteApiV1MapsRoutesPostData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getRouteApiV1RoutesRoutesPost({
+      const { data } = await getRouteApiV1MapsRoutesPost({
         ...options,
         ...queryKey[0],
         signal,
@@ -3183,27 +3218,37 @@ export const getRouteApiV1RoutesRoutesPostOptions = (
       });
       return data;
     },
-    queryKey: getRouteApiV1RoutesRoutesPostQueryKey(options),
+    queryKey: getRouteApiV1MapsRoutesPostQueryKey(options),
   });
 };
 
 /**
  * Get Route
+ * Compute a driving route between an origin and a destination.
+ *
+ * Args:
+ * request (RouteRequest): Request object containing origin, destination,
+ * travel mode, routing preferences, and modifiers.
+ *
+ * Returns:
+ * dict: Route details including duration, distance (meters), encoded polyline,
+ * decoded coordinates (if polyline lib installed), and route legs.
+ * Returns error info if the request fails or no route is found.
  */
-export const getRouteApiV1RoutesRoutesPostMutation = (
-  options?: Partial<Options<GetRouteApiV1RoutesRoutesPostData>>
+export const getRouteApiV1MapsRoutesPostMutation = (
+  options?: Partial<Options<GetRouteApiV1MapsRoutesPostData>>
 ): UseMutationOptions<
   unknown,
-  GetRouteApiV1RoutesRoutesPostError,
-  Options<GetRouteApiV1RoutesRoutesPostData>
+  GetRouteApiV1MapsRoutesPostError,
+  Options<GetRouteApiV1MapsRoutesPostData>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    GetRouteApiV1RoutesRoutesPostError,
-    Options<GetRouteApiV1RoutesRoutesPostData>
+    GetRouteApiV1MapsRoutesPostError,
+    Options<GetRouteApiV1MapsRoutesPostData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await getRouteApiV1RoutesRoutesPost({
+      const { data } = await getRouteApiV1MapsRoutesPost({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -3214,87 +3259,12 @@ export const getRouteApiV1RoutesRoutesPostMutation = (
   return mutationOptions;
 };
 
-export const healthCheckHealthGetQueryKey = (
-  options?: Options<HealthCheckHealthGetData>
-) => createQueryKey("healthCheckHealthGet", options);
-
-/**
- * Health Check
- */
-export const healthCheckHealthGetOptions = (
-  options?: Options<HealthCheckHealthGetData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await healthCheckHealthGet({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: healthCheckHealthGetQueryKey(options),
-  });
-};
-
-export const apiGetMetricsMetrics5QueryKey = (
-  options?: Options<ApiGetMetricsMetrics5Data>
-) => createQueryKey("apiGetMetricsMetrics5", options);
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics5Options = (
-  options?: Options<ApiGetMetricsMetrics5Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics5({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetMetricsMetrics5QueryKey(options),
-  });
-};
-
-export const apiGetHealthHealthCheck5QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck5Data>
-) => createQueryKey("apiGetHealthHealthCheck5", options);
-
-/**
- * Health Check
- * Health check endpoint.
- */
-export const apiGetHealthHealthCheck5Options = (
-  options?: Options<ApiGetHealthHealthCheck5Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck5({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetHealthHealthCheck5QueryKey(options),
-  });
-};
-
 export const apiGetRootRoot3QueryKey = (
   options?: Options<ApiGetRootRoot3Data>
 ) => createQueryKey("apiGetRootRoot3", options);
 
 /**
  * Root
- * Root endpoint.
  */
 export const apiGetRootRoot3Options = (
   options?: Options<ApiGetRootRoot3Data>
@@ -3313,51 +3283,21 @@ export const apiGetRootRoot3Options = (
   });
 };
 
-export const apiGetWellKnownOpenidConfigurationOpenidConfiguration2QueryKey = (
-  options?: Options<ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Data>
-) =>
-  createQueryKey(
-    "apiGetWellKnownOpenidConfigurationOpenidConfiguration2",
-    options
-  );
+export const apiPostUssdUssdProxyQueryKey = (
+  options?: Options<ApiPostUssdUssdProxyData>
+) => createQueryKey("apiPostUssdUssdProxy", options);
 
 /**
- * Openid Configuration
- * OpenID Connect Discovery endpoint.
+ * Ussd Proxy
+ * This is the USSD gateway proxy endpoint. It receives the request from Africa's Talking
+ * and forwards it to the correct client's callback URL based on the serviceCode.
  */
-export const apiGetWellKnownOpenidConfigurationOpenidConfiguration2Options = (
-  options?: Options<ApiGetWellKnownOpenidConfigurationOpenidConfiguration2Data>
+export const apiPostUssdUssdProxyOptions = (
+  options?: Options<ApiPostUssdUssdProxyData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } =
-        await apiGetWellKnownOpenidConfigurationOpenidConfiguration2({
-          ...options,
-          ...queryKey[0],
-          signal,
-          throwOnError: true,
-        });
-      return data;
-    },
-    queryKey:
-      apiGetWellKnownOpenidConfigurationOpenidConfiguration2QueryKey(options),
-  });
-};
-
-export const apiGetWellKnownJwksJsonJwks2QueryKey = (
-  options?: Options<ApiGetWellKnownJwksJsonJwks2Data>
-) => createQueryKey("apiGetWellKnownJwksJsonJwks2", options);
-
-/**
- * Jwks
- * JSON Web Key Set endpoint.
- */
-export const apiGetWellKnownJwksJsonJwks2Options = (
-  options?: Options<ApiGetWellKnownJwksJsonJwks2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetWellKnownJwksJsonJwks2({
+      const { data } = await apiPostUssdUssdProxy({
         ...options,
         ...queryKey[0],
         signal,
@@ -3365,7 +3305,1229 @@ export const apiGetWellKnownJwksJsonJwks2Options = (
       });
       return data;
     },
-    queryKey: apiGetWellKnownJwksJsonJwks2QueryKey(options),
+    queryKey: apiPostUssdUssdProxyQueryKey(options),
+  });
+};
+
+/**
+ * Ussd Proxy
+ * This is the USSD gateway proxy endpoint. It receives the request from Africa's Talking
+ * and forwards it to the correct client's callback URL based on the serviceCode.
+ */
+export const apiPostUssdUssdProxyMutation = (
+  options?: Partial<Options<ApiPostUssdUssdProxyData>>
+): UseMutationOptions<
+  unknown,
+  ApiPostUssdUssdProxyError,
+  Options<ApiPostUssdUssdProxyData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    ApiPostUssdUssdProxyError,
+    Options<ApiPostUssdUssdProxyData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await apiPostUssdUssdProxy({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const apiPostUssdNotificationUssdNotificationQueryKey = (
+  options?: Options<ApiPostUssdNotificationUssdNotificationData>
+) => createQueryKey("apiPostUssdNotificationUssdNotification", options);
+
+/**
+ * Ussd Notification
+ * Handles end-of-session USSD notifications.
+ * This endpoint is for receiving the final summary of a session.
+ */
+export const apiPostUssdNotificationUssdNotificationOptions = (
+  options?: Options<ApiPostUssdNotificationUssdNotificationData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await apiPostUssdNotificationUssdNotification({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: apiPostUssdNotificationUssdNotificationQueryKey(options),
+  });
+};
+
+/**
+ * Ussd Notification
+ * Handles end-of-session USSD notifications.
+ * This endpoint is for receiving the final summary of a session.
+ */
+export const apiPostUssdNotificationUssdNotificationMutation = (
+  options?: Partial<Options<ApiPostUssdNotificationUssdNotificationData>>
+): UseMutationOptions<
+  unknown,
+  ApiPostUssdNotificationUssdNotificationError,
+  Options<ApiPostUssdNotificationUssdNotificationData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    ApiPostUssdNotificationUssdNotificationError,
+    Options<ApiPostUssdNotificationUssdNotificationData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await apiPostUssdNotificationUssdNotification({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV18MedicalUssdCallback8MedicalQueryKey = (
+  options?: Options<UssdPostApiV18MedicalUssdCallback8MedicalData>
+) => createQueryKey("ussdPostApiV18MedicalUssdCallback8Medical", options);
+
+/**
+ * Callback 8Medical
+ * This endpoint simulates 8Medical_USSD's application server without signature verification.
+ */
+export const ussdPostApiV18MedicalUssdCallback8MedicalOptions = (
+  options?: Options<UssdPostApiV18MedicalUssdCallback8MedicalData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV18MedicalUssdCallback8Medical({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV18MedicalUssdCallback8MedicalQueryKey(options),
+  });
+};
+
+/**
+ * Callback 8Medical
+ * This endpoint simulates 8Medical_USSD's application server without signature verification.
+ */
+export const ussdPostApiV18MedicalUssdCallback8MedicalMutation = (
+  options?: Partial<Options<UssdPostApiV18MedicalUssdCallback8MedicalData>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV18MedicalUssdCallback8MedicalData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV18MedicalUssdCallback8MedicalData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV18MedicalUssdCallback8Medical({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1AlajoUssdCallbackAlajoQueryKey = (
+  options?: Options<UssdPostApiV1AlajoUssdCallbackAlajoData>
+) => createQueryKey("ussdPostApiV1AlajoUssdCallbackAlajo", options);
+
+/**
+ * Callback Alajo
+ * This endpoint simulates Alajo_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1AlajoUssdCallbackAlajoOptions = (
+  options?: Options<UssdPostApiV1AlajoUssdCallbackAlajoData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1AlajoUssdCallbackAlajo({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1AlajoUssdCallbackAlajoQueryKey(options),
+  });
+};
+
+/**
+ * Callback Alajo
+ * This endpoint simulates Alajo_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1AlajoUssdCallbackAlajoMutation = (
+  options?: Partial<Options<UssdPostApiV1AlajoUssdCallbackAlajoData>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1AlajoUssdCallbackAlajoData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1AlajoUssdCallbackAlajoData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1AlajoUssdCallbackAlajo({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1ClafiyaUssdCallbackClafiyaQueryKey = (
+  options?: Options<UssdPostApiV1ClafiyaUssdCallbackClafiyaData>
+) => createQueryKey("ussdPostApiV1ClafiyaUssdCallbackClafiya", options);
+
+/**
+ * Callback Clafiya
+ * This endpoint simulates Clafiya_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1ClafiyaUssdCallbackClafiyaOptions = (
+  options?: Options<UssdPostApiV1ClafiyaUssdCallbackClafiyaData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1ClafiyaUssdCallbackClafiya({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1ClafiyaUssdCallbackClafiyaQueryKey(options),
+  });
+};
+
+/**
+ * Callback Clafiya
+ * This endpoint simulates Clafiya_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1ClafiyaUssdCallbackClafiyaMutation = (
+  options?: Partial<Options<UssdPostApiV1ClafiyaUssdCallbackClafiyaData>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1ClafiyaUssdCallbackClafiyaData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1ClafiyaUssdCallbackClafiyaData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1ClafiyaUssdCallbackClafiya({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1EvetUssdCallbackEvetQueryKey = (
+  options?: Options<UssdPostApiV1EvetUssdCallbackEvetData>
+) => createQueryKey("ussdPostApiV1EvetUssdCallbackEvet", options);
+
+/**
+ * Callback Evet
+ * This endpoint simulates Evet_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1EvetUssdCallbackEvetOptions = (
+  options?: Options<UssdPostApiV1EvetUssdCallbackEvetData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1EvetUssdCallbackEvet({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1EvetUssdCallbackEvetQueryKey(options),
+  });
+};
+
+/**
+ * Callback Evet
+ * This endpoint simulates Evet_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1EvetUssdCallbackEvetMutation = (
+  options?: Partial<Options<UssdPostApiV1EvetUssdCallbackEvetData>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1EvetUssdCallbackEvetData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1EvetUssdCallbackEvetData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1EvetUssdCallbackEvet({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1FertitudeUssdCallbackFertitudeQueryKey = (
+  options?: Options<UssdPostApiV1FertitudeUssdCallbackFertitudeData>
+) => createQueryKey("ussdPostApiV1FertitudeUssdCallbackFertitude", options);
+
+/**
+ * Callback Fertitude
+ * This endpoint simulates Fertitude_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FertitudeUssdCallbackFertitudeOptions = (
+  options?: Options<UssdPostApiV1FertitudeUssdCallbackFertitudeData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1FertitudeUssdCallbackFertitude({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1FertitudeUssdCallbackFertitudeQueryKey(options),
+  });
+};
+
+/**
+ * Callback Fertitude
+ * This endpoint simulates Fertitude_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FertitudeUssdCallbackFertitudeMutation = (
+  options?: Partial<Options<UssdPostApiV1FertitudeUssdCallbackFertitudeData>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1FertitudeUssdCallbackFertitudeData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1FertitudeUssdCallbackFertitudeData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1FertitudeUssdCallbackFertitude({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1FologUssdCallbackFologQueryKey = (
+  options?: Options<UssdPostApiV1FologUssdCallbackFologData>
+) => createQueryKey("ussdPostApiV1FologUssdCallbackFolog", options);
+
+/**
+ * Callback Folog
+ * This endpoint simulates Folog_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FologUssdCallbackFologOptions = (
+  options?: Options<UssdPostApiV1FologUssdCallbackFologData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1FologUssdCallbackFolog({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1FologUssdCallbackFologQueryKey(options),
+  });
+};
+
+/**
+ * Callback Folog
+ * This endpoint simulates Folog_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FologUssdCallbackFologMutation = (
+  options?: Partial<Options<UssdPostApiV1FologUssdCallbackFologData>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1FologUssdCallbackFologData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1FologUssdCallbackFologData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1FologUssdCallbackFolog({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1MylturaUssdCallbackMylturaQueryKey = (
+  options?: Options<UssdPostApiV1MylturaUssdCallbackMylturaData>
+) => createQueryKey("ussdPostApiV1MylturaUssdCallbackMyltura", options);
+
+/**
+ * Callback Myltura
+ * This endpoint simulates Myltura_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1MylturaUssdCallbackMylturaOptions = (
+  options?: Options<UssdPostApiV1MylturaUssdCallbackMylturaData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1MylturaUssdCallbackMyltura({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1MylturaUssdCallbackMylturaQueryKey(options),
+  });
+};
+
+/**
+ * Callback Myltura
+ * This endpoint simulates Myltura_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1MylturaUssdCallbackMylturaMutation = (
+  options?: Partial<Options<UssdPostApiV1MylturaUssdCallbackMylturaData>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1MylturaUssdCallbackMylturaData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1MylturaUssdCallbackMylturaData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1MylturaUssdCallbackMyltura({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1UhcTechUssdCallbackUhcTechQueryKey = (
+  options?: Options<UssdPostApiV1UhcTechUssdCallbackUhcTechData>
+) => createQueryKey("ussdPostApiV1UhcTechUssdCallbackUhcTech", options);
+
+/**
+ * Callback Uhc Tech
+ * This endpoint simulates UHC_Tech_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1UhcTechUssdCallbackUhcTechOptions = (
+  options?: Options<UssdPostApiV1UhcTechUssdCallbackUhcTechData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1UhcTechUssdCallbackUhcTech({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1UhcTechUssdCallbackUhcTechQueryKey(options),
+  });
+};
+
+/**
+ * Callback Uhc Tech
+ * This endpoint simulates UHC_Tech_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1UhcTechUssdCallbackUhcTechMutation = (
+  options?: Partial<Options<UssdPostApiV1UhcTechUssdCallbackUhcTechData>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1UhcTechUssdCallbackUhcTechData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1UhcTechUssdCallbackUhcTechData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1UhcTechUssdCallbackUhcTech({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1XboxUssdCallbackXboxQueryKey = (
+  options?: Options<UssdPostApiV1XboxUssdCallbackXboxData>
+) => createQueryKey("ussdPostApiV1XboxUssdCallbackXbox", options);
+
+/**
+ * Callback Xbox
+ * This endpoint simulates XBOX_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1XboxUssdCallbackXboxOptions = (
+  options?: Options<UssdPostApiV1XboxUssdCallbackXboxData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1XboxUssdCallbackXbox({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1XboxUssdCallbackXboxQueryKey(options),
+  });
+};
+
+/**
+ * Callback Xbox
+ * This endpoint simulates XBOX_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1XboxUssdCallbackXboxMutation = (
+  options?: Partial<Options<UssdPostApiV1XboxUssdCallbackXboxData>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1XboxUssdCallbackXboxData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1XboxUssdCallbackXboxData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1XboxUssdCallbackXbox({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestFertitudeUssdTestFertitudeUssdQueryKey = (
+  options: Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssdData>
+) => createQueryKey("ussdPostApiV1TestFertitudeUssdTestFertitudeUssd", options);
+
+/**
+ * Test Fertitude Ussd
+ * Test endpoint for Fertitude USSD logic.
+ * Accepts POST form data and returns the same response as /fertitude_ussd.
+ *
+ *
+ * Requires:
+ *
+ * sessionId e.g., lirwf23455
+ *
+ * phoneNumber e.g., +2348103317200
+ *
+ * text (location of interest in the pipeline) e.g., "" (empty for first interaction), "1", "1*1", etc. like you would interact with USSD codes
+ */
+export const ussdPostApiV1TestFertitudeUssdTestFertitudeUssdOptions = (
+  options: Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssdData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestFertitudeUssdTestFertitudeUssd({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestFertitudeUssdTestFertitudeUssdQueryKey(options),
+  });
+};
+
+/**
+ * Test Fertitude Ussd
+ * Test endpoint for Fertitude USSD logic.
+ * Accepts POST form data and returns the same response as /fertitude_ussd.
+ *
+ *
+ * Requires:
+ *
+ * sessionId e.g., lirwf23455
+ *
+ * phoneNumber e.g., +2348103317200
+ *
+ * text (location of interest in the pipeline) e.g., "" (empty for first interaction), "1", "1*1", etc. like you would interact with USSD codes
+ */
+export const ussdPostApiV1TestFertitudeUssdTestFertitudeUssdMutation = (
+  options?: Partial<
+    Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssdData>
+  >
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssdError,
+  Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssdData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestFertitudeUssdTestFertitudeUssdError,
+    Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssdData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestFertitudeUssdTestFertitudeUssd({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1Test8MedicalUssdTest8MedicalUssdQueryKey = (
+  options: Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssdData>
+) => createQueryKey("ussdPostApiV1Test8MedicalUssdTest8MedicalUssd", options);
+
+/**
+ * Test 8Medical Ussd
+ * Test endpoint for 8Medical_USSD logic.
+ */
+export const ussdPostApiV1Test8MedicalUssdTest8MedicalUssdOptions = (
+  options: Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssdData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1Test8MedicalUssdTest8MedicalUssd({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1Test8MedicalUssdTest8MedicalUssdQueryKey(options),
+  });
+};
+
+/**
+ * Test 8Medical Ussd
+ * Test endpoint for 8Medical_USSD logic.
+ */
+export const ussdPostApiV1Test8MedicalUssdTest8MedicalUssdMutation = (
+  options?: Partial<Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssdData>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssdError,
+  Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssdData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1Test8MedicalUssdTest8MedicalUssdError,
+    Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssdData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1Test8MedicalUssdTest8MedicalUssd({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestAlajoUssdTestAlajoUssdQueryKey = (
+  options: Options<UssdPostApiV1TestAlajoUssdTestAlajoUssdData>
+) => createQueryKey("ussdPostApiV1TestAlajoUssdTestAlajoUssd", options);
+
+/**
+ * Test Alajo Ussd
+ * Test endpoint for Alajo_USSD logic.
+ */
+export const ussdPostApiV1TestAlajoUssdTestAlajoUssdOptions = (
+  options: Options<UssdPostApiV1TestAlajoUssdTestAlajoUssdData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestAlajoUssdTestAlajoUssd({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestAlajoUssdTestAlajoUssdQueryKey(options),
+  });
+};
+
+/**
+ * Test Alajo Ussd
+ * Test endpoint for Alajo_USSD logic.
+ */
+export const ussdPostApiV1TestAlajoUssdTestAlajoUssdMutation = (
+  options?: Partial<Options<UssdPostApiV1TestAlajoUssdTestAlajoUssdData>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssdError,
+  Options<UssdPostApiV1TestAlajoUssdTestAlajoUssdData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestAlajoUssdTestAlajoUssdError,
+    Options<UssdPostApiV1TestAlajoUssdTestAlajoUssdData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestAlajoUssdTestAlajoUssd({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestClafiyaUssdTestClafiyaUssdQueryKey = (
+  options: Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssdData>
+) => createQueryKey("ussdPostApiV1TestClafiyaUssdTestClafiyaUssd", options);
+
+/**
+ * Test Clafiya Ussd
+ * Test endpoint for Clafiya_USSD logic.
+ */
+export const ussdPostApiV1TestClafiyaUssdTestClafiyaUssdOptions = (
+  options: Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssdData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestClafiyaUssdTestClafiyaUssd({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestClafiyaUssdTestClafiyaUssdQueryKey(options),
+  });
+};
+
+/**
+ * Test Clafiya Ussd
+ * Test endpoint for Clafiya_USSD logic.
+ */
+export const ussdPostApiV1TestClafiyaUssdTestClafiyaUssdMutation = (
+  options?: Partial<Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssdData>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssdError,
+  Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssdData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestClafiyaUssdTestClafiyaUssdError,
+    Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssdData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestClafiyaUssdTestClafiyaUssd({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestEvetUssdTestEvetUssdQueryKey = (
+  options: Options<UssdPostApiV1TestEvetUssdTestEvetUssdData>
+) => createQueryKey("ussdPostApiV1TestEvetUssdTestEvetUssd", options);
+
+/**
+ * Test Evet Ussd
+ * Test endpoint for Evet_USSD logic.
+ */
+export const ussdPostApiV1TestEvetUssdTestEvetUssdOptions = (
+  options: Options<UssdPostApiV1TestEvetUssdTestEvetUssdData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestEvetUssdTestEvetUssd({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestEvetUssdTestEvetUssdQueryKey(options),
+  });
+};
+
+/**
+ * Test Evet Ussd
+ * Test endpoint for Evet_USSD logic.
+ */
+export const ussdPostApiV1TestEvetUssdTestEvetUssdMutation = (
+  options?: Partial<Options<UssdPostApiV1TestEvetUssdTestEvetUssdData>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestEvetUssdTestEvetUssdError,
+  Options<UssdPostApiV1TestEvetUssdTestEvetUssdData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestEvetUssdTestEvetUssdError,
+    Options<UssdPostApiV1TestEvetUssdTestEvetUssdData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestEvetUssdTestEvetUssd({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestFologUssdTestFologUssdQueryKey = (
+  options: Options<UssdPostApiV1TestFologUssdTestFologUssdData>
+) => createQueryKey("ussdPostApiV1TestFologUssdTestFologUssd", options);
+
+/**
+ * Test Folog Ussd
+ * Test endpoint for Folog_USSD logic.
+ */
+export const ussdPostApiV1TestFologUssdTestFologUssdOptions = (
+  options: Options<UssdPostApiV1TestFologUssdTestFologUssdData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestFologUssdTestFologUssd({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestFologUssdTestFologUssdQueryKey(options),
+  });
+};
+
+/**
+ * Test Folog Ussd
+ * Test endpoint for Folog_USSD logic.
+ */
+export const ussdPostApiV1TestFologUssdTestFologUssdMutation = (
+  options?: Partial<Options<UssdPostApiV1TestFologUssdTestFologUssdData>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestFologUssdTestFologUssdError,
+  Options<UssdPostApiV1TestFologUssdTestFologUssdData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestFologUssdTestFologUssdError,
+    Options<UssdPostApiV1TestFologUssdTestFologUssdData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestFologUssdTestFologUssd({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestMylturaUssdTestMylturaUssdQueryKey = (
+  options: Options<UssdPostApiV1TestMylturaUssdTestMylturaUssdData>
+) => createQueryKey("ussdPostApiV1TestMylturaUssdTestMylturaUssd", options);
+
+/**
+ * Test Myltura Ussd
+ * Test endpoint for Myltura_USSD logic.
+ */
+export const ussdPostApiV1TestMylturaUssdTestMylturaUssdOptions = (
+  options: Options<UssdPostApiV1TestMylturaUssdTestMylturaUssdData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestMylturaUssdTestMylturaUssd({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestMylturaUssdTestMylturaUssdQueryKey(options),
+  });
+};
+
+/**
+ * Test Myltura Ussd
+ * Test endpoint for Myltura_USSD logic.
+ */
+export const ussdPostApiV1TestMylturaUssdTestMylturaUssdMutation = (
+  options?: Partial<Options<UssdPostApiV1TestMylturaUssdTestMylturaUssdData>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssdError,
+  Options<UssdPostApiV1TestMylturaUssdTestMylturaUssdData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestMylturaUssdTestMylturaUssdError,
+    Options<UssdPostApiV1TestMylturaUssdTestMylturaUssdData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestMylturaUssdTestMylturaUssd({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestUhcTechUssdTestUhcTechUssdQueryKey = (
+  options: Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssdData>
+) => createQueryKey("ussdPostApiV1TestUhcTechUssdTestUhcTechUssd", options);
+
+/**
+ * Test Uhc Tech Ussd
+ * Test endpoint for UHC_Tech_USSD logic.
+ */
+export const ussdPostApiV1TestUhcTechUssdTestUhcTechUssdOptions = (
+  options: Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssdData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestUhcTechUssdTestUhcTechUssd({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestUhcTechUssdTestUhcTechUssdQueryKey(options),
+  });
+};
+
+/**
+ * Test Uhc Tech Ussd
+ * Test endpoint for UHC_Tech_USSD logic.
+ */
+export const ussdPostApiV1TestUhcTechUssdTestUhcTechUssdMutation = (
+  options?: Partial<Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssdData>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssdError,
+  Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssdData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestUhcTechUssdTestUhcTechUssdError,
+    Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssdData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestUhcTechUssdTestUhcTechUssd({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestXboxUssdTestXboxUssdQueryKey = (
+  options: Options<UssdPostApiV1TestXboxUssdTestXboxUssdData>
+) => createQueryKey("ussdPostApiV1TestXboxUssdTestXboxUssd", options);
+
+/**
+ * Test Xbox Ussd
+ * Test endpoint for XBOX_USSD logic.
+ */
+export const ussdPostApiV1TestXboxUssdTestXboxUssdOptions = (
+  options: Options<UssdPostApiV1TestXboxUssdTestXboxUssdData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestXboxUssdTestXboxUssd({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestXboxUssdTestXboxUssdQueryKey(options),
+  });
+};
+
+/**
+ * Test Xbox Ussd
+ * Test endpoint for XBOX_USSD logic.
+ */
+export const ussdPostApiV1TestXboxUssdTestXboxUssdMutation = (
+  options?: Partial<Options<UssdPostApiV1TestXboxUssdTestXboxUssdData>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestXboxUssdTestXboxUssdError,
+  Options<UssdPostApiV1TestXboxUssdTestXboxUssdData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestXboxUssdTestXboxUssdError,
+    Options<UssdPostApiV1TestXboxUssdTestXboxUssdData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestXboxUssdTestXboxUssd({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const apiGetMetricsMetricsQueryKey = (
+  options?: Options<ApiGetMetricsMetricsData>
+) => createQueryKey("apiGetMetricsMetrics", options);
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetricsOptions = (
+  options?: Options<ApiGetMetricsMetricsData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await apiGetMetricsMetrics({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: apiGetMetricsMetricsQueryKey(options),
+  });
+};
+
+export const apiGetHealthHealthCheckQueryKey = (
+  options?: Options<ApiGetHealthHealthCheckData>
+) => createQueryKey("apiGetHealthHealthCheck", options);
+
+/**
+ * Health Check
+ * Health check endpoint.
+ */
+export const apiGetHealthHealthCheckOptions = (
+  options?: Options<ApiGetHealthHealthCheckData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await apiGetHealthHealthCheck({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: apiGetHealthHealthCheckQueryKey(options),
+  });
+};
+
+export const apiGetRootRoot4QueryKey = (
+  options?: Options<ApiGetRootRoot4Data>
+) => createQueryKey("apiGetRootRoot4", options);
+
+/**
+ * Root
+ * Root endpoint.
+ */
+export const apiGetRootRoot4Options = (
+  options?: Options<ApiGetRootRoot4Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await apiGetRootRoot4({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: apiGetRootRoot4QueryKey(options),
+  });
+};
+
+export const authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2QueryKey =
+  (
+    options?: Options<AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Data>
+  ) =>
+    createQueryKey(
+      "authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2",
+      options
+    );
+
+/**
+ * Openid Configuration
+ * 🔍 OpenID Connect Configuration
+ *
+ * Standard OpenID Connect discovery endpoint providing
+ * metadata about the authorization server.
+ *
+ * **Returns:**
+ * - Issuer information
+ * - Supported endpoints
+ * - Token types and algorithms
+ * - Grant types supported
+ *
+ * **Compliance:**
+ * - OpenID Connect Discovery 1.0
+ * - OAuth 2.0 Authorization Server Metadata
+ */
+export const authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Options =
+  (
+    options?: Options<AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Data>
+  ) => {
+    return queryOptions({
+      queryFn: async ({ queryKey, signal }) => {
+        const { data } =
+          await authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2(
+            {
+              ...options,
+              ...queryKey[0],
+              signal,
+              throwOnError: true,
+            }
+          );
+        return data;
+      },
+      queryKey:
+        authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2QueryKey(
+          options
+        ),
+    });
+  };
+
+export const authenticationGetApiV1AuthWellKnownJwksJsonJwks2QueryKey = (
+  options?: Options<AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Data>
+) =>
+  createQueryKey("authenticationGetApiV1AuthWellKnownJwksJsonJwks2", options);
+
+/**
+ * Jwks
+ * 🔑 JSON Web Key Set
+ *
+ * Provides public keys for JWT token verification.
+ * Used by clients to validate JWT signatures.
+ *
+ * **Returns:**
+ * - JSON Web Key Set (JWKS)
+ * - Public key information
+ * - Key usage and algorithms
+ *
+ * **Note:** Currently using HMAC (symmetric key)
+ * For production, consider RSA/ECDSA asymmetric keys
+ */
+export const authenticationGetApiV1AuthWellKnownJwksJsonJwks2Options = (
+  options?: Options<AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await authenticationGetApiV1AuthWellKnownJwksJsonJwks2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: authenticationGetApiV1AuthWellKnownJwksJsonJwks2QueryKey(options),
   });
 };
 
@@ -4652,19 +5814,19 @@ export const smsGetApiV1SmsStatusMessageIdGetMessageStatus2Options = (
   });
 };
 
-export const apiGetHealthHealthCheck6QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck6Data>
-) => createQueryKey("apiGetHealthHealthCheck6", options);
+export const apiGetHealthHealthCheck2QueryKey = (
+  options?: Options<ApiGetHealthHealthCheck2Data>
+) => createQueryKey("apiGetHealthHealthCheck2", options);
 
 /**
  * Health Check
  */
-export const apiGetHealthHealthCheck6Options = (
-  options?: Options<ApiGetHealthHealthCheck6Data>
+export const apiGetHealthHealthCheck2Options = (
+  options?: Options<ApiGetHealthHealthCheck2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck6({
+      const { data } = await apiGetHealthHealthCheck2({
         ...options,
         ...queryKey[0],
         signal,
@@ -4672,23 +5834,23 @@ export const apiGetHealthHealthCheck6Options = (
       });
       return data;
     },
-    queryKey: apiGetHealthHealthCheck6QueryKey(options),
+    queryKey: apiGetHealthHealthCheck2QueryKey(options),
   });
 };
 
-export const apiGetRootRoot4QueryKey = (
-  options?: Options<ApiGetRootRoot4Data>
-) => createQueryKey("apiGetRootRoot4", options);
+export const apiGetRootRoot5QueryKey = (
+  options?: Options<ApiGetRootRoot5Data>
+) => createQueryKey("apiGetRootRoot5", options);
 
 /**
  * Root
  */
-export const apiGetRootRoot4Options = (
-  options?: Options<ApiGetRootRoot4Data>
+export const apiGetRootRoot5Options = (
+  options?: Options<ApiGetRootRoot5Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetRootRoot4({
+      const { data } = await apiGetRootRoot5({
         ...options,
         ...queryKey[0],
         signal,
@@ -4696,24 +5858,24 @@ export const apiGetRootRoot4Options = (
       });
       return data;
     },
-    queryKey: apiGetRootRoot4QueryKey(options),
+    queryKey: apiGetRootRoot5QueryKey(options),
   });
 };
 
-export const apiGetMetricsMetrics6QueryKey = (
-  options?: Options<ApiGetMetricsMetrics6Data>
-) => createQueryKey("apiGetMetricsMetrics6", options);
+export const apiGetMetricsMetrics2QueryKey = (
+  options?: Options<ApiGetMetricsMetrics2Data>
+) => createQueryKey("apiGetMetricsMetrics2", options);
 
 /**
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const apiGetMetricsMetrics6Options = (
-  options?: Options<ApiGetMetricsMetrics6Data>
+export const apiGetMetricsMetrics2Options = (
+  options?: Options<ApiGetMetricsMetrics2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics6({
+      const { data } = await apiGetMetricsMetrics2({
         ...options,
         ...queryKey[0],
         signal,
@@ -4721,23 +5883,23 @@ export const apiGetMetricsMetrics6Options = (
       });
       return data;
     },
-    queryKey: apiGetMetricsMetrics6QueryKey(options),
+    queryKey: apiGetMetricsMetrics2QueryKey(options),
   });
 };
 
-export const healthHealthGet2QueryKey = (
-  options?: Options<HealthHealthGet2Data>
-) => createQueryKey("healthHealthGet2", options);
+export const healthHealthGetQueryKey = (
+  options?: Options<HealthHealthGetData>
+) => createQueryKey("healthHealthGet", options);
 
 /**
  * Health
  */
-export const healthHealthGet2Options = (
-  options?: Options<HealthHealthGet2Data>
+export const healthHealthGetOptions = (
+  options?: Options<HealthHealthGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await healthHealthGet2({
+      const { data } = await healthHealthGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -4745,7 +5907,7 @@ export const healthHealthGet2Options = (
       });
       return data;
     },
-    queryKey: healthHealthGet2QueryKey(options),
+    queryKey: healthHealthGetQueryKey(options),
   });
 };
 
@@ -4772,9 +5934,9 @@ export const readyReadyGet2Options = (
   });
 };
 
-export const getModelsApiV1ModelsGet2QueryKey = (
-  options?: Options<GetModelsApiV1ModelsGet2Data>
-) => createQueryKey("getModelsApiV1ModelsGet2", options);
+export const getModelsApiV1ModelsGroqGet2QueryKey = (
+  options?: Options<GetModelsApiV1ModelsGroqGet2Data>
+) => createQueryKey("getModelsApiV1ModelsGroqGet2", options);
 
 /**
  * Retrieve available AI models
@@ -4803,12 +5965,12 @@ export const getModelsApiV1ModelsGet2QueryKey = (
  * - This list is dynamic and may change as new models are added or deprecated.
  * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
  */
-export const getModelsApiV1ModelsGet2Options = (
-  options?: Options<GetModelsApiV1ModelsGet2Data>
+export const getModelsApiV1ModelsGroqGet2Options = (
+  options?: Options<GetModelsApiV1ModelsGroqGet2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getModelsApiV1ModelsGet2({
+      const { data } = await getModelsApiV1ModelsGroqGet2({
         ...options,
         ...queryKey[0],
         signal,
@@ -4816,7 +5978,55 @@ export const getModelsApiV1ModelsGet2Options = (
       });
       return data;
     },
-    queryKey: getModelsApiV1ModelsGet2QueryKey(options),
+    queryKey: getModelsApiV1ModelsGroqGet2QueryKey(options),
+  });
+};
+
+export const getOpenaiModelsApiV1ModelsOpenaiGet2QueryKey = (
+  options?: Options<GetOpenaiModelsApiV1ModelsOpenaiGet2Data>
+) => createQueryKey("getOpenaiModelsApiV1ModelsOpenaiGet2", options);
+
+/**
+ * Retrieve available OpenAI models
+ * This endpoint returns a list of all available OpenAI models that can be used for generating responses.
+ *
+ * **Behavior**:
+ * - Fetches all currently supported models from the OpenAI platform.
+ * - Returns the models as a simple list of strings (model names or IDs).
+ * - No authentication is required for anonymous access (optional to add auth later).
+ *
+ * **Response**:
+ * - `200 OK`: A JSON list of model names/IDs, for example:
+ * ```json
+ * [
+ * {
+ * "id": "gpt-4",
+ * "owned_by": "openai",
+ * "active": true,
+ * "context_window": 8192,
+ * "max_completion_tokens": 4096
+ * }
+ * ]
+ * ```
+ *
+ * **Notes**:
+ * - This list is dynamic and may change as new models are added or deprecated.
+ * - Clients can use these model IDs when making requests to the `/chat/` endpoint.
+ */
+export const getOpenaiModelsApiV1ModelsOpenaiGet2Options = (
+  options?: Options<GetOpenaiModelsApiV1ModelsOpenaiGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getOpenaiModelsApiV1ModelsOpenaiGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getOpenaiModelsApiV1ModelsOpenaiGet2QueryKey(options),
   });
 };
 
@@ -4847,9 +6057,10 @@ export const chatApiV1ChatPost2QueryKey = (
  * - `system_prompt` (optional, string): Custom system prompt to guide AI behavior.
  *
  * **Response**:
- * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps.
+ * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps and token usage.
  * - `session_id` (string): The session ID for the conversation.
  * - `is_openai` (boolean): Indicates which AI engine generated the response.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  */
 export const chatApiV1ChatPost2Options = (
   options: Options<ChatApiV1ChatPost2Data>
@@ -4891,9 +6102,10 @@ export const chatApiV1ChatPost2Options = (
  * - `system_prompt` (optional, string): Custom system prompt to guide AI behavior.
  *
  * **Response**:
- * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps.
+ * - `chat_messages` (list of messages): Contains both user and AI messages with timestamps and token usage.
  * - `session_id` (string): The session ID for the conversation.
  * - `is_openai` (boolean): Indicates which AI engine generated the response.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  */
 export const chatApiV1ChatPost2Mutation = (
   options?: Partial<Options<ChatApiV1ChatPost2Data>>
@@ -4938,6 +6150,7 @@ export const getChatHistoryApiV1ChatSessionIdSessionGet2QueryKey = (
  * - `chat_messages` (list of messages): Messages in chronological order.
  * - `session_id` (string): The session ID.
  * - `is_openai` (boolean): Always `False` for retrieved messages.
+ * - `session_total_tokens` (int): The accumulated tokens used in this session.
  *
  * **Errors**:
  * - `404 Not Found`: If the session does not exist.
@@ -4966,7 +6179,7 @@ export const getChatSessionsApiV1ChatSessionsAllGet2QueryKey = (
 
 /**
  * Get all chat sessions
- * Returns a list of all chat sessions for the anonymous user.
+ * Returns a list of all chat sessions for the authenticated user.
  *
  * **Authentication**:
  * - Requires a valid JWT access token in the `Authorization: Bearer <token>` header.
@@ -5428,20 +6641,20 @@ export const rootGet2Options = (options?: Options<RootGet2Data>) => {
   });
 };
 
-export const metricsMetricsGet2QueryKey = (
-  options?: Options<MetricsMetricsGet2Data>
-) => createQueryKey("metricsMetricsGet2", options);
+export const metricsMetricsGetQueryKey = (
+  options?: Options<MetricsMetricsGetData>
+) => createQueryKey("metricsMetricsGet", options);
 
 /**
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const metricsMetricsGet2Options = (
-  options?: Options<MetricsMetricsGet2Data>
+export const metricsMetricsGetOptions = (
+  options?: Options<MetricsMetricsGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await metricsMetricsGet2({
+      const { data } = await metricsMetricsGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -5449,7 +6662,7 @@ export const metricsMetricsGet2Options = (
       });
       return data;
     },
-    queryKey: metricsMetricsGet2QueryKey(options),
+    queryKey: metricsMetricsGetQueryKey(options),
   });
 };
 
@@ -5584,19 +6797,19 @@ export const apiPostApiV1LookupLookupNinBasic2Mutation = (
   return mutationOptions;
 };
 
-export const apiGetHealthHealthCheck7QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck7Data>
-) => createQueryKey("apiGetHealthHealthCheck7", options);
+export const apiGetHealthHealthCheck3QueryKey = (
+  options?: Options<ApiGetHealthHealthCheck3Data>
+) => createQueryKey("apiGetHealthHealthCheck3", options);
 
 /**
  * Health Check
  */
-export const apiGetHealthHealthCheck7Options = (
-  options?: Options<ApiGetHealthHealthCheck7Data>
+export const apiGetHealthHealthCheck3Options = (
+  options?: Options<ApiGetHealthHealthCheck3Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck7({
+      const { data } = await apiGetHealthHealthCheck3({
         ...options,
         ...queryKey[0],
         signal,
@@ -5604,24 +6817,24 @@ export const apiGetHealthHealthCheck7Options = (
       });
       return data;
     },
-    queryKey: apiGetHealthHealthCheck7QueryKey(options),
+    queryKey: apiGetHealthHealthCheck3QueryKey(options),
   });
 };
 
-export const apiGetMetricsMetrics7QueryKey = (
-  options?: Options<ApiGetMetricsMetrics7Data>
-) => createQueryKey("apiGetMetricsMetrics7", options);
+export const apiGetMetricsMetrics3QueryKey = (
+  options?: Options<ApiGetMetricsMetrics3Data>
+) => createQueryKey("apiGetMetricsMetrics3", options);
 
 /**
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const apiGetMetricsMetrics7Options = (
-  options?: Options<ApiGetMetricsMetrics7Data>
+export const apiGetMetricsMetrics3Options = (
+  options?: Options<ApiGetMetricsMetrics3Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics7({
+      const { data } = await apiGetMetricsMetrics3({
         ...options,
         ...queryKey[0],
         signal,
@@ -5629,7 +6842,7 @@ export const apiGetMetricsMetrics7Options = (
       });
       return data;
     },
-    queryKey: apiGetMetricsMetrics7QueryKey(options),
+    queryKey: apiGetMetricsMetrics3QueryKey(options),
   });
 };
 
@@ -5842,19 +7055,19 @@ export const apiGetApiV1BanksGetSupportedBanks2Options = (
   });
 };
 
-export const apiGetHealthHealthCheck8QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck8Data>
-) => createQueryKey("apiGetHealthHealthCheck8", options);
+export const apiGetHealthHealthCheck4QueryKey = (
+  options?: Options<ApiGetHealthHealthCheck4Data>
+) => createQueryKey("apiGetHealthHealthCheck4", options);
 
 /**
  * Health Check
  */
-export const apiGetHealthHealthCheck8Options = (
-  options?: Options<ApiGetHealthHealthCheck8Data>
+export const apiGetHealthHealthCheck4Options = (
+  options?: Options<ApiGetHealthHealthCheck4Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck8({
+      const { data } = await apiGetHealthHealthCheck4({
         ...options,
         ...queryKey[0],
         signal,
@@ -5862,24 +7075,24 @@ export const apiGetHealthHealthCheck8Options = (
       });
       return data;
     },
-    queryKey: apiGetHealthHealthCheck8QueryKey(options),
+    queryKey: apiGetHealthHealthCheck4QueryKey(options),
   });
 };
 
-export const apiGetMetricsMetrics8QueryKey = (
-  options?: Options<ApiGetMetricsMetrics8Data>
-) => createQueryKey("apiGetMetricsMetrics8", options);
+export const apiGetMetricsMetrics4QueryKey = (
+  options?: Options<ApiGetMetricsMetrics4Data>
+) => createQueryKey("apiGetMetricsMetrics4", options);
 
 /**
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const apiGetMetricsMetrics8Options = (
-  options?: Options<ApiGetMetricsMetrics8Data>
+export const apiGetMetricsMetrics4Options = (
+  options?: Options<ApiGetMetricsMetrics4Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics8({
+      const { data } = await apiGetMetricsMetrics4({
         ...options,
         ...queryKey[0],
         signal,
@@ -5887,23 +7100,34 @@ export const apiGetMetricsMetrics8Options = (
       });
       return data;
     },
-    queryKey: apiGetMetricsMetrics8QueryKey(options),
+    queryKey: apiGetMetricsMetrics4QueryKey(options),
   });
 };
 
-export const getNearbyPlacesApiV1NearbyGet2QueryKey = (
-  options: Options<GetNearbyPlacesApiV1NearbyGet2Data>
-) => createQueryKey("getNearbyPlacesApiV1NearbyGet2", options);
+export const getNearbyPlacesApiV1MapsNearbyGet2QueryKey = (
+  options: Options<GetNearbyPlacesApiV1MapsNearbyGet2Data>
+) => createQueryKey("getNearbyPlacesApiV1MapsNearbyGet2", options);
 
 /**
  * Get Nearby Places
+ * Search for nearby places around a given location. Returns distance in meters.
+ *
+ * Args:
+ * lat (float): Latitude of the location.
+ * lng (float): Longitude of the location.
+ * keyword (str, optional): Search keyword (e.g., "hospital", "pharmacy").
+ * Default is "hospital".
+ * radius_m (int, optional): Search radius in meters. Default is 2000.
+ *
+ * Returns:
+ * list: Places with details from Google Maps, including a direct Maps URL.
  */
-export const getNearbyPlacesApiV1NearbyGet2Options = (
-  options: Options<GetNearbyPlacesApiV1NearbyGet2Data>
+export const getNearbyPlacesApiV1MapsNearbyGet2Options = (
+  options: Options<GetNearbyPlacesApiV1MapsNearbyGet2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getNearbyPlacesApiV1NearbyGet2({
+      const { data } = await getNearbyPlacesApiV1MapsNearbyGet2({
         ...options,
         ...queryKey[0],
         signal,
@@ -5911,23 +7135,33 @@ export const getNearbyPlacesApiV1NearbyGet2Options = (
       });
       return data;
     },
-    queryKey: getNearbyPlacesApiV1NearbyGet2QueryKey(options),
+    queryKey: getNearbyPlacesApiV1MapsNearbyGet2QueryKey(options),
   });
 };
 
-export const getDistanceApiV1DistanceGet2QueryKey = (
-  options: Options<GetDistanceApiV1DistanceGet2Data>
-) => createQueryKey("getDistanceApiV1DistanceGet2", options);
+export const getDistanceApiV1MapsDistanceGet2QueryKey = (
+  options: Options<GetDistanceApiV1MapsDistanceGet2Data>
+) => createQueryKey("getDistanceApiV1MapsDistanceGet2", options);
 
 /**
  * Get Distance
+ * Get travel distance and duration between two locations. Returns distance in meters and duration in seconds.
+ *
+ * Args:
+ * origin (str): Starting point (address or "lat,lng").
+ * destination (str): End point (address or "lat,lng").
+ * mode (str, optional): Travel mode ("driving", "walking", "bicycling", "transit").
+ * Default is "driving".
+ *
+ * Returns:
+ * dict: Distance matrix response with distance and duration details.
  */
-export const getDistanceApiV1DistanceGet2Options = (
-  options: Options<GetDistanceApiV1DistanceGet2Data>
+export const getDistanceApiV1MapsDistanceGet2Options = (
+  options: Options<GetDistanceApiV1MapsDistanceGet2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getDistanceApiV1DistanceGet2({
+      const { data } = await getDistanceApiV1MapsDistanceGet2({
         ...options,
         ...queryKey[0],
         signal,
@@ -5935,23 +7169,33 @@ export const getDistanceApiV1DistanceGet2Options = (
       });
       return data;
     },
-    queryKey: getDistanceApiV1DistanceGet2QueryKey(options),
+    queryKey: getDistanceApiV1MapsDistanceGet2QueryKey(options),
   });
 };
 
-export const getDirectionsApiV1DirectionsGet2QueryKey = (
-  options: Options<GetDirectionsApiV1DirectionsGet2Data>
-) => createQueryKey("getDirectionsApiV1DirectionsGet2", options);
+export const getDirectionsApiV1MapsDirectionsGet2QueryKey = (
+  options: Options<GetDirectionsApiV1MapsDirectionsGet2Data>
+) => createQueryKey("getDirectionsApiV1MapsDirectionsGet2", options);
 
 /**
  * Get Directions
+ * Get directions between two locations. Returned distance in meters and duration in seconds.
+ *
+ * Args:
+ * origin (str): Starting point (address or "lat,lng").
+ * destination (str): End point (address or "lat,lng").
+ * mode (str, optional): Travel mode ("driving", "walking", "bicycling", "transit").
+ * Default is "driving".
+ *
+ * Returns:
+ * list: Routes with legs, steps, distance, duration, and polyline.
  */
-export const getDirectionsApiV1DirectionsGet2Options = (
-  options: Options<GetDirectionsApiV1DirectionsGet2Data>
+export const getDirectionsApiV1MapsDirectionsGet2Options = (
+  options: Options<GetDirectionsApiV1MapsDirectionsGet2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getDirectionsApiV1DirectionsGet2({
+      const { data } = await getDirectionsApiV1MapsDirectionsGet2({
         ...options,
         ...queryKey[0],
         signal,
@@ -5959,23 +7203,36 @@ export const getDirectionsApiV1DirectionsGet2Options = (
       });
       return data;
     },
-    queryKey: getDirectionsApiV1DirectionsGet2QueryKey(options),
+    queryKey: getDirectionsApiV1MapsDirectionsGet2QueryKey(options),
   });
 };
 
-export const getStaticMapApiV1StaticGet2QueryKey = (
-  options: Options<GetStaticMapApiV1StaticGet2Data>
-) => createQueryKey("getStaticMapApiV1StaticGet2", options);
+export const getStaticMapApiV1MapsStaticGet2QueryKey = (
+  options: Options<GetStaticMapApiV1MapsStaticGet2Data>
+) => createQueryKey("getStaticMapApiV1MapsStaticGet2", options);
 
 /**
  * Get Static Map
+ * Generate and stream a Google Static Map image with optional markers and path.
+ * The API key is not exposed to the client.
+ *
+ * Args:
+ * center (str): Map center (e.g., "New York,NY" or "lat,lng").
+ * markers (list[str], optional): Marker coordinates/labels.
+ * Example: `&markers=color:blue|label:S|37.421655,-122.085637`
+ * path (list[str], optional): Coordinates for a polyline path.
+ * Example: `&path=color:0xff0000ff|weight:5|37.421655,-122.085637|37.420999,-122.086894`
+ * zoom (int, optional): Zoom level (default 14).
+ *
+ * Returns:
+ * StreamingResponse: The map image as a PNG stream.
  */
-export const getStaticMapApiV1StaticGet2Options = (
-  options: Options<GetStaticMapApiV1StaticGet2Data>
+export const getStaticMapApiV1MapsStaticGet2Options = (
+  options: Options<GetStaticMapApiV1MapsStaticGet2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getStaticMapApiV1StaticGet2({
+      const { data } = await getStaticMapApiV1MapsStaticGet2({
         ...options,
         ...queryKey[0],
         signal,
@@ -5983,23 +7240,33 @@ export const getStaticMapApiV1StaticGet2Options = (
       });
       return data;
     },
-    queryKey: getStaticMapApiV1StaticGet2QueryKey(options),
+    queryKey: getStaticMapApiV1MapsStaticGet2QueryKey(options),
   });
 };
 
-export const getRouteApiV1RoutesRoutesPost2QueryKey = (
-  options: Options<GetRouteApiV1RoutesRoutesPost2Data>
-) => createQueryKey("getRouteApiV1RoutesRoutesPost2", options);
+export const getRouteApiV1MapsRoutesPost2QueryKey = (
+  options: Options<GetRouteApiV1MapsRoutesPost2Data>
+) => createQueryKey("getRouteApiV1MapsRoutesPost2", options);
 
 /**
  * Get Route
+ * Compute a driving route between an origin and a destination.
+ *
+ * Args:
+ * request (RouteRequest): Request object containing origin, destination,
+ * travel mode, routing preferences, and modifiers.
+ *
+ * Returns:
+ * dict: Route details including duration, distance (meters), encoded polyline,
+ * decoded coordinates (if polyline lib installed), and route legs.
+ * Returns error info if the request fails or no route is found.
  */
-export const getRouteApiV1RoutesRoutesPost2Options = (
-  options: Options<GetRouteApiV1RoutesRoutesPost2Data>
+export const getRouteApiV1MapsRoutesPost2Options = (
+  options: Options<GetRouteApiV1MapsRoutesPost2Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getRouteApiV1RoutesRoutesPost2({
+      const { data } = await getRouteApiV1MapsRoutesPost2({
         ...options,
         ...queryKey[0],
         signal,
@@ -6007,27 +7274,37 @@ export const getRouteApiV1RoutesRoutesPost2Options = (
       });
       return data;
     },
-    queryKey: getRouteApiV1RoutesRoutesPost2QueryKey(options),
+    queryKey: getRouteApiV1MapsRoutesPost2QueryKey(options),
   });
 };
 
 /**
  * Get Route
+ * Compute a driving route between an origin and a destination.
+ *
+ * Args:
+ * request (RouteRequest): Request object containing origin, destination,
+ * travel mode, routing preferences, and modifiers.
+ *
+ * Returns:
+ * dict: Route details including duration, distance (meters), encoded polyline,
+ * decoded coordinates (if polyline lib installed), and route legs.
+ * Returns error info if the request fails or no route is found.
  */
-export const getRouteApiV1RoutesRoutesPost2Mutation = (
-  options?: Partial<Options<GetRouteApiV1RoutesRoutesPost2Data>>
+export const getRouteApiV1MapsRoutesPost2Mutation = (
+  options?: Partial<Options<GetRouteApiV1MapsRoutesPost2Data>>
 ): UseMutationOptions<
   unknown,
-  GetRouteApiV1RoutesRoutesPost2Error,
-  Options<GetRouteApiV1RoutesRoutesPost2Data>
+  GetRouteApiV1MapsRoutesPost2Error,
+  Options<GetRouteApiV1MapsRoutesPost2Data>
 > => {
   const mutationOptions: UseMutationOptions<
     unknown,
-    GetRouteApiV1RoutesRoutesPost2Error,
-    Options<GetRouteApiV1RoutesRoutesPost2Data>
+    GetRouteApiV1MapsRoutesPost2Error,
+    Options<GetRouteApiV1MapsRoutesPost2Data>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await getRouteApiV1RoutesRoutesPost2({
+      const { data } = await getRouteApiV1MapsRoutesPost2({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -6038,19 +7315,20 @@ export const getRouteApiV1RoutesRoutesPost2Mutation = (
   return mutationOptions;
 };
 
-export const healthCheckHealthGet2QueryKey = (
-  options?: Options<HealthCheckHealthGet2Data>
-) => createQueryKey("healthCheckHealthGet2", options);
+export const healthCheckHealthGetQueryKey = (
+  options?: Options<HealthCheckHealthGetData>
+) => createQueryKey("healthCheckHealthGet", options);
 
 /**
  * Health Check
+ * Health check endpoint.
  */
-export const healthCheckHealthGet2Options = (
-  options?: Options<HealthCheckHealthGet2Data>
+export const healthCheckHealthGetOptions = (
+  options?: Options<HealthCheckHealthGetData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await healthCheckHealthGet2({
+      const { data } = await healthCheckHealthGet({
         ...options,
         ...queryKey[0],
         signal,
@@ -6058,6 +7336,1166 @@ export const healthCheckHealthGet2Options = (
       });
       return data;
     },
-    queryKey: healthCheckHealthGet2QueryKey(options),
+    queryKey: healthCheckHealthGetQueryKey(options),
+  });
+};
+
+export const metricsMetricsGet2QueryKey = (
+  options?: Options<MetricsMetricsGet2Data>
+) => createQueryKey("metricsMetricsGet2", options);
+
+/**
+ * Metrics
+ */
+export const metricsMetricsGet2Options = (
+  options?: Options<MetricsMetricsGet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await metricsMetricsGet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: metricsMetricsGet2QueryKey(options),
+  });
+};
+
+export const apiGetHealthHealthCheck5QueryKey = (
+  options?: Options<ApiGetHealthHealthCheck5Data>
+) => createQueryKey("apiGetHealthHealthCheck5", options);
+
+/**
+ * Health Check
+ */
+export const apiGetHealthHealthCheck5Options = (
+  options?: Options<ApiGetHealthHealthCheck5Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await apiGetHealthHealthCheck5({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: apiGetHealthHealthCheck5QueryKey(options),
+  });
+};
+
+export const apiPostUssdUssdProxy2QueryKey = (
+  options?: Options<ApiPostUssdUssdProxy2Data>
+) => createQueryKey("apiPostUssdUssdProxy2", options);
+
+/**
+ * Ussd Proxy
+ * This is the USSD gateway proxy endpoint. It receives the request from Africa's Talking
+ * and forwards it to the correct client's callback URL based on the serviceCode.
+ */
+export const apiPostUssdUssdProxy2Options = (
+  options?: Options<ApiPostUssdUssdProxy2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await apiPostUssdUssdProxy2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: apiPostUssdUssdProxy2QueryKey(options),
+  });
+};
+
+/**
+ * Ussd Proxy
+ * This is the USSD gateway proxy endpoint. It receives the request from Africa's Talking
+ * and forwards it to the correct client's callback URL based on the serviceCode.
+ */
+export const apiPostUssdUssdProxy2Mutation = (
+  options?: Partial<Options<ApiPostUssdUssdProxy2Data>>
+): UseMutationOptions<
+  unknown,
+  ApiPostUssdUssdProxy2Error,
+  Options<ApiPostUssdUssdProxy2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    ApiPostUssdUssdProxy2Error,
+    Options<ApiPostUssdUssdProxy2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await apiPostUssdUssdProxy2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const apiPostUssdNotificationUssdNotification2QueryKey = (
+  options?: Options<ApiPostUssdNotificationUssdNotification2Data>
+) => createQueryKey("apiPostUssdNotificationUssdNotification2", options);
+
+/**
+ * Ussd Notification
+ * Handles end-of-session USSD notifications.
+ * This endpoint is for receiving the final summary of a session.
+ */
+export const apiPostUssdNotificationUssdNotification2Options = (
+  options?: Options<ApiPostUssdNotificationUssdNotification2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await apiPostUssdNotificationUssdNotification2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: apiPostUssdNotificationUssdNotification2QueryKey(options),
+  });
+};
+
+/**
+ * Ussd Notification
+ * Handles end-of-session USSD notifications.
+ * This endpoint is for receiving the final summary of a session.
+ */
+export const apiPostUssdNotificationUssdNotification2Mutation = (
+  options?: Partial<Options<ApiPostUssdNotificationUssdNotification2Data>>
+): UseMutationOptions<
+  unknown,
+  ApiPostUssdNotificationUssdNotification2Error,
+  Options<ApiPostUssdNotificationUssdNotification2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    ApiPostUssdNotificationUssdNotification2Error,
+    Options<ApiPostUssdNotificationUssdNotification2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await apiPostUssdNotificationUssdNotification2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV18MedicalUssdCallback8Medical2QueryKey = (
+  options?: Options<UssdPostApiV18MedicalUssdCallback8Medical2Data>
+) => createQueryKey("ussdPostApiV18MedicalUssdCallback8Medical2", options);
+
+/**
+ * Callback 8Medical
+ * This endpoint simulates 8Medical_USSD's application server without signature verification.
+ */
+export const ussdPostApiV18MedicalUssdCallback8Medical2Options = (
+  options?: Options<UssdPostApiV18MedicalUssdCallback8Medical2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV18MedicalUssdCallback8Medical2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV18MedicalUssdCallback8Medical2QueryKey(options),
+  });
+};
+
+/**
+ * Callback 8Medical
+ * This endpoint simulates 8Medical_USSD's application server without signature verification.
+ */
+export const ussdPostApiV18MedicalUssdCallback8Medical2Mutation = (
+  options?: Partial<Options<UssdPostApiV18MedicalUssdCallback8Medical2Data>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV18MedicalUssdCallback8Medical2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV18MedicalUssdCallback8Medical2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV18MedicalUssdCallback8Medical2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1AlajoUssdCallbackAlajo2QueryKey = (
+  options?: Options<UssdPostApiV1AlajoUssdCallbackAlajo2Data>
+) => createQueryKey("ussdPostApiV1AlajoUssdCallbackAlajo2", options);
+
+/**
+ * Callback Alajo
+ * This endpoint simulates Alajo_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1AlajoUssdCallbackAlajo2Options = (
+  options?: Options<UssdPostApiV1AlajoUssdCallbackAlajo2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1AlajoUssdCallbackAlajo2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1AlajoUssdCallbackAlajo2QueryKey(options),
+  });
+};
+
+/**
+ * Callback Alajo
+ * This endpoint simulates Alajo_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1AlajoUssdCallbackAlajo2Mutation = (
+  options?: Partial<Options<UssdPostApiV1AlajoUssdCallbackAlajo2Data>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1AlajoUssdCallbackAlajo2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1AlajoUssdCallbackAlajo2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1AlajoUssdCallbackAlajo2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1ClafiyaUssdCallbackClafiya2QueryKey = (
+  options?: Options<UssdPostApiV1ClafiyaUssdCallbackClafiya2Data>
+) => createQueryKey("ussdPostApiV1ClafiyaUssdCallbackClafiya2", options);
+
+/**
+ * Callback Clafiya
+ * This endpoint simulates Clafiya_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1ClafiyaUssdCallbackClafiya2Options = (
+  options?: Options<UssdPostApiV1ClafiyaUssdCallbackClafiya2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1ClafiyaUssdCallbackClafiya2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1ClafiyaUssdCallbackClafiya2QueryKey(options),
+  });
+};
+
+/**
+ * Callback Clafiya
+ * This endpoint simulates Clafiya_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1ClafiyaUssdCallbackClafiya2Mutation = (
+  options?: Partial<Options<UssdPostApiV1ClafiyaUssdCallbackClafiya2Data>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1ClafiyaUssdCallbackClafiya2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1ClafiyaUssdCallbackClafiya2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1ClafiyaUssdCallbackClafiya2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1EvetUssdCallbackEvet2QueryKey = (
+  options?: Options<UssdPostApiV1EvetUssdCallbackEvet2Data>
+) => createQueryKey("ussdPostApiV1EvetUssdCallbackEvet2", options);
+
+/**
+ * Callback Evet
+ * This endpoint simulates Evet_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1EvetUssdCallbackEvet2Options = (
+  options?: Options<UssdPostApiV1EvetUssdCallbackEvet2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1EvetUssdCallbackEvet2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1EvetUssdCallbackEvet2QueryKey(options),
+  });
+};
+
+/**
+ * Callback Evet
+ * This endpoint simulates Evet_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1EvetUssdCallbackEvet2Mutation = (
+  options?: Partial<Options<UssdPostApiV1EvetUssdCallbackEvet2Data>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1EvetUssdCallbackEvet2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1EvetUssdCallbackEvet2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1EvetUssdCallbackEvet2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1FertitudeUssdCallbackFertitude2QueryKey = (
+  options?: Options<UssdPostApiV1FertitudeUssdCallbackFertitude2Data>
+) => createQueryKey("ussdPostApiV1FertitudeUssdCallbackFertitude2", options);
+
+/**
+ * Callback Fertitude
+ * This endpoint simulates Fertitude_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FertitudeUssdCallbackFertitude2Options = (
+  options?: Options<UssdPostApiV1FertitudeUssdCallbackFertitude2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1FertitudeUssdCallbackFertitude2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1FertitudeUssdCallbackFertitude2QueryKey(options),
+  });
+};
+
+/**
+ * Callback Fertitude
+ * This endpoint simulates Fertitude_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FertitudeUssdCallbackFertitude2Mutation = (
+  options?: Partial<Options<UssdPostApiV1FertitudeUssdCallbackFertitude2Data>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1FertitudeUssdCallbackFertitude2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1FertitudeUssdCallbackFertitude2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1FertitudeUssdCallbackFertitude2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1FologUssdCallbackFolog2QueryKey = (
+  options?: Options<UssdPostApiV1FologUssdCallbackFolog2Data>
+) => createQueryKey("ussdPostApiV1FologUssdCallbackFolog2", options);
+
+/**
+ * Callback Folog
+ * This endpoint simulates Folog_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FologUssdCallbackFolog2Options = (
+  options?: Options<UssdPostApiV1FologUssdCallbackFolog2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1FologUssdCallbackFolog2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1FologUssdCallbackFolog2QueryKey(options),
+  });
+};
+
+/**
+ * Callback Folog
+ * This endpoint simulates Folog_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1FologUssdCallbackFolog2Mutation = (
+  options?: Partial<Options<UssdPostApiV1FologUssdCallbackFolog2Data>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1FologUssdCallbackFolog2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1FologUssdCallbackFolog2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1FologUssdCallbackFolog2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1MylturaUssdCallbackMyltura2QueryKey = (
+  options?: Options<UssdPostApiV1MylturaUssdCallbackMyltura2Data>
+) => createQueryKey("ussdPostApiV1MylturaUssdCallbackMyltura2", options);
+
+/**
+ * Callback Myltura
+ * This endpoint simulates Myltura_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1MylturaUssdCallbackMyltura2Options = (
+  options?: Options<UssdPostApiV1MylturaUssdCallbackMyltura2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1MylturaUssdCallbackMyltura2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1MylturaUssdCallbackMyltura2QueryKey(options),
+  });
+};
+
+/**
+ * Callback Myltura
+ * This endpoint simulates Myltura_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1MylturaUssdCallbackMyltura2Mutation = (
+  options?: Partial<Options<UssdPostApiV1MylturaUssdCallbackMyltura2Data>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1MylturaUssdCallbackMyltura2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1MylturaUssdCallbackMyltura2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1MylturaUssdCallbackMyltura2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1UhcTechUssdCallbackUhcTech2QueryKey = (
+  options?: Options<UssdPostApiV1UhcTechUssdCallbackUhcTech2Data>
+) => createQueryKey("ussdPostApiV1UhcTechUssdCallbackUhcTech2", options);
+
+/**
+ * Callback Uhc Tech
+ * This endpoint simulates UHC_Tech_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1UhcTechUssdCallbackUhcTech2Options = (
+  options?: Options<UssdPostApiV1UhcTechUssdCallbackUhcTech2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1UhcTechUssdCallbackUhcTech2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1UhcTechUssdCallbackUhcTech2QueryKey(options),
+  });
+};
+
+/**
+ * Callback Uhc Tech
+ * This endpoint simulates UHC_Tech_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1UhcTechUssdCallbackUhcTech2Mutation = (
+  options?: Partial<Options<UssdPostApiV1UhcTechUssdCallbackUhcTech2Data>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1UhcTechUssdCallbackUhcTech2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1UhcTechUssdCallbackUhcTech2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1UhcTechUssdCallbackUhcTech2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1XboxUssdCallbackXbox2QueryKey = (
+  options?: Options<UssdPostApiV1XboxUssdCallbackXbox2Data>
+) => createQueryKey("ussdPostApiV1XboxUssdCallbackXbox2", options);
+
+/**
+ * Callback Xbox
+ * This endpoint simulates XBOX_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1XboxUssdCallbackXbox2Options = (
+  options?: Options<UssdPostApiV1XboxUssdCallbackXbox2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1XboxUssdCallbackXbox2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1XboxUssdCallbackXbox2QueryKey(options),
+  });
+};
+
+/**
+ * Callback Xbox
+ * This endpoint simulates XBOX_USSD's application server without signature verification.
+ */
+export const ussdPostApiV1XboxUssdCallbackXbox2Mutation = (
+  options?: Partial<Options<UssdPostApiV1XboxUssdCallbackXbox2Data>>
+): UseMutationOptions<
+  unknown,
+  DefaultError,
+  Options<UssdPostApiV1XboxUssdCallbackXbox2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DefaultError,
+    Options<UssdPostApiV1XboxUssdCallbackXbox2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1XboxUssdCallbackXbox2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestFertitudeUssdTestFertitudeUssd2QueryKey = (
+  options: Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Data>
+) =>
+  createQueryKey("ussdPostApiV1TestFertitudeUssdTestFertitudeUssd2", options);
+
+/**
+ * Test Fertitude Ussd
+ * Test endpoint for Fertitude USSD logic.
+ * Accepts POST form data and returns the same response as /fertitude_ussd.
+ *
+ *
+ * Requires:
+ *
+ * sessionId e.g., lirwf23455
+ *
+ * phoneNumber e.g., +2348103317200
+ *
+ * text (location of interest in the pipeline) e.g., "" (empty for first interaction), "1", "1*1", etc. like you would interact with USSD codes
+ */
+export const ussdPostApiV1TestFertitudeUssdTestFertitudeUssd2Options = (
+  options: Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestFertitudeUssdTestFertitudeUssd2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestFertitudeUssdTestFertitudeUssd2QueryKey(options),
+  });
+};
+
+/**
+ * Test Fertitude Ussd
+ * Test endpoint for Fertitude USSD logic.
+ * Accepts POST form data and returns the same response as /fertitude_ussd.
+ *
+ *
+ * Requires:
+ *
+ * sessionId e.g., lirwf23455
+ *
+ * phoneNumber e.g., +2348103317200
+ *
+ * text (location of interest in the pipeline) e.g., "" (empty for first interaction), "1", "1*1", etc. like you would interact with USSD codes
+ */
+export const ussdPostApiV1TestFertitudeUssdTestFertitudeUssd2Mutation = (
+  options?: Partial<
+    Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Data>
+  >
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Error,
+  Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Error,
+    Options<UssdPostApiV1TestFertitudeUssdTestFertitudeUssd2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestFertitudeUssdTestFertitudeUssd2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1Test8MedicalUssdTest8MedicalUssd2QueryKey = (
+  options: Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Data>
+) => createQueryKey("ussdPostApiV1Test8MedicalUssdTest8MedicalUssd2", options);
+
+/**
+ * Test 8Medical Ussd
+ * Test endpoint for 8Medical_USSD logic.
+ */
+export const ussdPostApiV1Test8MedicalUssdTest8MedicalUssd2Options = (
+  options: Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1Test8MedicalUssdTest8MedicalUssd2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1Test8MedicalUssdTest8MedicalUssd2QueryKey(options),
+  });
+};
+
+/**
+ * Test 8Medical Ussd
+ * Test endpoint for 8Medical_USSD logic.
+ */
+export const ussdPostApiV1Test8MedicalUssdTest8MedicalUssd2Mutation = (
+  options?: Partial<Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Data>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Error,
+  Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Error,
+    Options<UssdPostApiV1Test8MedicalUssdTest8MedicalUssd2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1Test8MedicalUssdTest8MedicalUssd2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestAlajoUssdTestAlajoUssd2QueryKey = (
+  options: Options<UssdPostApiV1TestAlajoUssdTestAlajoUssd2Data>
+) => createQueryKey("ussdPostApiV1TestAlajoUssdTestAlajoUssd2", options);
+
+/**
+ * Test Alajo Ussd
+ * Test endpoint for Alajo_USSD logic.
+ */
+export const ussdPostApiV1TestAlajoUssdTestAlajoUssd2Options = (
+  options: Options<UssdPostApiV1TestAlajoUssdTestAlajoUssd2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestAlajoUssdTestAlajoUssd2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestAlajoUssdTestAlajoUssd2QueryKey(options),
+  });
+};
+
+/**
+ * Test Alajo Ussd
+ * Test endpoint for Alajo_USSD logic.
+ */
+export const ussdPostApiV1TestAlajoUssdTestAlajoUssd2Mutation = (
+  options?: Partial<Options<UssdPostApiV1TestAlajoUssdTestAlajoUssd2Data>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestAlajoUssdTestAlajoUssd2Error,
+  Options<UssdPostApiV1TestAlajoUssdTestAlajoUssd2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestAlajoUssdTestAlajoUssd2Error,
+    Options<UssdPostApiV1TestAlajoUssdTestAlajoUssd2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestAlajoUssdTestAlajoUssd2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestClafiyaUssdTestClafiyaUssd2QueryKey = (
+  options: Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Data>
+) => createQueryKey("ussdPostApiV1TestClafiyaUssdTestClafiyaUssd2", options);
+
+/**
+ * Test Clafiya Ussd
+ * Test endpoint for Clafiya_USSD logic.
+ */
+export const ussdPostApiV1TestClafiyaUssdTestClafiyaUssd2Options = (
+  options: Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestClafiyaUssdTestClafiyaUssd2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestClafiyaUssdTestClafiyaUssd2QueryKey(options),
+  });
+};
+
+/**
+ * Test Clafiya Ussd
+ * Test endpoint for Clafiya_USSD logic.
+ */
+export const ussdPostApiV1TestClafiyaUssdTestClafiyaUssd2Mutation = (
+  options?: Partial<Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Data>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Error,
+  Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Error,
+    Options<UssdPostApiV1TestClafiyaUssdTestClafiyaUssd2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestClafiyaUssdTestClafiyaUssd2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestEvetUssdTestEvetUssd2QueryKey = (
+  options: Options<UssdPostApiV1TestEvetUssdTestEvetUssd2Data>
+) => createQueryKey("ussdPostApiV1TestEvetUssdTestEvetUssd2", options);
+
+/**
+ * Test Evet Ussd
+ * Test endpoint for Evet_USSD logic.
+ */
+export const ussdPostApiV1TestEvetUssdTestEvetUssd2Options = (
+  options: Options<UssdPostApiV1TestEvetUssdTestEvetUssd2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestEvetUssdTestEvetUssd2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestEvetUssdTestEvetUssd2QueryKey(options),
+  });
+};
+
+/**
+ * Test Evet Ussd
+ * Test endpoint for Evet_USSD logic.
+ */
+export const ussdPostApiV1TestEvetUssdTestEvetUssd2Mutation = (
+  options?: Partial<Options<UssdPostApiV1TestEvetUssdTestEvetUssd2Data>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestEvetUssdTestEvetUssd2Error,
+  Options<UssdPostApiV1TestEvetUssdTestEvetUssd2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestEvetUssdTestEvetUssd2Error,
+    Options<UssdPostApiV1TestEvetUssdTestEvetUssd2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestEvetUssdTestEvetUssd2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestFologUssdTestFologUssd2QueryKey = (
+  options: Options<UssdPostApiV1TestFologUssdTestFologUssd2Data>
+) => createQueryKey("ussdPostApiV1TestFologUssdTestFologUssd2", options);
+
+/**
+ * Test Folog Ussd
+ * Test endpoint for Folog_USSD logic.
+ */
+export const ussdPostApiV1TestFologUssdTestFologUssd2Options = (
+  options: Options<UssdPostApiV1TestFologUssdTestFologUssd2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestFologUssdTestFologUssd2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestFologUssdTestFologUssd2QueryKey(options),
+  });
+};
+
+/**
+ * Test Folog Ussd
+ * Test endpoint for Folog_USSD logic.
+ */
+export const ussdPostApiV1TestFologUssdTestFologUssd2Mutation = (
+  options?: Partial<Options<UssdPostApiV1TestFologUssdTestFologUssd2Data>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestFologUssdTestFologUssd2Error,
+  Options<UssdPostApiV1TestFologUssdTestFologUssd2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestFologUssdTestFologUssd2Error,
+    Options<UssdPostApiV1TestFologUssdTestFologUssd2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestFologUssdTestFologUssd2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestMylturaUssdTestMylturaUssd2QueryKey = (
+  options: Options<UssdPostApiV1TestMylturaUssdTestMylturaUssd2Data>
+) => createQueryKey("ussdPostApiV1TestMylturaUssdTestMylturaUssd2", options);
+
+/**
+ * Test Myltura Ussd
+ * Test endpoint for Myltura_USSD logic.
+ */
+export const ussdPostApiV1TestMylturaUssdTestMylturaUssd2Options = (
+  options: Options<UssdPostApiV1TestMylturaUssdTestMylturaUssd2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestMylturaUssdTestMylturaUssd2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestMylturaUssdTestMylturaUssd2QueryKey(options),
+  });
+};
+
+/**
+ * Test Myltura Ussd
+ * Test endpoint for Myltura_USSD logic.
+ */
+export const ussdPostApiV1TestMylturaUssdTestMylturaUssd2Mutation = (
+  options?: Partial<Options<UssdPostApiV1TestMylturaUssdTestMylturaUssd2Data>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestMylturaUssdTestMylturaUssd2Error,
+  Options<UssdPostApiV1TestMylturaUssdTestMylturaUssd2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestMylturaUssdTestMylturaUssd2Error,
+    Options<UssdPostApiV1TestMylturaUssdTestMylturaUssd2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestMylturaUssdTestMylturaUssd2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2QueryKey = (
+  options: Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Data>
+) => createQueryKey("ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2", options);
+
+/**
+ * Test Uhc Tech Ussd
+ * Test endpoint for UHC_Tech_USSD logic.
+ */
+export const ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2Options = (
+  options: Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2QueryKey(options),
+  });
+};
+
+/**
+ * Test Uhc Tech Ussd
+ * Test endpoint for UHC_Tech_USSD logic.
+ */
+export const ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2Mutation = (
+  options?: Partial<Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Data>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Error,
+  Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Error,
+    Options<UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const ussdPostApiV1TestXboxUssdTestXboxUssd2QueryKey = (
+  options: Options<UssdPostApiV1TestXboxUssdTestXboxUssd2Data>
+) => createQueryKey("ussdPostApiV1TestXboxUssdTestXboxUssd2", options);
+
+/**
+ * Test Xbox Ussd
+ * Test endpoint for XBOX_USSD logic.
+ */
+export const ussdPostApiV1TestXboxUssdTestXboxUssd2Options = (
+  options: Options<UssdPostApiV1TestXboxUssdTestXboxUssd2Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await ussdPostApiV1TestXboxUssdTestXboxUssd2({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: ussdPostApiV1TestXboxUssdTestXboxUssd2QueryKey(options),
+  });
+};
+
+/**
+ * Test Xbox Ussd
+ * Test endpoint for XBOX_USSD logic.
+ */
+export const ussdPostApiV1TestXboxUssdTestXboxUssd2Mutation = (
+  options?: Partial<Options<UssdPostApiV1TestXboxUssdTestXboxUssd2Data>>
+): UseMutationOptions<
+  unknown,
+  UssdPostApiV1TestXboxUssdTestXboxUssd2Error,
+  Options<UssdPostApiV1TestXboxUssdTestXboxUssd2Data>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    UssdPostApiV1TestXboxUssdTestXboxUssd2Error,
+    Options<UssdPostApiV1TestXboxUssdTestXboxUssd2Data>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await ussdPostApiV1TestXboxUssdTestXboxUssd2({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const apiGetMetricsMetrics5QueryKey = (
+  options?: Options<ApiGetMetricsMetrics5Data>
+) => createQueryKey("apiGetMetricsMetrics5", options);
+
+/**
+ * Metrics
+ * Endpoint that serves Prometheus metrics.
+ */
+export const apiGetMetricsMetrics5Options = (
+  options?: Options<ApiGetMetricsMetrics5Data>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await apiGetMetricsMetrics5({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: apiGetMetricsMetrics5QueryKey(options),
   });
 };

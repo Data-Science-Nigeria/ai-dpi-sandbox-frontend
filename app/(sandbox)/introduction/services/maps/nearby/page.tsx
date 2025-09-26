@@ -1,10 +1,9 @@
 "use client";
 
 import { ApiClientInterface } from "../../components/api-client-interface";
-import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { getNavigation } from "@/app/(sandbox)/lib/navigation";
+import { AccessAwarePageNavigation } from "@/app/(sandbox)/components/access-aware-page-navigation";
 
-export default function GetNearbyPlacesApiV1NearbyGetPage() {
+export default function GetNearbyPlacesApiV1MapsNearbyGetPage() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">
@@ -14,9 +13,7 @@ export default function GetNearbyPlacesApiV1NearbyGetPage() {
         />
       </div>
       <div className="p-3 sm:p-6 border-t">
-        <PageNavigation
-          {...getNavigation("/introduction/services/maps/nearby")}
-        />
+        <AccessAwarePageNavigation currentPath="/introduction/services/maps/nearby" />
       </div>
     </div>
   );

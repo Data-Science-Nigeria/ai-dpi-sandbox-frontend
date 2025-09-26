@@ -6,6 +6,7 @@ import Sidebar from "./components/sidebar";
 import { Providers } from "../auth/providers";
 import { ProtectRoute } from "../auth/components/protect-route";
 import { UserProtectRoute } from "../auth/components/user-protect-route";
+import { ServiceProtectRoute } from "./components/service-protect-route";
 
 export default function SandboxLayout({
   children,
@@ -16,19 +17,21 @@ export default function SandboxLayout({
 
   useEffect(() => {
     const checkScreenSize = () => {
+      if (typeof window === "undefined") return;
       const isLargeScreen = window.innerWidth >= 1024;
       setSidebarOpen(isLargeScreen);
     };
 
     checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-
-    return () => window.removeEventListener("resize", checkScreenSize);
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", checkScreenSize);
+      return () => window.removeEventListener("resize", checkScreenSize);
+    }
   }, []);
 
   const handleSidebarToggle = () => {
     // Only allow manual toggle on mobile screens
-    if (window.innerWidth < 1024) {
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
       setSidebarOpen(!sidebarOpen);
     }
   };
@@ -43,7 +46,9 @@ export default function SandboxLayout({
             <main
               className={`pt-[4rem] sm:pt-[5rem] md:pt-[5.5rem] transition-all duration-300 ${sidebarOpen ? "ml-0 xs:ml-56 sm:ml-64" : "ml-12 xs:ml-12 sm:ml-16"}`}
             >
-              <div className="p-4 xs:p-4 sm:p-6">{children}</div>
+              <div className="p-4 xs:p-4 sm:p-6">
+                <ServiceProtectRoute>{children}</ServiceProtectRoute>
+              </div>
             </main>
           </div>
         </UserProtectRoute>

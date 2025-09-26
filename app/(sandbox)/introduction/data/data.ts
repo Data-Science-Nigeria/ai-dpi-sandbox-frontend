@@ -34,10 +34,16 @@ export const menuItems: MenuItem[] = [
         href: "/introduction/services/ai",
         endpoints: [
           {
-            name: "Models",
+            name: "Models Groq",
             method: "GET",
-            path: "/api/v1/ai/models/",
-            href: "/introduction/services/ai/models",
+            path: "/api/v1/ai/models/groq",
+            href: "/introduction/services/ai/models-groq",
+          },
+          {
+            name: "Models Openai",
+            method: "GET",
+            path: "/api/v1/ai/models/openai",
+            href: "/introduction/services/ai/models-openai",
           },
           {
             name: "Chat",
@@ -156,10 +162,10 @@ export const menuItems: MenuItem[] = [
             href: "/introduction/services/maps/static",
           },
           {
-            name: "Routes Routes",
+            name: "Routes",
             method: "POST",
-            path: "/api/v1/maps/routes/routes/",
-            href: "/introduction/services/maps/routes-routes",
+            path: "/api/v1/maps/routes/",
+            href: "/introduction/services/maps/routes",
           },
         ],
       },
@@ -224,6 +230,12 @@ export const menuItems: MenuItem[] = [
             href: "/introduction/services/sms/status",
           },
         ],
+      },
+      {
+        id: "ussd",
+        label: "USSD",
+        href: "/introduction/services/ussd",
+        endpoints: [],
       },
     ],
   },

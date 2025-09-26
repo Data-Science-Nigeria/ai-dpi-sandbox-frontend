@@ -44,4 +44,10 @@ export const services: Service[] = [
     description: "Bidirectional SMS communication for interactive messaging",
     href: "/introduction/services/two-way-sms",
   },
+  {
+    name: "USSD",
+    description:
+      "Unstructured Supplementary Service Data for interactive mobile menu services",
+    href: "/introduction/services/ussd",
+  },
 ];
