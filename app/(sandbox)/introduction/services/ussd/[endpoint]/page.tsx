@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
 import { ApiClientInterface } from "../../components/api-client-interface";
 import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
-import { authenticationGetApiV1AuthMeReadUserMe } from "@/client";
+import { useAuthStore } from "@/app/store/use-auth-store";
 import {
   getStartupByUser,
   getUssdEndpointName,
@@ -14,6 +14,7 @@ import { hasServiceAccess } from "../../../types/access-control";
 export default function DynamicUssdEndpointPage() {
   const params = useParams();
   const endpoint = params.endpoint as string;
+  const { auth } = useAuthStore();
   const [isValidEndpoint, setIsValidEndpoint] = useState<boolean | null>(null);
   const [endpointConfig, setEndpointConfig] = useState<{
     initialPath: string;
@@ -25,83 +26,84 @@ export default function DynamicUssdEndpointPage() {
   }>({ previous: undefined, next: undefined });
 
   useEffect(() => {
-    const validateEndpoint = async () => {
-      try {
-        const { data } = await authenticationGetApiV1AuthMeReadUserMe();
-        const startup = getStartupByUser(
-          data?.id,
-          data?.email,
-          data?.username || undefined
-        );
-        const endpointName = getUssdEndpointName(startup.username);
+    const validateEndpoint = () => {
+      if (!auth.user) {
+        // Don't set to false immediately when user is null
+        // Let ProtectRoute handle the redirect
+        setIsValidEndpoint(null);
+        return;
+      }
 
-        // Check if this endpoint belongs to the current user
-        const isUserEndpoint =
-          endpoint === `${endpointName}_ussd` ||
-          endpoint === `test_${endpointName}_ussd`;
+      const startup = getStartupByUser(
+        Number(auth.user.id),
+        auth.user.email,
+        undefined
+      );
+      const endpointName = getUssdEndpointName(startup.username);
 
-        if (isUserEndpoint) {
-          const config = {
-            initialPath: `/api/v1/ussd/${endpoint}`,
-            currentPath: `/introduction/services/ussd/${endpoint}`,
-          };
-          setEndpointConfig(config);
-          setIsValidEndpoint(true);
+      // Check if this endpoint belongs to the current user
+      const isUserEndpoint =
+        endpoint === `${endpointName}_ussd` ||
+        endpoint === `test_${endpointName}_ussd`;
 
-          // Create user-specific navigation between their USSD endpoints with access control
-          const userPages = [];
+      if (isUserEndpoint) {
+        const config = {
+          initialPath: `/api/v1/ussd/${endpoint}`,
+          currentPath: `/introduction/services/ussd/${endpoint}`,
+        };
+        setEndpointConfig(config);
+        setIsValidEndpoint(true);
 
-          // Only add USSD service if user has access
-          if (
-            hasServiceAccess(
-              "ussd",
-              data?.id,
-              data?.email,
-              data?.username || undefined
-            )
-          ) {
-            userPages.push({
-              title: "Ussd Service",
-              href: "/introduction/services/ussd",
-            });
-            userPages.push({
-              title: `${startup.name} USSD`,
-              href: `/introduction/services/ussd/${endpointName}_ussd`,
-            });
-            userPages.push({
-              title: `Test ${startup.name} USSD`,
-              href: `/introduction/services/ussd/test_${endpointName}_ussd`,
-            });
-          }
+        // Create user-specific navigation between their USSD endpoints with access control
+        const userPages = [];
 
-          const currentIndex = userPages.findIndex(
-            (page) => page.href === config.currentPath
-          );
-
-          setNavigation({
-            previous:
-              currentIndex > 0 ? userPages[currentIndex - 1] : undefined,
-            next:
-              currentIndex < userPages.length - 1
-                ? userPages[currentIndex + 1]
-                : undefined,
+        // Only add USSD service if user has access
+        if (
+          hasServiceAccess(
+            "ussd",
+            Number(auth.user.id),
+            auth.user.email,
+            undefined
+          )
+        ) {
+          userPages.push({
+            title: "Ussd Service",
+            href: "/introduction/services/ussd",
           });
-        } else {
-          setIsValidEndpoint(false);
+          userPages.push({
+            title: `${startup.name} USSD`,
+            href: `/introduction/services/ussd/${endpointName}_ussd`,
+          });
+          userPages.push({
+            title: `Test ${startup.name} USSD`,
+            href: `/introduction/services/ussd/test_${endpointName}_ussd`,
+          });
         }
-      } catch {
+
+        const currentIndex = userPages.findIndex(
+          (page) => page.href === config.currentPath
+        );
+
+        setNavigation({
+          previous: currentIndex > 0 ? userPages[currentIndex - 1] : undefined,
+          next:
+            currentIndex < userPages.length - 1
+              ? userPages[currentIndex + 1]
+              : undefined,
+        });
+      } else {
         setIsValidEndpoint(false);
       }
     };
 
     validateEndpoint();
-  }, [endpoint]);
+  }, [endpoint, auth.user]);
 
   if (isValidEndpoint === null) {
     return null;
   }
 
-  if (!isValidEndpoint || !endpointConfig) {
+  if (isValidEndpoint === false || !endpointConfig) {
     notFound();
   }
 

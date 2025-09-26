@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, notFound } from "next/navigation";
-import { authenticationGetApiV1AuthMeReadUserMe } from "@/client";
+import { useAuthStore } from "@/app/store/use-auth-store";
 import { hasServiceAccess } from "../introduction/types/access-control";
 
 export const ServiceProtectRoute = ({
@@ -12,9 +12,10 @@ export const ServiceProtectRoute = ({
 }) => {
   const [hasAccess, setHasAccess] = useState<boolean | null>(null);
   const pathname = usePathname();
+  const { auth } = useAuthStore();
 
   useEffect(() => {
-    const checkServiceAccess = async () => {
+    const checkServiceAccess = () => {
       // Extract service name from pathname
       const serviceMatch = pathname.match(/\/introduction\/services\/([^/]+)/);
       if (!serviceMatch) {
@@ -24,28 +25,29 @@ export const ServiceProtectRoute = ({
 
       const serviceName = serviceMatch[1];
 
-      try {
-        const { data } = await authenticationGetApiV1AuthMeReadUserMe();
+      if (auth.user) {
         const access = hasServiceAccess(
           serviceName,
-          data?.id,
-          data?.email,
-          data?.username || undefined
+          Number(auth.user.id),
+          auth.user.email,
+          undefined
         );
         setHasAccess(access);
-      } catch {
-        setHasAccess(false);
+      } else {
+        // Don't set access to false immediately when user is null
+        // Let ProtectRoute handle the redirect
+        setHasAccess(null);
       }
     };
 
     checkServiceAccess();
-  }, [pathname]);
+  }, [pathname, auth.user]);
 
   if (hasAccess === null) {
     return null;
   }
 
-  if (!hasAccess) {
+  if (hasAccess === false) {
     notFound();
   }
 

@@ -1,15 +1,11 @@
-import { useRouter } from "next/navigation";
 import { authenticationPostApiV1AuthLogoutLogoutUserMutation } from "@/client/@tanstack/react-query.gen";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { getApiErrorMessage } from "@/lib/get-api-error-message";
 import { useAuthStore } from "@/app/store/use-auth-store";
 import { useAlert } from "./use-alert";
 import { client } from "@/client/client.gen";
 
 export const useLogout = () => {
   const { logout: logoutAlert } = useAlert();
-  const router = useRouter();
   const { clearAuth } = useAuthStore();
 
   const logout = useMutation({
@@ -20,7 +16,7 @@ export const useLogout = () => {
     const { auth } = useAuthStore.getState();
 
     try {
-      // Set authorization header before logout
+      // Set authorization header for logout API call
       if (auth.access_token) {
         client.setConfig({
           headers: {
@@ -29,21 +25,18 @@ export const useLogout = () => {
         });
       }
 
+      // Call logout API
       await logout.mutateAsync({});
-      clearAuth();
-      // Clear client config
-      client.setConfig({
-        headers: {},
-      });
-      router.push("/auth/signin");
     } catch (error) {
-      toast.error(getApiErrorMessage(error));
+      console.error("Logout API error:", error);
+    } finally {
+      // Clear auth after API call (or on error)
       clearAuth();
+
       // Clear client config
       client.setConfig({
         headers: {},
       });
-      router.push("/auth/signin");
     }
   };
 

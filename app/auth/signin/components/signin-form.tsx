@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { LoaderCircle } from "lucide-react";
 //import Link from 'next/link';
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -28,7 +27,6 @@ type SignInData = z.infer<typeof signInSchema>;
 export function SignInForm() {
   const { setAuth, setUser } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
 
   const {
     register,
@@ -83,13 +81,6 @@ export function SignInForm() {
           setAuth({ access_token: "" });
           setIsSubmitting(false);
           return;
-        }
-
-        // Redirect based on user role
-        if (user.role === "admin") {
-          router.push("/admin/dashboard");
-        } else {
-          router.push("/introduction");
         }
       } catch (error) {
         console.error("Failed to fetch user profile:", error);

@@ -10,7 +10,7 @@ import {
 import { PanelLeft, PanelRight, Code } from "lucide-react";
 import { useAccessControl } from "@/app/hooks/use-access-control";
 import { getUserSpecificMenuItems } from "../introduction/lib/user-specific-data";
-import { authenticationGetApiV1AuthMeReadUserMe } from "@/client";
+import { useAuthStore } from "@/app/store/use-auth-store";
 import { type MenuItem } from "../introduction/data/data";
 
 interface SidebarProps {
@@ -22,29 +22,25 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { canAccessService, loading } = useAccessControl();
+  const { auth } = useAuthStore();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const [expandedEndpoints, setExpandedEndpoints] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<string>("");
   const [userMenuItems, setUserMenuItems] = useState<MenuItem[]>([]);
 
   useEffect(() => {
-    const fetchUserMenuItems = async () => {
-      try {
-        const { data } = await authenticationGetApiV1AuthMeReadUserMe();
-        const menuItems = getUserSpecificMenuItems(
-          data?.id,
-          data?.email,
-          data?.username || undefined
-        );
-        setUserMenuItems(menuItems);
-      } catch {
-        const menuItems = getUserSpecificMenuItems();
-        setUserMenuItems(menuItems);
-      }
-    };
-
-    fetchUserMenuItems();
-  }, []);
+    if (auth.user) {
+      const menuItems = getUserSpecificMenuItems(
+        Number(auth.user.id),
+        auth.user.email,
+        undefined
+      );
+      setUserMenuItems(menuItems);
+    } else {
+      const menuItems = getUserSpecificMenuItems();
+      setUserMenuItems(menuItems);
+    }
+  }, [auth.user]);
 
   // Filter menu items based on access control
   const filteredMenuItems = userMenuItems

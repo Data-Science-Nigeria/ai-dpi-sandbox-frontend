@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { authenticationGetApiV1AuthMeReadUserMe } from "@/client";
+import { useAuthStore } from "@/app/store/use-auth-store";
 import {
   getUserAccessRules,
   type AccessRule,
@@ -8,29 +8,23 @@ import {
 export function useAccessControl() {
   const [accessRules, setAccessRules] = useState<AccessRule | null>(null);
   const [loading, setLoading] = useState(true);
+  const { auth } = useAuthStore();
 
   useEffect(() => {
-    const fetchUserAccess = async () => {
-      try {
-        const { data } = await authenticationGetApiV1AuthMeReadUserMe();
-        if (data) {
-          const rules = getUserAccessRules(
-            data.id,
-            data.email,
-            data.username || undefined
-          );
-          setAccessRules(rules);
-        }
-      } catch {
-        const defaultRules = getUserAccessRules();
-        setAccessRules(defaultRules);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserAccess();
-  }, []);
+    if (auth.user) {
+      const rules = getUserAccessRules(
+        Number(auth.user.id),
+        auth.user.email,
+        undefined
+      );
+      setAccessRules(rules);
+      setLoading(false);
+    } else {
+      const defaultRules = getUserAccessRules();
+      setAccessRules(defaultRules);
+      setLoading(false);
+    }
+  }, [auth.user]);
 
   const canAccessService = useCallback(
     (service: string) => {
