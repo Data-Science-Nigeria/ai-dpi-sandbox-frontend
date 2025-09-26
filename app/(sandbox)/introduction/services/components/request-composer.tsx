@@ -18,7 +18,6 @@ import { MapsParams } from "./maps-params";
 import { getBaseUrl } from "@/lib/env";
 import { useAuthStore } from "@/app/store/use-auth-store";
 import { getDefaultBody } from "./default-body-provider";
-import { authenticationGetApiV1AuthMeReadUserMe } from "@/client";
 import { getStartupByUser, type Startup } from "../../types/startup-config";
 
 interface Header {
@@ -91,28 +90,22 @@ export function RequestComposer({
     }
   }, [pathParams.length, isMapsEndpoint, isTestUssdEndpoint]);
 
-  // Fetch startup data for USSD endpoints
+  // Get startup data for USSD endpoints
   useEffect(() => {
     if (isTestUssdEndpoint) {
-      const fetchStartup = async () => {
-        try {
-          const { data } = await authenticationGetApiV1AuthMeReadUserMe();
-          if (data) {
-            const matchedStartup = getStartupByUser(
-              data.id,
-              data.email,
-              data.username || undefined
-            );
-            setStartup(matchedStartup);
-          }
-        } catch {
-          const defaultStartup = getStartupByUser();
-          setStartup(defaultStartup);
-        }
-      };
-      fetchStartup();
+      if (auth.user) {
+        const matchedStartup = getStartupByUser(
+          Number(auth.user.id),
+          auth.user.email,
+          undefined
+        );
+        setStartup(matchedStartup);
+      } else {
+        const defaultStartup = getStartupByUser();
+        setStartup(defaultStartup);
+      }
     }
-  }, [isTestUssdEndpoint]);
+  }, [isTestUssdEndpoint, auth.user]);
 
   // Update body when path changes
   useEffect(() => {

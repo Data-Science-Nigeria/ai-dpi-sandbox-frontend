@@ -7,7 +7,7 @@ import { PageNavigation } from "@/app/(sandbox)/components/page-navigation";
 import { SuspenseWrapper } from "../components/suspense-wrapper";
 import { CodeBlock } from "../components/code-block";
 import { LanguageSelector } from "../components/language-selector";
-import { authenticationGetApiV1AuthMeReadUserMe } from "@/client";
+import { useAuthStore } from "@/app/store/use-auth-store";
 import {
   getStartupByUser,
   getUssdEndpointName,
@@ -18,35 +18,22 @@ import { hasServiceAccess } from "../../types/access-control";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.dsnsandbox.com";
 
 function UssdServiceContent() {
+  const { auth } = useAuthStore();
   const [startup, setStartup] = useState<Startup | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const { data } = await authenticationGetApiV1AuthMeReadUserMe();
-        if (data) {
-          const matchedStartup = getStartupByUser(
-            data.id,
-            data.email,
-            data.username || undefined
-          );
-          setStartup(matchedStartup);
-        }
-      } catch {
-        const defaultStartup = getStartupByUser();
-        setStartup(defaultStartup);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  if (loading) {
-    return null;
-  }
+    if (auth.user) {
+      const matchedStartup = getStartupByUser(
+        Number(auth.user.id),
+        auth.user.email,
+        undefined
+      );
+      setStartup(matchedStartup);
+    } else {
+      const defaultStartup = getStartupByUser();
+      setStartup(defaultStartup);
+    }
+  }, [auth.user]);
 
   if (!startup) {
     return <div className="p-6">Error loading page</div>;
@@ -111,34 +98,18 @@ HttpRequest request = HttpRequest.newBuilder()
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
   };
 
-  const codeExample = `@router.post("/test_${endpointName}_ussd")
-async def test_${endpointName}_ussd(
-    sessionId: str = Form(...),
-    serviceCode: str = Form("${startup.serviceCode || ""}"),
-    phoneNumber: str = Form(...),
-    text: str = Form("")
-):
-    """
-    Test endpoint for ${startup.name} USSD logic.
-    Accepts POST form data and returns the same response as /${startup.username}_ussd.
-    
-    Requires: 
-    sessionId e.g., lirwf23455 
-    phoneNumber e.g., +2348103317200 
-    text (location of interest in the pipeline) e.g., "" (empty for first interaction), "1", "1*1", etc. like you would interact with USSD codes
-    """
-    # Simulate the same logic as in callback_${endpointName}
-    if text == '' or text == 'default':
-        response = "CON Welcome to ${startup.name} USSD\\n"
-        response += "1. Track your cycle\\n"
-        response += "2. Get fertility tips"
-    elif text == '1':
-        response = "END Cycle tracking information updated."
-    elif text == '2':
-        response = "END A tip has been sent to your phone."
-    else:
-        response = "END Invalid choice for ${startup.name} USSD"
-    return PlainTextResponse(content=response)`;
+  const responseExample = `# Simulate the same logic as in callback_${endpointName}
+if text == '' or text == 'default':
+    response = "CON Welcome to ${startup.name} USSD\n"
+    response += "1. Track your cycle\n"
+    response += "2. Get fertility tips"
+elif text == '1':
+    response = "END Cycle tracking information updated."
+elif text == '2':
+    response = "END A tip has been sent to your phone."
+else:
+    response = "END Invalid choice for ${startup.name} USSD"
+return PlainTextResponse(content=response)`;
 
   return (
     <div className="h-full flex flex-col w-full">
@@ -315,9 +286,9 @@ async def test_${endpointName}_ussd(
                     </h4>
                     <div className="w-full overflow-hidden">
                       <CodeBlock
-                        code={codeExample}
+                        code={responseExample}
                         language="python"
-                        title="Endpoint Implementation"
+                        title="200 OK Response"
                       />
                     </div>
                   </div>
@@ -335,11 +306,12 @@ async def test_${endpointName}_ussd(
             href: "/introduction/services/sms/status",
           }}
           next={
+            auth.user &&
             hasServiceAccess(
               "ussd",
-              startup.id,
-              startup.email,
-              startup.username
+              Number(auth.user.id),
+              auth.user.email,
+              undefined
             )
               ? {
                   title: `${startup.name} USSD`,

@@ -18,6 +18,7 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
     setUser,
   } = useAuthStore();
   const isCheckingAuth = useRef(false);
+  const hasRedirected = useRef(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -32,8 +33,21 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
     const checkAuthStatus = async () => {
       if (isCheckingAuth.current) return;
 
+      // Check if user is authenticated
+      const isAuth = checkAuth();
+
+      // If not authenticated, redirect immediately
+      if (!isAuth) {
+        setIsAuthenticated(false);
+        if (!hasRedirected.current) {
+          hasRedirected.current = true;
+          router.push("/auth/signin");
+        }
+        return;
+      }
+
       // If we have both token and user, check if user is on correct route
-      if (checkAuth() && auth.user?.id) {
+      if (isAuth && auth.user?.id) {
         const userRole = auth.user.role;
         const isAdminRoute = pathname.startsWith("/admin");
 
@@ -57,7 +71,7 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
       }
 
       // If we have a token but no user, fetch user data
-      if (checkAuth() && !auth.user) {
+      if (isAuth && !auth.user) {
         isCheckingAuth.current = true;
 
         try {
@@ -100,13 +114,14 @@ export const ProtectRoute = ({ children }: { children: React.ReactNode }) => {
         } catch (error) {
           console.error("Auth check failed:", error);
           clearAuth();
-          router.push("/auth/signin");
+          setIsAuthenticated(false);
+          if (!hasRedirected.current) {
+            hasRedirected.current = true;
+            router.push("/auth/signin");
+          }
         } finally {
           isCheckingAuth.current = false;
         }
-      } else {
-        // No token, redirect to signin
-        router.push("/auth/signin");
       }
     };
 
