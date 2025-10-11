@@ -44,20 +44,17 @@ import {
   textToSpeechApiV1SpitchTextToSpeechPost,
   translateApiV1SpitchTranslatePost,
   rootGet,
-  apiPostApiV1VerifyVerifyNin,
-  apiGetApiV1StatusNinGetNinStatus,
-  apiPostApiV1LookupLookupNinBasic,
-  apiPostApiV1VerifyVerifyBvn,
-  apiGetApiV1StatusBvnGetBvnStatus,
-  apiPostApiV1LookupLookupBvnBasic,
-  apiPostApiV1MatchMatchBvn,
-  apiGetApiV1BanksGetSupportedBanks,
+  dpiApiPostApiV1NinLookupNinLookup,
+  dpiApiPostApiV1BvnLookupBvnLookup,
+  dpiApiPostApiV1CreditScoreCreditScore,
+  dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNin,
+  apiGetRootRoot3,
   getNearbyPlacesApiV1MapsNearbyGet,
   getDistanceApiV1MapsDistanceGet,
   getDirectionsApiV1MapsDirectionsGet,
   getStaticMapApiV1MapsStaticGet,
   getRouteApiV1MapsRoutesPost,
-  apiGetRootRoot3,
+  apiGetRootRoot4,
   apiPostUssdUssdProxy,
   apiPostUssdNotificationUssdNotification,
   ussdPostApiV18MedicalUssdCallback8Medical,
@@ -80,7 +77,7 @@ import {
   ussdPostApiV1TestXboxUssdTestXboxUssd,
   apiGetMetricsMetrics,
   apiGetHealthHealthCheck,
-  apiGetRootRoot4,
+  apiGetRootRoot5,
   authenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2,
   authenticationGetApiV1AuthWellKnownJwksJsonJwks2,
   authenticationPostApiV1AuthLoginLoginUser2,
@@ -106,7 +103,7 @@ import {
   webhookPostApiV1DeliveryReportHandleDeliveryReport2,
   smsGetApiV1SmsStatusMessageIdGetMessageStatus2,
   apiGetHealthHealthCheck2,
-  apiGetRootRoot5,
+  apiGetRootRoot6,
   apiGetMetricsMetrics2,
   healthHealthGet,
   readyReadyGet2,
@@ -122,18 +119,6 @@ import {
   translateApiV1SpitchTranslatePost2,
   rootGet2,
   metricsMetricsGet,
-  apiPostApiV1VerifyVerifyNin2,
-  apiGetApiV1StatusNinGetNinStatus2,
-  apiPostApiV1LookupLookupNinBasic2,
-  apiGetHealthHealthCheck3,
-  apiGetMetricsMetrics3,
-  apiPostApiV1VerifyVerifyBvn2,
-  apiGetApiV1StatusBvnGetBvnStatus2,
-  apiPostApiV1LookupLookupBvnBasic2,
-  apiPostApiV1MatchMatchBvn2,
-  apiGetApiV1BanksGetSupportedBanks2,
-  apiGetHealthHealthCheck4,
-  apiGetMetricsMetrics4,
   getNearbyPlacesApiV1MapsNearbyGet2,
   getDistanceApiV1MapsDistanceGet2,
   getDirectionsApiV1MapsDirectionsGet2,
@@ -141,7 +126,7 @@ import {
   getRouteApiV1MapsRoutesPost2,
   healthCheckHealthGet,
   metricsMetricsGet2,
-  apiGetHealthHealthCheck5,
+  apiGetHealthHealthCheck3,
   apiPostUssdUssdProxy2,
   apiPostUssdNotificationUssdNotification2,
   ussdPostApiV18MedicalUssdCallback8Medical2,
@@ -162,7 +147,7 @@ import {
   ussdPostApiV1TestMylturaUssdTestMylturaUssd2,
   ussdPostApiV1TestUhcTechUssdTestUhcTechUssd2,
   ussdPostApiV1TestXboxUssdTestXboxUssd2,
-  apiGetMetricsMetrics5,
+  apiGetMetricsMetrics3,
 } from "../sdk.gen";
 import {
   queryOptions,
@@ -239,31 +224,26 @@ import type {
   TranslateApiV1SpitchTranslatePostData,
   TranslateApiV1SpitchTranslatePostError,
   RootGetData,
-  ApiPostApiV1VerifyVerifyNinData,
-  ApiPostApiV1VerifyVerifyNinError,
-  ApiPostApiV1VerifyVerifyNinResponse,
-  ApiGetApiV1StatusNinGetNinStatusData,
-  ApiPostApiV1LookupLookupNinBasicData,
-  ApiPostApiV1LookupLookupNinBasicError,
-  ApiPostApiV1LookupLookupNinBasicResponse,
-  ApiPostApiV1VerifyVerifyBvnData,
-  ApiPostApiV1VerifyVerifyBvnError,
-  ApiPostApiV1VerifyVerifyBvnResponse,
-  ApiGetApiV1StatusBvnGetBvnStatusData,
-  ApiPostApiV1LookupLookupBvnBasicData,
-  ApiPostApiV1LookupLookupBvnBasicError,
-  ApiPostApiV1LookupLookupBvnBasicResponse,
-  ApiPostApiV1MatchMatchBvnData,
-  ApiPostApiV1MatchMatchBvnError,
-  ApiPostApiV1MatchMatchBvnResponse,
-  ApiGetApiV1BanksGetSupportedBanksData,
+  DpiApiPostApiV1NinLookupNinLookupData,
+  DpiApiPostApiV1NinLookupNinLookupError,
+  DpiApiPostApiV1NinLookupNinLookupResponse,
+  DpiApiPostApiV1BvnLookupBvnLookupData,
+  DpiApiPostApiV1BvnLookupBvnLookupError,
+  DpiApiPostApiV1BvnLookupBvnLookupResponse,
+  DpiApiPostApiV1CreditScoreCreditScoreData,
+  DpiApiPostApiV1CreditScoreCreditScoreError,
+  DpiApiPostApiV1CreditScoreCreditScoreResponse,
+  DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData,
+  DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinError,
+  DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponse,
+  ApiGetRootRoot3Data,
   GetNearbyPlacesApiV1MapsNearbyGetData,
   GetDistanceApiV1MapsDistanceGetData,
   GetDirectionsApiV1MapsDirectionsGetData,
   GetStaticMapApiV1MapsStaticGetData,
   GetRouteApiV1MapsRoutesPostData,
   GetRouteApiV1MapsRoutesPostError,
-  ApiGetRootRoot3Data,
+  ApiGetRootRoot4Data,
   ApiPostUssdUssdProxyData,
   ApiPostUssdUssdProxyError,
   ApiPostUssdNotificationUssdNotificationData,
@@ -297,7 +277,7 @@ import type {
   UssdPostApiV1TestXboxUssdTestXboxUssdError,
   ApiGetMetricsMetricsData,
   ApiGetHealthHealthCheckData,
-  ApiGetRootRoot4Data,
+  ApiGetRootRoot5Data,
   AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Data,
   AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Data,
   AuthenticationPostApiV1AuthLoginLoginUser2Data,
@@ -341,7 +321,7 @@ import type {
   WebhookPostApiV1DeliveryReportHandleDeliveryReport2Data,
   SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Data,
   ApiGetHealthHealthCheck2Data,
-  ApiGetRootRoot5Data,
+  ApiGetRootRoot6Data,
   ApiGetMetricsMetrics2Data,
   HealthHealthGetData,
   ReadyReadyGet2Data,
@@ -366,28 +346,6 @@ import type {
   TranslateApiV1SpitchTranslatePost2Error,
   RootGet2Data,
   MetricsMetricsGetData,
-  ApiPostApiV1VerifyVerifyNin2Data,
-  ApiPostApiV1VerifyVerifyNin2Error,
-  ApiPostApiV1VerifyVerifyNin2Response,
-  ApiGetApiV1StatusNinGetNinStatus2Data,
-  ApiPostApiV1LookupLookupNinBasic2Data,
-  ApiPostApiV1LookupLookupNinBasic2Error,
-  ApiPostApiV1LookupLookupNinBasic2Response,
-  ApiGetHealthHealthCheck3Data,
-  ApiGetMetricsMetrics3Data,
-  ApiPostApiV1VerifyVerifyBvn2Data,
-  ApiPostApiV1VerifyVerifyBvn2Error,
-  ApiPostApiV1VerifyVerifyBvn2Response,
-  ApiGetApiV1StatusBvnGetBvnStatus2Data,
-  ApiPostApiV1LookupLookupBvnBasic2Data,
-  ApiPostApiV1LookupLookupBvnBasic2Error,
-  ApiPostApiV1LookupLookupBvnBasic2Response,
-  ApiPostApiV1MatchMatchBvn2Data,
-  ApiPostApiV1MatchMatchBvn2Error,
-  ApiPostApiV1MatchMatchBvn2Response,
-  ApiGetApiV1BanksGetSupportedBanks2Data,
-  ApiGetHealthHealthCheck4Data,
-  ApiGetMetricsMetrics4Data,
   GetNearbyPlacesApiV1MapsNearbyGet2Data,
   GetDistanceApiV1MapsDistanceGet2Data,
   GetDirectionsApiV1MapsDirectionsGet2Data,
@@ -396,7 +354,7 @@ import type {
   GetRouteApiV1MapsRoutesPost2Error,
   HealthCheckHealthGetData,
   MetricsMetricsGet2Data,
-  ApiGetHealthHealthCheck5Data,
+  ApiGetHealthHealthCheck3Data,
   ApiPostUssdUssdProxy2Data,
   ApiPostUssdUssdProxy2Error,
   ApiPostUssdNotificationUssdNotification2Data,
@@ -428,7 +386,7 @@ import type {
   UssdPostApiV1TestUhcTechUssdTestUhcTechUssd2Error,
   UssdPostApiV1TestXboxUssdTestXboxUssd2Data,
   UssdPostApiV1TestXboxUssdTestXboxUssd2Error,
-  ApiGetMetricsMetrics5Data,
+  ApiGetMetricsMetrics3Data,
 } from "../types.gen";
 import { client as _heyApiClient } from "../client.gen";
 
@@ -2708,20 +2666,20 @@ export const rootGetOptions = (options?: Options<RootGetData>) => {
   });
 };
 
-export const apiPostApiV1VerifyVerifyNinQueryKey = (
-  options: Options<ApiPostApiV1VerifyVerifyNinData>
-) => createQueryKey("apiPostApiV1VerifyVerifyNin", options);
+export const dpiApiPostApiV1NinLookupNinLookupQueryKey = (
+  options: Options<DpiApiPostApiV1NinLookupNinLookupData>
+) => createQueryKey("dpiApiPostApiV1NinLookupNinLookup", options);
 
 /**
- * Verify Nin
- * Verify NIN using Dojah API.
+ * NIN Verification
+ * Verify a Nigerian National Identification Number (NIN) and retrieve associated identity information
  */
-export const apiPostApiV1VerifyVerifyNinOptions = (
-  options: Options<ApiPostApiV1VerifyVerifyNinData>
+export const dpiApiPostApiV1NinLookupNinLookupOptions = (
+  options: Options<DpiApiPostApiV1NinLookupNinLookupData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1VerifyVerifyNin({
+      const { data } = await dpiApiPostApiV1NinLookupNinLookup({
         ...options,
         ...queryKey[0],
         signal,
@@ -2729,28 +2687,28 @@ export const apiPostApiV1VerifyVerifyNinOptions = (
       });
       return data;
     },
-    queryKey: apiPostApiV1VerifyVerifyNinQueryKey(options),
+    queryKey: dpiApiPostApiV1NinLookupNinLookupQueryKey(options),
   });
 };
 
 /**
- * Verify Nin
- * Verify NIN using Dojah API.
+ * NIN Verification
+ * Verify a Nigerian National Identification Number (NIN) and retrieve associated identity information
  */
-export const apiPostApiV1VerifyVerifyNinMutation = (
-  options?: Partial<Options<ApiPostApiV1VerifyVerifyNinData>>
+export const dpiApiPostApiV1NinLookupNinLookupMutation = (
+  options?: Partial<Options<DpiApiPostApiV1NinLookupNinLookupData>>
 ): UseMutationOptions<
-  ApiPostApiV1VerifyVerifyNinResponse,
-  ApiPostApiV1VerifyVerifyNinError,
-  Options<ApiPostApiV1VerifyVerifyNinData>
+  DpiApiPostApiV1NinLookupNinLookupResponse,
+  DpiApiPostApiV1NinLookupNinLookupError,
+  Options<DpiApiPostApiV1NinLookupNinLookupData>
 > => {
   const mutationOptions: UseMutationOptions<
-    ApiPostApiV1VerifyVerifyNinResponse,
-    ApiPostApiV1VerifyVerifyNinError,
-    Options<ApiPostApiV1VerifyVerifyNinData>
+    DpiApiPostApiV1NinLookupNinLookupResponse,
+    DpiApiPostApiV1NinLookupNinLookupError,
+    Options<DpiApiPostApiV1NinLookupNinLookupData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1VerifyVerifyNin({
+      const { data } = await dpiApiPostApiV1NinLookupNinLookup({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -2761,20 +2719,20 @@ export const apiPostApiV1VerifyVerifyNinMutation = (
   return mutationOptions;
 };
 
-export const apiGetApiV1StatusNinGetNinStatusQueryKey = (
-  options: Options<ApiGetApiV1StatusNinGetNinStatusData>
-) => createQueryKey("apiGetApiV1StatusNinGetNinStatus", options);
+export const dpiApiPostApiV1BvnLookupBvnLookupQueryKey = (
+  options: Options<DpiApiPostApiV1BvnLookupBvnLookupData>
+) => createQueryKey("dpiApiPostApiV1BvnLookupBvnLookup", options);
 
 /**
- * Get Nin Status
- * Get NIN verification status.
+ * BVN Verification
+ * Verify a Bank Verification Number (BVN) and retrieve associated identity information
  */
-export const apiGetApiV1StatusNinGetNinStatusOptions = (
-  options: Options<ApiGetApiV1StatusNinGetNinStatusData>
+export const dpiApiPostApiV1BvnLookupBvnLookupOptions = (
+  options: Options<DpiApiPostApiV1BvnLookupBvnLookupData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetApiV1StatusNinGetNinStatus({
+      const { data } = await dpiApiPostApiV1BvnLookupBvnLookup({
         ...options,
         ...queryKey[0],
         signal,
@@ -2782,53 +2740,28 @@ export const apiGetApiV1StatusNinGetNinStatusOptions = (
       });
       return data;
     },
-    queryKey: apiGetApiV1StatusNinGetNinStatusQueryKey(options),
-  });
-};
-
-export const apiPostApiV1LookupLookupNinBasicQueryKey = (
-  options: Options<ApiPostApiV1LookupLookupNinBasicData>
-) => createQueryKey("apiPostApiV1LookupLookupNinBasic", options);
-
-/**
- * Lookup Nin Basic
- * Basic NIN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupNinBasicOptions = (
-  options: Options<ApiPostApiV1LookupLookupNinBasicData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1LookupLookupNinBasic({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiPostApiV1LookupLookupNinBasicQueryKey(options),
+    queryKey: dpiApiPostApiV1BvnLookupBvnLookupQueryKey(options),
   });
 };
 
 /**
- * Lookup Nin Basic
- * Basic NIN lookup without full verification.
+ * BVN Verification
+ * Verify a Bank Verification Number (BVN) and retrieve associated identity information
  */
-export const apiPostApiV1LookupLookupNinBasicMutation = (
-  options?: Partial<Options<ApiPostApiV1LookupLookupNinBasicData>>
+export const dpiApiPostApiV1BvnLookupBvnLookupMutation = (
+  options?: Partial<Options<DpiApiPostApiV1BvnLookupBvnLookupData>>
 ): UseMutationOptions<
-  ApiPostApiV1LookupLookupNinBasicResponse,
-  ApiPostApiV1LookupLookupNinBasicError,
-  Options<ApiPostApiV1LookupLookupNinBasicData>
+  DpiApiPostApiV1BvnLookupBvnLookupResponse,
+  DpiApiPostApiV1BvnLookupBvnLookupError,
+  Options<DpiApiPostApiV1BvnLookupBvnLookupData>
 > => {
   const mutationOptions: UseMutationOptions<
-    ApiPostApiV1LookupLookupNinBasicResponse,
-    ApiPostApiV1LookupLookupNinBasicError,
-    Options<ApiPostApiV1LookupLookupNinBasicData>
+    DpiApiPostApiV1BvnLookupBvnLookupResponse,
+    DpiApiPostApiV1BvnLookupBvnLookupError,
+    Options<DpiApiPostApiV1BvnLookupBvnLookupData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1LookupLookupNinBasic({
+      const { data } = await dpiApiPostApiV1BvnLookupBvnLookup({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -2839,20 +2772,20 @@ export const apiPostApiV1LookupLookupNinBasicMutation = (
   return mutationOptions;
 };
 
-export const apiPostApiV1VerifyVerifyBvnQueryKey = (
-  options: Options<ApiPostApiV1VerifyVerifyBvnData>
-) => createQueryKey("apiPostApiV1VerifyVerifyBvn", options);
+export const dpiApiPostApiV1CreditScoreCreditScoreQueryKey = (
+  options: Options<DpiApiPostApiV1CreditScoreCreditScoreData>
+) => createQueryKey("dpiApiPostApiV1CreditScoreCreditScore", options);
 
 /**
- * Verify Bvn
- * Verify BVN using Dojah API.
+ * Credit Score Lookup
+ * Retrieve credit score information using Bank Verification Number (BVN)
  */
-export const apiPostApiV1VerifyVerifyBvnOptions = (
-  options: Options<ApiPostApiV1VerifyVerifyBvnData>
+export const dpiApiPostApiV1CreditScoreCreditScoreOptions = (
+  options: Options<DpiApiPostApiV1CreditScoreCreditScoreData>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1VerifyVerifyBvn({
+      const { data } = await dpiApiPostApiV1CreditScoreCreditScore({
         ...options,
         ...queryKey[0],
         signal,
@@ -2860,28 +2793,28 @@ export const apiPostApiV1VerifyVerifyBvnOptions = (
       });
       return data;
     },
-    queryKey: apiPostApiV1VerifyVerifyBvnQueryKey(options),
+    queryKey: dpiApiPostApiV1CreditScoreCreditScoreQueryKey(options),
   });
 };
 
 /**
- * Verify Bvn
- * Verify BVN using Dojah API.
+ * Credit Score Lookup
+ * Retrieve credit score information using Bank Verification Number (BVN)
  */
-export const apiPostApiV1VerifyVerifyBvnMutation = (
-  options?: Partial<Options<ApiPostApiV1VerifyVerifyBvnData>>
+export const dpiApiPostApiV1CreditScoreCreditScoreMutation = (
+  options?: Partial<Options<DpiApiPostApiV1CreditScoreCreditScoreData>>
 ): UseMutationOptions<
-  ApiPostApiV1VerifyVerifyBvnResponse,
-  ApiPostApiV1VerifyVerifyBvnError,
-  Options<ApiPostApiV1VerifyVerifyBvnData>
+  DpiApiPostApiV1CreditScoreCreditScoreResponse,
+  DpiApiPostApiV1CreditScoreCreditScoreError,
+  Options<DpiApiPostApiV1CreditScoreCreditScoreData>
 > => {
   const mutationOptions: UseMutationOptions<
-    ApiPostApiV1VerifyVerifyBvnResponse,
-    ApiPostApiV1VerifyVerifyBvnError,
-    Options<ApiPostApiV1VerifyVerifyBvnData>
+    DpiApiPostApiV1CreditScoreCreditScoreResponse,
+    DpiApiPostApiV1CreditScoreCreditScoreError,
+    Options<DpiApiPostApiV1CreditScoreCreditScoreData>
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1VerifyVerifyBvn({
+      const { data } = await dpiApiPostApiV1CreditScoreCreditScore({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -2892,151 +2825,86 @@ export const apiPostApiV1VerifyVerifyBvnMutation = (
   return mutationOptions;
 };
 
-export const apiGetApiV1StatusBvnGetBvnStatusQueryKey = (
-  options: Options<ApiGetApiV1StatusBvnGetBvnStatusData>
-) => createQueryKey("apiGetApiV1StatusBvnGetBvnStatus", options);
+export const dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinQueryKey =
+  (
+    options: Options<DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData>
+  ) =>
+    createQueryKey(
+      "dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNin",
+      options
+    );
 
 /**
- * Get Bvn Status
- * Get BVN verification status.
+ * Selfie + NIN Verification
+ * Verify identity by matching a selfie image with NIN records using facial recognition
  */
-export const apiGetApiV1StatusBvnGetBvnStatusOptions = (
-  options: Options<ApiGetApiV1StatusBvnGetBvnStatusData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetApiV1StatusBvnGetBvnStatus({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetApiV1StatusBvnGetBvnStatusQueryKey(options),
-  });
-};
-
-export const apiPostApiV1LookupLookupBvnBasicQueryKey = (
-  options: Options<ApiPostApiV1LookupLookupBvnBasicData>
-) => createQueryKey("apiPostApiV1LookupLookupBvnBasic", options);
-
-/**
- * Lookup Bvn Basic
- * Basic BVN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupBvnBasicOptions = (
-  options: Options<ApiPostApiV1LookupLookupBvnBasicData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1LookupLookupBvnBasic({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiPostApiV1LookupLookupBvnBasicQueryKey(options),
-  });
-};
-
-/**
- * Lookup Bvn Basic
- * Basic BVN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupBvnBasicMutation = (
-  options?: Partial<Options<ApiPostApiV1LookupLookupBvnBasicData>>
-): UseMutationOptions<
-  ApiPostApiV1LookupLookupBvnBasicResponse,
-  ApiPostApiV1LookupLookupBvnBasicError,
-  Options<ApiPostApiV1LookupLookupBvnBasicData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    ApiPostApiV1LookupLookupBvnBasicResponse,
-    ApiPostApiV1LookupLookupBvnBasicError,
-    Options<ApiPostApiV1LookupLookupBvnBasicData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1LookupLookupBvnBasic({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
+export const dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinOptions =
+  (
+    options: Options<DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData>
+  ) => {
+    return queryOptions({
+      queryFn: async ({ queryKey, signal }) => {
+        const { data } =
+          await dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNin({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true,
+          });
+        return data;
+      },
+      queryKey:
+        dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinQueryKey(
+          options
+        ),
+    });
   };
-  return mutationOptions;
-};
-
-export const apiPostApiV1MatchMatchBvnQueryKey = (
-  options: Options<ApiPostApiV1MatchMatchBvnData>
-) => createQueryKey("apiPostApiV1MatchMatchBvn", options);
 
 /**
- * Match Bvn
- * Match BVN against provided identity attributes (placeholder).
+ * Selfie + NIN Verification
+ * Verify identity by matching a selfie image with NIN records using facial recognition
  */
-export const apiPostApiV1MatchMatchBvnOptions = (
-  options: Options<ApiPostApiV1MatchMatchBvnData>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1MatchMatchBvn({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiPostApiV1MatchMatchBvnQueryKey(options),
-  });
-};
-
-/**
- * Match Bvn
- * Match BVN against provided identity attributes (placeholder).
- */
-export const apiPostApiV1MatchMatchBvnMutation = (
-  options?: Partial<Options<ApiPostApiV1MatchMatchBvnData>>
-): UseMutationOptions<
-  ApiPostApiV1MatchMatchBvnResponse,
-  ApiPostApiV1MatchMatchBvnError,
-  Options<ApiPostApiV1MatchMatchBvnData>
-> => {
-  const mutationOptions: UseMutationOptions<
-    ApiPostApiV1MatchMatchBvnResponse,
-    ApiPostApiV1MatchMatchBvnError,
-    Options<ApiPostApiV1MatchMatchBvnData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1MatchMatchBvn({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
+export const dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinMutation =
+  (
+    options?: Partial<
+      Options<DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData>
+    >
+  ): UseMutationOptions<
+    DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponse,
+    DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinError,
+    Options<DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData>
+  > => {
+    const mutationOptions: UseMutationOptions<
+      DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponse,
+      DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinError,
+      Options<DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData>
+    > = {
+      mutationFn: async (localOptions) => {
+        const { data } =
+          await dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNin({
+            ...options,
+            ...localOptions,
+            throwOnError: true,
+          });
+        return data;
+      },
+    };
+    return mutationOptions;
   };
-  return mutationOptions;
-};
 
-export const apiGetApiV1BanksGetSupportedBanksQueryKey = (
-  options?: Options<ApiGetApiV1BanksGetSupportedBanksData>
-) => createQueryKey("apiGetApiV1BanksGetSupportedBanks", options);
+export const apiGetRootRoot3QueryKey = (
+  options?: Options<ApiGetRootRoot3Data>
+) => createQueryKey("apiGetRootRoot3", options);
 
 /**
- * Get Supported Banks
- * Return supported Nigerian banks (placeholder list).
+ * Root
  */
-export const apiGetApiV1BanksGetSupportedBanksOptions = (
-  options?: Options<ApiGetApiV1BanksGetSupportedBanksData>
+export const apiGetRootRoot3Options = (
+  options?: Options<ApiGetRootRoot3Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetApiV1BanksGetSupportedBanks({
+      const { data } = await apiGetRootRoot3({
         ...options,
         ...queryKey[0],
         signal,
@@ -3044,7 +2912,7 @@ export const apiGetApiV1BanksGetSupportedBanksOptions = (
       });
       return data;
     },
-    queryKey: apiGetApiV1BanksGetSupportedBanksQueryKey(options),
+    queryKey: apiGetRootRoot3QueryKey(options),
   });
 };
 
@@ -3259,19 +3127,19 @@ export const getRouteApiV1MapsRoutesPostMutation = (
   return mutationOptions;
 };
 
-export const apiGetRootRoot3QueryKey = (
-  options?: Options<ApiGetRootRoot3Data>
-) => createQueryKey("apiGetRootRoot3", options);
+export const apiGetRootRoot4QueryKey = (
+  options?: Options<ApiGetRootRoot4Data>
+) => createQueryKey("apiGetRootRoot4", options);
 
 /**
  * Root
  */
-export const apiGetRootRoot3Options = (
-  options?: Options<ApiGetRootRoot3Data>
+export const apiGetRootRoot4Options = (
+  options?: Options<ApiGetRootRoot4Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetRootRoot3({
+      const { data } = await apiGetRootRoot4({
         ...options,
         ...queryKey[0],
         signal,
@@ -3279,7 +3147,7 @@ export const apiGetRootRoot3Options = (
       });
       return data;
     },
-    queryKey: apiGetRootRoot3QueryKey(options),
+    queryKey: apiGetRootRoot4QueryKey(options),
   });
 };
 
@@ -4419,20 +4287,20 @@ export const apiGetHealthHealthCheckOptions = (
   });
 };
 
-export const apiGetRootRoot4QueryKey = (
-  options?: Options<ApiGetRootRoot4Data>
-) => createQueryKey("apiGetRootRoot4", options);
+export const apiGetRootRoot5QueryKey = (
+  options?: Options<ApiGetRootRoot5Data>
+) => createQueryKey("apiGetRootRoot5", options);
 
 /**
  * Root
  * Root endpoint.
  */
-export const apiGetRootRoot4Options = (
-  options?: Options<ApiGetRootRoot4Data>
+export const apiGetRootRoot5Options = (
+  options?: Options<ApiGetRootRoot5Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetRootRoot4({
+      const { data } = await apiGetRootRoot5({
         ...options,
         ...queryKey[0],
         signal,
@@ -4440,7 +4308,7 @@ export const apiGetRootRoot4Options = (
       });
       return data;
     },
-    queryKey: apiGetRootRoot4QueryKey(options),
+    queryKey: apiGetRootRoot5QueryKey(options),
   });
 };
 
@@ -5838,19 +5706,19 @@ export const apiGetHealthHealthCheck2Options = (
   });
 };
 
-export const apiGetRootRoot5QueryKey = (
-  options?: Options<ApiGetRootRoot5Data>
-) => createQueryKey("apiGetRootRoot5", options);
+export const apiGetRootRoot6QueryKey = (
+  options?: Options<ApiGetRootRoot6Data>
+) => createQueryKey("apiGetRootRoot6", options);
 
 /**
  * Root
  */
-export const apiGetRootRoot5Options = (
-  options?: Options<ApiGetRootRoot5Data>
+export const apiGetRootRoot6Options = (
+  options?: Options<ApiGetRootRoot6Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetRootRoot5({
+      const { data } = await apiGetRootRoot6({
         ...options,
         ...queryKey[0],
         signal,
@@ -5858,7 +5726,7 @@ export const apiGetRootRoot5Options = (
       });
       return data;
     },
-    queryKey: apiGetRootRoot5QueryKey(options),
+    queryKey: apiGetRootRoot6QueryKey(options),
   });
 };
 
@@ -6666,444 +6534,6 @@ export const metricsMetricsGetOptions = (
   });
 };
 
-export const apiPostApiV1VerifyVerifyNin2QueryKey = (
-  options: Options<ApiPostApiV1VerifyVerifyNin2Data>
-) => createQueryKey("apiPostApiV1VerifyVerifyNin2", options);
-
-/**
- * Verify Nin
- * Verify NIN using Dojah API.
- */
-export const apiPostApiV1VerifyVerifyNin2Options = (
-  options: Options<ApiPostApiV1VerifyVerifyNin2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1VerifyVerifyNin2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiPostApiV1VerifyVerifyNin2QueryKey(options),
-  });
-};
-
-/**
- * Verify Nin
- * Verify NIN using Dojah API.
- */
-export const apiPostApiV1VerifyVerifyNin2Mutation = (
-  options?: Partial<Options<ApiPostApiV1VerifyVerifyNin2Data>>
-): UseMutationOptions<
-  ApiPostApiV1VerifyVerifyNin2Response,
-  ApiPostApiV1VerifyVerifyNin2Error,
-  Options<ApiPostApiV1VerifyVerifyNin2Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    ApiPostApiV1VerifyVerifyNin2Response,
-    ApiPostApiV1VerifyVerifyNin2Error,
-    Options<ApiPostApiV1VerifyVerifyNin2Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1VerifyVerifyNin2({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const apiGetApiV1StatusNinGetNinStatus2QueryKey = (
-  options: Options<ApiGetApiV1StatusNinGetNinStatus2Data>
-) => createQueryKey("apiGetApiV1StatusNinGetNinStatus2", options);
-
-/**
- * Get Nin Status
- * Get NIN verification status.
- */
-export const apiGetApiV1StatusNinGetNinStatus2Options = (
-  options: Options<ApiGetApiV1StatusNinGetNinStatus2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetApiV1StatusNinGetNinStatus2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetApiV1StatusNinGetNinStatus2QueryKey(options),
-  });
-};
-
-export const apiPostApiV1LookupLookupNinBasic2QueryKey = (
-  options: Options<ApiPostApiV1LookupLookupNinBasic2Data>
-) => createQueryKey("apiPostApiV1LookupLookupNinBasic2", options);
-
-/**
- * Lookup Nin Basic
- * Basic NIN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupNinBasic2Options = (
-  options: Options<ApiPostApiV1LookupLookupNinBasic2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1LookupLookupNinBasic2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiPostApiV1LookupLookupNinBasic2QueryKey(options),
-  });
-};
-
-/**
- * Lookup Nin Basic
- * Basic NIN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupNinBasic2Mutation = (
-  options?: Partial<Options<ApiPostApiV1LookupLookupNinBasic2Data>>
-): UseMutationOptions<
-  ApiPostApiV1LookupLookupNinBasic2Response,
-  ApiPostApiV1LookupLookupNinBasic2Error,
-  Options<ApiPostApiV1LookupLookupNinBasic2Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    ApiPostApiV1LookupLookupNinBasic2Response,
-    ApiPostApiV1LookupLookupNinBasic2Error,
-    Options<ApiPostApiV1LookupLookupNinBasic2Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1LookupLookupNinBasic2({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const apiGetHealthHealthCheck3QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck3Data>
-) => createQueryKey("apiGetHealthHealthCheck3", options);
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck3Options = (
-  options?: Options<ApiGetHealthHealthCheck3Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck3({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetHealthHealthCheck3QueryKey(options),
-  });
-};
-
-export const apiGetMetricsMetrics3QueryKey = (
-  options?: Options<ApiGetMetricsMetrics3Data>
-) => createQueryKey("apiGetMetricsMetrics3", options);
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics3Options = (
-  options?: Options<ApiGetMetricsMetrics3Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics3({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetMetricsMetrics3QueryKey(options),
-  });
-};
-
-export const apiPostApiV1VerifyVerifyBvn2QueryKey = (
-  options: Options<ApiPostApiV1VerifyVerifyBvn2Data>
-) => createQueryKey("apiPostApiV1VerifyVerifyBvn2", options);
-
-/**
- * Verify Bvn
- * Verify BVN using Dojah API.
- */
-export const apiPostApiV1VerifyVerifyBvn2Options = (
-  options: Options<ApiPostApiV1VerifyVerifyBvn2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1VerifyVerifyBvn2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiPostApiV1VerifyVerifyBvn2QueryKey(options),
-  });
-};
-
-/**
- * Verify Bvn
- * Verify BVN using Dojah API.
- */
-export const apiPostApiV1VerifyVerifyBvn2Mutation = (
-  options?: Partial<Options<ApiPostApiV1VerifyVerifyBvn2Data>>
-): UseMutationOptions<
-  ApiPostApiV1VerifyVerifyBvn2Response,
-  ApiPostApiV1VerifyVerifyBvn2Error,
-  Options<ApiPostApiV1VerifyVerifyBvn2Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    ApiPostApiV1VerifyVerifyBvn2Response,
-    ApiPostApiV1VerifyVerifyBvn2Error,
-    Options<ApiPostApiV1VerifyVerifyBvn2Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1VerifyVerifyBvn2({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const apiGetApiV1StatusBvnGetBvnStatus2QueryKey = (
-  options: Options<ApiGetApiV1StatusBvnGetBvnStatus2Data>
-) => createQueryKey("apiGetApiV1StatusBvnGetBvnStatus2", options);
-
-/**
- * Get Bvn Status
- * Get BVN verification status.
- */
-export const apiGetApiV1StatusBvnGetBvnStatus2Options = (
-  options: Options<ApiGetApiV1StatusBvnGetBvnStatus2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetApiV1StatusBvnGetBvnStatus2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetApiV1StatusBvnGetBvnStatus2QueryKey(options),
-  });
-};
-
-export const apiPostApiV1LookupLookupBvnBasic2QueryKey = (
-  options: Options<ApiPostApiV1LookupLookupBvnBasic2Data>
-) => createQueryKey("apiPostApiV1LookupLookupBvnBasic2", options);
-
-/**
- * Lookup Bvn Basic
- * Basic BVN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupBvnBasic2Options = (
-  options: Options<ApiPostApiV1LookupLookupBvnBasic2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1LookupLookupBvnBasic2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiPostApiV1LookupLookupBvnBasic2QueryKey(options),
-  });
-};
-
-/**
- * Lookup Bvn Basic
- * Basic BVN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupBvnBasic2Mutation = (
-  options?: Partial<Options<ApiPostApiV1LookupLookupBvnBasic2Data>>
-): UseMutationOptions<
-  ApiPostApiV1LookupLookupBvnBasic2Response,
-  ApiPostApiV1LookupLookupBvnBasic2Error,
-  Options<ApiPostApiV1LookupLookupBvnBasic2Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    ApiPostApiV1LookupLookupBvnBasic2Response,
-    ApiPostApiV1LookupLookupBvnBasic2Error,
-    Options<ApiPostApiV1LookupLookupBvnBasic2Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1LookupLookupBvnBasic2({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const apiPostApiV1MatchMatchBvn2QueryKey = (
-  options: Options<ApiPostApiV1MatchMatchBvn2Data>
-) => createQueryKey("apiPostApiV1MatchMatchBvn2", options);
-
-/**
- * Match Bvn
- * Match BVN against provided identity attributes (placeholder).
- */
-export const apiPostApiV1MatchMatchBvn2Options = (
-  options: Options<ApiPostApiV1MatchMatchBvn2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiPostApiV1MatchMatchBvn2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiPostApiV1MatchMatchBvn2QueryKey(options),
-  });
-};
-
-/**
- * Match Bvn
- * Match BVN against provided identity attributes (placeholder).
- */
-export const apiPostApiV1MatchMatchBvn2Mutation = (
-  options?: Partial<Options<ApiPostApiV1MatchMatchBvn2Data>>
-): UseMutationOptions<
-  ApiPostApiV1MatchMatchBvn2Response,
-  ApiPostApiV1MatchMatchBvn2Error,
-  Options<ApiPostApiV1MatchMatchBvn2Data>
-> => {
-  const mutationOptions: UseMutationOptions<
-    ApiPostApiV1MatchMatchBvn2Response,
-    ApiPostApiV1MatchMatchBvn2Error,
-    Options<ApiPostApiV1MatchMatchBvn2Data>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await apiPostApiV1MatchMatchBvn2({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const apiGetApiV1BanksGetSupportedBanks2QueryKey = (
-  options?: Options<ApiGetApiV1BanksGetSupportedBanks2Data>
-) => createQueryKey("apiGetApiV1BanksGetSupportedBanks2", options);
-
-/**
- * Get Supported Banks
- * Return supported Nigerian banks (placeholder list).
- */
-export const apiGetApiV1BanksGetSupportedBanks2Options = (
-  options?: Options<ApiGetApiV1BanksGetSupportedBanks2Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetApiV1BanksGetSupportedBanks2({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetApiV1BanksGetSupportedBanks2QueryKey(options),
-  });
-};
-
-export const apiGetHealthHealthCheck4QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck4Data>
-) => createQueryKey("apiGetHealthHealthCheck4", options);
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck4Options = (
-  options?: Options<ApiGetHealthHealthCheck4Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck4({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetHealthHealthCheck4QueryKey(options),
-  });
-};
-
-export const apiGetMetricsMetrics4QueryKey = (
-  options?: Options<ApiGetMetricsMetrics4Data>
-) => createQueryKey("apiGetMetricsMetrics4", options);
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics4Options = (
-  options?: Options<ApiGetMetricsMetrics4Data>
-) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics4({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: apiGetMetricsMetrics4QueryKey(options),
-  });
-};
-
 export const getNearbyPlacesApiV1MapsNearbyGet2QueryKey = (
   options: Options<GetNearbyPlacesApiV1MapsNearbyGet2Data>
 ) => createQueryKey("getNearbyPlacesApiV1MapsNearbyGet2", options);
@@ -7364,19 +6794,19 @@ export const metricsMetricsGet2Options = (
   });
 };
 
-export const apiGetHealthHealthCheck5QueryKey = (
-  options?: Options<ApiGetHealthHealthCheck5Data>
-) => createQueryKey("apiGetHealthHealthCheck5", options);
+export const apiGetHealthHealthCheck3QueryKey = (
+  options?: Options<ApiGetHealthHealthCheck3Data>
+) => createQueryKey("apiGetHealthHealthCheck3", options);
 
 /**
  * Health Check
  */
-export const apiGetHealthHealthCheck5Options = (
-  options?: Options<ApiGetHealthHealthCheck5Data>
+export const apiGetHealthHealthCheck3Options = (
+  options?: Options<ApiGetHealthHealthCheck3Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetHealthHealthCheck5({
+      const { data } = await apiGetHealthHealthCheck3({
         ...options,
         ...queryKey[0],
         signal,
@@ -7384,7 +6814,7 @@ export const apiGetHealthHealthCheck5Options = (
       });
       return data;
     },
-    queryKey: apiGetHealthHealthCheck5QueryKey(options),
+    queryKey: apiGetHealthHealthCheck3QueryKey(options),
   });
 };
 
@@ -8475,20 +7905,20 @@ export const ussdPostApiV1TestXboxUssdTestXboxUssd2Mutation = (
   return mutationOptions;
 };
 
-export const apiGetMetricsMetrics5QueryKey = (
-  options?: Options<ApiGetMetricsMetrics5Data>
-) => createQueryKey("apiGetMetricsMetrics5", options);
+export const apiGetMetricsMetrics3QueryKey = (
+  options?: Options<ApiGetMetricsMetrics3Data>
+) => createQueryKey("apiGetMetricsMetrics3", options);
 
 /**
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const apiGetMetricsMetrics5Options = (
-  options?: Options<ApiGetMetricsMetrics5Data>
+export const apiGetMetricsMetrics3Options = (
+  options?: Options<ApiGetMetricsMetrics3Data>
 ) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
-      const { data } = await apiGetMetricsMetrics5({
+      const { data } = await apiGetMetricsMetrics3({
         ...options,
         ...queryKey[0],
         signal,
@@ -8496,6 +7926,6 @@ export const apiGetMetricsMetrics5Options = (
       });
       return data;
     },
-    queryKey: apiGetMetricsMetrics5QueryKey(options),
+    queryKey: apiGetMetricsMetrics3QueryKey(options),
   });
 };

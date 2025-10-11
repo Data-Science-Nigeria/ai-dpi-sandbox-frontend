@@ -9,7 +9,7 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction",
   },
   {
-    title: "AI Service",
+    title: "Ai Service",
     href: "/introduction/services/ai",
   },
   {
@@ -53,28 +53,24 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/ai/spitch-translate",
   },
   {
-    title: "Bvn Service",
-    href: "/introduction/services/bvn",
+    title: "Dpi Service",
+    href: "/introduction/services/dpi",
   },
   {
-    title: "Verify",
-    href: "/introduction/services/bvn/verify",
+    title: "Nin Lookup",
+    href: "/introduction/services/dpi/nin-lookup",
   },
   {
-    title: "Status",
-    href: "/introduction/services/bvn/status",
+    title: "Bvn Lookup",
+    href: "/introduction/services/dpi/bvn-lookup",
   },
   {
-    title: "Lookup",
-    href: "/introduction/services/bvn/lookup",
+    title: "Credit Score",
+    href: "/introduction/services/dpi/credit-score",
   },
   {
-    title: "Match",
-    href: "/introduction/services/bvn/match",
-  },
-  {
-    title: "Banks",
-    href: "/introduction/services/bvn/banks",
+    title: "Selfie Verification Nin",
+    href: "/introduction/services/dpi/selfie-verification-nin",
   },
   {
     title: "Maps Service",
@@ -99,22 +95,6 @@ export const navigationPages: NavigationPage[] = [
   {
     title: "Routes",
     href: "/introduction/services/maps/routes",
-  },
-  {
-    title: "Nin Service",
-    href: "/introduction/services/nin",
-  },
-  {
-    title: "Verify",
-    href: "/introduction/services/nin/verify",
-  },
-  {
-    title: "Status",
-    href: "/introduction/services/nin/status",
-  },
-  {
-    title: "Lookup",
-    href: "/introduction/services/nin/lookup",
   },
   {
     title: "Sms Service",

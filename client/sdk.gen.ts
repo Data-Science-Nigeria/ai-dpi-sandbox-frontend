@@ -116,29 +116,20 @@ import type {
   TranslateApiV1SpitchTranslatePostErrors,
   RootGetData,
   RootGetResponses,
-  ApiPostApiV1VerifyVerifyNinData,
-  ApiPostApiV1VerifyVerifyNinResponses,
-  ApiPostApiV1VerifyVerifyNinErrors,
-  ApiGetApiV1StatusNinGetNinStatusData,
-  ApiGetApiV1StatusNinGetNinStatusResponses,
-  ApiGetApiV1StatusNinGetNinStatusErrors,
-  ApiPostApiV1LookupLookupNinBasicData,
-  ApiPostApiV1LookupLookupNinBasicResponses,
-  ApiPostApiV1LookupLookupNinBasicErrors,
-  ApiPostApiV1VerifyVerifyBvnData,
-  ApiPostApiV1VerifyVerifyBvnResponses,
-  ApiPostApiV1VerifyVerifyBvnErrors,
-  ApiGetApiV1StatusBvnGetBvnStatusData,
-  ApiGetApiV1StatusBvnGetBvnStatusResponses,
-  ApiGetApiV1StatusBvnGetBvnStatusErrors,
-  ApiPostApiV1LookupLookupBvnBasicData,
-  ApiPostApiV1LookupLookupBvnBasicResponses,
-  ApiPostApiV1LookupLookupBvnBasicErrors,
-  ApiPostApiV1MatchMatchBvnData,
-  ApiPostApiV1MatchMatchBvnResponses,
-  ApiPostApiV1MatchMatchBvnErrors,
-  ApiGetApiV1BanksGetSupportedBanksData,
-  ApiGetApiV1BanksGetSupportedBanksResponses,
+  DpiApiPostApiV1NinLookupNinLookupData,
+  DpiApiPostApiV1NinLookupNinLookupResponses,
+  DpiApiPostApiV1NinLookupNinLookupErrors,
+  DpiApiPostApiV1BvnLookupBvnLookupData,
+  DpiApiPostApiV1BvnLookupBvnLookupResponses,
+  DpiApiPostApiV1BvnLookupBvnLookupErrors,
+  DpiApiPostApiV1CreditScoreCreditScoreData,
+  DpiApiPostApiV1CreditScoreCreditScoreResponses,
+  DpiApiPostApiV1CreditScoreCreditScoreErrors,
+  DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData,
+  DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponses,
+  DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinErrors,
+  ApiGetRootRoot3Data,
+  ApiGetRootRoot3Responses,
   GetNearbyPlacesApiV1MapsNearbyGetData,
   GetNearbyPlacesApiV1MapsNearbyGetResponses,
   GetNearbyPlacesApiV1MapsNearbyGetErrors,
@@ -154,8 +145,8 @@ import type {
   GetRouteApiV1MapsRoutesPostData,
   GetRouteApiV1MapsRoutesPostResponses,
   GetRouteApiV1MapsRoutesPostErrors,
-  ApiGetRootRoot3Data,
-  ApiGetRootRoot3Responses,
+  ApiGetRootRoot4Data,
+  ApiGetRootRoot4Responses,
   ApiPostUssdUssdProxyData,
   ApiPostUssdUssdProxyResponses,
   ApiPostUssdUssdProxyErrors,
@@ -211,8 +202,8 @@ import type {
   ApiGetMetricsMetricsResponses,
   ApiGetHealthHealthCheckData,
   ApiGetHealthHealthCheckResponses,
-  ApiGetRootRoot4Data,
-  ApiGetRootRoot4Responses,
+  ApiGetRootRoot5Data,
+  ApiGetRootRoot5Responses,
   AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Data,
   AuthenticationGetApiV1AuthWellKnownOpenidConfigurationOpenidConfiguration2Responses,
   AuthenticationGetApiV1AuthWellKnownJwksJsonJwks2Data,
@@ -280,8 +271,8 @@ import type {
   SmsGetApiV1SmsStatusMessageIdGetMessageStatus2Errors,
   ApiGetHealthHealthCheck2Data,
   ApiGetHealthHealthCheck2Responses,
-  ApiGetRootRoot5Data,
-  ApiGetRootRoot5Responses,
+  ApiGetRootRoot6Data,
+  ApiGetRootRoot6Responses,
   ApiGetMetricsMetrics2Data,
   ApiGetMetricsMetrics2Responses,
   HealthHealthGetData,
@@ -319,37 +310,6 @@ import type {
   RootGet2Responses,
   MetricsMetricsGetData,
   MetricsMetricsGetResponses,
-  ApiPostApiV1VerifyVerifyNin2Data,
-  ApiPostApiV1VerifyVerifyNin2Responses,
-  ApiPostApiV1VerifyVerifyNin2Errors,
-  ApiGetApiV1StatusNinGetNinStatus2Data,
-  ApiGetApiV1StatusNinGetNinStatus2Responses,
-  ApiGetApiV1StatusNinGetNinStatus2Errors,
-  ApiPostApiV1LookupLookupNinBasic2Data,
-  ApiPostApiV1LookupLookupNinBasic2Responses,
-  ApiPostApiV1LookupLookupNinBasic2Errors,
-  ApiGetHealthHealthCheck3Data,
-  ApiGetHealthHealthCheck3Responses,
-  ApiGetMetricsMetrics3Data,
-  ApiGetMetricsMetrics3Responses,
-  ApiPostApiV1VerifyVerifyBvn2Data,
-  ApiPostApiV1VerifyVerifyBvn2Responses,
-  ApiPostApiV1VerifyVerifyBvn2Errors,
-  ApiGetApiV1StatusBvnGetBvnStatus2Data,
-  ApiGetApiV1StatusBvnGetBvnStatus2Responses,
-  ApiGetApiV1StatusBvnGetBvnStatus2Errors,
-  ApiPostApiV1LookupLookupBvnBasic2Data,
-  ApiPostApiV1LookupLookupBvnBasic2Responses,
-  ApiPostApiV1LookupLookupBvnBasic2Errors,
-  ApiPostApiV1MatchMatchBvn2Data,
-  ApiPostApiV1MatchMatchBvn2Responses,
-  ApiPostApiV1MatchMatchBvn2Errors,
-  ApiGetApiV1BanksGetSupportedBanks2Data,
-  ApiGetApiV1BanksGetSupportedBanks2Responses,
-  ApiGetHealthHealthCheck4Data,
-  ApiGetHealthHealthCheck4Responses,
-  ApiGetMetricsMetrics4Data,
-  ApiGetMetricsMetrics4Responses,
   GetNearbyPlacesApiV1MapsNearbyGet2Data,
   GetNearbyPlacesApiV1MapsNearbyGet2Responses,
   GetNearbyPlacesApiV1MapsNearbyGet2Errors,
@@ -369,8 +329,8 @@ import type {
   HealthCheckHealthGetResponses,
   MetricsMetricsGet2Data,
   MetricsMetricsGet2Responses,
-  ApiGetHealthHealthCheck5Data,
-  ApiGetHealthHealthCheck5Responses,
+  ApiGetHealthHealthCheck3Data,
+  ApiGetHealthHealthCheck3Responses,
   ApiPostUssdUssdProxy2Data,
   ApiPostUssdUssdProxy2Responses,
   ApiPostUssdUssdProxy2Errors,
@@ -422,8 +382,8 @@ import type {
   UssdPostApiV1TestXboxUssdTestXboxUssd2Data,
   UssdPostApiV1TestXboxUssdTestXboxUssd2Responses,
   UssdPostApiV1TestXboxUssdTestXboxUssd2Errors,
-  ApiGetMetricsMetrics5Data,
-  ApiGetMetricsMetrics5Responses,
+  ApiGetMetricsMetrics3Data,
+  ApiGetMetricsMetrics3Responses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -1874,17 +1834,17 @@ export const rootGet = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Verify Nin
- * Verify NIN using Dojah API.
+ * NIN Verification
+ * Verify a Nigerian National Identification Number (NIN) and retrieve associated identity information
  */
-export const apiPostApiV1VerifyVerifyNin = <
+export const dpiApiPostApiV1NinLookupNinLookup = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ApiPostApiV1VerifyVerifyNinData, ThrowOnError>
+  options: Options<DpiApiPostApiV1NinLookupNinLookupData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1VerifyVerifyNinResponses,
-    ApiPostApiV1VerifyVerifyNinErrors,
+    DpiApiPostApiV1NinLookupNinLookupResponses,
+    DpiApiPostApiV1NinLookupNinLookupErrors,
     ThrowOnError
   >({
     security: [
@@ -1893,7 +1853,7 @@ export const apiPostApiV1VerifyVerifyNin = <
         type: "http",
       },
     ],
-    url: "/api/v1/nin/verify",
+    url: "/api/v1/dpi/nin/lookup",
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -1903,42 +1863,17 @@ export const apiPostApiV1VerifyVerifyNin = <
 };
 
 /**
- * Get Nin Status
- * Get NIN verification status.
+ * BVN Verification
+ * Verify a Bank Verification Number (BVN) and retrieve associated identity information
  */
-export const apiGetApiV1StatusNinGetNinStatus = <
+export const dpiApiPostApiV1BvnLookupBvnLookup = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ApiGetApiV1StatusNinGetNinStatusData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).get<
-    ApiGetApiV1StatusNinGetNinStatusResponses,
-    ApiGetApiV1StatusNinGetNinStatusErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/nin/status/{nin}",
-    ...options,
-  });
-};
-
-/**
- * Lookup Nin Basic
- * Basic NIN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupNinBasic = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1LookupLookupNinBasicData, ThrowOnError>
+  options: Options<DpiApiPostApiV1BvnLookupBvnLookupData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1LookupLookupNinBasicResponses,
-    ApiPostApiV1LookupLookupNinBasicErrors,
+    DpiApiPostApiV1BvnLookupBvnLookupResponses,
+    DpiApiPostApiV1BvnLookupBvnLookupErrors,
     ThrowOnError
   >({
     security: [
@@ -1947,7 +1882,7 @@ export const apiPostApiV1LookupLookupNinBasic = <
         type: "http",
       },
     ],
-    url: "/api/v1/nin/lookup",
+    url: "/api/v1/dpi/bvn/lookup",
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -1957,17 +1892,17 @@ export const apiPostApiV1LookupLookupNinBasic = <
 };
 
 /**
- * Verify Bvn
- * Verify BVN using Dojah API.
+ * Credit Score Lookup
+ * Retrieve credit score information using Bank Verification Number (BVN)
  */
-export const apiPostApiV1VerifyVerifyBvn = <
+export const dpiApiPostApiV1CreditScoreCreditScore = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ApiPostApiV1VerifyVerifyBvnData, ThrowOnError>
+  options: Options<DpiApiPostApiV1CreditScoreCreditScoreData, ThrowOnError>
 ) => {
   return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1VerifyVerifyBvnResponses,
-    ApiPostApiV1VerifyVerifyBvnErrors,
+    DpiApiPostApiV1CreditScoreCreditScoreResponses,
+    DpiApiPostApiV1CreditScoreCreditScoreErrors,
     ThrowOnError
   >({
     security: [
@@ -1976,7 +1911,7 @@ export const apiPostApiV1VerifyVerifyBvn = <
         type: "http",
       },
     ],
-    url: "/api/v1/bvn/verify",
+    url: "/api/v1/dpi/credit/score",
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -1986,42 +1921,20 @@ export const apiPostApiV1VerifyVerifyBvn = <
 };
 
 /**
- * Get Bvn Status
- * Get BVN verification status.
+ * Selfie + NIN Verification
+ * Verify identity by matching a selfie image with NIN records using facial recognition
  */
-export const apiGetApiV1StatusBvnGetBvnStatus = <
+export const dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNin = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<ApiGetApiV1StatusBvnGetBvnStatusData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).get<
-    ApiGetApiV1StatusBvnGetBvnStatusResponses,
-    ApiGetApiV1StatusBvnGetBvnStatusErrors,
+  options: Options<
+    DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData,
     ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/bvn/status/{bvn}",
-    ...options,
-  });
-};
-
-/**
- * Lookup Bvn Basic
- * Basic BVN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupBvnBasic = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1LookupLookupBvnBasicData, ThrowOnError>
+  >
 ) => {
   return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1LookupLookupBvnBasicResponses,
-    ApiPostApiV1LookupLookupBvnBasicErrors,
+    DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponses,
+    DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinErrors,
     ThrowOnError
   >({
     security: [
@@ -2030,7 +1943,7 @@ export const apiPostApiV1LookupLookupBvnBasic = <
         type: "http",
       },
     ],
-    url: "/api/v1/bvn/lookup",
+    url: "/api/v1/dpi/selfie/verification/nin",
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -2040,53 +1953,17 @@ export const apiPostApiV1LookupLookupBvnBasic = <
 };
 
 /**
- * Match Bvn
- * Match BVN against provided identity attributes (placeholder).
+ * Root
  */
-export const apiPostApiV1MatchMatchBvn = <ThrowOnError extends boolean = false>(
-  options: Options<ApiPostApiV1MatchMatchBvnData, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1MatchMatchBvnResponses,
-    ApiPostApiV1MatchMatchBvnErrors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/bvn/match",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Supported Banks
- * Return supported Nigerian banks (placeholder list).
- */
-export const apiGetApiV1BanksGetSupportedBanks = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<ApiGetApiV1BanksGetSupportedBanksData, ThrowOnError>
+export const apiGetRootRoot3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot3Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetApiV1BanksGetSupportedBanksResponses,
+    ApiGetRootRoot3Responses,
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/api/v1/bvn/banks",
+    url: "/api/v1/dpi/",
     ...options,
   });
 };
@@ -2272,11 +2149,11 @@ export const getRouteApiV1MapsRoutesPost = <
 /**
  * Root
  */
-export const apiGetRootRoot3 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetRootRoot3Data, ThrowOnError>
+export const apiGetRootRoot4 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot4Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetRootRoot3Responses,
+    ApiGetRootRoot4Responses,
     unknown,
     ThrowOnError
   >({
@@ -2786,11 +2663,11 @@ export const apiGetHealthHealthCheck = <ThrowOnError extends boolean = false>(
  * Root
  * Root endpoint.
  */
-export const apiGetRootRoot4 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetRootRoot4Data, ThrowOnError>
+export const apiGetRootRoot5 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot5Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetRootRoot4Responses,
+    ApiGetRootRoot5Responses,
     unknown,
     ThrowOnError
   >({
@@ -3702,11 +3579,11 @@ export const apiGetHealthHealthCheck2 = <ThrowOnError extends boolean = false>(
 /**
  * Root
  */
-export const apiGetRootRoot5 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetRootRoot5Data, ThrowOnError>
+export const apiGetRootRoot6 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetRootRoot6Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetRootRoot5Responses,
+    ApiGetRootRoot6Responses,
     unknown,
     ThrowOnError
   >({
@@ -4264,292 +4141,6 @@ export const metricsMetricsGet = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Verify Nin
- * Verify NIN using Dojah API.
- */
-export const apiPostApiV1VerifyVerifyNin2 = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1VerifyVerifyNin2Data, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1VerifyVerifyNin2Responses,
-    ApiPostApiV1VerifyVerifyNin2Errors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/nin/api/v1/verify",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Nin Status
- * Get NIN verification status.
- */
-export const apiGetApiV1StatusNinGetNinStatus2 = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiGetApiV1StatusNinGetNinStatus2Data, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).get<
-    ApiGetApiV1StatusNinGetNinStatus2Responses,
-    ApiGetApiV1StatusNinGetNinStatus2Errors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/nin/api/v1/status/{nin}",
-    ...options,
-  });
-};
-
-/**
- * Lookup Nin Basic
- * Basic NIN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupNinBasic2 = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1LookupLookupNinBasic2Data, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1LookupLookupNinBasic2Responses,
-    ApiPostApiV1LookupLookupNinBasic2Errors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/nin/api/v1/lookup",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck3 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck3Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck3Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/nin/health",
-    ...options,
-  });
-};
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics3 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics3Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics3Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/nin/metrics",
-    ...options,
-  });
-};
-
-/**
- * Verify Bvn
- * Verify BVN using Dojah API.
- */
-export const apiPostApiV1VerifyVerifyBvn2 = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1VerifyVerifyBvn2Data, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1VerifyVerifyBvn2Responses,
-    ApiPostApiV1VerifyVerifyBvn2Errors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/bvn/api/v1/verify",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Bvn Status
- * Get BVN verification status.
- */
-export const apiGetApiV1StatusBvnGetBvnStatus2 = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiGetApiV1StatusBvnGetBvnStatus2Data, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).get<
-    ApiGetApiV1StatusBvnGetBvnStatus2Responses,
-    ApiGetApiV1StatusBvnGetBvnStatus2Errors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/bvn/api/v1/status/{bvn}",
-    ...options,
-  });
-};
-
-/**
- * Lookup Bvn Basic
- * Basic BVN lookup without full verification.
- */
-export const apiPostApiV1LookupLookupBvnBasic2 = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1LookupLookupBvnBasic2Data, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1LookupLookupBvnBasic2Responses,
-    ApiPostApiV1LookupLookupBvnBasic2Errors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/bvn/api/v1/lookup",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Match Bvn
- * Match BVN against provided identity attributes (placeholder).
- */
-export const apiPostApiV1MatchMatchBvn2 = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiPostApiV1MatchMatchBvn2Data, ThrowOnError>
-) => {
-  return (options.client ?? _heyApiClient).post<
-    ApiPostApiV1MatchMatchBvn2Responses,
-    ApiPostApiV1MatchMatchBvn2Errors,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/bvn/api/v1/match",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-};
-
-/**
- * Get Supported Banks
- * Return supported Nigerian banks (placeholder list).
- */
-export const apiGetApiV1BanksGetSupportedBanks2 = <
-  ThrowOnError extends boolean = false,
->(
-  options?: Options<ApiGetApiV1BanksGetSupportedBanks2Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetApiV1BanksGetSupportedBanks2Responses,
-    unknown,
-    ThrowOnError
-  >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
-    url: "/bvn/api/v1/banks",
-    ...options,
-  });
-};
-
-/**
- * Health Check
- */
-export const apiGetHealthHealthCheck4 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck4Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck4Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/bvn/health",
-    ...options,
-  });
-};
-
-/**
- * Metrics
- * Endpoint that serves Prometheus metrics.
- */
-export const apiGetMetricsMetrics4 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics4Data, ThrowOnError>
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics4Responses,
-    unknown,
-    ThrowOnError
-  >({
-    url: "/bvn/metrics",
-    ...options,
-  });
-};
-
-/**
  * Get Nearby Places
  * Search for nearby places around a given location. Returns distance in meters.
  *
@@ -4763,11 +4354,11 @@ export const metricsMetricsGet2 = <ThrowOnError extends boolean = false>(
 /**
  * Health Check
  */
-export const apiGetHealthHealthCheck5 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetHealthHealthCheck5Data, ThrowOnError>
+export const apiGetHealthHealthCheck3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetHealthHealthCheck3Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetHealthHealthCheck5Responses,
+    ApiGetHealthHealthCheck3Responses,
     unknown,
     ThrowOnError
   >({
@@ -5366,11 +4957,11 @@ export const ussdPostApiV1TestXboxUssdTestXboxUssd2 = <
  * Metrics
  * Endpoint that serves Prometheus metrics.
  */
-export const apiGetMetricsMetrics5 = <ThrowOnError extends boolean = false>(
-  options?: Options<ApiGetMetricsMetrics5Data, ThrowOnError>
+export const apiGetMetricsMetrics3 = <ThrowOnError extends boolean = false>(
+  options?: Options<ApiGetMetricsMetrics3Data, ThrowOnError>
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    ApiGetMetricsMetrics5Responses,
+    ApiGetMetricsMetrics3Responses,
     unknown,
     ThrowOnError
   >({

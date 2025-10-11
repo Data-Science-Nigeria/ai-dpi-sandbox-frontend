@@ -636,121 +636,290 @@ export type QueryRag = {
 };
 
 /**
+ * BVNLookupRequest
+ * Input schema for BVN verification.
+ */
+export type BvnLookupRequest = {
+  /**
+   * Bvn
+   * The 11-digit Bank Verification Number.
+   */
+  bvn: string;
+  /**
+   * Test Mode
+   * Use Dojah test mode.
+   */
+  test_mode?: boolean | null;
+};
+
+/**
+ * BVNVerificationResponse
+ * Output schema for successful BVN verification.
+ */
+export type BvnVerificationResponse = {
+  /**
+   * Status
+   * Verification status: 'verified' or 'failed'
+   */
+  status: string;
+  /**
+   * Bvn
+   */
+  bvn: string;
+  data: IdentityData;
+  /**
+   * Verification Id
+   */
+  verification_id: string;
+  /**
+   * Timestamp
+   */
+  timestamp: string;
+  /**
+   * Cost
+   */
+  cost: number;
+};
+
+/**
+ * CreditScoreRequest
+ * Input schema for Credit Score inquiry.
+ */
+export type CreditScoreRequest = {
+  /**
+   * Bvn
+   * The 11-digit Bank Verification Number.
+   */
+  bvn: string;
+  /**
+   * Test Mode
+   * Use Dojah test mode.
+   */
+  test_mode?: boolean | null;
+};
+
+/**
+ * CreditScoreResponse
+ * Placeholder schema for the Credit Score result.
+ */
+export type CreditScoreResponse = {
+  /**
+   * Score Retrieved
+   * Whether the score was successfully retrieved.
+   */
+  score_retrieved?: boolean;
+  /**
+   * Score Data
+   */
+  score_data?: {
+    [key: string]: unknown;
+  } | null;
+  /**
+   * Bvn
+   */
+  bvn: string;
+  data: IdentityData;
+  /**
+   * Verification Id
+   */
+  verification_id: string;
+  /**
+   * Timestamp
+   */
+  timestamp: string;
+  /**
+   * Cost
+   */
+  cost: number;
+};
+
+/**
+ * IdentityData
+ * Represents the identity data of a user.
+ */
+export type IdentityData = {
+  /**
+   * First Name
+   * The user's first name.
+   */
+  first_name?: string | null;
+  /**
+   * Last Name
+   * The user's last name.
+   */
+  last_name?: string | null;
+  /**
+   * Middle Name
+   * The user's middle name.
+   */
+  middle_name?: string | null;
+  /**
+   * Date Of Birth
+   * The user's date of birth.
+   */
+  date_of_birth?: string | null;
+  /**
+   * Gender
+   * The user's gender.
+   */
+  gender?: string | null;
+  /**
+   * Phone Number
+   * The user's phone number.
+   */
+  phone_number?: string | null;
+  /**
+   * Email
+   * The user's email address.
+   */
+  email?: string | null;
+  /**
+   * Address
+   * The user's residential address.
+   */
+  address?: string | null;
+  /**
+   * State Of Origin
+   * The user's state of origin.
+   */
+  state_of_origin?: string | null;
+  /**
+   * Lga Of Origin
+   * The user's local government area of origin.
+   */
+  lga_of_origin?: string | null;
+  /**
+   * Nin
+   * The user's National Identification Number.
+   */
+  nin?: string | null;
+  /**
+   * Photo
+   * The user's photo.
+   */
+  photo?: string | null;
+  /**
+   * Score
+   * The user's credit score details
+   */
+  score?: {
+    [key: string]: unknown;
+  } | null;
+  /**
+   * Enrollment Bank
+   */
+  enrollment_bank?: string | null;
+  /**
+   * Level Of Account
+   */
+  level_of_account?: string | null;
+  /**
+   * Watch Listed
+   */
+  watch_listed?: boolean | null;
+};
+
+/**
  * NINVerificationRequest
  */
 export type NinVerificationRequest = {
   /**
    * Nin
+   *  The 11-digit National Identification Number (NIN) to be verified.
    */
   nin: string;
+  /**
+   * Test Mode
+   *  Flag to indicate if the request is in test mode. Default is False.
+   */
+  test_mode?: boolean | null;
 };
 
 /**
  * NINVerificationResponse
+ * Output schema for successful NIN verification (as said in README structure).
  */
 export type NinVerificationResponse = {
   /**
-   * Nin Verified
+   * Status
+   * Verification status: 'verified' or 'failed'
    */
-  nin_verified?: boolean;
+  status: string;
   /**
-   * Verification Data
+   * Nin
    */
-  verification_data?: {
-    [key: string]: unknown;
-  } | null;
+  nin: string;
+  data: IdentityData;
   /**
-   * Message
+   * Verification Id
    */
-  message: string;
+  verification_id: string;
+  /**
+   * Timestamp
+   */
+  timestamp: string;
+  /**
+   * Cost
+   */
+  cost: number;
 };
 
 /**
- * BVNMatchRequest
+ * SelfieVerificationRequest
+ * Input schema for nin verification with selfie
  */
-export type BvnMatchRequest = {
+export type SelfieVerificationRequest = {
   /**
-   * Bvn
-   * BVN to match
+   * Selfie Image
    */
-  bvn: string;
+  selfie_image: string;
+  /**
+   * Nin
+   * The 11-digit National Identity Number.
+   */
+  nin: string;
+  /**
+   * Test Mode
+   * Use Dojah test mode.
+   */
+  test_mode?: boolean | null;
   /**
    * First Name
-   * First name to match
    */
   first_name?: string | null;
   /**
    * Last Name
-   * Last name to match
    */
   last_name?: string | null;
-  /**
-   * Date Of Birth
-   * Date of birth (YYYY-MM-DD) to match
-   */
-  date_of_birth?: string | null;
 };
 
 /**
- * BVNMatchResponse
+ * SelfieVerificationResponse
+ * Output schema for successful NIN-Selfie verification.
  */
-export type BvnMatchResponse = {
+export type SelfieVerificationResponse = {
   /**
-   * Matched
+   * Status
+   * Verification status: 'verified' or 'failed'
    */
-  matched: boolean;
+  status: string;
   /**
-   * Score
+   * Nin
    */
-  score?: number;
+  nin: string;
+  data: IdentityData;
   /**
-   * Message
+   * Verification Id
    */
-  message: string;
-};
-
-/**
- * BVNVerificationRequest
- */
-export type BvnVerificationRequest = {
+  verification_id: string;
   /**
-   * Bvn
+   * Timestamp
    */
-  bvn: string;
-};
-
-/**
- * BVNVerificationResponse
- */
-export type BvnVerificationResponse = {
+  timestamp: string;
   /**
-   * Bvn Verified
+   * Cost
    */
-  bvn_verified?: boolean;
-  /**
-   * Verification Data
-   */
-  verification_data?: {
-    [key: string]: unknown;
-  } | null;
-  /**
-   * Message
-   */
-  message: string;
-};
-
-/**
- * Bank
- */
-export type Bank = {
-  /**
-   * Code
-   */
-  code: string;
-  /**
-   * Name
-   */
-  name: string;
+  cost: number;
 };
 
 /**
@@ -2076,216 +2245,208 @@ export type RootGetResponses = {
   200: unknown;
 };
 
-export type ApiPostApiV1VerifyVerifyNinData = {
+export type DpiApiPostApiV1NinLookupNinLookupData = {
   body: NinVerificationRequest;
   path?: never;
   query?: never;
-  url: "/api/v1/nin/verify";
+  url: "/api/v1/dpi/nin/lookup";
 };
 
-export type ApiPostApiV1VerifyVerifyNinErrors = {
+export type DpiApiPostApiV1NinLookupNinLookupErrors = {
+  /**
+   * Unauthorized - Invalid or missing authentication token
+   */
+  401: unknown;
+  /**
+   * Forbidden - Token valid but insufficient permissions
+   */
+  403: unknown;
+  /**
+   * Not Found - Identity not found in records
+   */
+  404: unknown;
   /**
    * Validation Error
    */
   422: HttpValidationError;
+  /**
+   * Internal Server Error - Service temporarily unavailable
+   */
+  500: unknown;
+  /**
+   * Service Unavailable - External verification service error
+   */
+  503: unknown;
 };
 
-export type ApiPostApiV1VerifyVerifyNinError =
-  ApiPostApiV1VerifyVerifyNinErrors[keyof ApiPostApiV1VerifyVerifyNinErrors];
+export type DpiApiPostApiV1NinLookupNinLookupError =
+  DpiApiPostApiV1NinLookupNinLookupErrors[keyof DpiApiPostApiV1NinLookupNinLookupErrors];
 
-export type ApiPostApiV1VerifyVerifyNinResponses = {
+export type DpiApiPostApiV1NinLookupNinLookupResponses = {
   /**
-   * Successful Response
+   * Verified identity information and verification details
    */
   200: NinVerificationResponse;
 };
 
-export type ApiPostApiV1VerifyVerifyNinResponse =
-  ApiPostApiV1VerifyVerifyNinResponses[keyof ApiPostApiV1VerifyVerifyNinResponses];
+export type DpiApiPostApiV1NinLookupNinLookupResponse =
+  DpiApiPostApiV1NinLookupNinLookupResponses[keyof DpiApiPostApiV1NinLookupNinLookupResponses];
 
-export type ApiGetApiV1StatusNinGetNinStatusData = {
-  body?: never;
-  path: {
-    /**
-     * Nin
-     */
-    nin: string;
-  };
+export type DpiApiPostApiV1BvnLookupBvnLookupData = {
+  body: BvnLookupRequest;
+  path?: never;
   query?: never;
-  url: "/api/v1/nin/status/{nin}";
+  url: "/api/v1/dpi/bvn/lookup";
 };
 
-export type ApiGetApiV1StatusNinGetNinStatusErrors = {
+export type DpiApiPostApiV1BvnLookupBvnLookupErrors = {
+  /**
+   * Unauthorized - Invalid or missing authentication token
+   */
+  401: unknown;
+  /**
+   * Forbidden - Token valid but insufficient permissions
+   */
+  403: unknown;
+  /**
+   * Not Found - Identity not found in records
+   */
+  404: unknown;
   /**
    * Validation Error
    */
   422: HttpValidationError;
+  /**
+   * Internal Server Error - Service temporarily unavailable
+   */
+  500: unknown;
+  /**
+   * Service Unavailable - External verification service error
+   */
+  503: unknown;
 };
 
-export type ApiGetApiV1StatusNinGetNinStatusError =
-  ApiGetApiV1StatusNinGetNinStatusErrors[keyof ApiGetApiV1StatusNinGetNinStatusErrors];
+export type DpiApiPostApiV1BvnLookupBvnLookupError =
+  DpiApiPostApiV1BvnLookupBvnLookupErrors[keyof DpiApiPostApiV1BvnLookupBvnLookupErrors];
 
-export type ApiGetApiV1StatusNinGetNinStatusResponses = {
+export type DpiApiPostApiV1BvnLookupBvnLookupResponses = {
+  /**
+   * Verified identity information and verification details
+   */
+  200: BvnVerificationResponse;
+};
+
+export type DpiApiPostApiV1BvnLookupBvnLookupResponse =
+  DpiApiPostApiV1BvnLookupBvnLookupResponses[keyof DpiApiPostApiV1BvnLookupBvnLookupResponses];
+
+export type DpiApiPostApiV1CreditScoreCreditScoreData = {
+  body: CreditScoreRequest;
+  path?: never;
+  query?: never;
+  url: "/api/v1/dpi/credit/score";
+};
+
+export type DpiApiPostApiV1CreditScoreCreditScoreErrors = {
+  /**
+   * Unauthorized - Invalid or missing authentication token
+   */
+  401: unknown;
+  /**
+   * Forbidden - Token valid but insufficient permissions
+   */
+  403: unknown;
+  /**
+   * Not Found - Identity not found in records
+   */
+  404: unknown;
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+  /**
+   * Internal Server Error - Service temporarily unavailable
+   */
+  500: unknown;
+  /**
+   * Service Unavailable - External verification service error
+   */
+  503: unknown;
+};
+
+export type DpiApiPostApiV1CreditScoreCreditScoreError =
+  DpiApiPostApiV1CreditScoreCreditScoreErrors[keyof DpiApiPostApiV1CreditScoreCreditScoreErrors];
+
+export type DpiApiPostApiV1CreditScoreCreditScoreResponses = {
+  /**
+   * Credit score information and verification details
+   */
+  200: CreditScoreResponse;
+};
+
+export type DpiApiPostApiV1CreditScoreCreditScoreResponse =
+  DpiApiPostApiV1CreditScoreCreditScoreResponses[keyof DpiApiPostApiV1CreditScoreCreditScoreResponses];
+
+export type DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData = {
+  body: SelfieVerificationRequest;
+  path?: never;
+  query?: never;
+  url: "/api/v1/dpi/selfie/verification/nin";
+};
+
+export type DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinErrors = {
+  /**
+   * Unauthorized - Invalid or missing authentication token
+   */
+  401: unknown;
+  /**
+   * Forbidden - Token valid but insufficient permissions
+   */
+  403: unknown;
+  /**
+   * Not Found - Identity not found in records
+   */
+  404: unknown;
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+  /**
+   * Internal Server Error - Service temporarily unavailable
+   */
+  500: unknown;
+  /**
+   * Service Unavailable - External verification service error
+   */
+  503: unknown;
+};
+
+export type DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinError =
+  DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinErrors[keyof DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinErrors];
+
+export type DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponses =
+  {
+    /**
+     * Verification result with match confidence and identity information
+     */
+    200: SelfieVerificationResponse;
+  };
+
+export type DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponse =
+  DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponses[keyof DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponses];
+
+export type ApiGetRootRoot3Data = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/dpi/";
+};
+
+export type ApiGetRootRoot3Responses = {
   /**
    * Successful Response
    */
   200: unknown;
 };
-
-export type ApiPostApiV1LookupLookupNinBasicData = {
-  body: NinVerificationRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/nin/lookup";
-};
-
-export type ApiPostApiV1LookupLookupNinBasicErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiPostApiV1LookupLookupNinBasicError =
-  ApiPostApiV1LookupLookupNinBasicErrors[keyof ApiPostApiV1LookupLookupNinBasicErrors];
-
-export type ApiPostApiV1LookupLookupNinBasicResponses = {
-  /**
-   * Successful Response
-   */
-  200: NinVerificationResponse;
-};
-
-export type ApiPostApiV1LookupLookupNinBasicResponse =
-  ApiPostApiV1LookupLookupNinBasicResponses[keyof ApiPostApiV1LookupLookupNinBasicResponses];
-
-export type ApiPostApiV1VerifyVerifyBvnData = {
-  body: BvnVerificationRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/bvn/verify";
-};
-
-export type ApiPostApiV1VerifyVerifyBvnErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiPostApiV1VerifyVerifyBvnError =
-  ApiPostApiV1VerifyVerifyBvnErrors[keyof ApiPostApiV1VerifyVerifyBvnErrors];
-
-export type ApiPostApiV1VerifyVerifyBvnResponses = {
-  /**
-   * Successful Response
-   */
-  200: BvnVerificationResponse;
-};
-
-export type ApiPostApiV1VerifyVerifyBvnResponse =
-  ApiPostApiV1VerifyVerifyBvnResponses[keyof ApiPostApiV1VerifyVerifyBvnResponses];
-
-export type ApiGetApiV1StatusBvnGetBvnStatusData = {
-  body?: never;
-  path: {
-    /**
-     * Bvn
-     */
-    bvn: string;
-  };
-  query?: never;
-  url: "/api/v1/bvn/status/{bvn}";
-};
-
-export type ApiGetApiV1StatusBvnGetBvnStatusErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiGetApiV1StatusBvnGetBvnStatusError =
-  ApiGetApiV1StatusBvnGetBvnStatusErrors[keyof ApiGetApiV1StatusBvnGetBvnStatusErrors];
-
-export type ApiGetApiV1StatusBvnGetBvnStatusResponses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiPostApiV1LookupLookupBvnBasicData = {
-  body: BvnVerificationRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/bvn/lookup";
-};
-
-export type ApiPostApiV1LookupLookupBvnBasicErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiPostApiV1LookupLookupBvnBasicError =
-  ApiPostApiV1LookupLookupBvnBasicErrors[keyof ApiPostApiV1LookupLookupBvnBasicErrors];
-
-export type ApiPostApiV1LookupLookupBvnBasicResponses = {
-  /**
-   * Successful Response
-   */
-  200: BvnVerificationResponse;
-};
-
-export type ApiPostApiV1LookupLookupBvnBasicResponse =
-  ApiPostApiV1LookupLookupBvnBasicResponses[keyof ApiPostApiV1LookupLookupBvnBasicResponses];
-
-export type ApiPostApiV1MatchMatchBvnData = {
-  body: BvnMatchRequest;
-  path?: never;
-  query?: never;
-  url: "/api/v1/bvn/match";
-};
-
-export type ApiPostApiV1MatchMatchBvnErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiPostApiV1MatchMatchBvnError =
-  ApiPostApiV1MatchMatchBvnErrors[keyof ApiPostApiV1MatchMatchBvnErrors];
-
-export type ApiPostApiV1MatchMatchBvnResponses = {
-  /**
-   * Successful Response
-   */
-  200: BvnMatchResponse;
-};
-
-export type ApiPostApiV1MatchMatchBvnResponse =
-  ApiPostApiV1MatchMatchBvnResponses[keyof ApiPostApiV1MatchMatchBvnResponses];
-
-export type ApiGetApiV1BanksGetSupportedBanksData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/api/v1/bvn/banks";
-};
-
-export type ApiGetApiV1BanksGetSupportedBanksResponses = {
-  /**
-   * Response Api Get Api V1 Banks Get Supported Banks
-   * Successful Response
-   */
-  200: Bank[];
-};
-
-export type ApiGetApiV1BanksGetSupportedBanksResponse =
-  ApiGetApiV1BanksGetSupportedBanksResponses[keyof ApiGetApiV1BanksGetSupportedBanksResponses];
 
 export type GetNearbyPlacesApiV1MapsNearbyGetData = {
   body?: never;
@@ -2479,14 +2640,14 @@ export type GetRouteApiV1MapsRoutesPostResponses = {
   200: unknown;
 };
 
-export type ApiGetRootRoot3Data = {
+export type ApiGetRootRoot4Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/api/v1/ussd/";
 };
 
-export type ApiGetRootRoot3Responses = {
+export type ApiGetRootRoot4Responses = {
   /**
    * Successful Response
    */
@@ -2917,14 +3078,14 @@ export type ApiGetHealthHealthCheckResponses = {
   200: unknown;
 };
 
-export type ApiGetRootRoot4Data = {
+export type ApiGetRootRoot5Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/auth/";
 };
 
-export type ApiGetRootRoot4Responses = {
+export type ApiGetRootRoot5Responses = {
   /**
    * Successful Response
    */
@@ -3565,14 +3726,14 @@ export type ApiGetHealthHealthCheck2Responses = {
   200: unknown;
 };
 
-export type ApiGetRootRoot5Data = {
+export type ApiGetRootRoot6Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/sms/";
 };
 
-export type ApiGetRootRoot5Responses = {
+export type ApiGetRootRoot6Responses = {
   /**
    * Successful Response
    */
@@ -3898,273 +4059,6 @@ export type MetricsMetricsGetResponses = {
   200: unknown;
 };
 
-export type ApiPostApiV1VerifyVerifyNin2Data = {
-  body: NinVerificationRequest;
-  path?: never;
-  query?: never;
-  url: "/nin/api/v1/verify";
-};
-
-export type ApiPostApiV1VerifyVerifyNin2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiPostApiV1VerifyVerifyNin2Error =
-  ApiPostApiV1VerifyVerifyNin2Errors[keyof ApiPostApiV1VerifyVerifyNin2Errors];
-
-export type ApiPostApiV1VerifyVerifyNin2Responses = {
-  /**
-   * Successful Response
-   */
-  200: NinVerificationResponse;
-};
-
-export type ApiPostApiV1VerifyVerifyNin2Response =
-  ApiPostApiV1VerifyVerifyNin2Responses[keyof ApiPostApiV1VerifyVerifyNin2Responses];
-
-export type ApiGetApiV1StatusNinGetNinStatus2Data = {
-  body?: never;
-  path: {
-    /**
-     * Nin
-     */
-    nin: string;
-  };
-  query?: never;
-  url: "/nin/api/v1/status/{nin}";
-};
-
-export type ApiGetApiV1StatusNinGetNinStatus2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiGetApiV1StatusNinGetNinStatus2Error =
-  ApiGetApiV1StatusNinGetNinStatus2Errors[keyof ApiGetApiV1StatusNinGetNinStatus2Errors];
-
-export type ApiGetApiV1StatusNinGetNinStatus2Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiPostApiV1LookupLookupNinBasic2Data = {
-  body: NinVerificationRequest;
-  path?: never;
-  query?: never;
-  url: "/nin/api/v1/lookup";
-};
-
-export type ApiPostApiV1LookupLookupNinBasic2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiPostApiV1LookupLookupNinBasic2Error =
-  ApiPostApiV1LookupLookupNinBasic2Errors[keyof ApiPostApiV1LookupLookupNinBasic2Errors];
-
-export type ApiPostApiV1LookupLookupNinBasic2Responses = {
-  /**
-   * Successful Response
-   */
-  200: NinVerificationResponse;
-};
-
-export type ApiPostApiV1LookupLookupNinBasic2Response =
-  ApiPostApiV1LookupLookupNinBasic2Responses[keyof ApiPostApiV1LookupLookupNinBasic2Responses];
-
-export type ApiGetHealthHealthCheck3Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/nin/health";
-};
-
-export type ApiGetHealthHealthCheck3Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiGetMetricsMetrics3Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/nin/metrics";
-};
-
-export type ApiGetMetricsMetrics3Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiPostApiV1VerifyVerifyBvn2Data = {
-  body: BvnVerificationRequest;
-  path?: never;
-  query?: never;
-  url: "/bvn/api/v1/verify";
-};
-
-export type ApiPostApiV1VerifyVerifyBvn2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiPostApiV1VerifyVerifyBvn2Error =
-  ApiPostApiV1VerifyVerifyBvn2Errors[keyof ApiPostApiV1VerifyVerifyBvn2Errors];
-
-export type ApiPostApiV1VerifyVerifyBvn2Responses = {
-  /**
-   * Successful Response
-   */
-  200: BvnVerificationResponse;
-};
-
-export type ApiPostApiV1VerifyVerifyBvn2Response =
-  ApiPostApiV1VerifyVerifyBvn2Responses[keyof ApiPostApiV1VerifyVerifyBvn2Responses];
-
-export type ApiGetApiV1StatusBvnGetBvnStatus2Data = {
-  body?: never;
-  path: {
-    /**
-     * Bvn
-     */
-    bvn: string;
-  };
-  query?: never;
-  url: "/bvn/api/v1/status/{bvn}";
-};
-
-export type ApiGetApiV1StatusBvnGetBvnStatus2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiGetApiV1StatusBvnGetBvnStatus2Error =
-  ApiGetApiV1StatusBvnGetBvnStatus2Errors[keyof ApiGetApiV1StatusBvnGetBvnStatus2Errors];
-
-export type ApiGetApiV1StatusBvnGetBvnStatus2Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiPostApiV1LookupLookupBvnBasic2Data = {
-  body: BvnVerificationRequest;
-  path?: never;
-  query?: never;
-  url: "/bvn/api/v1/lookup";
-};
-
-export type ApiPostApiV1LookupLookupBvnBasic2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiPostApiV1LookupLookupBvnBasic2Error =
-  ApiPostApiV1LookupLookupBvnBasic2Errors[keyof ApiPostApiV1LookupLookupBvnBasic2Errors];
-
-export type ApiPostApiV1LookupLookupBvnBasic2Responses = {
-  /**
-   * Successful Response
-   */
-  200: BvnVerificationResponse;
-};
-
-export type ApiPostApiV1LookupLookupBvnBasic2Response =
-  ApiPostApiV1LookupLookupBvnBasic2Responses[keyof ApiPostApiV1LookupLookupBvnBasic2Responses];
-
-export type ApiPostApiV1MatchMatchBvn2Data = {
-  body: BvnMatchRequest;
-  path?: never;
-  query?: never;
-  url: "/bvn/api/v1/match";
-};
-
-export type ApiPostApiV1MatchMatchBvn2Errors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type ApiPostApiV1MatchMatchBvn2Error =
-  ApiPostApiV1MatchMatchBvn2Errors[keyof ApiPostApiV1MatchMatchBvn2Errors];
-
-export type ApiPostApiV1MatchMatchBvn2Responses = {
-  /**
-   * Successful Response
-   */
-  200: BvnMatchResponse;
-};
-
-export type ApiPostApiV1MatchMatchBvn2Response =
-  ApiPostApiV1MatchMatchBvn2Responses[keyof ApiPostApiV1MatchMatchBvn2Responses];
-
-export type ApiGetApiV1BanksGetSupportedBanks2Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/bvn/api/v1/banks";
-};
-
-export type ApiGetApiV1BanksGetSupportedBanks2Responses = {
-  /**
-   * Response Api Get Api V1 Banks Get Supported Banks
-   * Successful Response
-   */
-  200: Bank[];
-};
-
-export type ApiGetApiV1BanksGetSupportedBanks2Response =
-  ApiGetApiV1BanksGetSupportedBanks2Responses[keyof ApiGetApiV1BanksGetSupportedBanks2Responses];
-
-export type ApiGetHealthHealthCheck4Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/bvn/health";
-};
-
-export type ApiGetHealthHealthCheck4Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
-export type ApiGetMetricsMetrics4Data = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/bvn/metrics";
-};
-
-export type ApiGetMetricsMetrics4Responses = {
-  /**
-   * Successful Response
-   */
-  200: unknown;
-};
-
 export type GetNearbyPlacesApiV1MapsNearbyGet2Data = {
   body?: never;
   path?: never;
@@ -4385,14 +4279,14 @@ export type MetricsMetricsGet2Responses = {
   200: unknown;
 };
 
-export type ApiGetHealthHealthCheck5Data = {
+export type ApiGetHealthHealthCheck3Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/ussd/health";
 };
 
-export type ApiGetHealthHealthCheck5Responses = {
+export type ApiGetHealthHealthCheck3Responses = {
   /**
    * Successful Response
    */
@@ -4795,14 +4689,14 @@ export type UssdPostApiV1TestXboxUssdTestXboxUssd2Responses = {
   200: unknown;
 };
 
-export type ApiGetMetricsMetrics5Data = {
+export type ApiGetMetricsMetrics3Data = {
   body?: never;
   path?: never;
   query?: never;
   url: "/ussd/metrics";
 };
 
-export type ApiGetMetricsMetrics5Responses = {
+export type ApiGetMetricsMetrics3Responses = {
   /**
    * Successful Response
    */

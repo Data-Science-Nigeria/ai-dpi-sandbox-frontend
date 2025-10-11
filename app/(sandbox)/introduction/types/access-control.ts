@@ -9,47 +9,47 @@ export interface AccessRule {
 export const accessRules: AccessRule[] = [
   {
     startupId: 15,
-    allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+    allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
     hiddenServices: [],
   }, // Alajo
   {
     startupId: 9,
-    allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+    allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
     hiddenServices: [],
   }, // Clafiya
   {
     startupId: 14,
-    allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+    allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
     hiddenServices: [],
   }, // Evet
   {
     startupId: 8,
-    allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+    allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
     hiddenServices: [],
   }, // Fertitude
   {
     startupId: 10,
-    allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+    allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
     hiddenServices: [],
   }, // FlologPharma
   {
     startupId: 13,
-    allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+    allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
     hiddenServices: [],
   }, // Xchangebox
   {
     startupId: 17,
-    allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+    allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
     hiddenServices: [],
   }, // MyItura
   {
     startupId: 16,
-    allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+    allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
     hiddenServices: [],
   }, // 8Medical
   {
     startupId: 11,
-    allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+    allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
     hiddenServices: [],
   }, // UHCTech
 
@@ -77,7 +77,7 @@ export function getUserAccessRules(
   return (
     startupRule || {
       startupId: 0,
-      allowedServices: ["ai", "bvn", "maps", "nin", "sms", "ussd"],
+      allowedServices: ["ai", "dpi", "maps", "sms", "ussd"],
       hiddenServices: [],
     }
   );

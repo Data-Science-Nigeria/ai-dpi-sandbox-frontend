@@ -19,28 +19,19 @@ export function getDefaultBody(path: string): string {
       2
     ),
 
-    "/api/v1/bvn/verify": JSON.stringify(
+    "/api/v1/dpi/bvn/lookup": JSON.stringify(
       {
         bvn: "string",
+        test_mode: false,
       },
       null,
       2
     ),
 
-    "/api/v1/bvn/lookup": JSON.stringify(
+    "/api/v1/dpi/credit/score": JSON.stringify(
       {
         bvn: "string",
-      },
-      null,
-      2
-    ),
-
-    "/api/v1/bvn/match": JSON.stringify(
-      {
-        bvn: "string",
-        first_name: "string",
-        last_name: "string",
-        date_of_birth: "string",
+        test_mode: false,
       },
       null,
       2
@@ -65,17 +56,22 @@ export function getDefaultBody(path: string): string {
       2
     ),
 
-    "/api/v1/nin/verify": JSON.stringify(
+    "/api/v1/dpi/nin/lookup": JSON.stringify(
       {
         nin: "string",
+        test_mode: false,
       },
       null,
       2
     ),
 
-    "/api/v1/nin/lookup": JSON.stringify(
+    "/api/v1/dpi/selfie/verification/nin": JSON.stringify(
       {
+        selfie_image: "string",
         nin: "string",
+        test_mode: false,
+        first_name: "string",
+        last_name: "string",
       },
       null,
       2

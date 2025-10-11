@@ -306,10 +306,9 @@ function generatePages() {
   // Only include specified categories
   const allowedCategories = [
     "ai",
-    "bvn",
+    "dpi",
     "ivr",
     "maps",
-    "nin",
     "sms",
     "two-way-sms",
     "ussd",
