@@ -12,10 +12,9 @@ export const services: Service[] = [
     href: "/introduction/services/ai",
   },
   {
-    name: "BVN",
-    description:
-      "Bank Verification Number validation and verification services",
-    href: "/introduction/services/bvn",
+    name: "DPI",
+    description: "Digital identity verification services",
+    href: "/introduction/services/dpi",
   },
   {
     name: "IVR",
@@ -27,11 +26,6 @@ export const services: Service[] = [
     name: "MAPS",
     description: "Mapping and location-based services",
     href: "/introduction/services/maps",
-  },
-  {
-    name: "NIN",
-    description: "National Identification Number verification and validation",
-    href: "/introduction/services/nin",
   },
   {
     name: "SMS",
