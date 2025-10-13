@@ -7,6 +7,7 @@ import { Providers } from "../auth/providers";
 import { ProtectRoute } from "../auth/components/protect-route";
 import { UserProtectRoute } from "../auth/components/user-protect-route";
 import { ServiceProtectRoute } from "./components/service-protect-route";
+import { ScrollToTop } from "./introduction/services/components/scroll-to-top";
 
 export default function SandboxLayout({
   children,
@@ -50,6 +51,7 @@ export default function SandboxLayout({
                 <ServiceProtectRoute>{children}</ServiceProtectRoute>
               </div>
             </main>
+            <ScrollToTop />
           </div>
         </UserProtectRoute>
       </ProtectRoute>

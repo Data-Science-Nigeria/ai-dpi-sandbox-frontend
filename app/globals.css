@@ -170,10 +170,12 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: #00a859;
   border-radius: 3px;
+  cursor: default;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #008a4a;
+  cursor: default;
 }
 
 /* Service card buttons responsive layout */
