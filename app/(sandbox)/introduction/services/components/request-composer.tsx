@@ -19,6 +19,7 @@ import { getBaseUrl } from "@/lib/env";
 import { useAuthStore } from "@/app/store/use-auth-store";
 import { getDefaultBody } from "./default-body-provider";
 import { getStartupByUser, type Startup } from "../../types/startup-config";
+import { FileToBase64Converter } from "./file-to-base64-converter";
 
 interface Header {
   key: string;
@@ -499,18 +500,29 @@ export function RequestComposer({
                 </div>
               </div>
 
-              <div className="flex-1 overflow-hidden">
+              <ScrollArea className="flex-1">
                 {contentType === "application/json" ? (
-                  <div className="h-full p-2 sm:p-4 min-h-[400px] sm:min-h-[500px]">
+                  <div className="p-2 sm:p-4 space-y-3">
+                    {body.includes('"selfie_image"') && (
+                      <FileToBase64Converter
+                        onBase64Generated={(base64) => {
+                          const updatedBody = body.replace(
+                            /"selfie_image":\s*"[^"]*"/,
+                            `"selfie_image": "${base64}"`
+                          );
+                          setBody(updatedBody);
+                        }}
+                      />
+                    )}
                     <textarea
                       value={body}
                       onChange={(e) => setBody(e.target.value)}
-                      className="w-full h-full p-3 border rounded-md bg-background text-sm font-mono resize-none custom-scrollbar min-h-[350px] sm:min-h-[450px]"
+                      className="w-full p-3 border rounded-md bg-background text-sm font-mono resize-none min-h-[400px] custom-scrollbar"
                       placeholder="Enter request body (JSON)"
                     />
                   </div>
                 ) : (
-                  <div className="h-full flex flex-col">
+                  <div className="flex flex-col h-full">
                     <div className="p-2 sm:p-4 border-b">
                       <div className="flex flex-col sm:flex-row gap-2">
                         <Button
@@ -543,7 +555,7 @@ export function RequestComposer({
                         </Button>
                       </div>
                     </div>
-                    <ScrollArea className="flex-1">
+                    <div className="flex-1 overflow-auto">
                       <div className="p-4 space-y-2">
                         {formData.map((field, index) => (
                           <div
@@ -601,10 +613,10 @@ export function RequestComposer({
                           </div>
                         ))}
                       </div>
-                    </ScrollArea>
+                    </div>
                   </div>
                 )}
-              </div>
+              </ScrollArea>
             </div>
           )}
       </div>
