@@ -18,8 +18,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sandbox Frontend",
-  description: "Sandbox AI DPI Frontend",
+  title: "DSN Sandbox",
+  description:
+    "Sandbox AI DPI Frontend Application for API Testing and Development",
 };
 
 export default function RootLayout({

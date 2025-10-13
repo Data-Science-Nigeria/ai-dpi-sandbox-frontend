@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 export const Footer = () => (
   <footer className="mt-5 flex items-center justify-center py-6 bg-white dark:bg-[#1C1E22]">
@@ -26,7 +26,7 @@ export const Footer = () => (
       />
       <Image
         src="/dialogo.svg"
-        alt="Dia"
+        alt="DIA"
         width={100}
         height={20}
         className="h-auto w-[55px] sm:w-[70px] lg:w-[90px] max-[300px]:w-[50px]"
