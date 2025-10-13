@@ -81,10 +81,12 @@ export function FileToBase64Converter({
   };
 
   return (
-    <div className="space-y-3 p-3 border rounded-md bg-muted/50">
+    <div className="space-y-2 sm:space-y-3 p-2 sm:p-3 border rounded-md bg-muted/50">
       <div className="flex items-center gap-2">
         <Upload className="h-4 w-4" />
-        <span className="text-sm font-medium">Image to Base64 Converter</span>
+        <span className="text-xs sm:text-sm font-medium">
+          Image to Base64 Converter
+        </span>
       </div>
 
       <div className="space-y-2">
@@ -92,7 +94,7 @@ export function FileToBase64Converter({
           type="file"
           accept="image/*"
           onChange={handleFileSelect}
-          className="text-sm"
+          className="text-xs sm:text-sm w-full"
           disabled={isConverting}
         />
 
@@ -102,12 +104,12 @@ export function FileToBase64Converter({
 
         {base64Result && (
           <div className="space-y-2">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1 sm:gap-2">
               <Button
                 onClick={handleCopy}
                 variant="outline"
                 size="sm"
-                className="h-7"
+                className="h-6 sm:h-7 text-xs px-2"
               >
                 {copied ? (
                   <Check className="h-3 w-3 mr-1" />
@@ -120,7 +122,7 @@ export function FileToBase64Converter({
                 onClick={handleClear}
                 variant="outline"
                 size="sm"
-                className="h-7"
+                className="h-6 sm:h-7 text-xs px-2"
               >
                 <X className="h-3 w-3 mr-1" />
                 Clear
@@ -132,7 +134,7 @@ export function FileToBase64Converter({
             <textarea
               value={base64Result}
               readOnly
-              className="w-full h-20 p-2 text-xs font-mono border rounded resize-none bg-background custom-scrollbar"
+              className="w-full h-16 sm:h-20 p-1 sm:p-2 text-xs font-mono border rounded resize-none bg-background custom-scrollbar"
               placeholder="Base64 result will appear here..."
             />
           </div>
