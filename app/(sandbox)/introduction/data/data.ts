@@ -124,6 +124,12 @@ export const menuItems: MenuItem[] = [
             path: "/api/v1/dpi/selfie/verification/nin",
             href: "/introduction/services/dpi/selfie-verification-nin",
           },
+          {
+            name: "Image Liveness",
+            method: "POST",
+            path: "/api/v1/dpi/image/liveness",
+            href: "/introduction/services/dpi/image-liveness",
+          },
         ],
       },
       {

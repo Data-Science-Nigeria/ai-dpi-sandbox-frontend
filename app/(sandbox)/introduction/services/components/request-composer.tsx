@@ -79,17 +79,20 @@ export function RequestComposer({
   const isTestUssdEndpoint =
     initialPath.includes("/test_") && initialPath.includes("_ussd");
 
-  // Set initial tab based on path params, maps endpoint, or USSD endpoint
+  // Check if this is a DPI endpoint
+  const isDpiEndpoint = initialPath.includes("/dpi/");
+
+  // Set initial tab based on path params, maps endpoint, USSD endpoint, or DPI endpoint
   useEffect(() => {
     if (pathParams.length > 0) {
       setActiveTab("params");
     } else if (isMapsEndpoint) {
       setActiveTab("query");
-    } else if (isTestUssdEndpoint) {
+    } else if (isTestUssdEndpoint || isDpiEndpoint) {
       setActiveTab("body");
       setContentType("application/x-www-form-urlencoded");
     }
-  }, [pathParams.length, isMapsEndpoint, isTestUssdEndpoint]);
+  }, [pathParams.length, isMapsEndpoint, isTestUssdEndpoint, isDpiEndpoint]);
 
   // Get startup data for USSD endpoints
   useEffect(() => {
@@ -121,7 +124,23 @@ export function RequestComposer({
         { key: "text", value: "", type: "text" },
       ]);
     }
-  }, [initialPath, isTestUssdEndpoint]);
+    // Initialize form data for DPI endpoints
+    else if (isDpiEndpoint) {
+      if (initialPath.includes("/nin/lookup")) {
+        setFormData([{ key: "nin_data", value: "", type: "text" }]);
+      } else if (
+        initialPath.includes("/bvn/lookup") ||
+        initialPath.includes("/credit/score")
+      ) {
+        setFormData([{ key: "bvn_data", value: "", type: "text" }]);
+      } else if (
+        initialPath.includes("/selfie/verification/nin") ||
+        initialPath.includes("/image/liveness")
+      ) {
+        setFormData([{ key: "image_data", value: "", type: "text" }]);
+      }
+    }
+  }, [initialPath, isTestUssdEndpoint, isDpiEndpoint]);
 
   // Update headers when content type changes
   useEffect(() => {
@@ -169,20 +188,35 @@ export function RequestComposer({
   };
 
   const getFieldPlaceholder = (fieldKey: string): string => {
-    if (!isTestUssdEndpoint) return "Field value";
-
-    switch (fieldKey) {
-      case "sessionId":
-        return "lirwf23455";
-      case "serviceCode":
-        return startup?.serviceCode || "*347*123#";
-      case "phoneNumber":
-        return "+2348103317200";
-      case "text":
-        return "User input (empty for first interaction)";
-      default:
-        return "Field value";
+    if (isTestUssdEndpoint) {
+      switch (fieldKey) {
+        case "sessionId":
+          return "lirwf23455";
+        case "serviceCode":
+          return startup?.serviceCode || "*347*123#";
+        case "phoneNumber":
+          return "+2348103317200";
+        case "text":
+          return "User input (empty for first interaction)";
+        default:
+          return "Field value";
+      }
     }
+
+    if (isDpiEndpoint) {
+      switch (fieldKey) {
+        case "nin_data":
+          return "12345678901";
+        case "bvn_data":
+          return "12345678901";
+        case "image_data":
+          return "base64 encoded image data";
+        default:
+          return "Field value";
+      }
+    }
+
+    return "Field value";
   };
 
   const handleSend = () => {
@@ -319,19 +353,20 @@ export function RequestComposer({
           >
             Headers ({getAllHeaders().filter((h) => h.enabled && h.key).length})
           </button>
-          {method !== "GET" && (!isUssdEndpoint || isTestUssdEndpoint) && (
-            <button
-              onClick={() => setActiveTab("body")}
-              className={cn(
-                "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
-                activeTab === "body"
-                  ? "border-primary text-primary"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
-              )}
-            >
-              Body
-            </button>
-          )}
+          {method !== "GET" &&
+            (!isUssdEndpoint || isTestUssdEndpoint || isDpiEndpoint) && (
+              <button
+                onClick={() => setActiveTab("body")}
+                className={cn(
+                  "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
+                  activeTab === "body"
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Body
+              </button>
+            )}
         </div>
       </div>
 
@@ -478,7 +513,7 @@ export function RequestComposer({
 
         {activeTab === "body" &&
           method !== "GET" &&
-          (!isUssdEndpoint || isTestUssdEndpoint) && (
+          (!isUssdEndpoint || isTestUssdEndpoint || isDpiEndpoint) && (
             <div className="h-full flex flex-col">
               <div className="p-2 sm:p-4 border-b">
                 <div className="flex items-center gap-4">
@@ -503,17 +538,6 @@ export function RequestComposer({
               <ScrollArea className="flex-1">
                 {contentType === "application/json" ? (
                   <div className="p-2 sm:p-4 space-y-3">
-                    {body.includes('"selfie_image"') && (
-                      <FileToBase64Converter
-                        onBase64Generated={(base64) => {
-                          const updatedBody = body.replace(
-                            /"selfie_image":\s*"[^"]*"/,
-                            `"selfie_image": "${base64}"`
-                          );
-                          setBody(updatedBody);
-                        }}
-                      />
-                    )}
                     <textarea
                       value={body}
                       onChange={(e) => setBody(e.target.value)}
@@ -523,6 +547,23 @@ export function RequestComposer({
                   </div>
                 ) : (
                   <div className="flex flex-col h-full">
+                    {isDpiEndpoint &&
+                      formData.some((field) => field.key === "image_data") && (
+                        <div className="p-2 sm:p-4 border-b">
+                          <FileToBase64Converter
+                            onBase64Generated={(base64) => {
+                              const newFormData = [...formData];
+                              const imageDataIndex = newFormData.findIndex(
+                                (field) => field.key === "image_data"
+                              );
+                              if (imageDataIndex !== -1) {
+                                newFormData[imageDataIndex].value = base64;
+                                setFormData(newFormData);
+                              }
+                            }}
+                          />
+                        </div>
+                      )}
                     <div className="p-2 sm:p-4 border-b">
                       <div className="flex flex-col sm:flex-row gap-2">
                         <Button

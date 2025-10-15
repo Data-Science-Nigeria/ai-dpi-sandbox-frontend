@@ -636,23 +636,6 @@ export type QueryRag = {
 };
 
 /**
- * BVNLookupRequest
- * Input schema for BVN verification.
- */
-export type BvnLookupRequest = {
-  /**
-   * Bvn
-   * The 11-digit Bank Verification Number.
-   */
-  bvn: string;
-  /**
-   * Test Mode
-   * Use Dojah test mode.
-   */
-  test_mode?: boolean | null;
-};
-
-/**
  * BVNVerificationResponse
  * Output schema for successful BVN verification.
  */
@@ -682,20 +665,53 @@ export type BvnVerificationResponse = {
 };
 
 /**
- * CreditScoreRequest
- * Input schema for Credit Score inquiry.
+ * Body_DPI_API_post_api_v1_bvn_lookup_bvn_lookup
  */
-export type CreditScoreRequest = {
+export type BodyDpiApiPostApiV1BvnLookupBvnLookup = {
   /**
-   * Bvn
-   * The 11-digit Bank Verification Number.
+   * Bvn Data
    */
-  bvn: string;
+  bvn_data: string;
+};
+
+/**
+ * Body_DPI_API_post_api_v1_credit_score_credit_score
+ */
+export type BodyDpiApiPostApiV1CreditScoreCreditScore = {
   /**
-   * Test Mode
-   * Use Dojah test mode.
+   * Bvn Data
    */
-  test_mode?: boolean | null;
+  bvn_data: string;
+};
+
+/**
+ * Body_DPI_API_post_api_v1_image_liveness_liveness_detection
+ */
+export type BodyDpiApiPostApiV1ImageLivenessLivenessDetection = {
+  /**
+   * Image Data
+   */
+  image_data: string;
+};
+
+/**
+ * Body_DPI_API_post_api_v1_nin_lookup_nin_lookup
+ */
+export type BodyDpiApiPostApiV1NinLookupNinLookup = {
+  /**
+   * Nin Data
+   */
+  nin_data: string;
+};
+
+/**
+ * Body_DPI_API_post_api_v1_selfie_verification_nin_selfie_verification_nin
+ */
+export type BodyDpiApiPostApiV1SelfieVerificationNinSelfieVerificationNin = {
+  /**
+   * Image Data
+   */
+  image_data: string;
 };
 
 /**
@@ -820,22 +836,6 @@ export type IdentityData = {
 };
 
 /**
- * NINVerificationRequest
- */
-export type NinVerificationRequest = {
-  /**
-   * Nin
-   *  The 11-digit National Identification Number (NIN) to be verified.
-   */
-  nin: string;
-  /**
-   * Test Mode
-   *  Flag to indicate if the request is in test mode. Default is False.
-   */
-  test_mode?: boolean | null;
-};
-
-/**
  * NINVerificationResponse
  * Output schema for successful NIN verification (as said in README structure).
  */
@@ -862,35 +862,6 @@ export type NinVerificationResponse = {
    * Cost
    */
   cost: number;
-};
-
-/**
- * SelfieVerificationRequest
- * Input schema for nin verification with selfie
- */
-export type SelfieVerificationRequest = {
-  /**
-   * Selfie Image
-   */
-  selfie_image: string;
-  /**
-   * Nin
-   * The 11-digit National Identity Number.
-   */
-  nin: string;
-  /**
-   * Test Mode
-   * Use Dojah test mode.
-   */
-  test_mode?: boolean | null;
-  /**
-   * First Name
-   */
-  first_name?: string | null;
-  /**
-   * Last Name
-   */
-  last_name?: string | null;
 };
 
 /**
@@ -2246,7 +2217,7 @@ export type RootGetResponses = {
 };
 
 export type DpiApiPostApiV1NinLookupNinLookupData = {
-  body: NinVerificationRequest;
+  body: BodyDpiApiPostApiV1NinLookupNinLookup;
   path?: never;
   query?: never;
   url: "/api/v1/dpi/nin/lookup";
@@ -2293,7 +2264,7 @@ export type DpiApiPostApiV1NinLookupNinLookupResponse =
   DpiApiPostApiV1NinLookupNinLookupResponses[keyof DpiApiPostApiV1NinLookupNinLookupResponses];
 
 export type DpiApiPostApiV1BvnLookupBvnLookupData = {
-  body: BvnLookupRequest;
+  body: BodyDpiApiPostApiV1BvnLookupBvnLookup;
   path?: never;
   query?: never;
   url: "/api/v1/dpi/bvn/lookup";
@@ -2340,7 +2311,7 @@ export type DpiApiPostApiV1BvnLookupBvnLookupResponse =
   DpiApiPostApiV1BvnLookupBvnLookupResponses[keyof DpiApiPostApiV1BvnLookupBvnLookupResponses];
 
 export type DpiApiPostApiV1CreditScoreCreditScoreData = {
-  body: CreditScoreRequest;
+  body: BodyDpiApiPostApiV1CreditScoreCreditScore;
   path?: never;
   query?: never;
   url: "/api/v1/dpi/credit/score";
@@ -2387,7 +2358,7 @@ export type DpiApiPostApiV1CreditScoreCreditScoreResponse =
   DpiApiPostApiV1CreditScoreCreditScoreResponses[keyof DpiApiPostApiV1CreditScoreCreditScoreResponses];
 
 export type DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData = {
-  body: SelfieVerificationRequest;
+  body: BodyDpiApiPostApiV1SelfieVerificationNinSelfieVerificationNin;
   path?: never;
   query?: never;
   url: "/api/v1/dpi/selfie/verification/nin";
@@ -2433,6 +2404,50 @@ export type DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponses =
 
 export type DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponse =
   DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponses[keyof DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponses];
+
+export type DpiApiPostApiV1ImageLivenessLivenessDetectionData = {
+  body: BodyDpiApiPostApiV1ImageLivenessLivenessDetection;
+  path?: never;
+  query?: never;
+  url: "/api/v1/dpi/image/liveness";
+};
+
+export type DpiApiPostApiV1ImageLivenessLivenessDetectionErrors = {
+  /**
+   * Unauthorized - Invalid or missing authentication token
+   */
+  401: unknown;
+  /**
+   * Forbidden - Token valid but insufficient permissions
+   */
+  403: unknown;
+  /**
+   * Not Found - Identity not found in records
+   */
+  404: unknown;
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+  /**
+   * Internal Server Error - Service temporarily unavailable
+   */
+  500: unknown;
+  /**
+   * Service Unavailable - External verification service error
+   */
+  503: unknown;
+};
+
+export type DpiApiPostApiV1ImageLivenessLivenessDetectionError =
+  DpiApiPostApiV1ImageLivenessLivenessDetectionErrors[keyof DpiApiPostApiV1ImageLivenessLivenessDetectionErrors];
+
+export type DpiApiPostApiV1ImageLivenessLivenessDetectionResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
 
 export type ApiGetRootRoot3Data = {
   body?: never;
