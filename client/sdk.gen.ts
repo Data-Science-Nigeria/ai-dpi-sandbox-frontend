@@ -128,6 +128,9 @@ import type {
   DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData,
   DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponses,
   DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinErrors,
+  DpiApiPostApiV1ImageLivenessLivenessDetectionData,
+  DpiApiPostApiV1ImageLivenessLivenessDetectionResponses,
+  DpiApiPostApiV1ImageLivenessLivenessDetectionErrors,
   ApiGetRootRoot3Data,
   ApiGetRootRoot3Responses,
   GetNearbyPlacesApiV1MapsNearbyGetData,
@@ -1847,16 +1850,11 @@ export const dpiApiPostApiV1NinLookupNinLookup = <
     DpiApiPostApiV1NinLookupNinLookupErrors,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
+    ...urlSearchParamsBodySerializer,
     url: "/api/v1/dpi/nin/lookup",
     ...options,
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
       ...options.headers,
     },
   });
@@ -1876,16 +1874,11 @@ export const dpiApiPostApiV1BvnLookupBvnLookup = <
     DpiApiPostApiV1BvnLookupBvnLookupErrors,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
+    ...urlSearchParamsBodySerializer,
     url: "/api/v1/dpi/bvn/lookup",
     ...options,
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
       ...options.headers,
     },
   });
@@ -1893,7 +1886,7 @@ export const dpiApiPostApiV1BvnLookupBvnLookup = <
 
 /**
  * Credit Score Lookup
- * Retrieve credit score information using Bank Verification Number (BVN)
+ * Retrieve credit score information using Bank Verification Number (BVN). Returns status 'unavailable' if no score is found for the BVN.
  */
 export const dpiApiPostApiV1CreditScoreCreditScore = <
   ThrowOnError extends boolean = false,
@@ -1905,16 +1898,11 @@ export const dpiApiPostApiV1CreditScoreCreditScore = <
     DpiApiPostApiV1CreditScoreCreditScoreErrors,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
+    ...urlSearchParamsBodySerializer,
     url: "/api/v1/dpi/credit/score",
     ...options,
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
       ...options.headers,
     },
   });
@@ -1937,16 +1925,38 @@ export const dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNin = <
     DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinErrors,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: "bearer",
-        type: "http",
-      },
-    ],
+    ...urlSearchParamsBodySerializer,
     url: "/api/v1/dpi/selfie/verification/nin",
     ...options,
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * Liveness Detection i.e Deepfake/Spoofing Detection
+ * Verifies the presence of a real person using advanced liveness detection techniques.
+ */
+export const dpiApiPostApiV1ImageLivenessLivenessDetection = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    DpiApiPostApiV1ImageLivenessLivenessDetectionData,
+    ThrowOnError
+  >
+) => {
+  return (options.client ?? _heyApiClient).post<
+    DpiApiPostApiV1ImageLivenessLivenessDetectionResponses,
+    DpiApiPostApiV1ImageLivenessLivenessDetectionErrors,
+    ThrowOnError
+  >({
+    ...urlSearchParamsBodySerializer,
+    url: "/api/v1/dpi/image/liveness",
+    ...options,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
       ...options.headers,
     },
   });

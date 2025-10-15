@@ -48,6 +48,7 @@ import {
   dpiApiPostApiV1BvnLookupBvnLookup,
   dpiApiPostApiV1CreditScoreCreditScore,
   dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNin,
+  dpiApiPostApiV1ImageLivenessLivenessDetection,
   apiGetRootRoot3,
   getNearbyPlacesApiV1MapsNearbyGet,
   getDistanceApiV1MapsDistanceGet,
@@ -236,6 +237,8 @@ import type {
   DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinData,
   DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinError,
   DpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinResponse,
+  DpiApiPostApiV1ImageLivenessLivenessDetectionData,
+  DpiApiPostApiV1ImageLivenessLivenessDetectionError,
   ApiGetRootRoot3Data,
   GetNearbyPlacesApiV1MapsNearbyGetData,
   GetDistanceApiV1MapsDistanceGetData,
@@ -2778,7 +2781,7 @@ export const dpiApiPostApiV1CreditScoreCreditScoreQueryKey = (
 
 /**
  * Credit Score Lookup
- * Retrieve credit score information using Bank Verification Number (BVN)
+ * Retrieve credit score information using Bank Verification Number (BVN). Returns status 'unavailable' if no score is found for the BVN.
  */
 export const dpiApiPostApiV1CreditScoreCreditScoreOptions = (
   options: Options<DpiApiPostApiV1CreditScoreCreditScoreData>
@@ -2799,7 +2802,7 @@ export const dpiApiPostApiV1CreditScoreCreditScoreOptions = (
 
 /**
  * Credit Score Lookup
- * Retrieve credit score information using Bank Verification Number (BVN)
+ * Retrieve credit score information using Bank Verification Number (BVN). Returns status 'unavailable' if no score is found for the BVN.
  */
 export const dpiApiPostApiV1CreditScoreCreditScoreMutation = (
   options?: Partial<Options<DpiApiPostApiV1CreditScoreCreditScoreData>>
@@ -2891,6 +2894,59 @@ export const dpiApiPostApiV1SelfieVerificationNinSelfieVerificationNinMutation =
     };
     return mutationOptions;
   };
+
+export const dpiApiPostApiV1ImageLivenessLivenessDetectionQueryKey = (
+  options: Options<DpiApiPostApiV1ImageLivenessLivenessDetectionData>
+) => createQueryKey("dpiApiPostApiV1ImageLivenessLivenessDetection", options);
+
+/**
+ * Liveness Detection i.e Deepfake/Spoofing Detection
+ * Verifies the presence of a real person using advanced liveness detection techniques.
+ */
+export const dpiApiPostApiV1ImageLivenessLivenessDetectionOptions = (
+  options: Options<DpiApiPostApiV1ImageLivenessLivenessDetectionData>
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await dpiApiPostApiV1ImageLivenessLivenessDetection({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: dpiApiPostApiV1ImageLivenessLivenessDetectionQueryKey(options),
+  });
+};
+
+/**
+ * Liveness Detection i.e Deepfake/Spoofing Detection
+ * Verifies the presence of a real person using advanced liveness detection techniques.
+ */
+export const dpiApiPostApiV1ImageLivenessLivenessDetectionMutation = (
+  options?: Partial<Options<DpiApiPostApiV1ImageLivenessLivenessDetectionData>>
+): UseMutationOptions<
+  unknown,
+  DpiApiPostApiV1ImageLivenessLivenessDetectionError,
+  Options<DpiApiPostApiV1ImageLivenessLivenessDetectionData>
+> => {
+  const mutationOptions: UseMutationOptions<
+    unknown,
+    DpiApiPostApiV1ImageLivenessLivenessDetectionError,
+    Options<DpiApiPostApiV1ImageLivenessLivenessDetectionData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await dpiApiPostApiV1ImageLivenessLivenessDetection({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
 
 export const apiGetRootRoot3QueryKey = (
   options?: Options<ApiGetRootRoot3Data>

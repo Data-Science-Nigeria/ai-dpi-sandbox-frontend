@@ -19,24 +19,6 @@ export function getDefaultBody(path: string): string {
       2
     ),
 
-    "/api/v1/dpi/bvn/lookup": JSON.stringify(
-      {
-        bvn: "string",
-        test_mode: false,
-      },
-      null,
-      2
-    ),
-
-    "/api/v1/dpi/credit/score": JSON.stringify(
-      {
-        bvn: "string",
-        test_mode: false,
-      },
-      null,
-      2
-    ),
-
     "/api/v1/maps/routes": JSON.stringify(
       {
         origin: { lat: 0, lng: 0 },
@@ -51,27 +33,6 @@ export function getDefaultBody(path: string): string {
         },
         language_code: "en-US",
         units: "METRIC",
-      },
-      null,
-      2
-    ),
-
-    "/api/v1/dpi/nin/lookup": JSON.stringify(
-      {
-        nin: "string",
-        test_mode: false,
-      },
-      null,
-      2
-    ),
-
-    "/api/v1/dpi/selfie/verification/nin": JSON.stringify(
-      {
-        selfie_image: "string",
-        nin: "string",
-        test_mode: false,
-        first_name: "string",
-        last_name: "string",
       },
       null,
       2

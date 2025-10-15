@@ -21,21 +21,15 @@ const dpiEndpoints = [
     examples: {
       curl: `curl -X POST ${baseUrl}/api/v1/dpi/nin/lookup \\
   -H "Authorization: Bearer $TOKEN" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "nin": "25822858953",
-    "test_mode": false
-  }'`,
+  -H "Content-Type: application/x-www-form-urlencoded" \\
+  -d 'nin_data=25822858953'`,
       javascript: `const response = await fetch('${baseUrl}/api/v1/dpi/nin/lookup', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/x-www-form-urlencoded'
   },
-  body: JSON.stringify({
-    nin: "25822858953",
-    test_mode: false
-  })
+  body: 'nin_data=25822858953'
 });`,
       python: `import requests
 
@@ -43,11 +37,10 @@ response = requests.post(
     '${baseUrl}/api/v1/dpi/nin/lookup',
     headers={
         'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
     },
-    json={
-        'nin': '25822858953',
-        'test_mode': False
+    data={
+        'nin_data': '25822858953'
     }
 )`,
       php: `<?php
@@ -56,22 +49,17 @@ curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/dpi/nin/lookup');
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Authorization: Bearer ' . $token,
-    'Content-Type: application/json'
+    'Content-Type: application/x-www-form-urlencoded'
 ]);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-    'nin' => '25822858953',
-    'test_mode' => false
-]));
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'nin_data=25822858953');
 $response = curl_exec($ch);
 curl_close($ch);`,
       java: `HttpClient client = HttpClient.newHttpClient();
 HttpRequest request = HttpRequest.newBuilder()
     .uri(URI.create("${baseUrl}/api/v1/dpi/nin/lookup"))
     .header("Authorization", "Bearer " + token)
-    .header("Content-Type", "application/json")
-    .POST(HttpRequest.BodyPublishers.ofString(
-        "{\\"nin\\":\\"25822858953\\",\\"test_mode\\":false}"
-    ))
+    .header("Content-Type", "application/x-www-form-urlencoded")
+    .POST(HttpRequest.BodyPublishers.ofString("nin_data=25822858953"))
     .build();
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
@@ -109,21 +97,15 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
     examples: {
       curl: `curl -X POST ${baseUrl}/api/v1/dpi/bvn/lookup \\
   -H "Authorization: Bearer $TOKEN" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "bvn": "45678901234",
-    "test_mode": false
-  }'`,
+  -H "Content-Type: application/x-www-form-urlencoded" \\
+  -d 'bvn_data=45678901234'`,
       javascript: `const response = await fetch('${baseUrl}/api/v1/dpi/bvn/lookup', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/x-www-form-urlencoded'
   },
-  body: JSON.stringify({
-    bvn: "45678901234",
-    test_mode: false
-  })
+  body: 'bvn_data=45678901234'
 });`,
       python: `import requests
 
@@ -131,11 +113,10 @@ response = requests.post(
     '${baseUrl}/api/v1/dpi/bvn/lookup',
     headers={
         'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
     },
-    json={
-        'bvn': '45678901234',
-        'test_mode': False
+    data={
+        'bvn_data': '45678901234'
     }
 )`,
       php: `<?php
@@ -144,22 +125,17 @@ curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/dpi/bvn/lookup');
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Authorization: Bearer ' . $token,
-    'Content-Type: application/json'
+    'Content-Type: application/x-www-form-urlencoded'
 ]);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-    'bvn' => '45678901234',
-    'test_mode' => false
-]));
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'bvn_data=45678901234');
 $response = curl_exec($ch);
 curl_close($ch);`,
       java: `HttpClient client = HttpClient.newHttpClient();
 HttpRequest request = HttpRequest.newBuilder()
     .uri(URI.create("${baseUrl}/api/v1/dpi/bvn/lookup"))
     .header("Authorization", "Bearer " + token)
-    .header("Content-Type", "application/json")
-    .POST(HttpRequest.BodyPublishers.ofString(
-        "{\\"bvn\\":\\"45678901234\\",\\"test_mode\\":false}"
-    ))
+    .header("Content-Type", "application/x-www-form-urlencoded")
+    .POST(HttpRequest.BodyPublishers.ofString("bvn_data=45678901234"))
     .build();
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
@@ -196,21 +172,15 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
     examples: {
       curl: `curl -X POST ${baseUrl}/api/v1/dpi/credit/score \\
   -H "Authorization: Bearer $TOKEN" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "bvn": "45678901234",
-    "test_mode": false
-  }'`,
+  -H "Content-Type: application/x-www-form-urlencoded" \\
+  -d 'bvn_data=45678901234'`,
       javascript: `const response = await fetch('${baseUrl}/api/v1/dpi/credit/score', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/x-www-form-urlencoded'
   },
-  body: JSON.stringify({
-    bvn: "45678901234",
-    test_mode: false
-  })
+  body: 'bvn_data=45678901234'
 });`,
       python: `import requests
 
@@ -218,11 +188,10 @@ response = requests.post(
     '${baseUrl}/api/v1/dpi/credit/score',
     headers={
         'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
     },
-    json={
-        'bvn': '45678901234',
-        'test_mode': False
+    data={
+        'bvn_data': '45678901234'
     }
 )`,
       php: `<?php
@@ -231,22 +200,17 @@ curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/dpi/credit/score');
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Authorization: Bearer ' . $token,
-    'Content-Type: application/json'
+    'Content-Type: application/x-www-form-urlencoded'
 ]);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-    'bvn' => '45678901234',
-    'test_mode' => false
-]));
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'bvn_data=45678901234');
 $response = curl_exec($ch);
 curl_close($ch);`,
       java: `HttpClient client = HttpClient.newHttpClient();
 HttpRequest request = HttpRequest.newBuilder()
     .uri(URI.create("${baseUrl}/api/v1/dpi/credit/score"))
     .header("Authorization", "Bearer " + token)
-    .header("Content-Type", "application/json")
-    .POST(HttpRequest.BodyPublishers.ofString(
-        "{\\"bvn\\":\\"45678901234\\",\\"test_mode\\":false}"
-    ))
+    .header("Content-Type", "application/x-www-form-urlencoded")
+    .POST(HttpRequest.BodyPublishers.ofString("bvn_data=45678901234"))
     .build();
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
@@ -285,27 +249,15 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
     examples: {
       curl: `curl -X POST ${baseUrl}/api/v1/dpi/selfie/verification/nin \\
   -H "Authorization: Bearer $TOKEN" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "selfie_image": "base64_encoded_selfie_image",
-    "nin": "25822858953",
-    "test_mode": false,
-    "first_name": "CHUKWU",
-    "last_name": "EMEKA"
-  }'`,
+  -H "Content-Type: application/x-www-form-urlencoded" \\
+  -d 'image_data=base64_encoded_selfie_image'`,
       javascript: `const response = await fetch('${baseUrl}/api/v1/dpi/selfie/verification/nin', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/x-www-form-urlencoded'
   },
-  body: JSON.stringify({
-    selfie_image: "base64_encoded_selfie_image",
-    nin: "25822858953",
-    test_mode: false,
-    first_name: "CHUKWU",
-    last_name: "EMEKA"
-  })
+  body: 'image_data=base64_encoded_selfie_image'
 });`,
       python: `import requests
 
@@ -313,14 +265,10 @@ response = requests.post(
     '${baseUrl}/api/v1/dpi/selfie/verification/nin',
     headers={
         'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
     },
-    json={
-        'selfie_image': 'base64_encoded_selfie_image',
-        'nin': '25822858953',
-        'test_mode': False,
-        'first_name': 'CHUKWU',
-        'last_name': 'EMEKA'
+    data={
+        'image_data': 'base64_encoded_selfie_image'
     }
 )`,
       php: `<?php
@@ -329,25 +277,17 @@ curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/dpi/selfie/verification/nin');
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Authorization: Bearer ' . $token,
-    'Content-Type: application/json'
+    'Content-Type: application/x-www-form-urlencoded'
 ]);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-    'selfie_image' => 'base64_encoded_selfie_image',
-    'nin' => '25822858953',
-    'test_mode' => false,
-    'first_name' => 'CHUKWU',
-    'last_name' => 'EMEKA'
-]));
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'image_data=base64_encoded_selfie_image');
 $response = curl_exec($ch);
 curl_close($ch);`,
       java: `HttpClient client = HttpClient.newHttpClient();
 HttpRequest request = HttpRequest.newBuilder()
     .uri(URI.create("${baseUrl}/api/v1/dpi/selfie/verification/nin"))
     .header("Authorization", "Bearer " + token)
-    .header("Content-Type", "application/json")
-    .POST(HttpRequest.BodyPublishers.ofString(
-        "{\\"selfie_image\\":\\"base64_encoded_selfie_image\\",\\"nin\\":\\"25822858953\\",\\"test_mode\\":false,\\"first_name\\":\\"CHUKWU\\",\\"last_name\\":\\"EMEKA\\"}"
-    ))
+    .header("Content-Type", "application/x-www-form-urlencoded")
+    .POST(HttpRequest.BodyPublishers.ofString("image_data=base64_encoded_selfie_image"))
     .build();
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
     },
@@ -375,6 +315,68 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
       verification_id: "string",
       timestamp: "string",
       cost: 0,
+    },
+  },
+  {
+    name: "Image Liveness Detection",
+    method: "POST",
+    path: "/api/v1/dpi/image/liveness",
+    description: "Detect liveness in facial images to prevent spoofing attacks",
+    examples: {
+      curl: `curl -X POST ${baseUrl}/api/v1/dpi/image/liveness \\
+  -H "Authorization: Bearer $TOKEN" \\
+  -H "Content-Type: application/x-www-form-urlencoded" \\
+  -d 'image_data=base64_encoded_image'`,
+      javascript: `const response = await fetch('${baseUrl}/api/v1/dpi/image/liveness', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: 'image_data=base64_encoded_image'
+});`,
+      python: `import requests
+
+response = requests.post(
+    '${baseUrl}/api/v1/dpi/image/liveness',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data={
+        'image_data': 'base64_encoded_image'
+    }
+)`,
+      php: `<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '${baseUrl}/api/v1/dpi/image/liveness');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/x-www-form-urlencoded'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'image_data=base64_encoded_image');
+$response = curl_exec($ch);
+curl_close($ch);`,
+      java: `HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${baseUrl}/api/v1/dpi/image/liveness"))
+    .header("Authorization", "Bearer " + token)
+    .header("Content-Type", "application/x-www-form-urlencoded")
+    .POST(HttpRequest.BodyPublishers.ofString("image_data=base64_encoded_image"))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());`,
+    },
+    response: {
+      status: "live",
+      confidence_score: 0,
+      verification_id: "ver_default_000",
+      timestamp: "2025-01-01T00:00:00Z",
+      cost: 0,
+      face_detected: true,
+      multiface_detected: false,
+      estimated_age: {},
+      gender: {},
     },
   },
 ];

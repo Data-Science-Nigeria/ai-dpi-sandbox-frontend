@@ -73,6 +73,10 @@ export const navigationPages: NavigationPage[] = [
     href: "/introduction/services/dpi/selfie-verification-nin",
   },
   {
+    title: "Image Liveness",
+    href: "/introduction/services/dpi/image-liveness",
+  },
+  {
     title: "Maps Service",
     href: "/introduction/services/maps",
   },
