@@ -1,7 +1,5 @@
 # SANDBOX FRONTEND
 
-Sandbox Frontend
-
 ## Table of Content:
 
 - [Technologies](#technologies)
