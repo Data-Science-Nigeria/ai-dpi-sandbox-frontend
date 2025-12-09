@@ -33,7 +33,7 @@ jobs:
       - name: Build (Next.js)
         run: yarn build
 
-      # Package the **runtime** needed for Next server (no dev files)
+      # Package the runtime bundle
       - name: Archive runtime bundle
         run: |
           mkdir -p artifact runtime
@@ -43,7 +43,6 @@ jobs:
           shopt -s nullglob; cp next.config.* runtime/ || true
           tar -C runtime -czf artifact/frontend.tgz .
 
-      # Copy tarball to VM (lands at /tmp/artifact/frontend.tgz)
       - name: Copy to VM
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -53,7 +52,6 @@ jobs:
           source: "artifact/frontend.tgz"
           target: "/tmp/"
 
-      # Unpack, install prod deps, flip symlink, restart service on :8088
       - name: Activate release
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -66,25 +64,39 @@ jobs:
             TS=$(date +%Y%m%d%H%M%S)
             NEW_RELEASE="$BASE/releases/$TS"
 
+            # Ensure BASE exists and is owned by azureuser
+            sudo install -d -o azureuser -g azureuser "$BASE"
+
+            # Create directories for releases and shared assets
             sudo install -d -o azureuser -g azureuser "$BASE/releases" "$BASE/shared" "$NEW_RELEASE"
 
-            # ✅ scp puts it here: /tmp/artifact/frontend.tgz
+            # Extract the artifact
             tar -C "$NEW_RELEASE" -xzf /tmp/artifact/frontend.tgz
             rm -f /tmp/artifact/frontend.tgz
 
-            cd "$NEW_RELEASE"
+            # Ensure correct permissions
             sudo chown -R azureuser:azureuser "$NEW_RELEASE"
+
+            cd "$NEW_RELEASE"
+
+            # Install production dependencies
             if yarn -v | grep -qE '^[0-1]\.'; then
               sudo -u azureuser yarn install --frozen-lockfile --production=true
             else
               sudo -u azureuser yarn install --immutable --mode=skip-build
             fi
 
+            # Validate bundle
             test -d ".next" && test -f "package.json" || { echo "Runtime bundle incomplete"; exit 1; }
 
+            # Flip symlink atomically
             ln -sfn "$NEW_RELEASE" "$BASE/current"
+
+            # Restart service
             sudo systemctl daemon-reload
             sudo systemctl restart sandbox-frontend
 
+            # Quick health check
             curl -sI http://127.0.0.1:8088 | head -n1 || true
+
             echo "Activated release: $NEW_RELEASE"
