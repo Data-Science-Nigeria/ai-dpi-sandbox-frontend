@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useTheme } from '../../hooks/use-theme';
+import { useTheme } from "../../hooks/use-theme";
 
 export function ThemeToggle() {
   const { effectiveTheme, toggleTheme } = useTheme();
-  
-  const displayText = effectiveTheme === 'dark' ? 'Light mode' : 'Dark mode';
+
+  const displayText = effectiveTheme === "dark" ? "Light mode" : "Dark mode";
 
   return (
     <button

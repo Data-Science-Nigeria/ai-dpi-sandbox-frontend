@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 type Props = {
   className?: string;
@@ -10,7 +10,7 @@ export const Spinner = ({ className }: Props) => {
       <svg
         aria-hidden="true"
         className={cn(
-          'fill-primary size-8 animate-spin text-gray-200 dark:text-gray-600',
+          "fill-primary size-8 animate-spin text-gray-200 dark:text-gray-600",
           className
         )}
         viewBox="0 0 100 101"

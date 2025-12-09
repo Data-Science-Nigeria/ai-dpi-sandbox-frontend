@@ -1,12 +1,12 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export type AlertType =
-  | 'delete'
-  | 'logout'
-  | 'success'
-  | 'error'
-  | 'info'
-  | 'warning';
+  | "delete"
+  | "logout"
+  | "success"
+  | "error"
+  | "info"
+  | "warning";
 
 export type AlertOptions = {
   title: string;
@@ -30,13 +30,13 @@ type AlertStore = {
 
 export const useAlertStore = create<AlertStore>((set) => ({
   isOpen: false,
-  type: 'info',
+  type: "info",
   isLoading: false,
   options: {
-    title: '',
-    description: '',
-    cancelText: 'Cancel',
-    actionText: 'Continue',
+    title: "",
+    description: "",
+    cancelText: "Cancel",
+    actionText: "Continue",
     showLoading: true,
   },
   showAlert: (type, options) =>

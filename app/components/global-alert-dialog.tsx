@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   AlertDialog,
@@ -9,19 +9,19 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Loader2 } from 'lucide-react';
-import { useEffect } from 'react';
-import { useAlertStore } from '../store/use-alert-store';
-import { toast } from 'sonner';
+} from "@/components/ui/alert-dialog";
+import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
+import { useAlertStore } from "../store/use-alert-store";
+import { toast } from "sonner";
 
 const variantClasses = {
-  delete: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-  logout: 'bg-destructive text-white hover:bg-destructive/90',
-  success: 'bg-green-600 text-primary-foreground hover:bg-green-600/90',
-  error: 'bg-red-600 text-primary-foreground hover:bg-red-600/90',
-  info: 'bg-blue-600 text-primary-foreground hover:bg-blue-600/90',
-  warning: 'bg-yellow-600 text-primary-foreground hover:bg-yellow-600/90',
+  delete: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+  logout: "bg-destructive text-white hover:bg-destructive/90",
+  success: "bg-green-600 text-primary-foreground hover:bg-green-600/90",
+  error: "bg-red-600 text-primary-foreground hover:bg-red-600/90",
+  info: "bg-blue-600 text-primary-foreground hover:bg-blue-600/90",
+  warning: "bg-yellow-600 text-primary-foreground hover:bg-yellow-600/90",
 };
 
 export function GlobalAlertDialog() {
@@ -30,8 +30,8 @@ export function GlobalAlertDialog() {
   const {
     title,
     description,
-    cancelText = 'Cancel',
-    actionText = 'Continue',
+    cancelText = "Cancel",
+    actionText = "Continue",
     onAction,
     onCancel,
     showLoading = true,
@@ -56,9 +56,9 @@ export function GlobalAlertDialog() {
     } catch (error) {
       setLoading(false);
       toast.error(
-        'An error occurred while performing the action. Please try again.'
+        "An error occurred while performing the action. Please try again."
       );
-      console.error('Action failed:', error);
+      console.error("Action failed:", error);
     }
   };
 
@@ -71,12 +71,12 @@ export function GlobalAlertDialog() {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 

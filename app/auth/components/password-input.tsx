@@ -1,5 +1,5 @@
-import { Eye, EyeOff } from 'lucide-react';
-import { forwardRef, useState } from 'react';
+import { Eye, EyeOff } from "lucide-react";
+import { forwardRef, useState } from "react";
 
 interface PasswordInputProps {
   label: string;
@@ -8,7 +8,7 @@ interface PasswordInputProps {
 }
 
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
-  ({ label, error, placeholder = '********', ...props }, ref) => {
+  ({ label, error, placeholder = "********", ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -18,7 +18,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         </label>
         <div className="relative">
           <input
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             ref={ref}
             placeholder={placeholder}
             className="mt-1 w-full rounded border p-2 pr-10 focus:border-[#0A5A1A] focus:ring-[#0A5A1A] focus:outline-none dark:text-white"
@@ -38,4 +38,4 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   }
 );
 
-PasswordInput.displayName = 'PasswordInput';
+PasswordInput.displayName = "PasswordInput";
