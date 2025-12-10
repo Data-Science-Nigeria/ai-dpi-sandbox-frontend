@@ -37,7 +37,7 @@ export default function AdminDashboard() {
     (user) => user.role === "user" || !user.role
   );
 
-  // Get available years from actual user data
+  // Get available years
   const availableYears = React.useMemo(() => {
     const years = new Set<number>();
     userRoleUsers.forEach((user) => {
