@@ -138,7 +138,7 @@ export function getNavigation(
 
   if (userAccessFilter) {
     filteredPages = navigationPages.filter((page) => {
-      // Extract service from path
+      // Extract service
       const pathParts = page.href.split("/");
       if (pathParts.length >= 4 && pathParts[2] === "services") {
         const service = pathParts[3];
